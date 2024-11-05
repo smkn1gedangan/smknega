@@ -10,6 +10,7 @@
         .bg-blue-scrolled {
         background-color: white; /* Warna biru */
         transition: background-color 0.3s ease;
+        border-bottom: 1px solid gray;
     }
     </style>
    @yield("css")
