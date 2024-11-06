@@ -14,6 +14,10 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            boxShadow:{
+                'inset': 'inset 0 10px 20px rgba(0, 0, 0, 0.5)',
+            }
+
         },
     },
 

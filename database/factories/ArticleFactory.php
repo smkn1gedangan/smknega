@@ -17,11 +17,12 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
-            'slug' => Str::slug($this->faker->unique()->word),  
+            'slug' => Str::slug($this->faker->unique()->word),
             'title' => $this->faker->sentence,
-            'writer' => $this->faker->name, 
-            'text_content' => $this->faker->paragraph,  
-            'image' => $this->faker->imageUrl(),  
+            'writer_id' => $this->faker->numberBetween(1,2),
+            'text_content' => $this->faker->paragraph,
+            'image' => $this->faker->imageUrl(),
         ];
     }
+
 }

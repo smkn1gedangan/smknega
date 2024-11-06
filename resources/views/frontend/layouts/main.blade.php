@@ -24,7 +24,7 @@
 
 @yield("content")
 
-
+@include("frontend.layouts.footer")
 
 </body>
 @yield("js")

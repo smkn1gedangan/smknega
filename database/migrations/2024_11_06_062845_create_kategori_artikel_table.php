@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('kategori_artikel', function (Blueprint $table) {
             $table->id();
-            $table->string("slug")->unique();
-            $table->string("title");
-            $table->foreignId("writer_id")->constrained("users")->onDelete("cascade");
-            $table->string("view")->default(50);
-            $table->text("text_content");
-            $table->string("image");
+            $table->foreignId("article_id")->constrained()->onDelete("cascade");
+            $table->foreignId("kategori_id")->constrained()->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('artikel');
+        Schema::dropIfExists('kategori_artikel');
     }
 };
