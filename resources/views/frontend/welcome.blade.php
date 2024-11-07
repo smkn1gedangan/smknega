@@ -59,7 +59,7 @@
 
         </div>
         <div class="flex flex-col-reverse md:flex-row-reverse lg:flex-col items-center w-full md:w-full  lg:w-[38%]">
-            <div class="w-full md:w-[38%] lg:w-full max-w-sm bg-white min-h-[40rem] max-h-[42rem] rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-8 md:mt-2">
+            <div class="w-full  md:w-[38%] lg:w-full max-w-sm bg-white min-h-[40rem] max-h-[42rem] rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-8 md:mt-2">
                 <div class="relative">
                     @if (file_exists(public_path('img/kepala_sekolah/' . $kepsek->kepsek)) && $kepsek->photo)
                     <img class="rounded-t-lg w-4/5 md:w-full h-96 object-cover relative left-1/2 -translate-x-1/2" src="{{asset("img/kepala_sekolah/" . $kepsek->photo)}}" alt="" />
@@ -87,10 +87,10 @@
                     <h1 class="text-2xl font-semibold mt-6 mb-2 text-gray-800 dark:text-gray-100">Prestasi Terbaru</div>
                     @foreach ($prestasis as $prestasi)
                     <a href="{{route("readArticle",$prestasi->slug)}}" class="flex items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-full  lg:w-full">
-                        @if (file_exists(public_path('img/articles_images/' . $article->image)) && $article->image)
-                        <img class="object-cover w-20 h-20 rounded-t-lg md:h-auto md rounded-md" src="{{ asset('img/articles_images/' . $article->image) }}" alt="{{ $article->title }}">
+                        @if (file_exists(public_path('img/articles_images/' . $prestasi->image)) && $prestasi->image)
+                        <img class="object-cover w-20 h-20 rounded-t-lg md rounded-md" src="{{ asset('img/articles_images/' . $prestasi->image) }}"">
                     @else
-                        <div class="bg-gray-200 h-20 w-20 md:h-auto">
+                        <div class="bg-gray-200 h-20 w-20 ">
                             <span>No Image</span> <!-- Pesan fallback -->
                         </div>
                     @endif
