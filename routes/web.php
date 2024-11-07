@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Dashboard\ArtikelController;
+use App\Http\Controllers\Dashboard\GaleriController;
+use App\Http\Controllers\Dashboard\GuruController;
 use App\Http\Controllers\Dashboard\KepsekController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +22,8 @@ Route::middleware(['auth', 'verified',"checkRole"])->prefix("be")->group(functio
     })->name("dashboard");
     Route::resource("artikel",ArtikelController::class);
     Route::resource("kepsek",KepsekController::class);
+    Route::resource("guru",GuruController::class);
+    Route::resource("galeri",GaleriController::class);
 });
 
 Route::middleware('auth')->group(function () {
