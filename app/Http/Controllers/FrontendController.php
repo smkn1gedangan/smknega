@@ -20,9 +20,9 @@ class FrontendController extends Controller
         return view("frontend.welcome",compact("articles","kepsek","prestasis"));
    }
    public function readArticle($slug)  {
-        $kategori = Kategori::get();
+        $kategoris = Kategori::get();
         $articleTerbaru = Article::take(5)->latest()->get();
         $article = Article::where("slug",$slug)->first();
-        return view("frontend.Informasi.readArtikel",compact("article","kategori","articleTerbaru"));
+        return view("frontend.Informasi.readArtikel",compact("article","kategoris","articleTerbaru"));
    }
 }

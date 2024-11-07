@@ -3,29 +3,64 @@
 @section("css")
 <style>
 
-
 </style>
 @endsection
 
 @section("content")
 {{-- header start --}}
-<section style="background: url({{asset("img/welcome/tentang.jpg")}})" class="relative bg-no-repeat">
-    <div class="py-8 flex flex-col items-center justify-center px-4 h-screen md:min-h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
+<section  class="relative ">
+    <div class="swiper mySwiper w-full">
+        <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide bg-no-repeat " style="background: url({{asset("img/welcome/tentang.jpg")}})">
+                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen md:min-h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
-        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Selamat datang di Smkn 1 Gedangan</h1>
-        <p class="mb-8 text-lg font-semibold text-gray-900 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Selamat datang di Smkn 1 Gedangan</h1>
+                <p class="mb-8 text-lg font-semibold text-gray-900 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+
+                </div>
+                <div class="bg-gradient-to-t from-gray-50 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="swiper-slide bg-no-repeat " style="background: url({{asset("img/welcome/tentang.jpg")}})">
+                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen md:min-h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
+
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">isi title1</h1>
+                <p class="mb-8 text-lg font-semibold text-gray-900 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+
+                </div>
+                <div class="bg-gradient-to-t from-gray-50 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="swiper-slide bg-no-repeat " style="background: url({{asset("img/welcome/tentang.jpg")}})">
+                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen md:min-h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
+
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">isi title2</h1>
+                <p class="mb-8 text-lg font-semibold text-gray-900 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+
+                </div>
+                <div class="bg-gradient-to-t from-gray-50 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
+            </div>
+        </div>
+        <!-- Swiper Navigation Buttons -->
 
     </div>
-    <div class="bg-gradient-to-t from-gray-50 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
+
 </section>
 {{-- header end --}}
 
+{{-- profil sekolah start --}}
+    <section id="profil" class="pt-10">
+        <x-heading-welcome classAdventage="text-center">Profil Sekolah</x-heading-welcome>
+    </section>
+{{-- profil sekolah end --}}
+
 
 {{-- artikel dan sambutan start--}}
-<section class="flex w-full justify-center flex-wrap">
+<section class="flex w-full justify-center flex-wrap ">
     <div class="w-screen md:max-w-[95%] p-2 md:py-16 flex md:flex-row justify-evenly flex-wrap">
         <div class="flex flex-col w-full md:w-11/12 lg:w-3/5 ">
-            <x-heading-welcome>Artikel Terbaru</x-heading-welcome>
+            <x-heading-welcome classAdventage="mb-5">Artikel Terbaru</x-heading-welcome>
             <div class="flex flex-col w-full gap-2 md:gap-10 ">
                 @foreach ($articles as $article)
                 <a href="{{route("readArticle",$article->slug)}}" class="flex flex-col relative items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-[100%] ">
@@ -114,6 +149,25 @@
 @endsection
 
 
-@section("content")
-
+@section("js")
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var swiper = new Swiper(".mySwiper", {
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+        });
+    });
+</script>
 @endsection

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(FrontendController::class)->group(function(){
     Route::get("/","welcome")->name("welcome");
-    Route::get("/informasi/article/{slug}","readArticle")->name("readArticle")->middleware("viewArticle");
+    Route::get("/informasi/article/{slug}","readArticle")->name("readArticle");
 
 });
 
