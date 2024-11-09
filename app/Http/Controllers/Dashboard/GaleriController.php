@@ -52,7 +52,7 @@ class GaleriController extends Controller
 
         ]);
         return redirect()->route("galeri.index")->with('success', 'Data galeri berhasil diupload dan disimpan!');
-   
+
     }
 
     /**
@@ -68,7 +68,10 @@ class GaleriController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $galeri = Galeri::findOrFail(Crypt::decrypt($id));
+        if($galeri){
+            return view("backend.galeri.edit",compact("galeri"));
+        }
     }
 
     /**
@@ -76,9 +79,28 @@ class GaleriController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $galeri = Galeri::findOrFail(Crypt::decrypt($id));
+        $data = $request->validate([
+           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+            "judul"=> "min:6|max:100|required",
+        ]);
+        if ($request->hasFile('photo')) {
+            $path = "img/galeri/" . $galeri->photo;
+            if ($galeri->image && File::exists(public_path($path))) {
+                File::delete(public_path($path));
+            }
 
+            $file = $request->file('photo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img/galeri'), $filename);
+
+            $galeri->photo = $filename;
+            $galeri->judul = $data['judul'];
+            $galeri->save();
+
+            return redirect()->route('galeri.index')->with('success', 'Galeri berhasil diperbarui!');
+    }
+    }
     /**
      * Remove the specified resource from storage.
      */

@@ -1,7 +1,14 @@
 @extends("backend.layouts.main")
 
 @section("css")
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <style>
+        .swal-height {
+               padding: 0.4rem;
+           }
+    </style>
 @endsection
 
 @section("title","Artikel")
@@ -10,7 +17,7 @@
     <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
         <x-title-create-dashboard>Tambah Artikel</x-title-create-dashboard>
         <div class="w-full">
-            <form action="{{ route('artikel.store') }}" class="mt-4 w-full flex flex-col items-center" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{ route('artikel.store') }}" class="mt-4 w-full flex flex-col items-center" method="POST" enctype="multipart/form-data">
                 @csrf
                 <!-- Judul -->
                 <div class="w-full flex justify-evenly gap-2 ">
@@ -44,18 +51,16 @@
 
 
                 <!-- Konten -->
-                <div class="mb-4 w-11/12">
-                    <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten Artikel</label>
-                    <textarea style="resize: none;overflow: hidden;" id="summernote" name="text_content"
-
-                              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
-                              rows="6">{{old("text_content")}}
-                    </textarea>
+                <<div class="mb-4 w-11/12">
+                    <label for="text_content" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten Artikel</label>
+                    <div id="editor" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                    </div>
+                    <input type="hidden" name="text_content" id="text_content">
                     @error('text_content')
-                    <p class="mt-2 text-sm text-red-800">
-                        {{ $message }}
-                    </p>
-                @enderror
+                        <p class="mt-2 text-sm text-red-800">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
                <div class="flex items-center w-full gap-2 justify-center">
                 <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -90,25 +95,29 @@
 
 @endsection
 @section("js")
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#summernote').summernote({
+        document.addEventListener("DOMContentLoaded", function() {
+            const quill = new Quill('#editor', {
+                theme: 'snow',
                 placeholder: 'Tulis konten artikel di sini...',
-                tabsize: 2,
-                height: 300,
-                toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'italic', 'underline', 'clear']],
-                    ['fontname', ['fontname']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']],
-                    ['insert', ['link', 'picture', 'video']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ]
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        [{ 'align': [] }],
+                        [{ 'indent': '-1'}, { 'indent': '+1' }],
+                        ['blockquote', 'code-block']
+                    ],
+
+                }
+            });
+
+            // Set the hidden input value to the Quill editor's content on form submission
+            const form = document.getElementById('form');
+            form.addEventListener('submit', function() {
+                document.querySelector('#text_content').value = quill.root.innerHTML;
             });
         });
         @if(session('success'))

@@ -26,10 +26,12 @@
 {{-- navbar end --}}
 
 @yield("content")
-<div class="bg-blue-700 rounded-full w-8 h-8 fixed bottom-10 right-4 grid place-content-center">
+<div onclick=" window.scrollTo({top:0,behavior:'smooth'})" class="bg-blue-700 rounded-full w-8 h-8 fixed bottom-10 right-4 grid place-content-center">
     <i class="fas fa-arrow-up text-white"></i>
 
 </div>
+
+@include("frontend.layouts.contact")
 @include("frontend.layouts.footer")
 
 </body>

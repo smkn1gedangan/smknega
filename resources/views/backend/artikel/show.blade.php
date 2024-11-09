@@ -14,7 +14,7 @@
 @section("content")
     <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
         <div class="flex w-full justify-between items-center pt-4 ">
-            <h3 class="text-3xl font-bold dark:text-white">Data Artikel {{$article->title}}</h3>
+            <h3 class="text-3xl font-semibold dark:text-white">data artikel {{$article->title}}</h3>
         </div>
         <div class="my-5 w-3/4">
 
@@ -25,7 +25,7 @@
                                 <span>No Image</span> <!-- Pesan fallback -->
                             </div>
             @endif
-            <p>{{$article->text_content}}</p>
+            <p class="mt-5 text-slate-800">teks konten : {!!$article->text_content!!}</p>
             <div class="flex justify-between mt-4">
                 <p class="font-normal text-gray-700 dark:text-gray-400">ditulis oleh {{ $article->writer->name}}</p>
                 <p class="font-normal relative text-gray-700 dark:text-gray-400"> {{ $article->created_at->diffForHumans()}}</p>

@@ -37,7 +37,7 @@
                             <td class="px-6 py-4">{{ Str::words($galeri->judul, 3, '...') }}</td>
                             <td class="px-6 py-4">{{ $galeri->photo }}</td>
                             <td class="px-6 flex gap-2 py-4 text-center">
-                                <a href="{{ route('galeri.edit', [Crypt::encrypt($galeri->id)]) }}" class="text-orange-600 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>
+                                <a href="{{ route('galeri.edit', [Crypt::encrypt($galeri->id)]) }}" class="text-orange-300 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>
                                 <form id="delete-form-{{ $galeri->id }}" action="{{ route('galeri.destroy', [Crypt::encrypt($galeri->id)]) }}" method="POST" class="inline">
                                     @csrf
                                     @method('delete')

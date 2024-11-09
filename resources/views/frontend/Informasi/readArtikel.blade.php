@@ -46,6 +46,23 @@
                 </li>
               @endforeach
             </ul>
+            <h2 class="mb-2 md:mt-8 text-xl uppercase font-semibold text-gray-900 dark:text-white">Artikel Terbaru </h2>
+            @foreach ($articleTerbarus as $articleTerbaru)
+                        <a href="{{route("readArticle",$articleTerbaru->slug)}}" class="flex items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-full  lg:w-full">
+                            @if (file_exists(public_path('img/articles_images/' . $articleTerbaru->image)) && $articleTerbaru->image)
+                            <img class="object-cover w-20 h-20 rounded-t-lg md rounded-md" src="{{ asset('img/articles_images/' . $articleTerbaru->image) }}">
+                        @else
+                            <div class="bg-gray-200 h-20 w-20 ">
+                                <span>No Image</span> <!-- Pesan fallback -->
+                            </div>
+                        @endif
+
+                            <div class="flex flex-col justify-between p-4 leading-normal">
+                                <h5 class="mb-2 text-base font-semibold tracking-tight text-gray-800 dark:text-white">{{$articleTerbaru->title}}</h5>
+                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{$articleTerbaru->created_at}}</p>
+                            </div>
+                        </a>
+                        @endforeach
 
             </div>
        </div>

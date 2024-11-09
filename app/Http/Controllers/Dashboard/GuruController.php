@@ -70,7 +70,10 @@ class GuruController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $guru = Guru::findOrFail(Crypt::decrypt($id));
+        if($guru){
+            return view("backend.guru.edit",compact("guru"));
+        }
     }
 
     /**
@@ -78,9 +81,30 @@ class GuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $guru = Guru::findOrFail(Crypt::decrypt($id));
+        $data = $request->validate([
+           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+            "nama"=> "min:6|max:100|required",
+            "tugas"=> "min:10|required",
+        ]);
+        if ($request->hasFile('photo')) {
+            $path = "img/guru/" . $guru->image;
+            if ($guru->image && File::exists(public_path($path))) {
+                File::delete(public_path($path));
+            }
 
+            $file = $request->file('photo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img/guru'), $filename);
+
+            $guru->photo = $filename;
+            $guru->nama = $data['nama'];
+            $guru->tugas = $data['tugas'];
+            $guru->save();
+
+            return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui!');
+    }
+    }
     /**
      * Remove the specified resource from storage.
      */

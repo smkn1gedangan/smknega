@@ -2,6 +2,8 @@
 
 @section("css")
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
 @endsection
 
 @section("title","Guru")
@@ -43,9 +45,9 @@
 
 
                 <!-- Konten -->
-                
+
                <div class="flex items-center w-full gap-2 justify-center">
-               
+
                 <input class="mt-6" type="file" name="photo" id="photo">
                 @error('photo')
                 <p class="mt-2 text-sm text-red-800">
@@ -67,8 +69,9 @@
 
 @endsection
 @section("js")
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-      
+
         @if(session('success'))
         Swal.fire({
             icon: 'success',

@@ -26,7 +26,7 @@
            @endif
            <h1 class="text-2xl font-semibold mt-6 mb-2 text-gray-800 dark:text-gray-100">{{$kepsek->nama}}
 
-            <p class="mb-3 font-normal text-gray-900 dark:text-gray-400 text-sm mt-6">{{$kepsek->sambutan}}</p>
+            <p class="mb-3 text-gray-900 dark:text-gray-400 text-sm mt-6">{!!$kepsek->sambutan!!}</p>
         </div>
             <div class="items-center ml-6 pb-6">
 
@@ -36,5 +36,5 @@
 @endsection
 
 @section("js")
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @endsection

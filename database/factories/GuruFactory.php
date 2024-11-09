@@ -17,9 +17,9 @@ class GuruFactory extends Factory
     public function definition(): array
     {
         return [
-           'nama' => $this->faker->name,               // Menggunakan faker untuk menghasilkan nama
-            'tugas' => $this->faker->sentence,          // Menghasilkan kalimat untuk tugas
-            'photo' => $this->faker->imageUrl(640, 480, 'people', true), // Menghasilkan URL gambar palsu
+           'nama' => $this->faker->name,
+            'tugas' => implode(' ', $this->faker->words(rand(2, 3))),
+            'photo' => "_0000_Muriono-satpam.jpg"
         ];
     }
 }

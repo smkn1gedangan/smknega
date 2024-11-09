@@ -16,12 +16,25 @@ class ArtikelController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $articles = Article::latest()->paginate(10);
-        return view("backend.artikel.index",compact("articles"));
-    }
+        $judul = $request->input("title");
+        $kategoris = $request->input("kategori_id",[1,2,3,4,5,6]);
+        $articles = Article::query()
+            ->when($judul, function ($query, $judul) {
+                $query->where('title', 'like', '%' . $judul . '%');
+            })
+            ->when(count($kategoris) >= 1, function ($query) use ($kategoris) {
+                $query->whereHas("kategoris", function ($query) use ($kategoris) {
+                    $query->whereIn("kategori_id", $kategoris);
+                });
+            })
+            ->latest()
+            ->paginate(10);
 
+        $kategoris = Kategori::get();
+        return view("backend.artikel.index",compact("articles","kategoris"));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -71,8 +84,9 @@ class ArtikelController extends Controller
      */
     public function show(string $id)
     {
+
         $article = Article::findOrFail(Crypt::decrypt($id));
-        return view("backend.artikel.show",compact("article"));
+        return view("backend.artikel.show",compact("article","kategoris"));
     }
 
     /**
@@ -80,8 +94,9 @@ class ArtikelController extends Controller
      */
     public function edit(string $id)
     {
+        $kategoris = Kategori::get();
         $article = Article::findOrFail(Crypt::decrypt($id));
-        return view("backend.artikel.edit",compact("article"));
+        return view("backend.artikel.edit",compact("article","kategoris"));
     }
 
     /**
@@ -95,6 +110,7 @@ class ArtikelController extends Controller
             "title"=> "min:6|max:100|required",
             "writer_id"=> "required",
             "text_content"=> "min:10|required",
+            "kategori_id" => "required|array"
         ]);
         if ($request->hasFile('image')) {
             $path = "img/articles_images/" . $article->image;
@@ -111,7 +127,7 @@ class ArtikelController extends Controller
             $article->writer_id = Auth::user()->id;
             $article->text_content = $data['text_content'];
             $article->save();
-
+            $article->kategoris()->sync($data["kategori_id"]);
             return redirect()->route('artikel.index')->with('success', 'Artikel berhasil diperbarui!');
     }
 }

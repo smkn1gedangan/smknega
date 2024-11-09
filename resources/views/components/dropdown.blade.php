@@ -1,7 +1,7 @@
 @props([
-    'dataLinks' => [], // Nilai default sebagai array kosong
+    'dataLinks' => [['route'=>"welcome",'name'=>'']], // Nilai default sebagai array kosong
     'data',
-    "dataurl"=>""
+    "dataurl"=>"",
 ])
 
 <li>
@@ -12,7 +12,7 @@
           @if (count($dataLinks) > 0)
           @foreach ($dataLinks as $dataLink )
           <li>
-            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{$dataLink}}</a>
+            <a  href="{{ $dataLink['route'] ? route($dataLink['route']) : '#' }}"  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $dataLink['name'] }}</a>
           </li>
 
           @endforeach

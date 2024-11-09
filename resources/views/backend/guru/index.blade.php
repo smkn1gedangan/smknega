@@ -39,7 +39,7 @@
                             <td class="px-6 py-4">{{ $guru->tugas }}</td>
                             <td class="px-6 py-4">{{ $guru->photo }}</td>
                             <td class="px-6 flex gap-2 py-4 text-center">
-                                <a href="{{ route('guru.edit', [Crypt::encrypt($guru->id)]) }}" class="text-orange-600 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>
+                                <a href="{{ route('guru.edit', [Crypt::encrypt($guru->id)]) }}" class="text-orange-300 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>
                                 <form id="delete-form-{{ $guru->id }}" action="{{ route('guru.destroy', [Crypt::encrypt($guru->id)]) }}" method="POST" class="inline">
                                     @csrf
                                     @method('delete')
