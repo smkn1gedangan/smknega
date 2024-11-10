@@ -3,6 +3,7 @@
 namespace Database\Seeders\Profil;
 
 use App\Models\Profil\Sejarah;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,8 +14,10 @@ class SejarahSeeder extends Seeder
      */
     public function run(): void
     {
+        $penulis = User::first();
         $data =[
             "photo"=>"tentang.jpg",
+            "penulis_id"=>$penulis->id,
             "konten"=>"SMK Negeri 1 Gedangan Malang merupakan sekolah yang tergolong masih muda, SMK ini didirikan pada tahun 2010 dengan empat program keahlian, yaitu: Teknik Kendaraan Ringan, Multimedia, Jasa Boga, dan Busana Butik. Pada awal berdirinya, SMK Negeri 1 Gedangan sudah dilengkapi dengan berbagai fasilitas yang memadai, mulai dari ruang kelas dan bengkel praktik TKR. Seiring berjalannya waktu, SMK Negeri 1 Gedangan mulai menambah berbagai fasilitas untuk memenuhi kebutuhan pembelajaran, mulai dari Laboratorium Multimedia, Restoran Jasa Boga, dan Laboratorium Busana Butik.
 
             Minat besar masyarakat saat ini kepada Sekolah Menengah Kejuruan (SMK) mendorong SMK Negeri 1 Gedangan untuk berusaha lebih maju sehingga dibuka program keahlian baru, yaitu Akuntansi pada tahun 2017 dan Sistem Jaringan dan Aplikasi (SIJA) pada tahun 2018. Hal tersebut disebabkan karena SMK Negeri ingin selalu mengikuti perkembangan zaman. Walaupun kedua program keahlian tersebut masih tergolong baru, fasilitas untuk menunjang pembelajaran program keahlian Akuntansi dan SIJA sudah cukup lengkap, mulai dari ruang kelas, laboratorium Akuntansi, dan Laboratorium SIJA.

@@ -19,7 +19,9 @@
         }
     </style>
     @yield("css")
+
     @vite(['resources/css/app.css','resources/js/app.js'])
+    @livewireStyles
 </head>
 
 <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
@@ -41,6 +43,7 @@
 
 
 @yield("js")
+@livewireScripts
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js" defer></script>

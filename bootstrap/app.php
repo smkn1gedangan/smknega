@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\CheckRoleMiddleware;
+use App\Http\Middleware\StatistikPengunjungMiddleware;
 use App\Http\Middleware\ViewarticleMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -13,7 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias(["checkRole"=> CheckRoleMiddleware::class,"viewArticle"=>ViewarticleMiddleware::class]);
+        $middleware->alias([
+            "checkRole"=> CheckRoleMiddleware::class,"viewArticle"=>ViewarticleMiddleware::class,
+        "pengunjung"=>StatistikPengunjungMiddleware::class]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

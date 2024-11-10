@@ -84,9 +84,8 @@ class ArtikelController extends Controller
      */
     public function show(string $id)
     {
-
         $article = Article::findOrFail(Crypt::decrypt($id));
-        return view("backend.artikel.show",compact("article","kategoris"));
+        return view("backend.artikel.show",compact("article"));
     }
 
     /**

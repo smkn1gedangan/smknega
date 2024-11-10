@@ -35,7 +35,7 @@
             <p class="mb-3 font-normal text-gray-800 dark:text-gray-400 mt-6">
                 {!! nl2br(e($sejarah->konten)) !!}
             </p>
-            <p class="mb-3 font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{Auth::user()->name}}  {{$sejarah->created_at->diffForHumans()}}</p>
+            <p class="mb-3 w-full text-left font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$sejarah->penulis->name}}  {{$sejarah->created_at->diffForHumans()}}</p>
     </div>
     <div class="w-full lg:w-[37%] p-4 md:p-2 md:py-20 gap-4 flex flex-wrap lg:flex-col">
        <div class="w-full flex flex-col gap-2 sm:w-[47%] lg:w-full">

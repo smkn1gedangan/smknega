@@ -50,6 +50,25 @@
                     </ul>
                 </div>
               </li>
+              <li class="mr-3 flex-1">
+                <button id="profilDropdown" data-dropdown-toggle="profil" data-dropdown-placement="right" class="me-3 mt-6 mb-3 md:mb-0 text-white  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">PROFIL
+                </button>
+
+                <!-- Dropdown menu -->
+                <div id="profil" class="z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-52 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 mt-2" aria-labelledby="profilDropdown">
+                        <li class="mr-3 flex-1 ml-3">
+                            <a href="{{ route("sejarah.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
+
+
+                                <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-history pr-0 md:pr-3"></i>
+                                    Sejarah</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+              </li>
 
 
 
