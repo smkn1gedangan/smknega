@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Profil;
 
 use App\Models\Profil\Potensi;
 use App\Models\User;

@@ -9,6 +9,7 @@ use App\Models\Kategori;
 use App\Models\Kepsek;
 use App\Models\Profil;
 use App\Models\Profil\Potensi;
+use App\Models\Profil\Rencana;
 use App\Models\Profil\Sejarah;
 use Illuminate\Http\Request;
 
@@ -35,10 +36,16 @@ class FrontendController extends Controller
     }
     public function potensi()  {
         $potensi = Potensi::first();
-        $kepsek = Kepsek::latest()->first();
         $galeris = Galeri::latest()->take(2)->get();
         $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.profil.potensi",compact("potensi","articleTerbarus","galeris","kepsek"));
+        return view("frontend.profil.potensi",compact("potensi","articleTerbarus","galeris"));
+
+    }
+    public function rencana()  {
+        $rencana = Rencana::first();
+        $galeris = Galeri::latest()->take(2)->get();
+        $articleTerbarus = Article::take(5)->latest()->get();
+        return view("frontend.profil.rencana",compact("rencana","articleTerbarus","galeris"));
 
     }
 

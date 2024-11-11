@@ -15,7 +15,7 @@
           <x-dropdown data="navbar-jurusan" :dataLinks="[
             ['route' => 'sejarah', 'name' => 'SEJARAH SMK'],
             ['route' => 'potensi', 'name' => 'POTENSI UNGGULAN'],
-            ['route' => '', 'name' => 'PENGEMBANGAN SEKOLAH'],
+            ['route' => 'rencana', 'name' => 'RENCANA PENGEMBANGAN SEKOLAH'],
             ['route' => '', 'name' => 'VISI DAN MISI'],
             ['route' => '', 'name' => 'LOGO SMK'],
             ['route' => '', 'name' => 'KOMITE SEKOLAH'],

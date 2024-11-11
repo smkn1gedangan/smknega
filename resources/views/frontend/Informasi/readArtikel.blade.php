@@ -10,7 +10,7 @@
                     @if (file_exists(public_path('img/articles_images/' . $article->image)) && $article->image)
                     <img src="{{ asset('img/articles_images/' . $article->image) }}" class="object-cover w-5/6 rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
                 @else
-                    <div class="w-full bg-gray-200 h-52 md:w-52">
+                    <div class="w-full bg-gray-200 h-80">
                         <span>No Image</span> <!-- Pesan fallback -->
                     </div>
                 @endif

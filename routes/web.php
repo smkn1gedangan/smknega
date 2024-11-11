@@ -16,6 +16,7 @@ Route::controller(FrontendController::class)->group(function(){
     Route::prefix("profil")->group(function(){
         route::get("sejarah","sejarah")->name("sejarah");
         route::get("potensi","potensi")->name("potensi");
+        route::get("rencana","rencana")->name("rencana");
     });
     Route::get("/informasi/article/{slug}","readArticle")->name("readArticle");
 
