@@ -1,43 +1,45 @@
 @extends("frontend.layouts.main")
 
-@section("title","Sejarah Smkn 1 Gedangan")
+@section("title","Potensi Smkn 1 Gedangan")
 
 @section("content")
-{{-- header start --}}
-<section  class="relative ">
-    <div class="w-full">
-            <!-- Slide 1 -->
-            <div class="swiper-slide object-cover" style="background: url({{asset("img/profil/" . $sejarah->photo)}});">
-                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
-                </div>
-                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
-            </div>
-
-
-    </div>
-
-</section>
-{{-- header end --}}
-
-{{-- sejarah start --}}
-<section class="w-full flex md:justify-center flex-wrap">
-    <div class="flex flex-col w-full p-4 sm:w-4/5 md:w-4/5 md:items-center md:p-8 lg:w-3/5">
-        <x-heading-welcome classAdventage="">Sejarah Smkn 1 Gedangan Malang</x-heading-welcome>
-        @if (file_exists(public_path('img/profil/' . $sejarah->photo)) && $sejarah->photo)
-                <img class="w-11/12 sm:w-4/5 h-52 sm:h-64 lg:h-auto rounded-md object-cover my-5" src="{{ asset("img/profil/" . $sejarah->photo) }}" alt="">
-                    @else
-                        <div class="bg-gray-200 w-11/12 sm:w-4/5 h-52 sm:h-64 my-5">
-                            <span>No Image</span> <!-- Pesan fallback -->
-                        </div>
-                    @endif
-
+{{-- potensi start --}}
+<section class="w-full flex flex-col md:justify-center flex-wrap">
+   <div class="text-center pt-6 md:pt-28">
+        <x-heading-welcome classAdventage="">Potensi Sekolah</x-heading-welcome>
+   </div>
+    <div class="w-full flex md:justify-center flex-wrap">
+        <div class="flex flex-col w-full p-4 sm:w-4/5 md:w-4/5 md:items-center md:p-8 lg:w-3/5">
             <p class="mb-3 font-normal text-gray-800 dark:text-gray-400 mt-6">
-                {!! $sejarah->konten !!}
+                {!! $potensi->konten !!}
             </p>
-            <p class="mb-3 w-full text-left font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$sejarah->penulis->name}}  {{$sejarah->created_at->diffForHumans()}}</p>
+            <p class="mb-3 w-full text-left font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$potensi->penulis->name}}  {{$potensi->created_at->diffForHumans()}}</p>
     </div>
-    <div class="w-full lg:w-[37%] p-4 md:p-2 md:py-20 gap-4 flex flex-wrap lg:flex-col">
+    <div class="w-full lg:w-[37%] p-4 gap-4 flex flex-wrap lg:flex-col">
+        <div class="w-full md:w-[38%] lg:w-full max-w-sm bg-white min-h-[40rem] max-h-[42rem] rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-8">
+            <div class="relative">
+                @if (file_exists(public_path('img/kepala_sekolah/' . $kepsek->photo)) && $kepsek->photo)
+                <img class="rounded-t-lg w-4/5 md:w-full h-96 object-cover relative left-1/2 -translate-x-1/2" src="{{asset("img/kepala_sekolah/" . $kepsek->photo)}}" alt="" />
+                <div style="box-shadow:inset 10px 10px 100px relative left-1/2 -translate-x-1/2 rgba(0, 0, 0, 0.6)" class=" dark:from-blue-900 w-4/5 h-full absolute top-0 left-0 z-0"></div>
+            @else
+                <div class="bg-gray-200 w-4/5 md:w-full h-96 relative left-1/2 -translate-x-1/2">
+                    <span>No Image</span> <!-- Pesan fallback -->
+                </div>
+            @endif
+
+            </div>
+            <div class="w-4/5 md:w-full relative left-1/2 -translate-x-1/2 md:pl-1">
+                <h5 class="mb-2 pt-3 md:pt-5 text-xl font-semibold tracking-tight text-gray-900 dark:text-white text-center md:text-left">{{$kepsek->nama}}</h5>
+                <p class="mb-3 font-normal text-gray-800 dark:text-gray-400">{{ Str::words(strip_tags($kepsek->sambutan), 25, '...') }}.</p>
+                <a href="" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Read more
+                     <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
        <div class="w-full flex flex-col gap-2 sm:w-[47%] lg:w-full">
         <h2 class="mb-2 md:mt-8 text-xl uppercase font-semibold text-gray-900 dark:text-white">Artikel Terbaru </h2>
         @foreach ($articleTerbarus as $articleTerbaru)
@@ -78,6 +80,7 @@
         </div>
         @endforeach
        </div>
+    </div>
     </div>
 </section>
 {{-- sejarah end --}}

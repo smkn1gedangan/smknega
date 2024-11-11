@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-       $this->call([UserSeeder::class,kepsekSeeder::class,KategoriSeeder::class,GuruSeeder::class,ArticleSeeder::class,GaleriSeeder::class,ProfilSeeder::class,MasukanSeeder::class,SejarahSeeder::class]);
+       $this->call([UserSeeder::class,kepsekSeeder::class,KategoriSeeder::class,GuruSeeder::class,ArticleSeeder::class,GaleriSeeder::class,ProfilSeeder::class,MasukanSeeder::class,SejarahSeeder::class,PotensiSeeder::class]);
     }
 }

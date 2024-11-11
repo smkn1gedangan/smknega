@@ -15,6 +15,7 @@ Route::controller(FrontendController::class)->group(function(){
     Route::get("/","welcome")->name("welcome")->middleware("pengunjung");
     Route::prefix("profil")->group(function(){
         route::get("sejarah","sejarah")->name("sejarah");
+        route::get("potensi","potensi")->name("potensi");
     });
     Route::get("/informasi/article/{slug}","readArticle")->name("readArticle");
 
