@@ -10,14 +10,14 @@
       <div class="hidden w-full md:block md:w-auto" id="navbar-multi-level">
         <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-2 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
           <li>
-            <a href="{{route("welcome")}}" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">HOME</a>
+            <a href="{{route("welcome")}}" class="{{Request::is("/") ?"md:text-blue-700":"md:text-black"}} block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent  md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">HOME</a>
           </li>
-          <x-dropdown data="navbar-jurusan" :dataLinks="[
+          <x-dropdown data="data-profil" :dataLinks="[
             ['route' => 'sejarah', 'name' => 'SEJARAH SMK'],
             ['route' => 'potensi', 'name' => 'POTENSI UNGGULAN'],
             ['route' => 'rencana', 'name' => 'RENCANA PENGEMBANGAN SEKOLAH'],
-            ['route' => '', 'name' => 'VISI DAN MISI'],
-            ['route' => '', 'name' => 'LOGO SMK'],
+            ['route' => 'visi', 'name' => 'VISI DAN MISI'],
+            ['route' => 'logo', 'name' => 'LOGO SMK'],
             ['route' => '', 'name' => 'KOMITE SEKOLAH'],
             ['route' => '', 'name' => 'STRUKTUR ORGANISASI'],
             ['route' => '', 'name' => 'HYMNE']

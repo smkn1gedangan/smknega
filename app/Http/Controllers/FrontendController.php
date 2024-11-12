@@ -8,9 +8,11 @@ use App\Models\Guru;
 use App\Models\Kategori;
 use App\Models\Kepsek;
 use App\Models\Profil;
+use App\Models\Profil\Logo;
 use App\Models\Profil\Potensi;
 use App\Models\Profil\Rencana;
 use App\Models\Profil\Sejarah;
+use App\Models\Profil\VisiMisi;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -48,8 +50,19 @@ class FrontendController extends Controller
         return view("frontend.profil.rencana",compact("rencana","articleTerbarus","galeris"));
 
     }
+    public function visi()  {
+        $visiMisi = VisiMisi::first();
+        $galeris = Galeri::latest()->take(2)->get();
+        $articleTerbarus = Article::take(5)->latest()->get();
+        return view("frontend.profil.visi",compact("visiMisi","articleTerbarus","galeris"));
+    }
 
-
+    public function logo()  {
+        $logo = Logo::first();
+        $galeris = Galeri::latest()->take(2)->get();
+        $articleTerbarus = Article::take(5)->latest()->get();
+        return view("frontend.profil.logo",compact("logo","articleTerbarus","galeris"));
+    }
    public function readArticle($slug)  {
         $kategoris = Kategori::get();
         $articleTerbarus = Article::take(5)->latest()->get();

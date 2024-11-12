@@ -38,7 +38,7 @@
             @guest
                 <a
                     href="{{route("login")}}"
-                    class="mt-1 w-full bg-teal-500 px-6 py-3 rounded-md text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-teal-600 sm:mt-0 sm:w-auto sm:shrink-0"
+                    class="mt-1 bg-teal-500 px-6 py-3 rounded-md text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-teal-600 sm:mt-0 sm:w-auto sm:shrink-0"
                 >
                     Login
                 </a>

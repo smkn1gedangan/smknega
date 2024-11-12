@@ -22,22 +22,25 @@
 
 {{-- sejarah start --}}
 <section class="w-full flex md:justify-center flex-wrap">
-    <div class="flex flex-col w-full p-4 sm:w-4/5 md:w-4/5 md:items-center md:p-8 lg:w-3/5">
-        <x-heading-welcome classAdventage="">Sejarah sekolah</x-heading-welcome>
+    <div class="flex flex-col w-full p-4 sm:w-5/6  md:w-4/5 md:items-center md:p-8 lg:w-3/5">
+        <x-heading-profil class="w-full">sejarah sekolah</x-heading-profil>
         @if (file_exists(public_path('img/profil/' . $sejarah->photo)) && $sejarah->photo)
-                <img class="w-11/12 sm:w-4/5 h-52 sm:h-64 lg:h-auto rounded-md object-cover my-5" src="{{ asset("img/profil/" . $sejarah->photo) }}" alt="">
+                <img class="w-11/12 sm:w-5/6 h-52 sm:h-64 lg:h-auto rounded-md object-cover my-5" src="{{ asset("img/profil/" . $sejarah->photo) }}" alt="">
                     @else
-                        <div class="bg-gray-200 w-11/12 sm:w-4/5 h-52 sm:h-64 my-5">
+                        <div class="bg-gray-200 w-11/12 sm:w-5/6 h-52 sm:h-64 my-5">
                             <span>No Image</span> <!-- Pesan fallback -->
                         </div>
                     @endif
 
-            <p class="mb-3 font-normal text-gray-800 dark:text-gray-400 mt-6">
+            <p class="mb-3 font-normal md:text-center text-gray-800 dark:text-gray-400 mt-6">
                 {!! $sejarah->konten !!}
             </p>
-            <p class="mb-3 w-full text-left font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$sejarah->penulis->name}}  {{$sejarah->created_at->diffForHumans()}}</p>
+            <p class="mb-3 w-full text-left md:text-center font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$sejarah->penulis->name}}  {{$sejarah->created_at->diffForHumans()}}</p>
     </div>
-    <x-right-component-fe :articleTerbarus=$articleTerbarus :galeris=$galeris></x-right-component-fe>
+    <div class="w-full lg:w-[37%] p-4 gap-4 flex flex-wrap lg:flex-col">
+
+        <x-right-component-fe :articleTerbarus=$articleTerbarus :galeris=$galeris></x-right-component-fe>
+    </div>
 </section>
 {{-- sejarah end --}}
 @endsection
