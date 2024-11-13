@@ -18,8 +18,8 @@
             ['route' => 'rencana', 'name' => 'RENCANA PENGEMBANGAN SEKOLAH'],
             ['route' => 'visi', 'name' => 'VISI DAN MISI'],
             ['route' => 'logo', 'name' => 'LOGO SMK'],
-            ['route' => '', 'name' => 'KOMITE SEKOLAH'],
-            ['route' => '', 'name' => 'STRUKTUR ORGANISASI'],
+            ['route' => 'komite', 'name' => 'KOMITE SEKOLAH'],
+            ['route' => 'struktur', 'name' => 'STRUKTUR ORGANISASI'],
             ['route' => '', 'name' => 'HYMNE']
         ]">PROFIL</x-dropdown>
 

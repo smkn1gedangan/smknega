@@ -1,6 +1,7 @@
 @props(['articleTerbarus',"galeris"])
 
 
+
  <div class="w-full flex flex-col gap-2 sm:w-[47%] lg:w-full">
     <h2 class="mb-2 md:mt-8 text-xl uppercase font-semibold text-gray-900 dark:text-white">Artikel Terbaru </h2>
     @foreach ($articleTerbarus as $articleTerbaru)
@@ -42,6 +43,7 @@
     @endforeach
    </div>
    <div class="w-full flex flex-col gap-2 sm:w-[47%] lg:w-full">
+    <p>{{  }}</p>
     <x-heading-welcome classAdventage="{{ $galeris->count() < 1 ? 'invisible' : 'mb-3 md:text-xl underline underline-offset-4' }}">
         Youtube Terbaru
     </x-heading-welcome>

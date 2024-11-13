@@ -8,10 +8,14 @@ use App\Models\Guru;
 use App\Models\Kategori;
 use App\Models\Kepsek;
 use App\Models\Profil;
+use App\Models\Profil\DeskripsiKomite;
+use App\Models\Profil\KetuaKomite;
+use App\Models\Profil\Komite;
 use App\Models\Profil\Logo;
 use App\Models\Profil\Potensi;
 use App\Models\Profil\Rencana;
 use App\Models\Profil\Sejarah;
+use App\Models\Profil\StrukturOrganisasi;
 use App\Models\Profil\VisiMisi;
 use Illuminate\Http\Request;
 
@@ -62,6 +66,18 @@ class FrontendController extends Controller
         $galeris = Galeri::latest()->take(2)->get();
         $articleTerbarus = Article::take(5)->latest()->get();
         return view("frontend.profil.logo",compact("logo","articleTerbarus","galeris"));
+    }
+    public function komite()  {
+        $deskripsiKomite = DeskripsiKomite::first();
+        $ketuaKomite = KetuaKomite::first();
+        $komites = Komite::latest()->paginate(10);
+        return view("frontend.profil.komite",compact("komites","deskripsiKomite","ketuaKomite"));
+    }
+    public function struktur()  {
+        $struktur = StrukturOrganisasi::first();
+        $galeris = Galeri::latest()->take(2)->get();
+        $articleTerbarus = Article::take(5)->latest()->get();
+        return view("frontend.profil.struktur",compact("struktur","galeris","articleTerbarus"));
     }
    public function readArticle($slug)  {
         $kategoris = Kategori::get();

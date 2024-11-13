@@ -19,7 +19,7 @@ class GuruFactory extends Factory
         return [
            'nama' => $this->faker->name,
             'tugas' => implode(' ', $this->faker->words(rand(2, 3))),
-            'photo' => "_0000_Muriono-satpam.jpg"
+            'photo' => ""
         ];
     }
 }

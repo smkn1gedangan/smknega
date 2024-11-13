@@ -1,3 +1,5 @@
+{{--  --}}
+
 @extends("frontend.layouts.main")
 @section("title","homepage")
 @section("css")
@@ -17,7 +19,7 @@
     <div class="swiper mySwiper w-full">
         <div class="swiper-wrapper">
             <!-- Slide 1 -->
-            <div class="swiper-slide object-cover  " style="background: url({{asset("img/welcome/baner3.jpg")}})">
+            <div class="swiper-slide object-cover  " style="background: url({{asset("img/welcome/static_baner3.jpg")}})">
                 <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
                 <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">Selamat datang di Smkn 1 Gedangan</h1>
@@ -27,7 +29,7 @@
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
             <!-- Slide 2 -->
-            <div class="swiper-slide object-cover  " style="background: url({{asset("img/welcome/baner1.jpg")}})">
+            <div class="swiper-slide object-cover  " style="background: url({{asset("img/welcome/static_baner1.jpg")}})">
                 <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
                 {{-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">isi title1</h1> --}}
@@ -37,7 +39,7 @@
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
             <!-- Slide 3 -->
-            <div class="swiper-slide object-cover  " style="background: url({{asset("img/welcome/baner2.jpg")}})">
+            <div class="swiper-slide object-cover  " style="background: url({{asset("img/welcome/static_baner2.jpg")}})">
                 <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
                 {{-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">isi title2</h1> --}}

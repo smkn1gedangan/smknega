@@ -4,10 +4,10 @@
 
 @section("content")
 
-{{-- potensi start --}}
+{{-- rencana start --}}
 <section class="w-full flex flex-col md:justify-center flex-wrap">
     <div class="flex justify-center pt-20 md:pt-28">
-        <x-heading-profil class="w-5/6 md:w-2/3 lg:w-2/3">rencana sekolah</x-heading-profil>
+        <x-heading-profil class="w-5/6 md:w-2/3">rencana pengembangan sekolah</x-heading-profil>
        </div>
     <div class="w-full flex md:justify-center flex-wrap">
         <div class="flex flex-col w-full p-4 md:w-4/5 md:items-center md:p-8 lg:w-3/5">
@@ -22,5 +22,5 @@
     </div>
     </div>
 </section>
-{{-- sejarah end --}}
+{{-- rencana end --}}
 @endsection

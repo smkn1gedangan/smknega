@@ -65,6 +65,72 @@
                                     Sejarah</span>
                             </a>
                         </li>
+                        <li class="mr-3 flex-1 ml-3">
+                            <a href="{{ route("potensi.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
+
+
+                                <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-lightbulb pr-0 mdpr-3"></i>
+
+                                    Potensi Unggulan</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1 ml-3">
+                            <a href="{{ route("rencana.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
+
+
+                                <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-calendar-check pr-0 md:pr-3"></i>
+                                    Rencana Sekolah</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1 ml-3">
+                            <a href="{{ route("visi.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
+
+
+                                <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-binoculars pr-0 md:pr-3"></i>
+
+                                    Visi Misi</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1 ml-3">
+                            <a href="{{ route("logo.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
+
+
+                                <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-cogs pr:0 md:pr-3"></i>
+
+                                    Logo Sekolah</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1 ml-3">
+                            <a href="{{ route("deskripsiKomite.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
+
+
+                                <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-file-alt pr-0 md:pr-3"></i>
+
+
+                                    Deskripsi Komite</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1 ml-3">
+                            <a href="{{ route("komite.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
+
+
+                                <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-user-tie pr-0 md:pr-3"></i>
+
+
+                                    Komite Sekolah</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1 ml-3">
+                            <a href="{{ route("struktur.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
+
+
+                                <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-sitemap pr-0 md:pr-3"></i>
+
+
+
+                                    Struktur Organisasi</span>
+                            </a>
+                        </li>
 
                     </ul>
                 </div>

@@ -1,23 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Profil;
 
 use App\Http\Controllers\Controller;
-use App\Models\Guru;
-use Carbon\Carbon;
+use App\Models\Profil\DeskripsiKomite;
+use App\Models\Profil\KetuaKomite;
+use App\Models\Profil\Komite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
-class GuruController extends Controller
+
+class KomiteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $gurus = Guru::latest()->paginate(10);
-        return view("backend.guru.index",compact("gurus"));
+        $komites = Komite::latest()->paginate(10);
+        $ketuaKomites = KetuaKomite::get();
+        return view("backend.komite.index",compact("komites","ketuaKomites"));
     }
 
     /**
@@ -25,7 +28,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        return view("backend.guru.create");
+        return view("backend.komite.create");
     }
 
     /**
@@ -36,7 +39,7 @@ class GuruController extends Controller
         $data = $request->validate([
             'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
             "nama"=> "min:6|max:100|required",
-            "tugas"=> "required|max:100",
+            "jabatan"=> "required|max:100",
         ]);
 
         if ($request->hasFile('photo')) {
@@ -44,35 +47,32 @@ class GuruController extends Controller
 
             $filename = time() . '_' . $file->getClientOriginalName();
 
-            $file->move(public_path('img/guru'), $filename);
+            $file->move(public_path('img/komite'), $filename);
             $data["photo"] = $filename;
         }
 
-        Guru::create([
+        Komite::create([
             "photo"=> $data["photo"],
             "nama"=> $request->nama,
-            "tugas"=> $request->tugas,
+            "jabatan"=> $request->jabatan,
 
         ]);
-        return redirect()->route("guru.index")->with('success', 'Data guru berhasil diupload dan disimpan!');
+        return redirect()->route("komite.index")->with('success', 'Data Komite berhasil diupload dan disimpan!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+   
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $guru = Guru::findOrFail(Crypt::decrypt($id));
-        if($guru){
-            return view("backend.guru.edit",compact("guru"));
+        $komite = Komite::findOrFail(Crypt::decrypt($id));
+        if($komite){
+            return view("backend.komite.edit",compact("komite"));
         }
     }
 
@@ -81,46 +81,49 @@ class GuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $guru = Guru::findOrFail(Crypt::decrypt($id));
+        $komite = komite::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
             "nama"=> "min:6|max:100|required",
-            "tugas"=> "min:3|required",
+            "jabatan"=> "min:3|required",
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/guru/" . $guru->photo;
-            if ($guru->photo && File::exists(public_path($path))) {
+            $path = "img/komite/" . $komite->photo;
+            if ($komite->photo && File::exists(public_path($path))) {
                 File::delete(public_path($path));
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('img/guru'), $filename);
+            $file->move(public_path('img/komite'), $filename);
 
-            $guru->photo = $filename;
-            $guru->nama = $data['nama'];
-            $guru->tugas = $data['tugas'];
-            $guru->save();
+            $komite->photo = $filename;
+            $komite->nama = $data['nama'];
+            $komite->jabatan = $data['jabatan'];
+            $komite->save();
 
-            return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui!');
+            return redirect()->route('komite.index')->with('success', 'Data Komite berhasil diperbarui!');
+
     }
     }
+   
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $guru = Guru::findOrFail(Crypt::decrypt($id));
-        if ($guru->photo) {
-            $imagePath = public_path('img/guru/' . $guru->photo);
+        $komite = Komite::findOrFail(Crypt::decrypt($id));
+        if ($komite->photo) {
+            $imagePath = public_path('img/komite/' . $komite->photo);
 
             if (File::exists($imagePath)) {
                 File::delete($imagePath);
             }
         }
-        $guru->delete();
+        $komite->delete();
 
-        return redirect()->route('guru.index')->with('success', 'Data Guru berhasil dihapus!');
+        return redirect()->route('komite.index')->with('success', 'Data Komite berhasil dihapus!');
 
     }
-}
+    }
+

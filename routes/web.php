@@ -4,7 +4,15 @@ use App\Http\Controllers\Dashboard\ArtikelController;
 use App\Http\Controllers\Dashboard\GaleriController;
 use App\Http\Controllers\Dashboard\GuruController;
 use App\Http\Controllers\Dashboard\KepsekController;
+use App\Http\Controllers\Dashboard\Profil\DeskripsiKomiteController;
+use App\Http\Controllers\Dashboard\Profil\KetuaKomiteController;
+use App\Http\Controllers\Dashboard\Profil\KomiteController;
+use App\Http\Controllers\Dashboard\Profil\LogoController;
+use App\Http\Controllers\Dashboard\Profil\PotensiController;
+use App\Http\Controllers\Dashboard\Profil\RencanaController;
 use App\Http\Controllers\Dashboard\Profil\SejarahController;
+use App\Http\Controllers\Dashboard\Profil\StrukturController;
+use App\Http\Controllers\Dashboard\Profil\VisiController;
 use App\Http\Controllers\Dashboard\ProfilController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
@@ -19,6 +27,8 @@ Route::controller(FrontendController::class)->group(function(){
         route::get("rencana","rencana")->name("rencana");
         route::get("visi","visi")->name("visi");
         route::get("logo","logo")->name("logo");
+        route::get("komite","komite")->name("komite");
+        route::get("struktur","struktur")->name("struktur");
     });
     Route::get("/informasi/article/{slug}","readArticle")->name("readArticle");
 
@@ -33,8 +43,18 @@ Route::middleware(['auth', 'verified',"checkRole"])->prefix("be")->group(functio
         Route::resource("artikel",ArtikelController::class);
         Route::resource("kepsek",KepsekController::class);
         Route::resource("guru",GuruController::class);
+    });
+    Route::prefix("profil")->group(function(){
         Route::resource("galeri",GaleriController::class);
         Route::resource("sejarah",  SejarahController::class);
+        Route::resource("potensi",  PotensiController::class);
+        Route::resource("rencana",  RencanaController::class);
+        Route::resource("visi",  VisiController::class);
+        Route::resource("logo",  LogoController::class);
+        Route::resource("deskripsiKomite",  DeskripsiKomiteController::class);
+        Route::resource("komite",  KomiteController::class);
+        Route::resource("ketuaKomite",  KetuaKomiteController::class);
+        Route::resource("struktur",  StrukturController::class);
     });
 });
 
