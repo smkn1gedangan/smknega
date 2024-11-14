@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function index()  {
         $user = User::count();
-        $masukan = Masukan::count();
+        $masukans = Masukan::take(3)->get();
         $monthlyVisitors = StatistikPengunjung::selectRaw('MONTH(visited_at) as month, COUNT(*) as total')
         ->groupBy('month')
         ->get()
@@ -25,6 +25,6 @@ class DashboardController extends Controller
             $visitorsData[] = $monthlyVisitors->get($i, 0);
         }
 
-        return view("backend.dashboard",compact("user","masukan","months","visitorsData"));
+        return view("backend.dashboard",compact("user","masukans","months","visitorsData"));
     }
 }

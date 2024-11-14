@@ -40,7 +40,7 @@
                             <td class="px-6 py-4">
                                 <img src="{{ asset('img/guru/' . $guru->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg" alt="{{ $guru->photo }}">
                             </td>
-                            <td class="px-6 flex gap-2 py-4 text-center">
+                            <td class="px-6 flex gap-2 py-4 justify-center">
                                 <a href="{{ route('guru.edit', [Crypt::encrypt($guru->id)]) }}" class="text-orange-300 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>
                                 <form id="delete-form-{{ $guru->id }}" action="{{ route('guru.destroy', [Crypt::encrypt($guru->id)]) }}" method="POST" class="inline">
                                     @csrf

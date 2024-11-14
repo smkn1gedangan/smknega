@@ -19,7 +19,6 @@
         <div class="w-full">
             <form id="form" action="{{ route('artikel.store') }}" class="mt-4 w-full flex flex-col items-center" method="POST" enctype="multipart/form-data">
                 @csrf
-                <!-- Judul -->
                 <div class="w-11/12 flex-col flex gap-2 ">
                     <div class="mb-4 w-2/5">
                         <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Judul</label>
@@ -33,7 +32,6 @@
                         @enderror
                     </div>
 
-                    <!-- Penulis -->
                     <div class="mb-4 w-2/5">
                         <label for="writer" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Penulis</label>
                         <input type="text" name="writer_id" id="writer" value="{{ Auth::user()->name}}"
@@ -50,7 +48,6 @@
 
 
 
-                <!-- Konten -->
                 <<div class="mb-4 w-11/12">
                     <label for="text_content" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten Artikel</label>
                     <div id="editor" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">

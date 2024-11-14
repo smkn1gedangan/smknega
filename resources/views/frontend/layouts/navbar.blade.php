@@ -20,14 +20,33 @@
             ['route' => 'logo', 'name' => 'LOGO SMK'],
             ['route' => 'komite', 'name' => 'KOMITE SEKOLAH'],
             ['route' => 'struktur', 'name' => 'STRUKTUR ORGANISASI'],
-            ['route' => '', 'name' => 'HYMNE']
         ]">PROFIL</x-dropdown>
 
-          <x-dropdown data="data-program" :dataLinks="[['route'=>'','name'=>'PROGRAM KERJA'],['route'=>'','name'=>'PERATURAN PERATURAN'],['route'=>'','name'=>'PROGRAM BISNIS'],['route'=>'','name'=>'PROGRAM PENGEMBANGAN SEKOLAH'],['route'=>'','name'=>'HUBUNGAN INDUSTRI'],['route'=>'','name'=>'BURSA KERJA']]">PROGRAM SEKOLAH</x-dropdown>
-          <x-dropdown data="data-gtk" :dataLinks="[['route'=>'','name'=>'INFORMASI GURU'],['route'=>'','name'=>'INFORMASI TENAGA PENDIDIKAN'],['route'=>'','name'=>'TUGAS DAN FUNGSI']]">GTK</x-dropdown>
+          <x-dropdown data="data-program" :dataLinks="[
+          ['route'=>'kerja','name'=>'PROGRAM KERJA'],
+          ['route'=>'peraturan','name'=>'PERATURAN PERATURAN'],
+          ['route'=>'bisnis','name'=>'PROGRAM BISNIS'],
+          ['route'=>'industri','name'=>'HUBUNGAN INDUSTRI'],
+          ['route'=>'bursa','name'=>'BURSA KERJA']]">
+          PROGRAM SEKOLAH</x-dropdown>
+          <x-dropdown data="data-jurusan" :dataLinks="[
+          ['route'=>'sija','name'=>'SISTEM INFORMATIKA DAN JARINGAN APLIKASI'],
+          ['route'=>'dkv','name'=>'DKV'],
+          ['route'=>'animasi','name'=>'ANIMASI'],
+          ['route'=>'boga','name'=>'TATA BOGA'],
+          ['route'=>'akuntansi','name'=>'AKUNTANSI'],
+          ['route'=>'busana','name'=>'TATA BUSANA'],
+          ['route'=>'tkr','name'=>'TERKNIK KENDARAAN RINGAN']
+          ]">
+          JURUSAN</x-dropdown>
           <x-dropdown data="data-kesiswaan" :dataLinks="[['route'=>'','name'=>'PRESTASI SISWA'],['route'=>'','name'=>'INFORMASI PESERTA DIDIK'],['route'=>'','name'=>'EKSTRAKULIKULER'],['route'=>'','name'=>'OSIS'],['route'=>'','name'=>'BEASISWA'],['route'=>'','name'=>'INFORMASI PEMETAAN KELULUSAN']]">KESISWAAN</x-dropdown>
           <x-dropdown data="data-sarana" :dataLinks="[['route'=>'','name'=>'PETA SEKOLAH'],['route'=>'','name'=>'SARANA INFRASTRUKTUR'],['route'=>'','name'=>'SARANA PEMEBELAJARAN']]">SARANA PRASARANA</x-dropdown>
-          <x-dropdown dataurl="informasi" data="data-informasi" :dataLinks="[['route'=>'','name'=>'ARTIKEL'],['route'=>'','name'=>'KURIKULUM']]">INFORMASI</x-dropdown>
+          <x-dropdown dataurl="informasi" data="data-informasi" :dataLinks="[
+          ['route'=>'','name'=>'GURU'],
+          ['route'=>'','name'=>'ARTIKEL'],
+          ['route'=>'','name'=>'KURIKULUM'],
+          ['route'=>'','name'=>'GALERI']
+          ]">INFORMASI</x-dropdown>
           <x-dropdown data="data-ppdb" :dataLinks="[['route'=>'','name'=>'JADWAL PPDB'],['route'=>'','name'=>'INFORMASI PPDB']]">PPDB</x-dropdown>
 
         </ul>

@@ -15,7 +15,6 @@
             <form action="{{ route('guru.update',[Crypt::encrypt($guru->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
-                <!-- Judul -->
                 <div class="w-11/12 ">
                     <div class="mb-4 w-2/5">
                         <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nama</label>
@@ -29,7 +28,6 @@
                         @enderror
                     </div>
 
-                    <!-- Tugas -->
                     <div class="mb-4 w-2/5">
                         <label for="tugas" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tugas</label>
                         <input type="text" name="tugas" id="tugas" value="{{old("tugas",$guru->tugas)}}"

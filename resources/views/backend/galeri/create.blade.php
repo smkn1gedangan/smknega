@@ -14,7 +14,6 @@
         <div class="w-full">
             <form action="{{ route('galeri.store') }}" class="mt-4 w-full flex flex-col items-center" method="POST" enctype="multipart/form-data">
                 @csrf
-                <!-- Judul -->
                 <div class="w-11/12">
                     <div class="mb-4 w-2/5">
                         <label for="judul" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Judul</label>
@@ -33,7 +32,6 @@
 
 
 
-                <!-- Konten -->
 
                <div class="w-11/12">
 

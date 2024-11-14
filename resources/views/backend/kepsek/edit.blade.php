@@ -15,7 +15,6 @@
             <form id="form" action="{{ route('kepsek.update',[Crypt::encrypt($kepsek->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
-                <!-- Judul -->
                 <div class="w-11/12 gap-2 ">
                     <div class="mb-4 w-2/5">
                         <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nama</label>
@@ -30,7 +29,6 @@
                     </div>
                 </div>
 
-                <!-- Konten -->
                 <div class="mb-4 w-11/12">
                     <label for="sambutan" class="block text-sm font-medium text-gray-700 dark:text-gray-300">sambutan</label>
                     <div id="editor" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">

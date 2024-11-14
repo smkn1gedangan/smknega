@@ -15,7 +15,6 @@
             <form id="form" action="{{ route('logo.update',[Crypt::encrypt($logo->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
-                <!-- Judul -->
                 <div class="w-11/12 gap-2 ">
                     <div class="mb-4 w-2/5">
                         <label for="penulis_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">penulis_id</label>
@@ -30,7 +29,6 @@
                     </div>
                 </div>
 
-                <!-- Konten -->
                 <div class="mb-4 w-11/12">
                     <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">konten</label>
                     <div id="editor" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
