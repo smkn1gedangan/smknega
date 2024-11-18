@@ -32,13 +32,13 @@
                         </div>
                     @endif
 
-            <p class="mb-3 font-normal text-gray-800 dark:text-gray-400 mt-6">
+            <p class="mb-3 font-normal text-gray-800 dark:text-gray-400 mt-6 lg:first-letter:pl-16">
                 {!! $sejarah->konten !!}
             </p>
             <p class="mb-3 w-full text-left font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$sejarah->penulis->name}}  {{$sejarah->created_at->diffForHumans()}}</p>
     </div>
     <div class="w-full lg:w-[37%] p-4 gap-4 flex flex-wrap lg:flex-col">
-        <x-right-component-fe :articleTerbarus=$articleTerbarus :galeris=$galeris></x-right-component-fe>
+        <x-right-component-fe></x-right-component-fe>
     </div>
 </section>
 {{-- sejarah end --}}

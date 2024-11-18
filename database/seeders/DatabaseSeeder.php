@@ -12,6 +12,7 @@ use Database\Seeders\Jurusan\BusanaSeeder;
 use Database\Seeders\Jurusan\DkvSeeder;
 use Database\Seeders\Jurusan\SijaSeeder;
 use Database\Seeders\Jurusan\TkrSeeder;
+use Database\Seeders\Kesiswaan\PrestasiSeeder;
 use Database\Seeders\Profil\DeskripsiKomiteSeeder;
 use Database\Seeders\Profil\KetuaKomiteSeeder;
 use Database\Seeders\Profil\KomiteSeeder;
@@ -38,6 +39,6 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-       $this->call([UserSeeder::class,kepsekSeeder::class,KategoriSeeder::class,GuruSeeder::class,ArticleSeeder::class,GaleriSeeder::class,ProfilSeeder::class,MasukanSeeder::class,SejarahSeeder::class,PotensiSeeder::class,RencanaSeeder::class,VisiMisiSeeder::class,LogoSeeder::class,DeskripsiKomiteSeeder::class,KomiteSeeder::class,KetuaKomiteSeeder::class,StrukturSeed::class,KerjaSeeder::class,PeraturanSeeder::class,BisnisSeeder::class,BisnisPhotoSeeder::class,IndustriSeeder::class,BursaSeed::class,SijaSeeder::class,BogaSeeder::class,AkuntansiSeeder::class,BusanaSeeder::class,DkvSeeder::class,AnimasiSeeder::class,TkrSeeder::class]);
+       $this->call([UserSeeder::class,kepsekSeeder::class,KategoriSeeder::class,GuruSeeder::class,ArticleSeeder::class,GaleriSeeder::class,ProfilSeeder::class,MasukanSeeder::class,SejarahSeeder::class,PotensiSeeder::class,RencanaSeeder::class,VisiMisiSeeder::class,LogoSeeder::class,DeskripsiKomiteSeeder::class,KomiteSeeder::class,KetuaKomiteSeeder::class,StrukturSeed::class,KerjaSeeder::class,PeraturanSeeder::class,BisnisSeeder::class,BisnisPhotoSeeder::class,IndustriSeeder::class,BursaSeed::class,SijaSeeder::class,BogaSeeder::class,AkuntansiSeeder::class,BusanaSeeder::class,DkvSeeder::class,AnimasiSeeder::class,TkrSeeder::class,PrestasiSeeder::class]);
     }
 }

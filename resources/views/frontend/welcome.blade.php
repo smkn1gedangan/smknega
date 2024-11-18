@@ -69,7 +69,7 @@
                         </div>
                     @endif
 
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 mt-6">
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 mt-6 lg:first-letter:pl-16">
                         {!!$profil->konten!!}
                     </p>
                     <button type="button" class="w-2/5 lg:w-1/5 mt-2 mb-8 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Info ppdb</button>

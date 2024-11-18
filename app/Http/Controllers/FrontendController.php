@@ -49,36 +49,27 @@ class FrontendController extends Controller
    }
     public function sejarah()  {
         $sejarah = Sejarah::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.profil.sejarah",compact("sejarah","articleTerbarus","galeris"));
+        return view("frontend.profil.sejarah",compact("sejarah"));
     }
     public function potensi()  {
         $potensi = Potensi::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.profil.potensi",compact("potensi","articleTerbarus","galeris"));
+       
+        return view("frontend.profil.potensi",compact("potensi"));
 
     }
     public function rencana()  {
         $rencana = Rencana::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.profil.rencana",compact("rencana","articleTerbarus","galeris"));
+        return view("frontend.profil.rencana",compact("rencana"));
 
     }
     public function visi()  {
         $visiMisi = VisiMisi::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.profil.visi",compact("visiMisi","articleTerbarus","galeris"));
+        return view("frontend.profil.visi",compact("visiMisi"));
     }
 
     public function logo()  {
         $logo = Logo::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.profil.logo",compact("logo","articleTerbarus","galeris"));
+        return view("frontend.profil.logo",compact("logo"));
     }
     public function komite()  {
         $deskripsiKomite = DeskripsiKomite::first();
@@ -88,82 +79,76 @@ class FrontendController extends Controller
     }
     public function struktur()  {
         $struktur = StrukturOrganisasi::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.profil.struktur",compact("struktur","galeris","articleTerbarus"));
+        return view("frontend.profil.struktur",compact("struktur"));
     }
     public function kerja()  {
         $programKerja = Kerja::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.program.kerja",compact("programKerja","galeris","articleTerbarus"));
+        return view("frontend.program.kerja",compact("programKerja"));
     }
     public function peraturan()  {
         $peraturan = Peraturan::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.program.peraturan",compact("peraturan","galeris","articleTerbarus"));
+        return view("frontend.program.peraturan",compact("peraturan"));
     }
     public function bisnis()  {
         $bisnis = Bisnis::first();
         $bisnisPhoto = BisnisPhoto::get();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.program.bisnis",compact("bisnis","galeris","articleTerbarus","bisnisPhoto"));
+        return view("frontend.program.bisnis",compact("bisnis","bisnisPhoto"));
     }
     public function industri()  {
         $industri = Industri::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.program.industri",compact("industri","galeris","articleTerbarus"));
+        return view("frontend.program.industri",compact("industri"));
     }
     public function bursa()  {
         $bursa = Bursa::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.program.bursa",compact("bursa","galeris","articleTerbarus"));
+        return view("frontend.program.bursa",compact("bursa"));
     }
     public function sija()  {
         $sija = Sija::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.jurusan.sija",compact("sija","articleTerbarus","galeris"));
+        return view("frontend.jurusan.sija",compact("sija"));
     }
     public function dkv()  {
         $dkv = Dkv::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.jurusan.dkv",compact("dkv","articleTerbarus","galeris"));
+        return view("frontend.jurusan.dkv",compact("dkv"));
     }
     public function animasi()  {
         $animasi = Animasi::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.jurusan.animasi",compact("animasi","articleTerbarus","galeris"));
+        return view("frontend.jurusan.animasi",compact("animasi"));
     }
     public function tkr()  {
         $tkr = Tkr::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.jurusan.tkr",compact("tkr","articleTerbarus","galeris"));
+        return view("frontend.jurusan.tkr",compact("tkr"));
     }
     public function busana()  {
         $busana = Busana::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.jurusan.busana",compact("busana","articleTerbarus","galeris"));
+        return view("frontend.jurusan.busana",compact("busana"));
     }
     public function boga()  {
         $boga = Boga::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.jurusan.boga",compact("boga","articleTerbarus","galeris"));
+        return view("frontend.jurusan.boga",compact("boga"));
     }
     public function akuntansi()  {
         $akuntansi = Akuntansi::first();
-        $galeris = Galeri::latest()->take(2)->get();
-        $articleTerbarus = Article::take(5)->latest()->get();
-        return view("frontend.jurusan.akuntansi",compact("akuntansi","articleTerbarus","galeris"));
+        return view("frontend.jurusan.akuntansi",compact("akuntansi"));
+    }
+    public function prestasi()  {
+        
+        return view("frontend.kesiswaan.prestasi");
+    }
+    public function ekstrakulikuler()  {
+        
+        return view("frontend.kesiswaan.ekstrakulikuler");
+    }
+    public function osis()  {
+        
+        return view("frontend.kesiswaan.osis");
+    }
+    public function beasiswa()  {
+        
+        return view("frontend.kesiswaan.beasiswa");
+    }
+    public function pemetaan()  {
+        
+        return view("frontend.kesiswaan.pemetaan");
     }
    public function readArticle($slug)  {
         $kategoris = Kategori::get();

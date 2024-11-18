@@ -36,10 +36,15 @@
           ['route'=>'boga','name'=>'TATA BOGA'],
           ['route'=>'akuntansi','name'=>'AKUNTANSI'],
           ['route'=>'busana','name'=>'TATA BUSANA'],
-          ['route'=>'tkr','name'=>'TERKNIK KENDARAAN RINGAN']
-          ]">
+          ['route'=>'tkr','name'=>'TERKNIK KENDARAAN RINGAN']]">
           JURUSAN</x-dropdown>
-          <x-dropdown data="data-kesiswaan" :dataLinks="[['route'=>'','name'=>'PRESTASI SISWA'],['route'=>'','name'=>'INFORMASI PESERTA DIDIK'],['route'=>'','name'=>'EKSTRAKULIKULER'],['route'=>'','name'=>'OSIS'],['route'=>'','name'=>'BEASISWA'],['route'=>'','name'=>'INFORMASI PEMETAAN KELULUSAN']]">KESISWAAN</x-dropdown>
+          <x-dropdown data="data-kesiswaan" :dataLinks="[
+          ['route'=>'prestasi','name'=>'PRESTASI SISWA'],
+          ['route'=>'ekstrakulikuler','name'=>'EKSTRAKULIKULER'],
+          ['route'=>'osis','name'=>'OSIS'],
+          ['route'=>'beasiswa','name'=>'BEASISWA'],
+          ['route'=>'pemetaan','name'=>'INFORMASI PEMETAAN KELULUSAN']]">
+          KESISWAAN</x-dropdown>
           <x-dropdown data="data-sarana" :dataLinks="[['route'=>'','name'=>'PETA SEKOLAH'],['route'=>'','name'=>'SARANA INFRASTRUKTUR'],['route'=>'','name'=>'SARANA PEMEBELAJARAN']]">SARANA PRASARANA</x-dropdown>
           <x-dropdown dataurl="informasi" data="data-informasi" :dataLinks="[
           ['route'=>'','name'=>'GURU'],

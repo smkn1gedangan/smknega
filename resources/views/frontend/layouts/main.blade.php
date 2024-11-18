@@ -32,6 +32,7 @@
 </div>
 
 @include("frontend.layouts.contact")
+@include("frontend.layouts.maps")
 @include("frontend.layouts.footer")
 
 </body>

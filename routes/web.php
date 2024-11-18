@@ -59,6 +59,13 @@ Route::controller(FrontendController::class)->group(function(){
         route::get("busana","busana")->name("busana");
         route::get("akuntansi","akuntansi")->name("akuntansi");
     });
+    Route::prefix("kesiswaan")->group(function(){
+        route::get("prestasi","prestasi")->name("prestasi");
+        route::get("ekstrakulikuler","ekstrakulikuler")->name("ekstrakulikuler");
+        route::get("osis","osis")->name("osis");
+        route::get("beasiswa","beasiswa")->name("beasiswa");
+        route::get("pemetaan","pemetaan")->name("pemetaan");
+    });
     Route::get("/informasi/article/{slug}","readArticle")->name("readArticle");
 
 });
