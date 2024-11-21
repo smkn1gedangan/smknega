@@ -13,6 +13,6 @@ class PrestasiSeeder extends Seeder
      */
     public function run(): void
     {
-        Prestasi::factory(5)->create();
+        Prestasi::factory(15)->create();
     }
 }

@@ -14,6 +14,11 @@ use App\Models\Jurusan\Sija;
 use App\Models\Jurusan\Tkr;
 use App\Models\Kategori;
 use App\Models\Kepsek;
+use App\Models\Kesiswaan\Beasiswa;
+use App\Models\Kesiswaan\Ekstrakulikuler;
+use App\Models\Kesiswaan\Osis;
+use App\Models\Kesiswaan\Pemetaan;
+use App\Models\Kesiswaan\Prestasi;
 use App\Models\Profil;
 use App\Models\Profil\DeskripsiKomite;
 use App\Models\Profil\KetuaKomite;
@@ -131,25 +136,51 @@ class FrontendController extends Controller
         return view("frontend.jurusan.akuntansi",compact("akuntansi"));
     }
     public function prestasi()  {
-        
-        return view("frontend.kesiswaan.prestasi");
+        $prestasis = Prestasi::latest()->paginate(10);
+        return view("frontend.kesiswaan.prestasi",compact("prestasis"));
     }
     public function ekstrakulikuler()  {
-        
-        return view("frontend.kesiswaan.ekstrakulikuler");
+        $ekstrakulikuler = Ekstrakulikuler::first();
+        return view("frontend.kesiswaan.ekstrakulikuler",compact("ekstrakulikuler"));
     }
     public function osis()  {
-        
-        return view("frontend.kesiswaan.osis");
+        $osis = Osis::first();
+        return view("frontend.kesiswaan.osis",compact("osis"));
     }
     public function beasiswa()  {
-        
-        return view("frontend.kesiswaan.beasiswa");
+        $beasiswa = Beasiswa::first();
+        return view("frontend.kesiswaan.beasiswa",compact("beasiswa"));
     }
     public function pemetaan()  {
-        
-        return view("frontend.kesiswaan.pemetaan");
+        $pemetaan = Pemetaan::first();
+        return view("frontend.kesiswaan.pemetaan",compact("pemetaan"));
     }
+    public function guru()  {
+        $gurus = Guru::latest()->paginate(10);
+        $kepsek = Kepsek::latest()->first();
+        return view("frontend.informasi.guru",compact("gurus","kepsek"));
+    }
+    public function artikel()  {
+        $artikels = Article::latest()->paginate(5);
+        $kategoris = Kategori::get();
+        return view("frontend.informasi.artikel",compact("artikels","kategoris"));
+    }
+    public function sarana()  {
+        $gurus = Guru::latest()->paginate(20);
+        $kepsek = Kepsek::latest()->first();
+        return view("frontend.informasi.guru",compact("gurus","kepsek"));
+    }
+    public function galeri()  {
+        $gurus = Guru::latest()->paginate(20);
+        $kepsek = Kepsek::latest()->first();
+        return view("frontend.informasi.guru",compact("gurus","kepsek"));
+    }
+    public function kurikulum()  {
+        $gurus = Guru::latest()->paginate(20);
+        $kepsek = Kepsek::latest()->first();
+        return view("frontend.informasi.guru",compact("gurus","kepsek"));
+    }
+    
    public function readArticle($slug)  {
         $kategoris = Kategori::get();
         $articleTerbarus = Article::take(5)->latest()->get();

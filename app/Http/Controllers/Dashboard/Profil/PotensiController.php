@@ -16,7 +16,7 @@ class PotensiController extends Controller
     public function index()
     {
         $potensi = Potensi::first();
-        return view("backend.potensi.index",compact("potensi"));
+        return view("backend.profils.potensi.index",compact("potensi"));
     }
 
     /**
@@ -49,7 +49,7 @@ class PotensiController extends Controller
     public function edit(string $id)
     {
         $potensi = Potensi::findOrFail(Crypt::decrypt($id));
-        return view("backend.potensi.edit",compact("potensi"));
+        return view("backend.profils.potensi.edit",compact("potensi"));
     }
 
     /**

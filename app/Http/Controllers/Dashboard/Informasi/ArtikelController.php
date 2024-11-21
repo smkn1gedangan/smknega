@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Informasi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
@@ -33,7 +33,7 @@ class ArtikelController extends Controller
             ->paginate(10);
 
         $kategoris = Kategori::get();
-        return view("backend.artikel.index",compact("articles","kategoris"));
+        return view("backend.informasis.artikel.index",compact("articles","kategoris"));
     }
     /**
      * Show the form for creating a new resource.
@@ -41,7 +41,7 @@ class ArtikelController extends Controller
     public function create()
     {
         $kategoris = Kategori::get();
-        return view("backend.artikel.create",compact("kategoris"));
+        return view("backend.informasis.artikel.create",compact("kategoris"));
     }
 
     /**
@@ -85,7 +85,7 @@ class ArtikelController extends Controller
     public function show(string $id)
     {
         $article = Article::findOrFail(Crypt::decrypt($id));
-        return view("backend.artikel.show",compact("article"));
+        return view("backend.informasis.artikel.show",compact("article"));
     }
 
     /**
@@ -95,7 +95,7 @@ class ArtikelController extends Controller
     {
         $kategoris = Kategori::get();
         $article = Article::findOrFail(Crypt::decrypt($id));
-        return view("backend.artikel.edit",compact("article","kategoris"));
+        return view("backend.informasis.artikel.edit",compact("article","kategoris"));
     }
 
     /**

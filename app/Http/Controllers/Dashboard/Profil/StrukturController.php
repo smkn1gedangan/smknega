@@ -17,7 +17,7 @@ class StrukturController extends Controller
     public function index()
     {
         $struktur = StrukturOrganisasi::first();
-        return view("backend.struktur.index",compact("struktur"));
+        return view("backend.profils.struktur.index",compact("struktur"));
     }
 
     /**
@@ -50,7 +50,7 @@ class StrukturController extends Controller
     public function edit(string $id)
     {
         $struktur = StrukturOrganisasi::findOrFail(Crypt::decrypt($id));
-        return view("backend.struktur.edit",compact("struktur"));
+        return view("backend.profils.struktur.edit",compact("struktur"));
     }
 
     /**

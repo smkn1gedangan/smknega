@@ -16,7 +16,7 @@ class IndustriController extends Controller
     public function index()
     {
         $industri = Industri::first();
-        return view("backend.industri.index",compact("industri"));
+        return view("backend.programs.industri.index",compact("industri"));
     }
 
     /**
@@ -49,7 +49,7 @@ class IndustriController extends Controller
     public function edit(string $id)
     {
         $industri = Industri::findOrFail(Crypt::decrypt($id));
-        return view("backend.industri.edit",compact("industri"));
+        return view("backend.programs.industri.edit",compact("industri"));
     }
 
     /**

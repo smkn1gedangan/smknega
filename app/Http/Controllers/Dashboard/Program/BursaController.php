@@ -16,7 +16,7 @@ class BursaController extends Controller
     public function index()
     {
         $bursa = Bursa::first();
-        return view("backend.bursa.index",compact("bursa"));
+        return view("backend.programs.bursa.index",compact("bursa"));
     }
 
     /**
@@ -49,7 +49,7 @@ class BursaController extends Controller
     public function edit(string $id)
     {
         $bursa = Bursa::findOrFail(Crypt::decrypt($id));
-        return view("backend.bursa.edit",compact("bursa"));
+        return view("backend.programs.bursa.edit",compact("bursa"));
     }
 
     /**

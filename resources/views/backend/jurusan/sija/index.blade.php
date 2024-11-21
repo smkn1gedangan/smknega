@@ -18,7 +18,7 @@
         <div class="my-5 w-3/4 pl-10">
 
             @if (file_exists(public_path('img/jurusan/' . $sija->photo)) && $sija->photo)
-                           <img src="{{ asset('img/jurusan/' . $sija->photo) }}" class="object-cover w-full rounded-t-lg h-40 md:h-52 md:w-52 md:rounded-none md:rounded-s-lg" alt="{{ $sija->photo }}">
+                           <img src="{{ asset('img/jurusan/' . $sija->photo) }}" class="object-cover w-full rounded-t-lg h-40 md:h-auto md:w-auto md:rounded-none md:rounded-s-lg" alt="{{ $sija->photo }}">
            @else
                            <div class="w-full bg-gray-200 h-52 md:w-52">
                                <span>No Image</span> <!-- Pesan fallback -->

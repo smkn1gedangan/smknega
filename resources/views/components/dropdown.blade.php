@@ -11,6 +11,8 @@
      {{ request()->is('profil*') && $data === 'data-profil' ? 'text-blue-500' : '' }}
      {{ request()->is('program*') && $data === 'data-program' ? 'text-blue-500' : '' }}
      {{ request()->is('jurusan*') && $data === 'data-jurusan' ? 'text-blue-500' : '' }}
+     {{ request()->is('kesiswaan*') && $data === 'data-kesiswaan' ? 'text-blue-500' : '' }}
+     {{ request()->is('informasi*') && $data === 'data-prestasi' ? 'text-blue-500' : '' }}
      ">{{$slot}}</button>
     <!-- Dropdown menu -->
     <div id="{{$data}}" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">

@@ -16,7 +16,7 @@ class RencanaController extends Controller
     public function index()
     {
         $rencana = Rencana::first();
-        return view("backend.rencana.index",compact("rencana"));
+        return view("backend.profils.rencana.index",compact("rencana"));
     }
 
     /**
@@ -49,7 +49,7 @@ class RencanaController extends Controller
     public function edit(string $id)
     {
         $rencana = Rencana::findOrFail(Crypt::decrypt($id));
-        return view("backend.rencana.edit",compact("rencana"));
+        return view("backend.profils.rencana.edit",compact("rencana"));
     }
 
     /**

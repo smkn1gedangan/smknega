@@ -16,7 +16,7 @@ class KerjaController extends Controller
     public function index()
     {
         $kerja = Kerja::first();
-        return view("backend.kerja.index",compact("kerja"));
+        return view("backend.programs.kerja.index",compact("kerja"));
     }
 
     /**
@@ -49,7 +49,7 @@ class KerjaController extends Controller
     public function edit(string $id)
     {
         $kerja = Kerja::findOrFail(Crypt::decrypt($id));
-        return view("backend.kerja.edit",compact("kerja"));
+        return view("backend.programs.kerja.edit",compact("kerja"));
     }
 
     /**

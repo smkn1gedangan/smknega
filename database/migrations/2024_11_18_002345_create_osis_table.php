@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('oses', function (Blueprint $table) {
+        Schema::create('osis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("penulis_id")->constrained("users")->onDelete("cascade");
+            $table->text("konten");
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('oses');
+        Schema::dropIfExists('osis');
     }
 };

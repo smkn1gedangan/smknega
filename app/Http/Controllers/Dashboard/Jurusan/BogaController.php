@@ -17,7 +17,7 @@ class BogaController extends Controller
     public function index()
     {
         $boga = Boga::first();
-        return view("backend.boga.index",compact("boga"));
+        return view("backend.jurusan.boga.index",compact("boga"));
     }
 
     /**
@@ -50,7 +50,7 @@ class BogaController extends Controller
     public function edit(string $id)
     {
         $boga = Boga::findOrFail(Crypt::decrypt($id));
-        return view("backend.boga.edit",compact("boga"));
+        return view("backend.jurusan.boga.edit",compact("boga"));
     }
 
     /**

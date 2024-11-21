@@ -16,7 +16,7 @@ class PeraturanController extends Controller
     public function index()
     {
         $peraturan = Peraturan::first();
-        return view("backend.peraturan.index",compact("peraturan"));
+        return view("backend.programs.peraturan.index",compact("peraturan"));
     }
 
     /**
@@ -49,7 +49,7 @@ class PeraturanController extends Controller
     public function edit(string $id)
     {
         $peraturan = Peraturan::findOrFail(Crypt::decrypt($id));
-        return view("backend.peraturan.edit",compact("peraturan"));
+        return view("backend.programs.peraturan.edit",compact("peraturan"));
     }
 
     /**

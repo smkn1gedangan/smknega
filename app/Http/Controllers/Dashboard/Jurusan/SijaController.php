@@ -17,7 +17,7 @@ class SijaController extends Controller
     public function index()
     {
         $sija = Sija::first();
-        return view("backend.sija.index",compact("sija"));
+        return view("backend.jurusan.sija.index",compact("sija"));
     }
 
     /**
@@ -50,7 +50,7 @@ class SijaController extends Controller
     public function edit(string $id)
     {
         $sija = Sija::findOrFail(Crypt::decrypt($id));
-        return view("backend.sija.edit",compact("sija"));
+        return view("backend.jurusan.sija.edit",compact("sija"));
     }
 
     /**

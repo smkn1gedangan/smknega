@@ -17,7 +17,7 @@ class LogoController extends Controller
     public function index()
     {
         $logo = Logo::first();
-        return view("backend.logo.index",compact("logo"));
+        return view("backend.profils.logo.index",compact("logo"));
     }
 
     /**
@@ -50,7 +50,7 @@ class LogoController extends Controller
     public function edit(string $id)
     {
         $logo = Logo::findOrFail(Crypt::decrypt($id));
-        return view("backend.logo.edit",compact("logo"));
+        return view("backend.profils.logo.edit",compact("logo"));
     }
 
     /**

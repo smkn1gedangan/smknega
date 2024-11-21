@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Dashboard\ArtikelController;
-use App\Http\Controllers\Dashboard\GaleriController;
-use App\Http\Controllers\Dashboard\GuruController;
+use App\Http\Controllers\Dashboard\Informasi\ArtikelController;
+use App\Http\Controllers\Dashboard\Informasi\GaleriController;
+use App\Http\Controllers\Dashboard\Informasi\GuruController;
 use App\Http\Controllers\Dashboard\Jurusan\AkuntansiController;
 use App\Http\Controllers\Dashboard\Jurusan\AnimasiController;
 use App\Http\Controllers\Dashboard\Jurusan\BogaController;
@@ -11,6 +11,11 @@ use App\Http\Controllers\Dashboard\Jurusan\DkvController;
 use App\Http\Controllers\Dashboard\Jurusan\SijaController;
 use App\Http\Controllers\Dashboard\Jurusan\TkrController;
 use App\Http\Controllers\Dashboard\KepsekController;
+use App\Http\Controllers\Dashboard\Kesiswaan\BeasiswaController;
+use App\Http\Controllers\Dashboard\Kesiswaan\EkstrakulikulerController;
+use App\Http\Controllers\Dashboard\Kesiswaan\OsisController;
+use App\Http\Controllers\Dashboard\Kesiswaan\PemetaanController;
+use App\Http\Controllers\Dashboard\Kesiswaan\PrestasiController;
 use App\Http\Controllers\Dashboard\Profil\DeskripsiKomiteController;
 use App\Http\Controllers\Dashboard\Profil\KetuaKomiteController;
 use App\Http\Controllers\Dashboard\Profil\KomiteController;
@@ -66,6 +71,13 @@ Route::controller(FrontendController::class)->group(function(){
         route::get("beasiswa","beasiswa")->name("beasiswa");
         route::get("pemetaan","pemetaan")->name("pemetaan");
     });
+    Route::prefix("informasi")->group(function(){
+        route::get("guru","guru")->name("guru");
+        route::get("artikel","artikel")->name("artikel");
+        route::get("kurikulum","kurikulum")->name("kurikulum");
+        route::get("sarana","sarana")->name("sarana");
+        route::get("galeri","galeri")->name("galeri");
+    });
     Route::get("/informasi/article/{slug}","readArticle")->name("readArticle");
 
 });
@@ -76,12 +88,11 @@ Route::middleware(['auth', 'verified',"checkRole"])->prefix("be")->group(functio
     Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
     Route::prefix("welcome")->group(function(){
         Route::resource("profil",ProfilController::class);
-        Route::resource("artikel",ArtikelController::class);
         Route::resource("kepsek",KepsekController::class);
-        Route::resource("guru",GuruController::class);
     });
+
     Route::prefix("profil")->group(function(){
-        Route::resource("galeri",GaleriController::class);
+        
         Route::resource("sejarah",  SejarahController::class);
         Route::resource("potensi",  PotensiController::class);
         Route::resource("rencana",  RencanaController::class);
@@ -108,6 +119,19 @@ Route::middleware(['auth', 'verified',"checkRole"])->prefix("be")->group(functio
         Route::resource("busana",BusanaController::class);
         Route::resource("boga",BogaController::class);
         Route::resource("akuntansi",AkuntansiController::class);
+    });
+    Route::prefix("kesiswaan")->group(function(){
+        Route::resource("prestasi",PrestasiController::class);
+        Route::resource("ekstrakulikuler",EkstrakulikulerController::class);
+        Route::resource("osis",OsisController::class);
+        Route::resource("beasiswa",BeasiswaController::class);
+        Route::resource("pemetaan",PemetaanController::class);
+    });
+    Route::prefix("informasi")->group(function(){
+        Route::resource("artikel",ArtikelController::class);
+        Route::resource("guru",GuruController::class);
+        Route::resource("galeri",GaleriController::class);
+
     });
 });
 

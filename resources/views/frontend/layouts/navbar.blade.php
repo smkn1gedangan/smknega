@@ -45,12 +45,12 @@
           ['route'=>'beasiswa','name'=>'BEASISWA'],
           ['route'=>'pemetaan','name'=>'INFORMASI PEMETAAN KELULUSAN']]">
           KESISWAAN</x-dropdown>
-          <x-dropdown data="data-sarana" :dataLinks="[['route'=>'','name'=>'PETA SEKOLAH'],['route'=>'','name'=>'SARANA INFRASTRUKTUR'],['route'=>'','name'=>'SARANA PEMEBELAJARAN']]">SARANA PRASARANA</x-dropdown>
           <x-dropdown dataurl="informasi" data="data-informasi" :dataLinks="[
-          ['route'=>'','name'=>'GURU'],
-          ['route'=>'','name'=>'ARTIKEL'],
-          ['route'=>'','name'=>'KURIKULUM'],
-          ['route'=>'','name'=>'GALERI']
+          ['route'=>'guru','name'=>'GURU'],
+          ['route'=>'artikel','name'=>'ARTIKEL'],
+          ['route'=>'kurikulum','name'=>'KURIKULUM'],
+          ['route'=>'galeri','name'=>'GALERI'],
+          ['route'=>'sarana','name'=>'SARANA PRASARANA']
           ]">INFORMASI</x-dropdown>
           <x-dropdown data="data-ppdb" :dataLinks="[['route'=>'','name'=>'JADWAL PPDB'],['route'=>'','name'=>'INFORMASI PPDB']]">PPDB</x-dropdown>
 

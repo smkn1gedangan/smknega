@@ -49,7 +49,7 @@ class BisnisPhotoController extends Controller
     {
         $bisnis = BisnisPhoto::findOrFail(Crypt::decrypt($id));
         if($bisnis){
-            return view("backend.bisnis.editPhoto",compact("bisnis"));
+            return view("backend.programs.bisnis.editPhoto",compact("bisnis"));
         }
     }
 

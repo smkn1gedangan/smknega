@@ -17,7 +17,7 @@ class TkrController extends Controller
     public function index()
     {
         $tkr = Tkr::first();
-        return view("backend.tkr.index",compact("tkr"));
+        return view("backend.jurusan.tkr.index",compact("tkr"));
     }
 
     /**
@@ -50,7 +50,7 @@ class TkrController extends Controller
     public function edit(string $id)
     {
         $tkr = Tkr::findOrFail(Crypt::decrypt($id));
-        return view("backend.tkr.edit",compact("tkr"));
+        return view("backend.jurusan.tkr.edit",compact("tkr"));
     }
 
     /**

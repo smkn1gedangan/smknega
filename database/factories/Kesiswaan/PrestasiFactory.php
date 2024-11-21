@@ -21,7 +21,6 @@ class PrestasiFactory extends Factory
             'tingkat' => $this->faker->word, // Menghasilkan kata acak untuk tingkat (misalnya: Nasional, Provinsi)
             'juara' => $this->faker->randomElement(['1', '2', '3']), // Menghasilkan angka acak 1, 2, atau 3
             'penyelenggara' => $this->faker->company, // Menghasilkan nama perusahaan atau penyelenggara
-            'prestasi' => $this->faker->sentence, // Menghasilkan kalimat acak yang menggambarkan prestasi
         ];
     }
 }

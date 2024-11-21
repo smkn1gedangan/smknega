@@ -17,7 +17,7 @@ class SejarahController extends Controller
     public function index()
     {
         $sejarah = Sejarah::first();
-        return view("backend.sejarah.index",compact("sejarah"));
+        return view("backend.profils.sejarah.index",compact("sejarah"));
     }
 
     /**
@@ -50,7 +50,7 @@ class SejarahController extends Controller
     public function edit(string $id)
     {
         $sejarah = Sejarah::findOrFail(Crypt::decrypt($id));
-        return view("backend.sejarah.edit",compact("sejarah"));
+        return view("backend.profils.sejarah.edit",compact("sejarah"));
     }
 
     /**

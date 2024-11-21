@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('ekstrakulikulers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("penulis_id")->constrained("users")->onDelete("cascade");
+            $table->text("konten");
             $table->timestamps();
         });
     }

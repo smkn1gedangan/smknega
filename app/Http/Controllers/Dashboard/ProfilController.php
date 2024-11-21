@@ -13,13 +13,13 @@ class ProfilController extends Controller
 {
     public function index()  {
         $profil = Profil::first();
-        return view("backend.profil.index",compact("profil"));
+        return view("backend.welcomes.profil.index",compact("profil"));
     }
     public function edit(string $id)
     {
         $profil = Profil::findOrFail(Crypt::decrypt($id));
         if($profil){
-            return view("backend.profil.edit",compact("profil"));
+            return view("backend.welcomes.profil.edit",compact("profil"));
         }
     }
 

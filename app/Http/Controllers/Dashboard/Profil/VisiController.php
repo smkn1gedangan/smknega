@@ -16,7 +16,7 @@ class VisiController extends Controller
     public function index()
     {
         $visi = VisiMisi::first();
-        return view("backend.visi.index",compact("visi"));
+        return view("backend.profils.visi.index",compact("visi"));
     }
 
     /**
@@ -49,7 +49,7 @@ class VisiController extends Controller
     public function edit(string $id)
     {
         $visi = VisiMisi::findOrFail(Crypt::decrypt($id));
-        return view("backend.visi.edit",compact("visi"));
+        return view("backend.profils.visi.edit",compact("visi"));
     }
 
     /**

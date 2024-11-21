@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string("tingkat");
             $table->string("juara");
             $table->string("penyelenggara");
-            $table->string("prestasi");
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ class AkuntansiController extends Controller
     public function index()
     {
         $akuntansi = Akuntansi::first();
-        return view("backend.akuntansi.index",compact("akuntansi"));
+        return view("backend.jurusan.akuntansi.index",compact("akuntansi"));
     }
 
     /**
@@ -50,7 +50,7 @@ class AkuntansiController extends Controller
     public function edit(string $id)
     {
         $akuntansi = Akuntansi::findOrFail(Crypt::decrypt($id));
-        return view("backend.akuntansi.edit",compact("akuntansi"));
+        return view("backend.jurusan.akuntansi.edit",compact("akuntansi"));
     }
 
     /**

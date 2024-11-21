@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('pemetaans', function (Blueprint $table) {
             $table->id();
+            $table->string("photo");
+            $table->string("judul");
+            $table->text("konten");
+            $table->foreignId("penulis_id")->constrained("users")->onDelete("cascade");
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Informasi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Guru;
@@ -17,7 +17,7 @@ class GuruController extends Controller
     public function index()
     {
         $gurus = Guru::latest()->paginate(10);
-        return view("backend.guru.index",compact("gurus"));
+        return view("backend.informasis.guru.index",compact("gurus"));
     }
 
     /**
@@ -25,7 +25,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        return view("backend.guru.create");
+        return view("backend.informasis.guru.create");
     }
 
     /**
@@ -72,7 +72,7 @@ class GuruController extends Controller
     {
         $guru = Guru::findOrFail(Crypt::decrypt($id));
         if($guru){
-            return view("backend.guru.edit",compact("guru"));
+            return view("backend.informasis.guru.edit",compact("guru"));
         }
     }
 

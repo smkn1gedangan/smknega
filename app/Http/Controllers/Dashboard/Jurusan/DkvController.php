@@ -17,7 +17,7 @@ class DkvController extends Controller
     public function index()
     {
         $dkv = Dkv::first();
-        return view("backend.dkv.index",compact("dkv"));
+        return view("backend.jurusan.dkv.index",compact("dkv"));
     }
 
     /**
@@ -50,7 +50,7 @@ class DkvController extends Controller
     public function edit(string $id)
     {
         $dkv = Dkv::findOrFail(Crypt::decrypt($id));
-        return view("backend.dkv.edit",compact("dkv"));
+        return view("backend.jurusan.dkv.edit",compact("dkv"));
     }
 
     /**

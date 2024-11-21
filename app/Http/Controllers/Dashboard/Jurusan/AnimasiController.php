@@ -17,7 +17,7 @@ class AnimasiController extends Controller
     public function index()
     {
         $animasi = Animasi::first();
-        return view("backend.animasi.index",compact("animasi"));
+        return view("backend.jurusan.animasi.index",compact("animasi"));
     }
 
     /**
@@ -50,7 +50,7 @@ class AnimasiController extends Controller
     public function edit(string $id)
     {
         $animasi = Animasi::findOrFail(Crypt::decrypt($id));
-        return view("backend.animasi.edit",compact("animasi"));
+        return view("backend.jurusan.animasi.edit",compact("animasi"));
     }
 
     /**

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('beasiswas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("penulis_id")->constrained("users")->onDelete("cascade");
+            $table->text("konten");
             $table->timestamps();
         });
     }

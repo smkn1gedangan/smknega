@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Informasi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Galeri;
@@ -16,7 +16,7 @@ class GaleriController extends Controller
     public function index()
     {
         $galeris = Galeri::latest()->paginate(10);
-        return view("backend.galeri.index",compact("galeris"));
+        return view("backend.informasis.galeri.index",compact("galeris"));
     }
 
     /**
@@ -24,7 +24,7 @@ class GaleriController extends Controller
      */
     public function create()
     {
-        return view("backend.galeri.create");
+        return view("backend.informasis.galeri.create");
     }
 
     /**
@@ -70,7 +70,7 @@ class GaleriController extends Controller
     {
         $galeri = Galeri::findOrFail(Crypt::decrypt($id));
         if($galeri){
-            return view("backend.galeri.edit",compact("galeri"));
+            return view("backend.informasis.galeri.edit",compact("galeri"));
         }
     }
 

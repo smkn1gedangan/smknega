@@ -9,9 +9,9 @@
     <div class="md:w-full p-2 flex flex-col items-center">
         
         @if (file_exists(public_path('img/profil/' . $struktur->photo)) && $struktur->photo)
-                <img class="w-11/12 sm:w-5/6 md:w-3/4 lg:w-4/5 h-52 sm:h-64 md:h-auto rounded-md object-cover my-5" src="{{ asset("img/profil/" . $struktur->photo) }}" alt="">
+                <img class="w-11/12 sm:w-5/6 md:w-3/4 lg:w-4/5 h-52 sm:h-64 md:h-auto rounded-md object-cover my-5 md:min-h-96" src="{{ asset("img/profil/" . $struktur->photo) }}" alt="">
                     @else
-                        <div class="bg-gray-200 w-11/12 sm:w-5/6 h-52 sm:h-64 my-5">
+                        <div class="bg-gray-200 w-11/12 sm:w-5/6 sm:h-64 my-5 h-96">
                             <span>No Image</span> <!-- Pesan fallback -->
                         </div>
         @endif

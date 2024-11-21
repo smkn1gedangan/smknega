@@ -16,7 +16,7 @@ class DeskripsiKomiteController extends Controller
     public function index()
     {
         $deskripsiKomite = DeskripsiKomite::first();
-        return view("backend.deskripsiKomite.index",compact("deskripsiKomite"));
+        return view("backend.profils.deskripsiKomite.index",compact("deskripsiKomite"));
     }
 
     /**
@@ -49,7 +49,7 @@ class DeskripsiKomiteController extends Controller
     public function edit(string $id)
     {
         $deskripsiKomite = DeskripsiKomite::findOrFail(Crypt::decrypt($id));
-        return view("backend.deskripsiKomite.edit",compact("deskripsiKomite"));
+        return view("backend.profils.deskripsiKomite.edit",compact("deskripsiKomite"));
     }
 
     /**

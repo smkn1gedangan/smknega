@@ -49,7 +49,7 @@ class KetuaKomiteController extends Controller
     {
         $ketuaKomite = KetuaKomite::findOrFail(Crypt::decrypt($id));
         if($ketuaKomite){
-            return view("backend.komite.editKomite",compact("ketuaKomite"));
+            return view("backend.profils.komite.editKomite",compact("ketuaKomite"));
         }
     }
 

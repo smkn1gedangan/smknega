@@ -17,7 +17,7 @@ class BusanaController extends Controller
     public function index()
     {
         $busana = Busana::first();
-        return view("backend.busana.index",compact("busana"));
+        return view("backend.jurusan.busana.index",compact("busana"));
     }
 
     /**
@@ -50,7 +50,7 @@ class BusanaController extends Controller
     public function edit(string $id)
     {
         $busana = busana::findOrFail(Crypt::decrypt($id));
-        return view("backend.busana.edit",compact("busana"));
+        return view("backend.jurusan.busana.edit",compact("busana"));
     }
 
     /**

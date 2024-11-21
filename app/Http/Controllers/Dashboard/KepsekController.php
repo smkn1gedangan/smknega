@@ -12,12 +12,12 @@ class KepsekController extends Controller
 {
     public function index()  {
         $kepsek = Kepsek::latest()->first();
-        return view("backend.kepsek.index",compact("kepsek"));
+        return view("backend.welcomes.kepsek.index",compact("kepsek"));
     }
     public function edit(string $id)
     {
         $kepsek = Kepsek::findOrFail(Crypt::decrypt($id));
-        return view("backend.kepsek.edit",compact("kepsek"));
+        return view("backend.welcomes.kepsek.edit",compact("kepsek"));
     }
 
     /**

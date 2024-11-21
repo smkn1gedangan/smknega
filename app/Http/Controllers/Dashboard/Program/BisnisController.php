@@ -18,7 +18,7 @@ class BisnisController extends Controller
     {
         $bisnisPhotos= BisnisPhoto::paginate(10);
         $bisnis = Bisnis::first();
-        return view("backend.bisnis.index",compact("bisnis","bisnisPhotos"));
+        return view("backend.programs.bisnis.index",compact("bisnis","bisnisPhotos"));
     }
 
     /**
@@ -51,7 +51,7 @@ class BisnisController extends Controller
     public function edit(string $id)
     {
         $bisnis = Bisnis::findOrFail(Crypt::decrypt($id));
-        return view("backend.bisnis.edit",compact("bisnis"));
+        return view("backend.programs.bisnis.edit",compact("bisnis"));
     }
 
     /**
