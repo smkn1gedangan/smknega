@@ -33,7 +33,7 @@
                 </div>
             </form>
 
-            <h2 class="mb-2 bg-red-400 text-2xl uppercase font-semibold text-gray-900 dark:text-white">Ketegori Artikel</h2>
+            <h2 class="w-full my-5 text-center text-2xl uppercase font-semibold text-gray-900 dark:text-white">Ketegori Artikel</h2>
             <ul class="w-full flex flex-col gap-6 max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400 pl-3">
 
               @foreach ($kategoris as $kategori)
@@ -45,9 +45,9 @@
                 </li>
               @endforeach
             </ul>
-            <h2 class="mb-2 md:my-8 text-xl uppercase font-semibold text-gray-900 dark:text-white">Artikel Terbaru </h2>
+            <h2 class="w-full text-center my-5 md:my-0  text-xl uppercase font-semibold text-gray-900 dark:text-white">Artikel Terbaru </h2>
             @foreach ($articleTerbarus as $articleTerbaru)
-                        <a href="{{route("readArticle",$articleTerbaru->slug)}}" class="flex items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-full  lg:w-full">
+                        <a href="{{route("readArticle",$articleTerbaru->slug)}}" class="flex items-center bg-white border border-gray-200 mt-3 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-full  lg:w-full">
                             @if (file_exists(public_path('img/articles_images/' . $articleTerbaru->image)) && $articleTerbaru->image)
                             <img class="object-cover w-20 h-20 rounded-t-lg md rounded-md" src="{{ asset('img/articles_images/' . $articleTerbaru->image) }}">
                         @else

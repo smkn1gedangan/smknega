@@ -18,11 +18,10 @@
 <section  class="relative ">
     <div class="swiper mySwiper w-full">
         <div class="swiper-wrapper">
-            <!-- Slide 1 -->
             <div class="swiper-slide object-cover  " style="background: url({{asset("img/welcome/static_baner3.jpg")}})">
                 <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
-                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white mt-20 md:mt-0">Selamat datang di Smkn 1 Gedangan</h1>
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">Selamat datang di Smkn 1 Gedangan</h1>
                 <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
 
                 </div>
@@ -113,7 +112,7 @@
 
                             <div class="flex flex-col justify-between p-4 leading-normal">
                                 <h5 class="mb-2 text-base font-semibold tracking-tight text-gray-800 dark:text-white">{{$prestasi->title}}</h5>
-                                <p class="mb-3 font-normal text-xs text-gray-700 dark:text-gray-400">{{ \Carbon\Carbon::parse($prestasi->created_at)->translatedFormat('l, d F Y') }}</p>
+                                <p class="mb-3 font-normal text-sm text-gray-700 dark:text-gray-400">{{ \Carbon\Carbon::parse($prestasi->created_at)->translatedFormat('l, d F Y') }}</p>
                             </div>
                         </a>
                         @endforeach
@@ -189,10 +188,10 @@
 
 
                         <div class="min-w-full flex justify-between mt-4">
-                            <p class="font-normal text-gray-700 dark:text-gray-400 text-xs">ditulis oleh {{ $article->writer->name}}</p>
-                            <p class="font-normal text-xs relative text-gray-700 dark:text-gray-400"> {{ $article->created_at->diffForHumans()}}</p>
+                            <p class="font-normal text-gray-700 dark:text-gray-400 text-xs md:text-sm">ditulis oleh {{ $article->writer->name}}</p>
+                            <p class="font-normal text-xs md:text-sm relative text-gray-700 dark:text-gray-400"> {{ $article->created_at->diffForHumans()}}</p>
                         </div>
-                        <p class="mt-1 text-right font-normal relative text-gray-700 dark:text-gray-400 text-xs">dilihat {{ $article->view}} kali</p>
+                        <p class="mt-1 text-right font-normal relative text-gray-700 dark:text-gray-400 text-xs md:text-sm">dilihat {{ $article->view}} kali</p>
 
                     </div>
                 </div>
@@ -223,7 +222,7 @@
 
                         <div class="p-2">
                             <h5 class="text-md md:text-xl font-normal tracking-tight text-gray-900 dark:text-white">{{ $galeri->judul }}</h5>
-                            <p class="mb-2 text-xs md:text-base font-normal text-gray-700 dark:text-gray-400">dibuat pada {{ \Carbon\Carbon::parse($galeri->created_at)->translatedFormat('l, d F Y') }}
+                            <p class="mb-2 text-xs md:text-sm font-normal text-gray-700 dark:text-gray-400">dibuat pada {{ \Carbon\Carbon::parse($galeri->created_at)->translatedFormat('l, d F Y') }}
                             </p>
                         </div>
                     </div>
