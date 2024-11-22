@@ -24,19 +24,19 @@
                         style="background-image: url('{{ asset("img/jurusan/" . $tkr->photo) }}');">
                     </div>
                     @else
-                        <div class="bg-gray-200 w-11/12 sm:w-5/6 h-96 my-5">
+                        <div class="bg-gray-200 w-11/12 sm:w-5/6 h-96 my-5 grid place-content-center text-xs">
                             <span>No Image</span> <!-- Pesan fallback -->
                         </div>
         @endif
         <x-heading-profil class="w-full md:w-4/5">{{ $tkr->judul }}</x-heading-profil>
     </div>
 
-    <div class="flex flex-col w-full p-4 sm:w-5/6 md:items-center md:p-8  lg:w-3/5">
+    <div class="flex flex-col w-full p-2 sm:w-5/6 md:items-center md:p-8  lg:w-3/5">
 
-            <p class="lg:first-letter:pl-16 mb-3 font-normal text-gray-800 dark:text-gray-400 mt-6">
+            <p class="lg:first-letter:pl-16 mb-3 text-sm md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">
                 {!! $tkr->konten !!}
             </p>
-            <p class="mb-3 w-full text-left font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$tkr->penulis->name}}  {{$tkr->created_at->diffForHumans()}}</p>
+            <p class="mb-3 w-full text-xs md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-2">ditulis oleh {{$tkr->penulis->name}}  {{$tkr->created_at->diffForHumans()}}</p>
     </div>
     <div class="w-full lg:w-[37%] p-4 gap-4 flex flex-wrap lg:flex-col">
 

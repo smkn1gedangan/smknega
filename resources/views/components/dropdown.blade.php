@@ -12,10 +12,10 @@
      {{ request()->is('program*') && $data === 'data-program' ? 'text-blue-500' : '' }}
      {{ request()->is('jurusan*') && $data === 'data-jurusan' ? 'text-blue-500' : '' }}
      {{ request()->is('kesiswaan*') && $data === 'data-kesiswaan' ? 'text-blue-500' : '' }}
-     {{ request()->is('informasi*') && $data === 'data-prestasi' ? 'text-blue-500' : '' }}
+     {{ request()->is('informasi*') && $data === 'data-informasi' ? 'text-blue-500' : '' }}
      ">{{$slot}}</button>
     <!-- Dropdown menu -->
-    <div id="{{$data}}" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+    <div id="{{$data}}" class="z-10 hidden font-normal bg-white md:bg-gray-200 md:shadow-xl divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLargeButton">
           @if (count($dataLinks) > 0)
           @foreach ($dataLinks as $dataLink )

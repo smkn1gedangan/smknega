@@ -1,4 +1,4 @@
-<nav id="navbar" class="{{Request::is("/") ?"text-white" :"text-slate-900 border "}}  z-50 w-full  fixed border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+<nav id="navbar" class="{{Request::is("/") ?"text-slate-900 md:text-white" :"text-slate-900 border "}}  z-50 w-full  fixed border-gray-200 dark:bg-gray-900 dark:border-gray-700">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-end mx-auto p-4">
 
       <button data-collapse-toggle="navbar-multi-level" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-multi-level" aria-expanded="false">
@@ -48,11 +48,14 @@
           <x-dropdown dataurl="informasi" data="data-informasi" :dataLinks="[
           ['route'=>'guru','name'=>'GURU'],
           ['route'=>'artikel','name'=>'ARTIKEL'],
-          ['route'=>'kurikulum','name'=>'KURIKULUM'],
           ['route'=>'galeri','name'=>'GALERI'],
-          ['route'=>'sarana','name'=>'SARANA PRASARANA']
+          ['route'=>'sarana','name'=>'SARANA PRASARANA'],
+          ['route'=>'','name'=>'E-LEARNING']
           ]">INFORMASI</x-dropdown>
-          <x-dropdown data="data-ppdb" :dataLinks="[['route'=>'','name'=>'JADWAL PPDB'],['route'=>'','name'=>'INFORMASI PPDB']]">PPDB</x-dropdown>
+          <x-dropdown data="data-ppdb" :dataLinks="[
+          ['route'=>'jadwal','name'=>'JADWAL PPDB'],
+          ['route'=>'info_ppdb','name'=>'INFORMASI PPDB']
+          ]">PPDB</x-dropdown>
 
         </ul>
       </div>

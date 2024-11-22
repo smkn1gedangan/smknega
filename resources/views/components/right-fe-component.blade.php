@@ -6,7 +6,7 @@
                     @if (file_exists(public_path('img/articles_images/' . $articleTerbaru->image)) && $articleTerbaru->image)
                     <img class="object-cover w-20 h-20 rounded-t-lg md rounded-md" src="{{ asset('img/articles_images/' . $articleTerbaru->image) }}">
                 @else
-                    <div class="bg-gray-200 h-20 w-20 ">
+                    <div class="bg-gray-200 h-20 w-20 text-xs grid place-content-center">
                         <span>No Image</span> <!-- Pesan fallback -->
                     </div>
                 @endif
@@ -32,7 +32,7 @@
     @endif
 
         <div class="p-2">
-            <h5 class="text-md md:text-xl font-normal tracking-tight text-gray-900 dark:text-white">{{ $galeri->judul }}</h5>
+            <a href="{{ route("galeri") }}" class="text-md md:text-xl font-normal tracking-tight text-gray-900 dark:text-white">{{ $galeri->judul }}</a>
             <p class="mb-2 text-xs md:text-base font-normal text-gray-700 dark:text-gray-400">dibuat pada {{ \Carbon\Carbon::parse($galeri->created_at)->translatedFormat('l, d F Y') }}
             </p>
         </div>

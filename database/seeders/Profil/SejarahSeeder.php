@@ -16,7 +16,7 @@ class SejarahSeeder extends Seeder
     {
         $penulis = User::first();
         $data =[
-            "photo"=>"tentang.jpg",
+            "photo"=>"static_gedung.jpg",
             "penulis_id"=>$penulis->id,
             "konten"=>"SMK Negeri 1 Gedangan Malang merupakan sekolah yang tergolong masih muda, SMK ini didirikan pada tahun 2010 dengan empat program keahlian, yaitu: Teknik Kendaraan Ringan, Multimedia, Jasa Boga, dan Busana Butik. Pada awal berdirinya, SMK Negeri 1 Gedangan sudah dilengkapi dengan berbagai fasilitas yang memadai, mulai dari ruang kelas dan bengkel praktik TKR. Seiring berjalannya waktu, SMK Negeri 1 Gedangan mulai menambah berbagai fasilitas untuk memenuhi kebutuhan pembelajaran, mulai dari Laboratorium Multimedia, Restoran Jasa Boga, dan Laboratorium Busana Butik.
 

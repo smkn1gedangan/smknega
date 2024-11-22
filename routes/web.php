@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\Informasi\ArtikelController;
 use App\Http\Controllers\Dashboard\Informasi\GaleriController;
 use App\Http\Controllers\Dashboard\Informasi\GuruController;
+use App\Http\Controllers\Dashboard\Informasi\SaranaController;
 use App\Http\Controllers\Dashboard\Jurusan\AkuntansiController;
 use App\Http\Controllers\Dashboard\Jurusan\AnimasiController;
 use App\Http\Controllers\Dashboard\Jurusan\BogaController;
@@ -39,6 +40,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(FrontendController::class)->group(function(){
     Route::get("/","welcome")->name("welcome")->middleware("pengunjung");
+    Route::get("sambutan_kepsek","sambutan_kepsek")->name("sambutan_kepsek");
+    Route::post("save_masukan","save_masukan")->name("save_masukan");
     Route::prefix("profil")->group(function(){
         route::get("sejarah","sejarah")->name("sejarah");
         route::get("potensi","potensi")->name("potensi");
@@ -74,15 +77,16 @@ Route::controller(FrontendController::class)->group(function(){
     Route::prefix("informasi")->group(function(){
         route::get("guru","guru")->name("guru");
         route::get("artikel","artikel")->name("artikel");
-        route::get("kurikulum","kurikulum")->name("kurikulum");
         route::get("sarana","sarana")->name("sarana");
         route::get("galeri","galeri")->name("galeri");
+    });
+    Route::prefix("ppdb")->group(function(){
+        route::get("jadwal","jadwal")->name("jadwal");
+        route::get("info_ppdb","info_ppdb")->name("info_ppdb");
     });
     Route::get("/informasi/article/{slug}","readArticle")->name("readArticle");
 
 });
-
-
 
 Route::middleware(['auth', 'verified',"checkRole"])->prefix("be")->group(function () {
     Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
@@ -131,6 +135,7 @@ Route::middleware(['auth', 'verified',"checkRole"])->prefix("be")->group(functio
         Route::resource("artikel",ArtikelController::class);
         Route::resource("guru",GuruController::class);
         Route::resource("galeri",GaleriController::class);
+        Route::resource("sarana",SaranaController::class);
 
     });
 });

@@ -18,7 +18,7 @@
         <div class="my-5 w-3/4 pl-10">
 
             @if (file_exists(public_path('img/kepala_sekolah/' . $kepsek->photo)) && $kepsek->photo)
-                           <img src="{{ asset('img/kepala_sekolah/' . $kepsek->photo) }}" class="object-cover w-full rounded-t-lg h-40 md:h-52 md:w-52 md:rounded-none md:rounded-s-lg" alt="{{ $kepsek->photo }}">
+                           <img src="{{ asset('img/kepala_sekolah/' . $kepsek->photo) }}" class="object-cover w-full rounded-t-lg h-auto md:w-52 md:rounded-none md:rounded-s-lg" alt="{{ $kepsek->photo }}">
            @else
                            <div class="w-full bg-gray-200 h-52 md:w-52">
                                <span>No Image</span> <!-- Pesan fallback -->

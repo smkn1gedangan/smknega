@@ -3,7 +3,11 @@
 @extends("frontend.layouts.main")
 @section("title","homepage")
 @section("css")
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <style>
+    .swal-height {
+           padding: 0.4rem;
+       }
     .bgMorpish{
         backdrop-filter: blur(9px);
     }
@@ -11,6 +15,7 @@
         text-shadow: 2px 2px 5px black;
     }
 </style>
+
 @endsection
 
 @section("content")
@@ -61,7 +66,7 @@
             <div class="flex flex-col w-full md:p-8 md:w-11/12 lg:w-3/5">
                 <x-heading-welcome classAdventage="">SMK Negeri 1 Gedangan Malang</x-heading-welcome>
                 @if (file_exists(public_path('img/welcome/' . $profil->photo)) && $profil->photo)
-                <img class="w-11/12 sm:w-4/5 h-52 sm:h-64 rounded-md object-cover my-5" src="{{ asset("img/welcome/" . $profil->photo) }}" alt="">
+                <img class="w-11/12 sm:w-4/5 h-52 sm:h-64 md:h-80 rounded-md object-cover my-5" src="{{ asset("img/welcome/" . $profil->photo) }}" alt="">
                     @else
                         <div class="bg-gray-200 w-11/12 sm:w-4/5 h-52 sm:h-64 my-5">
                             <span>No Image</span> <!-- Pesan fallback -->
@@ -71,7 +76,7 @@
                     <p class="mb-3 text-sm md:text-base font-normal text-gray-700 dark:text-gray-400 mt-6 lg:first-letter:pl-16">
                         {!!$profil->konten!!}
                     </p>
-                    <button type="button" class="w-2/5 lg:w-1/5 mt-2 mb-8 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Info ppdb</button>
+                    <button type="button" class="w-2/5 sm:w-1/5 lg:w-1/5 mt-2 mb-8 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Info ppdb</button>
             </div>
             <div class="flex flex-col md:flex-row-reverse lg:flex-col items-center w-full md:w-full  lg:w-[35%]">
                 <div class="w-full md:mt-20 md:w-[38%] lg:w-full max-w-sm bg-white min-h-[40rem] max-h-[42rem] rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-8">
@@ -89,7 +94,7 @@
                     <div class="w-4/5 md:w-full relative left-1/2 -translate-x-1/2 md:pl-1">
                         <h5 class="mb-2 pt-3 md:pt-5 text-xl font-semibold tracking-tight text-gray-900 dark:text-white text-left">{{$kepsek->nama}}</h5>
                         <p class="mb-3 text-sm md:text-base font-normal text-gray-800 dark:text-gray-400">{{ Str::words(strip_tags($kepsek->sambutan), 25, '...') }}.</p>
-                        <a href="" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-black rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <a href="{{ route("sambutan_kepsek") }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-black rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Read more
                              <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -98,10 +103,11 @@
                     </div>
                 </div>
                 <div class="w-full md:w-3/5 lg:w-full mt-8 md:mt-2 p-2">
-                    <div class="w-full flex md:pl-0 flex-col flex-wrap gap-2">
-                        <h1 class="{{ count($prestasis) < 1 ? 'visible' : '' }} text-2xl font-semibold mt-6 mb-2 text-gray-800 dark:text-gray-100">Prestasi Terbaru</div>
-                        @foreach ($prestasis as $prestasi)
-                        <a href="{{route("readArticle",$prestasi->slug)}}" class="flex items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-full  lg:w-full">
+                    <div class="w-full">
+                        <h1 class="{{ count($prestasis) < 1 ? 'visible' : '' }} text-2xl font-semibold mt-6 mb-2 text-gray-800 dark:text-gray-100">Prestasi Terbaru</h1>
+                        <div class="w-full flex md:pl-0 flex-col sm:flex-row md:flex-col flex-wrap gap-2">
+                            @foreach ($prestasis as $prestasi)
+                        <a href="{{route("readArticle",$prestasi->slug)}}" class="flex items-center  border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-full sm:w-[45%] md:w-full">
                             @if (file_exists(public_path('img/articles_images/' . $prestasi->image)) && $prestasi->image)
                             <img class="object-cover w-20 h-20 rounded-t-lg md rounded-md" src="{{ asset('img/articles_images/' . $prestasi->image) }}">
                         @else
@@ -111,11 +117,12 @@
                         @endif
 
                             <div class="flex flex-col justify-between p-4 leading-normal">
-                                <h5 class="mb-2 text-base font-semibold tracking-tight text-gray-800 dark:text-white">{{$prestasi->title}}</h5>
+                                <h5 class="mb-2 text-sm md:text-base font-semibold tracking-tight text-gray-800 dark:text-white">{{$prestasi->title}}</h5>
                                 <p class="mb-3 font-normal text-sm text-gray-700 dark:text-gray-400">{{ \Carbon\Carbon::parse($prestasi->created_at)->translatedFormat('l, d F Y') }}</p>
                             </div>
                         </a>
                         @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
@@ -221,7 +228,7 @@
                     @endif
 
                         <div class="p-2">
-                            <h5 class="text-md md:text-xl font-normal tracking-tight text-gray-900 dark:text-white">{{ $galeri->judul }}</h5>
+                            <a href="{{ route("galeri") }}" class="text-md md:text-xl font-normal tracking-tight text-gray-900 dark:text-white">{{ $galeri->judul }}</a>
                             <p class="mb-2 text-xs md:text-sm font-normal text-gray-700 dark:text-gray-400">dibuat pada {{ \Carbon\Carbon::parse($galeri->created_at)->translatedFormat('l, d F Y') }}
                             </p>
                         </div>
@@ -269,6 +276,7 @@
 
 @section("js")
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var swiper = new Swiper(".mySwiper", {
@@ -287,5 +295,30 @@
             },
         });
     });
+    
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: '{{ session('error') }}',
+            showConfirmButton: true,
+            confirmButtonText: 'Ke Login',
+            confirmButtonColor: '#d33', 
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('login') }}";
+            }
+        });
+    @endif
+
+        @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    @endif
 </script>
 @endsection

@@ -288,21 +288,22 @@
                         <li class="mr-3 flex-1 ml-3">
                             <a href="{{ route("guru.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
                                 <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-user-graduate pr-3 md:pr-3"></i>
-
-
                                     Guru</span>
                             </a>
                         </li>
                         <li class="mr-3 flex-1 ml-3">
                             <a href="{{ route("artikel.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
-
-
                                 <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-file-alt pr-0 md:pr-3"></i> Artikel</span>
                             </a>
                         </li>
                         <li class="mr-3 flex-1 ml-3">
                             <a href="{{route("galeri.index")}}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 hover:border-red-500">
                                 <i class="fas fa-images md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block">Galeri</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1 ml-3">
+                            <a href="{{route("sarana.index")}}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 hover:border-red-500">
+                                <i class="fas fa-building md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block">Sarana Prasarana</span>
                             </a>
                         </li>
                     </ul>

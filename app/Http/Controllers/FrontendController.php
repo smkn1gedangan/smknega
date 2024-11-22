@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Article;
 use App\Models\Galeri;
 use App\Models\Guru;
@@ -19,6 +18,7 @@ use App\Models\Kesiswaan\Ekstrakulikuler;
 use App\Models\Kesiswaan\Osis;
 use App\Models\Kesiswaan\Pemetaan;
 use App\Models\Kesiswaan\Prestasi;
+use App\Models\Masukan;
 use App\Models\Profil;
 use App\Models\Profil\DeskripsiKomite;
 use App\Models\Profil\KetuaKomite;
@@ -35,6 +35,8 @@ use App\Models\Program\Bursa;
 use App\Models\Program\Industri;
 use App\Models\Program\Kerja;
 use App\Models\Program\Peraturan;
+use App\Models\Sarana;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -52,6 +54,10 @@ class FrontendController extends Controller
         $profil =Profil::first();
         return view("frontend.welcome",compact("articles","kepsek","prestasis","gurus","galeris","profil"));
    }
+    public function sambutan_kepsek() {
+        $kepsek = Kepsek::first();
+        return view("frontend.sambutan_kepsek",compact("kepsek"));
+    }
     public function sejarah()  {
         $sejarah = Sejarah::first();
         return view("frontend.profil.sejarah",compact("sejarah"));
@@ -161,26 +167,38 @@ class FrontendController extends Controller
         return view("frontend.informasi.guru",compact("gurus","kepsek"));
     }
     public function artikel()  {
-        $artikels = Article::latest()->paginate(5);
+        $artikels = Article::latest()->paginate(6);
         $kategoris = Kategori::get();
         return view("frontend.informasi.artikel",compact("artikels","kategoris"));
     }
     public function sarana()  {
-        $gurus = Guru::latest()->paginate(20);
-        $kepsek = Kepsek::latest()->first();
-        return view("frontend.informasi.guru",compact("gurus","kepsek"));
+        $sarana = Sarana::first();
+        return view("frontend.informasi.sarana",compact("sarana"));
     }
     public function galeri()  {
-        $gurus = Guru::latest()->paginate(20);
-        $kepsek = Kepsek::latest()->first();
-        return view("frontend.informasi.guru",compact("gurus","kepsek"));
+        $galeris = Galeri::latest()->paginate(10);
+        return view("frontend.informasi.galeri",compact("galeris"));
     }
-    public function kurikulum()  {
-        $gurus = Guru::latest()->paginate(20);
-        $kepsek = Kepsek::latest()->first();
-        return view("frontend.informasi.guru",compact("gurus","kepsek"));
+    public function jadwal()  {
+        return redirect()->away("https://ppdbjatim.net/informasi/jadwal/");
+    }
+    public function info_ppdb()  {
+        return redirect()->away("https://ppdbjatim.net/");
     }
     
+    public function save_masukan(Request $request)  {
+        $email = User::where("email",$request->email)->first();
+        if(!$email){
+            return redirect()->route("welcome")->with("error","email tidak dikenali , anda harus login terlebih dahulu");
+        }
+        Masukan::create([
+            "nama"=>$request->nama,
+            "email"=>$request->masukan,
+            "masukan"=>$request->masukan,
+        ]);
+        return redirect()->route("welcome")->with("success","pesan yang anda masukan telah disimpan ke database");
+    }
+
    public function readArticle($slug)  {
         $kategoris = Kategori::get();
         $articleTerbarus = Article::take(5)->latest()->get();

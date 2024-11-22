@@ -29,7 +29,7 @@
                     @if (file_exists(public_path('img/guru/' . $guru->photo)) && $guru->photo)
                         <img class="rounded-md w-full h-full relative left-1/2 -translate-x-1/2" src="{{ asset('img/guru/' . $guru->photo) }}" alt="" />
                     @else
-                        <div class="bg-gray-200 relative h-80 w-full flex justify-center items-center">
+                        <div class="bg-gray-200 relative h-80 w-full grid place-content-center text-xs">
                             <span>No Image</span>
                         </div>
                     @endif
@@ -56,7 +56,7 @@
                     <img class="rounded-t-lg w-4/5 md:w-full h-96 object-cover relative left-1/2 -translate-x-1/2" src="{{asset("img/kepala_sekolah/" . $kepsek->photo)}}" alt="" />
                     <div style="box-shadow:inset 10px 10px 100px relative left-1/2 -translate-x-1/2 rgba(0, 0, 0, 0.6)" class=" dark:from-blue-900 w-4/5 h-full absolute top-0 left-0 z-0"></div>
                 @else
-                    <div class="bg-gray-200 w-4/5 md:w-full h-96 relative left-1/2 -translate-x-1/2">
+                    <div class="bg-gray-200 w-4/5 md:w-full h-96 relative left-1/2 -translate-x-1/2 grid place-content-center text-xs">
                         <span>No Image</span> <!-- Pesan fallback -->
                     </div>
                 @endif
@@ -64,7 +64,7 @@
                 </div>
                 <div class="w-4/5 md:w-full relative left-1/2 -translate-x-1/2 md:pl-1">
                     <h5 class="mb-2 pt-3 md:pt-5 text-xl font-semibold tracking-tight text-gray-900 dark:text-white text-left">{{$kepsek->nama}}</h5>
-                    <p class="mb-3 font-normal text-gray-800 dark:text-gray-400">{{ Str::words(strip_tags($kepsek->sambutan), 25, '...') }}.</p>
+                    <p class="mb-3 font-normal text-sm md:text-base text-gray-800 dark:text-gray-400">{{ Str::words(strip_tags($kepsek->sambutan), 25, '...') }}.</p>
                     <a href="" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-black rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Read more
                         <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

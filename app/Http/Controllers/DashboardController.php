@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function index()  {
         $user = User::count();
-        $masukans = Masukan::take(3)->get();
+        $masukans = Masukan::take(5)->latest()->get();
         $monthlyVisitors = StatistikPengunjung::selectRaw('MONTH(visited_at) as month, COUNT(*) as total')
         ->groupBy('month')
         ->get()

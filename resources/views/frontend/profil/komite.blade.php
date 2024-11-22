@@ -22,10 +22,10 @@
        </div>
     <div class="w-full flex md:justify-center flex-wrap">
         <div class="flex flex-col w-full p-4 md:w-4/5 md:items-center md:p-8 lg:w-3/5">
-            <p class="lg:first-letter:pl-16 mb-3 text-center md:text-left font-normal text-gray-800 dark:text-gray-400 mt-6">
+            <p class="lg:first-letter:pl-16 mb-3 text-sm md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">
                 {!! $deskripsiKomite->konten !!}
             </p>
-            <p class="mb-3 w-full text-center md:text-left font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$deskripsiKomite->penulis->name}}  {{$deskripsiKomite->created_at->diffForHumans()}}</p>
+            <p class="mb-3 w-full text-xs md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$deskripsiKomite->penulis->name}}  {{$deskripsiKomite->created_at->diffForHumans()}}</p>
     </div>
     <div class="w-full lg:w-[37%] p-4 gap-4 flex flex-wrap lg:flex-col">
         <x-heading-profil class="md:w-[38%] lg:w-full max-w-sm mt-8 md:mt-10 w-full">ketua komite</x-heading-profil>
@@ -35,22 +35,22 @@
                 <img class="rounded-t-lg w-4/5 md:w-full h-96 object-cover relative left-1/2 -translate-x-1/2" src="{{asset("img/komite/" . $ketuaKomite->photo)}}" alt="" />
                 <div style="box-shadow:inset 10px 10px 100px relative left-1/2 -translate-x-1/2 rgba(0, 0, 0, 0.6)" class=" dark:from-blue-900 w-4/5 h-full absolute top-0 left-0 z-0"></div>
             @else
-                <div class="bg-gray-200 w-4/5 md:w-full h-96 relative left-1/2 -translate-x-1/2">
+                <div class="bg-gray-200 w-4/5 md:w-full grid place-content-center text-xs h-96 relative left-1/2 -translate-x-1/2">
                     <span>No Image</span> <!-- Pesan fallback -->
                 </div>
             @endif
 
             </div>
             <div class="w-4/5 md:w-full relative left-1/2 -translate-x-1/2 md:pl-1">
-                <h5 class="w-full mb-2 pt-3 md:pt-5 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{$ketuaKomite->nama}}</h5>
-                <p class="mb-3 font-normal text-gray-800 dark:text-gray-400">{{ Str::words(strip_tags($ketuaKomite->jabatan), 3, '...') }}.</p>
+                <h5 class="w-full mb-2 pt-3 md:pt-5 text-base md:text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{$ketuaKomite->nama}}</h5>
+                <p class="mb-3 font-normal text-sm md:text-base text-gray-800 dark:text-gray-400">{{ Str::words(strip_tags($ketuaKomite->jabatan), 3, '...') }}.</p>
                 
             </div>
         </div>
     </div>
     </div>
     <div class="flex w-full flex-col items-center ">
-        <x-heading-welcome classAdventage="mb-3 md:mb-5 text-center">Para Komite Smkn 1 Gedangan</x-heading-welcome>
+        <x-heading-welcome classAdventage="mb-3 md:mb-5 text-center">Komite Komite</x-heading-welcome>
 
         <div class="flex overflow-x-auto gap-3 w-[95%]">
             @foreach ($komites as $komite)
@@ -59,7 +59,7 @@
                     @if (file_exists(public_path('img/komite/' . $komite->photo)) && $komite->photo)
                         <img class="rounded-md w-full h-full relative left-1/2 -translate-x-1/2" src="{{ asset('img/komite/' . $komite->photo) }}" alt="" />
                     @else
-                        <div class="bg-black relative h-80 w-full flex justify-center items-center">
+                        <div class="bg-gray-200 relative text-xs h-80 w-full grid place-content-center">
                             <span>No Image</span>
                         </div>
                     @endif
