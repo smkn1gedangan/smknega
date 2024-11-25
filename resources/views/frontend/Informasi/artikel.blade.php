@@ -19,18 +19,18 @@ $artikels = \App\Models\Article::query()
            <div class="md:pl-12 mt-20 md:mt-0 p-2 md:py-6 flex flex-wrap gap-3 flex-col sm:flex-row lg:flex-col w-full lg:w-2/3 ">
             @foreach ($artikels as $artikel)
             <div class="w-full sm:w-[47%] lg:w-5/6 md:p-4 mt-6 md:mt-4">
-                <a href="{{route("readArticle",$artikel->slug)}}" class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white hover:text-slate-600">{{ $artikel->title }}</a>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-xs md:text-sm ">dibuat pada {{ \Carbon\Carbon::parse($artikel->created_at)->translatedFormat('l, d F Y') }}
+                <a data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" href="{{route("readArticle",$artikel->slug)}}" class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white hover:text-slate-600">{{ $artikel->title }}</a>
+                <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-xs md:text-sm ">dibuat pada {{ \Carbon\Carbon::parse($artikel->created_at)->translatedFormat('l, d F Y') }}
                 </p>
                     @if (file_exists(public_path('img/artikels_images/' . $artikel->image)) && $artikel->image)
-                    <img src="{{ asset('img/artikels_images/' . $artikel->image) }}" class="object-cover w-full rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $artikel->title }}">
+                    <img data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" src="{{ asset('img/artikels_images/' . $artikel->image) }}" class="object-cover w-full rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $artikel->title }}">
                 @else
-                    <div class="w-full text-xs md:text-sm grid place-content-center text-slate-800 bg-gray-200 h-64">
+                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-full text-xs md:text-sm grid place-content-center text-slate-800 bg-gray-200 h-64">
                         <span>No Image</span> <!-- Pesan fallback -->
                     </div>
                 @endif
 
-                <p class="mb-3 mt-2 font-normal text-gray-900 dark:text-gray-400">
+                <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 mt-2 font-normal text-gray-900 dark:text-gray-400">
                     {{ Str::words(str_replace('&nbsp;', '', strip_tags($artikel->text_content)), 20, '...') }}
                 </p>
             </div>

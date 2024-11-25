@@ -23,19 +23,22 @@
 {{-- sejarah start --}}
 <section class="w-full flex md:justify-center flex-wrap">
     <div class="flex flex-col w-full p-4 sm:w-5/6  md:w-4/5 md:items-center md:p-8 lg:w-3/5">
-        <x-heading-profil class="w-full">sejarah sekolah</x-heading-profil>
+        <x-heading-profil class="w-full">sejarah</x-heading-profil>
         @if (file_exists(public_path('img/profil/' . $sejarah->photo)) && $sejarah->photo)
-                <img class="w-11/12 sm:w-5/6 h-52 sm:h-64 lg:h-auto rounded-md object-cover my-5" src="{{ asset("img/profil/" . $sejarah->photo) }}" alt="">
+                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="w-11/12 my-5  sm:w-5/6 h-52 sm:h-64 lg:h-auto overflow-hidden">
+                        <img class="w-full hover:scale-110 transition-all duration-700  rounded-md object-cover h-full" src="{{ asset("img/profil/" . $sejarah->photo) }}" alt="">
+                    </div>
+                    
                     @else
-                        <div class="bg-gray-200 w-11/12 sm:w-5/6 h-52 sm:h-64 my-5">
+                        <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="bg-gray-200 w-11/12 sm:w-5/6 h-52 sm:h-64 my-5">
                             <span>No Image</span> <!-- Pesan fallback -->
                         </div>
                     @endif
 
-            <p class="mb-3 text-sm md:text-base font-normal text-gray-800 dark:text-gray-400 mt-6 lg:first-letter:pl-16">
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="mb-3 text-sm md:text-base font-normal text-gray-800 dark:text-gray-400 mt-6 lg:first-letter:pl-16">
                 {!! $sejarah->konten !!}
             </p>
-            <p class="mb-3 w-full text-xs md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$sejarah->penulis->name}}  {{$sejarah->created_at->diffForHumans()}}</p>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="mb-3 w-full text-xs md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6 ">ditulis oleh {{$sejarah->penulis->name}}  {{$sejarah->created_at->diffForHumans()}}</p>
     </div>
     <div class="w-full lg:w-[37%] p-4 gap-4 flex flex-wrap lg:flex-col">
         <x-right-component-fe></x-right-component-fe>

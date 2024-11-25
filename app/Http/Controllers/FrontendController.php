@@ -37,13 +37,39 @@ use App\Models\Program\Kerja;
 use App\Models\Program\Peraturan;
 use App\Models\Sarana;
 use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
+    // private function getLatestYouTubeVideos()
+    // {
+    //     $channelId = 'UCaW8arAuV0WMEJEzM1rZ1Nw';  
+    //     $apiKey = env("YOUTUBE_API_KEY"); 
+
+    //     $client = new Client();
+
+    //     $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=$channelId&maxResults=2&order=date&key=$apiKey";
+
+    //     $response = $client->get($url);
+    //     $data = json_decode($response->getBody()->getContents(), true);
+
+    //     $videos = [];
+    //     foreach ($data['items'] as $item) {
+    //         $videos[] = [
+    //             'videoId' => $item['id']['videoId'],
+    //             'title' => $item['snippet']['title'],
+    //             'publishedAt' => $item['snippet']['publishedAt'],
+    //             'url' => 'https://www.youtube.com/watch?v=' . $item['id']['videoId'],
+    //             'thumbnail' => $item['snippet']['thumbnails']['high']['url'],
+    //         ];
+    //     }
+    //     return $videos;
+    // }
    public function welcome()  {
         $kepsek = Kepsek::latest()->first();
         $gurus = Guru::take(10)->get();
+        // $youtubeVideos = $this->getLatestYouTubeVideos();
         $galeris = Galeri::latest()->take(2)->get();
         $prestasis = Article::whereHas("kategoris",function($query){
             $query->where("nama","prestasi");

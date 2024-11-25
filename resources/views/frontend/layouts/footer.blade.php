@@ -5,7 +5,7 @@
     - @tailwindcss/forms
 -->
 
-<footer class="bg-white">
+<footer data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="bg-white">
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div class="lg:flex lg:items-start lg:gap-8">
 
@@ -13,11 +13,10 @@
         <div class="mt-8 grid grid-cols-2 gap-8 lg:mt-0 lg:grid-cols-5 lg:gap-y-16">
           <div class="col-span-2">
             <div>
-              <h2 class="text-2xl font-bold text-gray-900">Smkn 1 Gedangan</h2>
+              <h2 data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="text-2xl font-bold text-gray-900">Smkn 1 Gedangan</h2>
 
-              <p class="mt-4 text-gray-500">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse non cupiditate quae nam
-                molestias.
+              <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mt-4 text-gray-500">
+                sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ.
               </p>
             </div>
           </div>
@@ -47,99 +46,121 @@
           </div>
 
           <div class="col-span-2 sm:col-span-1">
-            <p class="font-medium text-gray-900">Services</p>
+            <p class="font-medium text-gray-900">Profil</p>
 
             <ul class="mt-6 space-y-4 text-sm">
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> 1on1 Coaching </a>
+              <li >
+                <a href="{{ route("sejarah") }}" class="text-gray-700 transition hover:opacity-75"> Sejarah </a>
               </li>
 
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Company Review </a>
+                <a href="{{ route("potensi") }}" class="text-gray-700 transition hover:opacity-75"> Potensi Unggulan </a>
               </li>
 
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Accounts Review </a>
+                <a href="{{ route("rencana") }}" class="text-gray-700 transition hover:opacity-75"> Rencana Pengembangan Sekolah </a>
               </li>
 
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> HR Consulting </a>
+                <a href="{{ route("visi") }}" class="text-gray-700 transition hover:opacity-75"> Visi Misi </a>
               </li>
 
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> SEO Optimisation </a>
+                <a href="{{ route("logo") }}" class="text-gray-700 transition hover:opacity-75"> Logo Smk </a>
+              </li>
+              <li>
+                <a href="{{ route("komite") }}" class="text-gray-700 transition hover:opacity-75"> Komite Sekolah</a>
+              </li>
+              <li>
+                <a href="{{ route("struktur") }}" class="text-gray-700 transition hover:opacity-75">Struktur Organisasi</a>
               </li>
             </ul>
           </div>
 
           <div class="col-span-2 sm:col-span-1">
-            <p class="font-medium text-gray-900">Company</p>
+            <p class="font-medium text-gray-900">Program</p>
 
             <ul class="mt-6 space-y-4 text-sm">
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> About </a>
+                <a href="{{ route("kerja") }}" class="text-gray-700 transition hover:opacity-75">Program Kerja </a>
               </li>
 
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Meet the Team </a>
+                <a href="{{ route("peraturan") }}" class="text-gray-700 transition hover:opacity-75"> Peraturan Peraturan </a>
               </li>
 
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Accounts Review </a>
+                <a href="{{ route("bisnis") }}" class="text-gray-700 transition hover:opacity-75"> Program Bisnis</a>
+              </li>
+              <li>
+                <a href="{{ route("industri") }}" class="text-gray-700 transition hover:opacity-75"> Hubungan Industri</a>
+              </li>
+              <li>
+                <a href="{{ route("bursa") }}" class="text-gray-700 transition hover:opacity-75"> Bursa Kerja</a>
               </li>
             </ul>
           </div>
 
           <div class="col-span-2 sm:col-span-1">
-            <p class="font-medium text-gray-900">Helpful Links</p>
+            <p class="font-medium text-gray-900">Kesiswaan</p>
 
             <ul class="mt-6 space-y-4 text-sm">
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Contact </a>
+                <a href="{{ route("prestasi") }}" class="text-gray-700 transition hover:opacity-75">Prestasi Siswa </a>
               </li>
 
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> FAQs </a>
+                <a href="{{ route("ekstrakulikuler") }}" class="text-gray-700 transition hover:opacity-75"> Ekstrakulikuler </a>
               </li>
 
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Live Chat </a>
+                <a href="{{ route("osis") }}" class="text-gray-700 transition hover:opacity-75"> Osis</a>
+              </li>
+              <li>
+                <a href="{{ route("beasiswa") }}" class="text-gray-700 transition hover:opacity-75"> Beasiswa</a>
+              </li>
+              <li>
+                <a href="{{ route("pemetaan") }}" class="text-gray-700 transition hover:opacity-75"> Pemetaan Kelulusan </a>
+              </li>
+             
+            </ul>
+          </div>
+
+          <div class="col-span-2 sm:col-span-1">
+            <p class="font-medium text-gray-900">Informasi</p>
+
+            <ul class="mt-6 space-y-4 text-sm">
+              <li>
+                <a href="{{ route("guru") }}" class="text-gray-700 transition hover:opacity-75"> Guru </a>
+              </li>
+
+              <li>
+                <a href="{{ route("artikel") }}" class="text-gray-700 transition hover:opacity-75"> Artikel </a>
+              </li>
+
+              <li>
+                <a href="{{ route("galeri") }}" class="text-gray-700 transition hover:opacity-75"> Galeri </a>
+              </li>
+
+              <li>
+                <a href="{{ route("sarana") }}" class="text-gray-700 transition hover:opacity-75"> Sarana Prasarana </a>
+              </li>
+              <li>
+                <a href="" class="text-gray-700 transition hover:opacity-75"> E learning </a>
               </li>
             </ul>
           </div>
 
           <div class="col-span-2 sm:col-span-1">
-            <p class="font-medium text-gray-900">Legal</p>
+            <p class="font-medium text-gray-900">PPDB</p>
 
             <ul class="mt-6 space-y-4 text-sm">
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Accessibility </a>
+                <a href="{{ route("info_ppdb") }}" class="text-gray-700 transition hover:opacity-75"> Informasi PPDB </a>
               </li>
 
               <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Returns Policy </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Refund Policy </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Hiring Statistics </a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-span-2 sm:col-span-1">
-            <p class="font-medium text-gray-900">Downloads</p>
-
-            <ul class="mt-6 space-y-4 text-sm">
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Marketing Calendar </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> SEO Infographics </a>
+                <a href="{{ route("jadwal") }}" class="text-gray-700 transition hover:opacity-75"> Jadwal PPDB </a>
               </li>
             </ul>
           </div>

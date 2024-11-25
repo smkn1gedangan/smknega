@@ -26,10 +26,10 @@
                 </div>
             </div>
            
-            <p class="lg:first-letter:pl-16 mb-3 text-sm md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="lg:first-letter:pl-16 mb-3 text-sm md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">
                 {!! $bisnis->konten !!}
             </p>
-            <p class="mb-3 w-full text-xs md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-2">ditulis oleh {{$bisnis->penulis->name}}  {{$bisnis->created_at->diffForHumans()}}</p>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 w-full text-xs md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-2">ditulis oleh {{$bisnis->penulis->name}}  {{$bisnis->created_at->diffForHumans()}}</p>
     </div>
     <div class="w-full lg:w-[37%] p-4 gap-4 flex flex-wrap lg:flex-col">
 

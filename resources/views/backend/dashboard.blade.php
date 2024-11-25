@@ -90,5 +90,15 @@
             }
         }
     }
+        function checkScreenWidth() {
+            if (window.innerWidth < 700) {
+                alert("layar hp anda di bawah 700 piksel , gunakan layar diatas 700 piksel")
+                window.location.href = '/';
+            }
+        }
+
+        window.onload = checkScreenWidth;
+
+        window.onresize = checkScreenWidth;
 </script>
 @endsection

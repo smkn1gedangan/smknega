@@ -16,11 +16,18 @@ class StatistikPengunjungMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        ModelsStatistikPengunjung::create([
-            'ip_address' => $request->ip(),
-            'user_agent' => $request->userAgent(),
-            'visited_at' => now(),
-        ]);
+        $exists = ModelsStatistikPengunjung::where('ip_address', $request->ip())
+            ->where('user_agent', $request->userAgent())
+            ->exists();
+
+        if (!$exists) {
+            ModelsStatistikPengunjung::create([
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'visited_at' => now(),
+            ]);
+        }
+
         return $next($request);
     }
 }

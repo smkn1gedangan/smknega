@@ -22,17 +22,17 @@
        </div>
     <div class="w-full flex md:justify-center flex-wrap">
         <div class="flex flex-col w-full p-4 md:w-4/5 md:items-center md:p-8 lg:w-3/5">
-            <p class="lg:first-letter:pl-16 mb-3 text-sm md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="lg:first-letter:pl-16 mb-3 text-sm md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">
                 {!! $deskripsiKomite->konten !!}
             </p>
-            <p class="mb-3 w-full text-xs md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$deskripsiKomite->penulis->name}}  {{$deskripsiKomite->created_at->diffForHumans()}}</p>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 w-full text-xs md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$deskripsiKomite->penulis->name}}  {{$deskripsiKomite->created_at->diffForHumans()}}</p>
     </div>
     <div class="w-full lg:w-[37%] p-4 gap-4 flex flex-wrap lg:flex-col">
         <x-heading-profil class="md:w-[38%] lg:w-full max-w-sm mt-8 md:mt-10 w-full">ketua komite</x-heading-profil>
         <div class="w-full md:w-[38%] lg:w-full max-w-sm bg-white min-h-[40rem] max-h-[42rem] rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
             <div class="relative">
                 @if (file_exists(public_path('img/komite/' . $ketuaKomite->photo)) && $ketuaKomite->photo)
-                <img class="rounded-t-lg w-4/5 md:w-full h-96 object-cover relative left-1/2 -translate-x-1/2" src="{{asset("img/komite/" . $ketuaKomite->photo)}}" alt="" />
+                <img data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="rounded-t-lg w-4/5 md:w-full h-96 object-cover relative left-1/2 -translate-x-1/2" src="{{asset("img/komite/" . $ketuaKomite->photo)}}" alt="" />
                 <div style="box-shadow:inset 10px 10px 100px relative left-1/2 -translate-x-1/2 rgba(0, 0, 0, 0.6)" class=" dark:from-blue-900 w-4/5 h-full absolute top-0 left-0 z-0"></div>
             @else
                 <div class="bg-gray-200 w-4/5 md:w-full grid place-content-center text-xs h-96 relative left-1/2 -translate-x-1/2">
@@ -42,8 +42,8 @@
 
             </div>
             <div class="w-4/5 md:w-full relative left-1/2 -translate-x-1/2 md:pl-1">
-                <h5 class="w-full mb-2 pt-3 md:pt-5 text-base md:text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{$ketuaKomite->nama}}</h5>
-                <p class="mb-3 font-normal text-sm md:text-base text-gray-800 dark:text-gray-400">{{ Str::words(strip_tags($ketuaKomite->jabatan), 3, '...') }}.</p>
+                <h5 data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-full mb-2 pt-3 md:pt-5 text-base md:text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{$ketuaKomite->nama}}</h5>
+                <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 font-normal text-sm md:text-base text-gray-800 dark:text-gray-400">{{ Str::words(strip_tags($ketuaKomite->jabatan), 3, '...') }}.</p>
                 
             </div>
         </div>
@@ -54,7 +54,7 @@
 
         <div class="flex overflow-x-auto gap-3 w-[95%]">
             @foreach ($komites as $komite)
-            <div class="w-[48%] sm:w-[32%] md:w-[23%] lg:w-[19%] bg-white border border-gray-200 rounded-lg shadow  dark:border-gray-700 relative flex-shrink-0">
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-[48%] sm:w-[32%] md:w-[23%] lg:w-[19%] bg-white border border-gray-200 rounded-lg shadow  dark:border-gray-700 relative flex-shrink-0">
                 <a class="relative" href="#">
                     @if (file_exists(public_path('img/komite/' . $komite->photo)) && $komite->photo)
                         <img class="rounded-md w-full h-full relative left-1/2 -translate-x-1/2" src="{{ asset('img/komite/' . $komite->photo) }}" alt="" />
