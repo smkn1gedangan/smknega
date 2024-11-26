@@ -73,10 +73,10 @@ class FrontendController extends Controller
         $galeris = Galeri::latest()->take(2)->get();
         $prestasis = Article::whereHas("kategoris",function($query){
             $query->where("nama","prestasi");
-        })->get();
+        })->take(5)->latest()->get();
         $articles = Article::whereDoesntHave("kategoris",function($query){
             $query->where("nama","prestasi");
-        })->take(5)->get();
+        })->take(5)->latest()->get();
         $profil =Profil::first();
         return view("frontend.welcome",compact("articles","kepsek","prestasis","gurus","galeris","profil"));
    }

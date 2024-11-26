@@ -27,13 +27,13 @@ class KepsekController extends Controller
     {
         $kepsek = Kepsek::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+            'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
             "nama"=> "min:6|max:100|required",
             "sambutan"=> "min:10|required",
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/kepala_sekolah/" . $kepsek->image;
-            if ($kepsek->image && File::exists(public_path($path))) {
+            $path = "img/kepala_sekolah/" . $kepsek->photo;
+            if ($kepsek->photo && File::exists(public_path($path))) {
                 File::delete(public_path($path));
             }
 

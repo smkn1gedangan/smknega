@@ -16,13 +16,13 @@ class UserSeeder extends Seeder
         $datas = [
           [
             "name"=> "admin",
-            "email"=> "admin@mail.com",
+            "email"=> "jonoundo88@gmail.com",
             "password"=> bcrypt("admin"),
             "role"=> 1
           ],
           [
-            "name"=> "hajir",
-            "email"=> "hajir@mail.com",
+            "name"=> "usammuhajir",
+            "email"=> "usammuhajir047@gmail.com",
             "password"=> bcrypt("hajir"),
             "role"=> 2
           ]

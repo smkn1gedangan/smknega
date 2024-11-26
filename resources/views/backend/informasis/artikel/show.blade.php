@@ -31,12 +31,12 @@
                                 <span>No Image</span> <!-- Pesan fallback -->
                             </div>
             @endif
-            <p class="mt-5 text-slate-800">teks konten : {!!$article->text_content!!}</p>
+            <div class="mt-5 text-slate-800">teks konten : {!!$article->text_content!!}</div>
             <div class="flex justify-between mt-4">
-                <p class="font-normal text-gray-700 dark:text-gray-400">ditulis oleh {{ $article->writer->name}}</p>
-                <p class="font-normal relative text-gray-700 dark:text-gray-400"> {{ $article->created_at->diffForHumans()}}</p>
+                <p class="font-normal text-sm text-gray-700 dark:text-gray-400">ditulis oleh {{ $article->writer->name}}</p>
+                <p class="font-normal text-sm text-gray-700 dark:text-gray-400"> {{ $article->created_at->diffForHumans()}}</p>
             </div>
-            <p class="mt-1 text-sm text-right font-normal relative text-gray-700 dark:text-gray-400">dilihat {{ $article->view}} kali</p>
+            <p class="mt-1 text-sm text-right font-normal text-gray-700 dark:text-gray-400">dilihat {{ $article->view}} kali</p>
         </div>
         <div class="w-3/4 flex justify-start gap-2 items-center">
             <a href="{{ route('artikel.show', [Crypt::encrypt($article->id)]) }}" class="bg-blue-600 hover:bg-blue-900 dark:text-blue-400 text-white py-2.5 px-4 rounded-md">Show</a>

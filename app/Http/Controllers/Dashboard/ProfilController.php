@@ -26,7 +26,7 @@ class ProfilController extends Controller
     public function update(Request $request, string $id)  {
         $profil = Profil::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+            'photo' => 'required|file|mimes:jpg,png,jpeg|max:5096',
             "konten"=> "min:6|required",
         ]);
         if ($request->hasFile('photo')) {

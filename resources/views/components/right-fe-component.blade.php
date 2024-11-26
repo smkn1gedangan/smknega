@@ -23,10 +23,10 @@
     @foreach ($galeris as $galeri)
     <div  class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         @if (file_exists(public_path('img/galeri/' . $galeri->photo)) && $galeri->photo)
-        <img class="rounded-t-lg object-cover w-full h-64" src="{{ asset("img/galeri/" . $galeri->photo) }}" alt="{{$galeri->judul}}"/>
+        <img data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="rounded-t-lg object-cover w-full h-64" src="{{ asset("img/galeri/" . $galeri->photo) }}" alt="{{$galeri->judul}}"/>
 
     @else
-        <div class="w-full bg-gray-200 h-52">
+        <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-full bg-gray-200 h-52">
             <span>No Image</span> <!-- Pesan fallback -->
         </div>
     @endif

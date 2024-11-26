@@ -17,7 +17,7 @@
         <div class="flex w-full justify-between items-center pt-4 ">
             <div class="w-3/4 ml-10">
                 <h3 class="text-3xl font-bold dark:text-white">Data Artikel</h3>
-                <p class="mb-3 text-gray-800 dark:text-gray-400">Seluruh data Artikel Smkn 1 Gedangan</p>
+                <p class="mb-3 text-gray-800 dark:text-gray-400">Seluruh data artikel Smkn 1 Gedangan</p>
 
                 <form route="{{route("artikel.index")}}">
                     <div class="flex">
@@ -69,9 +69,12 @@
                             <td class="px-6 py-4">{{ Str::words($article->title, 3, '...') }}</td>
                             <td class="px-6 py-4">{{ Str::words(strip_tags($article->text_content), 3, '...') }}</td>
                             <td class="px-6 py-4">{{ $article->view }} kali</td>
-                            <td class="px-6 py-4">@foreach ($article->kategoris as $kategori)
-                                {{$kategori->nama}}
-                            @endforeach</td>
+                            <td class="px-6 py-4">
+                                @foreach ($article->kategoris as $kategori)
+                                    {{ $kategori->nama }}
+                                @endforeach
+                            </td>
+                            
                             <td class="px-6 py-4 text-center">
                                 <a href="{{ route('artikel.show', [Crypt::encrypt($article->id)]) }}" class="text-blue-600 hover:text-blue-900 dark:text-blue-400">Show</a>
                                 <a href="{{ route('artikel.edit', [Crypt::encrypt($article->id)]) }}" class="text-orange-600 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>

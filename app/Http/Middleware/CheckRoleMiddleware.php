@@ -21,6 +21,6 @@ class CheckRoleMiddleware
         }
 
         // Jika bukan admin, redirect ke halaman lain (misalnya halaman home atau error 403)
-        return redirect('/')->with('error', "Anda tidak memiliki akses ke halaman ini.");
+        return redirect('/')->with('error', "Anda tidak boleh mengakses ke halaman ini.");
     }
 }

@@ -25,7 +25,7 @@ $artikels = \App\Models\Article::query()
                     @if (file_exists(public_path('img/artikels_images/' . $artikel->image)) && $artikel->image)
                     <img data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" src="{{ asset('img/artikels_images/' . $artikel->image) }}" class="object-cover w-full rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $artikel->title }}">
                 @else
-                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-full text-xs md:text-sm grid place-content-center text-slate-800 bg-gray-200 h-64">
+                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-full text-xs md:text-sm grid place-content-center text-slate-800 bg-gray-200 h-60">
                         <span>No Image</span> <!-- Pesan fallback -->
                     </div>
                 @endif

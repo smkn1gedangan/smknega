@@ -10,7 +10,7 @@
 
 @section("content")
     <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
-        <x-title-create-dashboard>Edit data profil Smkn 1 Gedangan</x-title-create-dashboard>
+        <x-title-create-dashboard>edit profil smkn 1 Gedangan</x-title-create-dashboard>
         <div class="w-full">
             <form id="form" action="{{ route('profil.update', [Crypt::encrypt($profil->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -30,18 +30,19 @@
                     @enderror
                 </div>
 
-                <input class="mt-6 rounded-md" type="file" name="photo" id="photo">
-                @error('photo')
-                    <p class="mt-2 text-sm text-red-800">
-                        {{ $message }}
-                    </p>
-                @enderror
+
+                <x-text-input id="photo" class="block mt-1 w-full"
+                                type="file"
+                                name="photo"
+                                required autocomplete="current-photo" />
+
+                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
 
                 <!-- Tombol Submit -->
                 <div class="mt-4 mb-8">
                     <button type="submit"
                             class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:bg-blue-700 focus:outline-none">
-                        Ubah data Profil
+                        ubah profil
                     </button>
                 </div>
             </form>

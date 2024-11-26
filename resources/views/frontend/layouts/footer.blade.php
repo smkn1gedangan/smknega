@@ -5,7 +5,7 @@
     - @tailwindcss/forms
 -->
 
-<footer data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="bg-white">
+<footer class="bg-white">
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div class="lg:flex lg:items-start lg:gap-8">
 
@@ -26,6 +26,7 @@
             <form action="{{route("logout")}}" method="post">
                 @csrf
                 <button
+                data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"
                 type="submit"
                 class="mt-1 w-full bg-red-700 px-6 py-3 rounded-md text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-red-600 sm:mt-0 sm:w-auto sm:shrink-0"
             >
@@ -36,6 +37,7 @@
             @endauth
             @guest
                 <a
+                data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"
                     href="{{route("login")}}"
                     class="mt-1 bg-teal-500 px-6 py-3 rounded-md text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-teal-600 sm:mt-0 sm:w-auto sm:shrink-0"
                 >
@@ -46,80 +48,80 @@
           </div>
 
           <div class="col-span-2 sm:col-span-1">
-            <p class="font-medium text-gray-900">Profil</p>
+            <p class="font-medium text-gray-900" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Profil</p>
 
             <ul class="mt-6 space-y-4 text-sm">
-              <li >
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("sejarah") }}" class="text-gray-700 transition hover:opacity-75"> Sejarah </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("potensi") }}" class="text-gray-700 transition hover:opacity-75"> Potensi Unggulan </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("rencana") }}" class="text-gray-700 transition hover:opacity-75"> Rencana Pengembangan Sekolah </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("visi") }}" class="text-gray-700 transition hover:opacity-75"> Visi Misi </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("logo") }}" class="text-gray-700 transition hover:opacity-75"> Logo Smk </a>
               </li>
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("komite") }}" class="text-gray-700 transition hover:opacity-75"> Komite Sekolah</a>
               </li>
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("struktur") }}" class="text-gray-700 transition hover:opacity-75">Struktur Organisasi</a>
               </li>
             </ul>
           </div>
 
           <div class="col-span-2 sm:col-span-1">
-            <p class="font-medium text-gray-900">Program</p>
+            <p class="font-medium text-gray-900" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Program</p>
 
             <ul class="mt-6 space-y-4 text-sm">
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("kerja") }}" class="text-gray-700 transition hover:opacity-75">Program Kerja </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("peraturan") }}" class="text-gray-700 transition hover:opacity-75"> Peraturan Peraturan </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("bisnis") }}" class="text-gray-700 transition hover:opacity-75"> Program Bisnis</a>
               </li>
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("industri") }}" class="text-gray-700 transition hover:opacity-75"> Hubungan Industri</a>
               </li>
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("bursa") }}" class="text-gray-700 transition hover:opacity-75"> Bursa Kerja</a>
               </li>
             </ul>
           </div>
 
           <div class="col-span-2 sm:col-span-1">
-            <p class="font-medium text-gray-900">Kesiswaan</p>
+            <p class="font-medium text-gray-900" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Kesiswaan</p>
 
             <ul class="mt-6 space-y-4 text-sm">
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("prestasi") }}" class="text-gray-700 transition hover:opacity-75">Prestasi Siswa </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("ekstrakulikuler") }}" class="text-gray-700 transition hover:opacity-75"> Ekstrakulikuler </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("osis") }}" class="text-gray-700 transition hover:opacity-75"> Osis</a>
               </li>
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("beasiswa") }}" class="text-gray-700 transition hover:opacity-75"> Beasiswa</a>
               </li>
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("pemetaan") }}" class="text-gray-700 transition hover:opacity-75"> Pemetaan Kelulusan </a>
               </li>
              
@@ -127,46 +129,46 @@
           </div>
 
           <div class="col-span-2 sm:col-span-1">
-            <p class="font-medium text-gray-900">Informasi</p>
+            <p class="font-medium text-gray-900" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Informasi</p>
 
             <ul class="mt-6 space-y-4 text-sm">
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("guru") }}" class="text-gray-700 transition hover:opacity-75"> Guru </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("artikel") }}" class="text-gray-700 transition hover:opacity-75"> Artikel </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("galeri") }}" class="text-gray-700 transition hover:opacity-75"> Galeri </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("sarana") }}" class="text-gray-700 transition hover:opacity-75"> Sarana Prasarana </a>
               </li>
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="" class="text-gray-700 transition hover:opacity-75"> E learning </a>
               </li>
             </ul>
           </div>
 
           <div class="col-span-2 sm:col-span-1">
-            <p class="font-medium text-gray-900">PPDB</p>
+            <p class="font-medium text-gray-900" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">PPDB</p>
 
             <ul class="mt-6 space-y-4 text-sm">
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("info_ppdb") }}" class="text-gray-700 transition hover:opacity-75"> Informasi PPDB </a>
               </li>
 
-              <li>
+              <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("jadwal") }}" class="text-gray-700 transition hover:opacity-75"> Jadwal PPDB </a>
               </li>
             </ul>
           </div>
 
           <ul class="col-span-2 flex justify-start gap-6 lg:col-span-5 lg:justify-end">
-            <li>
+            <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a
                 href="#"
                 rel="noreferrer"
@@ -185,7 +187,7 @@
               </a>
             </li>
 
-            <li>
+            <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a
                 href="#"
                 rel="noreferrer"
@@ -204,7 +206,7 @@
               </a>
             </li>
 
-            <li>
+            <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a
                 href="#"
                 rel="noreferrer"
@@ -221,7 +223,7 @@
               </a>
             </li>
 
-            <li>
+            <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a
                 href="#"
                 rel="noreferrer"
@@ -239,7 +241,7 @@
                 </svg>
               </a>
             </li>
-            <li>
+            <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a
                 href="#"
                 rel="noreferrer"
@@ -259,18 +261,18 @@
 
       <div class="mt-8 border-t border-gray-100 pt-8">
         <div class="sm:flex sm:justify-between">
-          <p class="text-xs text-gray-500">&copy; 2022. Company Name. All rights reserved.</p>
+          <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="text-xs text-gray-500">&copy; 2024. Smkn 1 Gedangan. All rights reserved.</p>
 
           <ul class="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
-            <li>
+            <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a href="#" class="text-gray-500 transition hover:opacity-75"> Terms & Conditions </a>
             </li>
 
-            <li>
+            <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a href="#" class="text-gray-500 transition hover:opacity-75"> Privacy Policy </a>
             </li>
 
-            <li>
+            <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a href="#" class="text-gray-500 transition hover:opacity-75"> Cookies </a>
             </li>
           </ul>

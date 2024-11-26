@@ -14,10 +14,10 @@
                         @if (file_exists(public_path('img/bisnis/' . $bp->photo)) && $bp->photo)
                         <div class="swiper-slide ">
 
-                            <img class="relative left-1/2 -translate-x-1/2  w-11/12 sm:w-5/6 h-52 sm:h-64 rounded-md object-cover my-5" src="{{ asset('img/bisnis/' . $bp->photo) }}" alt="">
+                            <img class="relative left-1/2 -translate-x-1/2 w-11/12 sm:w-5/6 sm:h-64 rounded-md object-cover my-5" src="{{ asset('img/bisnis/' . $bp->photo) }}" alt="">
                         </div>
                         @else
-                            <div class="bg-black w-11/12 sm:w-5/6 h-52 sm:h-64 my-5">
+                            <div class="bg-black w-11/12 sm:w-5/6 h-64 my-5">
                                 <span>No Image</span> <!-- Pesan fallback -->
                             </div>
                         @endif
@@ -26,9 +26,9 @@
                 </div>
             </div>
            
-            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="lg:first-letter:pl-16 mb-3 text-sm md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="lg:first-letter:pl-16 mb-3 text-sm md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">
                 {!! $bisnis->konten !!}
-            </p>
+            </div>
             <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 w-full text-xs md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-2">ditulis oleh {{$bisnis->penulis->name}}  {{$bisnis->created_at->diffForHumans()}}</p>
     </div>
     <div class="w-full lg:w-[37%] p-4 gap-4 flex flex-wrap lg:flex-col">
