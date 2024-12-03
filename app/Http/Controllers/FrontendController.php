@@ -44,8 +44,8 @@ class FrontendController extends Controller
 {
     // private function getLatestYouTubeVideos()
     // {
-    //     $channelId = 'UCaW8arAuV0WMEJEzM1rZ1Nw';  
-    //     $apiKey = env("YOUTUBE_API_KEY"); 
+    //     $channelId = 'UCaW8arAuV0WMEJEzM1rZ1Nw';
+    //     $apiKey = env("YOUTUBE_API_KEY");
 
     //     $client = new Client();
 
@@ -90,7 +90,7 @@ class FrontendController extends Controller
     }
     public function potensi()  {
         $potensi = Potensi::first();
-       
+
         return view("frontend.profil.potensi",compact("potensi"));
 
     }
@@ -211,8 +211,13 @@ class FrontendController extends Controller
     public function info_ppdb()  {
         return redirect()->away("https://ppdbjatim.net/");
     }
-    
+
     public function save_masukan(Request $request)  {
+        $request->validate([
+            "email"=>"email|required|string",
+            "nama"=>"required|string",
+            "masukan"=>"required|string|min:5",
+        ]);
         $email = User::where("email",$request->email)->first();
         if(!$email){
             return redirect()->route("welcome")->with("error","email tidak dikenali , anda harus login terlebih dahulu");

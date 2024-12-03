@@ -61,7 +61,17 @@ class LogoController extends Controller
         $logo = Logo::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
-            "konten"=> "min:6|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
             "penulis_id"=> "required"
         ]);
         if ($request->hasFile('photo')) {
@@ -78,7 +88,7 @@ class LogoController extends Controller
             $logo->konten = $data['konten'];
             $logo->penulis_id = Auth::user()->id;
             $logo->save();
-            return redirect()->route('logo.index')->with('success', 'Logo berhasil diperbarui!');
+            return redirect()->route('logo.index')->with('success', 'data Logo berhasil diperbarui!');
     }
     }
     /**

@@ -1,14 +1,5 @@
 @extends("backend.layouts.main")
 
-@section("css")
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <style>
-        .swal-height {
-            padding: 0.4rem;
-        }
-    </style>
-@endsection
-
 @section("title","Galeri")
 
 @section("content")
@@ -56,7 +47,6 @@
 @endsection
 
 @section("js")
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmDelete(articleId) {
             Swal.fire({
@@ -78,14 +68,8 @@
                 }
             });
         }
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
+        window.Laravel = {
+            successMessage: @json(session('success')),
+        };
     </script>
 @endsection

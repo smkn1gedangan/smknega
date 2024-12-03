@@ -57,13 +57,13 @@ class KomiteController extends Controller
             "jabatan"=> $request->jabatan,
 
         ]);
-        return redirect()->route("komite.index")->with('success', 'Data Komite berhasil diupload dan disimpan!');
+        return redirect()->route("komite.index")->with('success', 'data Komite berhasil diupload dan disimpan!');
     }
 
     /**
      * Display the specified resource.
      */
-   
+
 
     /**
      * Show the form for editing the specified resource.
@@ -106,7 +106,7 @@ class KomiteController extends Controller
 
     }
     }
-   
+
     /**
      * Remove the specified resource from storage.
      */

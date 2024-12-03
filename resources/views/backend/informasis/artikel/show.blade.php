@@ -12,30 +12,23 @@
 @section("title","Artikel")
 
 @section("content")
-    <div id="main" class="w-full flex flex-col items-center bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
-        <div class="flex w-3/4 flex-col items-center pt-4 ">
-            <h3 class="text-3xl font-semibold dark:text-white lowercase">data artikel {{$article->title}}</h3>
-           <div class="flex gap-2">
-                kategori
-                @foreach ($article->kategoris as $kategori)
-                    <p>{{$kategori->nama}}</p>
-                @endforeach
-           </div>
-        </div>
+    <div id="main" class="w-full flex flex-col bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
+        <h1 class="text-xl font-semibold text-slate-800">{{$article->title}}</h1>
         <div class="my-5 w-3/4">
 
              @if (file_exists(public_path('img/articles_images/' . $article->image)) && $article->image)
-                            <img src="{{ asset('img/articles_images/' . $article->image) }}" class="object-cover w-full rounded-t-lg h-40 md:h-52 md:w-52 md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
+                            <img src="{{ asset('img/articles_images/' . $article->image) }}" class="object-cover w-full rounded-t-lg h-40 md:h-auto md:w-4/5 md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
             @else
                             <div class="w-full bg-gray-200 h-52 md:w-52">
                                 <span>No Image</span> <!-- Pesan fallback -->
                             </div>
             @endif
-            <div class="mt-5 text-slate-800">teks konten : {!!$article->text_content!!}</div>
+            <div class="mt-5 text-slate-800">{!!$article->text_content!!}</div>
             <div class="flex justify-between mt-4">
                 <p class="font-normal text-sm text-gray-700 dark:text-gray-400">ditulis oleh {{ $article->writer->name}}</p>
                 <p class="font-normal text-sm text-gray-700 dark:text-gray-400"> {{ $article->created_at->diffForHumans()}}</p>
             </div>
+
             <p class="mt-1 text-sm text-right font-normal text-gray-700 dark:text-gray-400">dilihat {{ $article->view}} kali</p>
         </div>
         <div class="w-3/4 flex justify-start gap-2 items-center">
@@ -54,7 +47,6 @@
 @endsection
 
 @section("js")
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmDelete(articleId) {
             Swal.fire({
@@ -76,14 +68,5 @@
                 }
             });
         }
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
     </script>
 @endsection

@@ -60,12 +60,22 @@ class IndustriController extends Controller
         $industri = Industri::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             "penulis_id"=> "required",
-            "konten"=> "min:10|required",
+           'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         $industri->penulis_id = Auth::user()->id;
         $industri->konten = $data['konten'];
         $industri->save();
-        return redirect()->route('industri.index')->with('success', 'Hubungan Industri berhasil diperbarui!');
+        return redirect()->route('industri.index')->with('success', 'data Hubungan Industri berhasil diperbarui!');
 
     }
 

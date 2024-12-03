@@ -17,6 +17,7 @@ use App\Http\Controllers\Dashboard\Kesiswaan\EkstrakulikulerController;
 use App\Http\Controllers\Dashboard\Kesiswaan\OsisController;
 use App\Http\Controllers\Dashboard\Kesiswaan\PemetaanController;
 use App\Http\Controllers\Dashboard\Kesiswaan\PrestasiController;
+use App\Http\Controllers\Dashboard\LinkController;
 use App\Http\Controllers\Dashboard\Profil\DeskripsiKomiteController;
 use App\Http\Controllers\Dashboard\Profil\KetuaKomiteController;
 use App\Http\Controllers\Dashboard\Profil\KomiteController;
@@ -88,15 +89,18 @@ Route::controller(FrontendController::class)->group(function(){
 
 });
 
-Route::middleware(['auth', 'verified',"checkRole"])->prefix("be")->group(function () {
+Route::middleware(['auth', 'verified',"checkRole","cache"])->prefix("be")->group(function () {
     Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
+    Route::get("/profile-user/{id}",[DashboardController::class,"profileUser"])->name("profile-user");
+    Route::delete("/delete-masukan/{id}",[DashboardController::class,"deleteMasukan"])->name("deleteMasukan");
     Route::prefix("welcome")->group(function(){
         Route::resource("profil",ProfilController::class);
         Route::resource("kepsek",KepsekController::class);
+        Route::resource("link",LinkController::class);
     });
 
     Route::prefix("profil")->group(function(){
-        
+
         Route::resource("sejarah",  SejarahController::class);
         Route::resource("potensi",  PotensiController::class);
         Route::resource("rencana",  RencanaController::class);

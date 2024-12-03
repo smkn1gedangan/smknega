@@ -24,7 +24,7 @@
                         <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Judul</label>
                         <input type="text" value="{{old("title")}}" name="title" id="title"
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
-                               required placeholder="Masukkan Judul">
+                               required autocomplete="title" placeholder="Masukkan Judul">
                         @error("title")
                         <p class="mt-2 text-sm text-red-800">
                             {{ $message }}
@@ -60,7 +60,7 @@
                     @enderror
                 </div>
                <div class="w-11/12 flex flex-col gap-2">
-                <p class="text-red-600 text-xs">jika itu adalah artikel murni , hilangkan kategori prestasi </p>
+                <p class="text-red-600 text-sm">jika itu adalah artikel murni , hilangkan kategori prestasi </p>
                 <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 
                     @foreach ($kategoris as $kategori)
@@ -93,7 +93,6 @@
 
 @endsection
 @section("js")
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -118,14 +117,5 @@
                 document.querySelector('#text_content').value = quill.root.innerHTML;
             });
         });
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil Menambah artikel!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
     </script>
 @endsection

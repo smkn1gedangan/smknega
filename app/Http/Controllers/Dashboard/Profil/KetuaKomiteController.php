@@ -79,7 +79,7 @@ class KetuaKomiteController extends Controller
             $komite->jabatan = $data['jabatan'];
             $komite->save();
 
-            return redirect()->route('komite.index')->with('success', 'Data Ketua Komite berhasil diperbarui!');
+            return redirect()->route('komite.index')->with('success', 'data Ketua Komite berhasil diperbarui!');
 
     }
     }

@@ -38,7 +38,7 @@ class PrestasiController extends Controller
             "penyelenggara"=> "required|max:100",
         ]);
 
-      
+
 
         Prestasi::create([
             "nama"=> $request->nama,
@@ -48,7 +48,7 @@ class PrestasiController extends Controller
 
         ]);
         return redirect()->route("prestasi.index")->with('success', 'Data Prestasi diupload dan disimpan!');
-    
+
     }
 
     /**
@@ -88,7 +88,7 @@ class PrestasiController extends Controller
         $prestasi->penyelenggara = $data['penyelenggara'];
         $prestasi->save();
 
-        return redirect()->route('prestasi.index')->with('success', 'Data prestasi berhasil diperbarui!');
+        return redirect()->route('prestasi.index')->with('success', 'Data Prestasi berhasil diperbarui!');
 
     }
 

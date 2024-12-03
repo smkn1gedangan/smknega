@@ -1,6 +1,6 @@
 @extends("frontend.layouts.main")
 
-@section("title","guru Smkn 1 Gedangan")
+@section("title","Guru  Smkn 1 Gedangan")
 
 @section("css")
 <style>
@@ -45,9 +45,9 @@
                   </div>
                 </div>
             </div>
-            @endforeach  
+            @endforeach
             </div>
-            <div class="mt-6">{{ $gurus->links() }}</div>  
+            <div class="mt-6">{{ $gurus->links() }}</div>
         </div>
         <div class="w-full lg:w-[37%] p-4 gap-4">
             <div class="relative bg-white  left-1/2 -translate-x-1/2  md:w-[38%] lg:w-full max-w-sm min-h-[40rem] max-h-[42rem] rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-8 md:mt-4">
@@ -75,7 +75,7 @@
             </div>
         </div>
     </div>
-    
+
 </section>
 {{-- guru end --}}
 @endsection

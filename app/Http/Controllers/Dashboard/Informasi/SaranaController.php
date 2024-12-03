@@ -60,12 +60,22 @@ class SaranaController extends Controller
         $sarana = Sarana::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             "penulis_id"=> "required",
-            "konten"=> "min:10|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         $sarana->penulis_id = Auth::user()->id;
         $sarana->konten = $data['konten'];
         $sarana->save();
-        return redirect()->route('sarana.index')->with('success', 'data sarana prasarana berhasil diperbarui!');
+        return redirect()->route('sarana.index')->with('success', 'data Sarana Prasarana berhasil diperbarui!');
 
     }
 

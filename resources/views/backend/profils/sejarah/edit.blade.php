@@ -2,7 +2,6 @@
 
 @section("css")
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 @endsection
 
@@ -10,7 +9,7 @@
 
 @section("content")
     <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
-        <x-title-create-dashboard>edit data sejarah Smkn 1 Gedangan</x-title-create-dashboard>
+        <x-title-create-dashboard>edit data sejarah </x-title-create-dashboard>
         <div class="w-full">
             <form id="form" action="{{ route('sejarah.update',[Crypt::encrypt($sejarah->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -51,7 +50,7 @@
                 <div class="mt-4 mb-8">
                     <button type="submit"
                             class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:bg-blue-700 focus:outline-none">
-                        Ubah data Sejarah
+                        Ubah Data Sejarah
                     </button>
                 </div>
             </form>
@@ -61,7 +60,6 @@
 
 @endsection
 @section("js")
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
@@ -86,14 +84,6 @@
             });
         });
 
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil update data sejarah!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
+
     </script>
 @endsection

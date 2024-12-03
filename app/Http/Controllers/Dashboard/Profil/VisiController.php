@@ -60,12 +60,22 @@ class VisiController extends Controller
         $visi = VisiMisi::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             "penulis_id"=> "required",
-            "konten"=> "min:10|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         $visi->penulis_id = Auth::user()->id;
         $visi->konten = $data['konten'];
         $visi->save();
-        return redirect()->route('visi.index')->with('success', 'visi misi berhasil diperbarui!');
+        return redirect()->route('visi.index')->with('success', 'data Visi Misi berhasil diperbarui!');
 
     }
 

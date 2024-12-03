@@ -1,6 +1,6 @@
 @props([
     'dataLinks' => [['route'=>"welcome",'name'=>'']], // Nilai default sebagai array kosong
-    'data',
+    'data'=>"anything",
     "dataurl"=>"",
 ])
 

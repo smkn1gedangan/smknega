@@ -1,6 +1,6 @@
 @extends("frontend.layouts.main")
 
-@section("title","Sejarah Smkn 1 Gedangan")
+@section("title","Program Bisnis Smkn 1 Gedangan")
 
 @section("content")
 
@@ -25,7 +25,7 @@
 
                 </div>
             </div>
-           
+
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="lg:first-letter:pl-16 mb-3 text-sm md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">
                 {!! $bisnis->konten !!}
             </div>

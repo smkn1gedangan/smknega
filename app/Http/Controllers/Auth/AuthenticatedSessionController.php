@@ -27,7 +27,9 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
+        if(Auth::user()->role === 2){
+            return redirect()->intended(route("welcome"))->with("success","anda berhasil login");
+        }
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

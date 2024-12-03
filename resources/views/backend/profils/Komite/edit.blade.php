@@ -1,10 +1,5 @@
 @extends("backend.layouts.main")
 
-@section("css")
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-@endsection
 
 @section("title","Ketua Komite")
 
@@ -29,7 +24,7 @@
                     </div>
 
                     <div class="mb-4 w-2/5">
-                        <label for="jabatan" class="block text-sm font-medium text-gray-700 dark:text-gray-300">jabatan</label>
+                        <label for="jabatan" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Jabatan</label>
                         <input type="text" name="jabatan" id="jabatan" value="{{old("jabatan",$komite->jabatan)}}"
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
                                >
@@ -52,7 +47,7 @@
                 <div class="w-11/12 mt-4 mb-8">
                     <button type="submit"
                             class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:bg-blue-700 focus:outline-none">
-                        Ubah data Komite
+                        Ubah Data Komite
                     </button>
                 </div>
             </form>
@@ -62,16 +57,9 @@
 
 @endsection
 @section("js")
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
+        window.Laravel = {
+        successMessage: @json(session('success')),
+    };
     </script>
 @endsection

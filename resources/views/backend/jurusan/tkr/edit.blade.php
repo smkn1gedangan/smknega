@@ -2,7 +2,6 @@
 
 @section("css")
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 @endsection
 
@@ -43,7 +42,7 @@
                 </div>
 
                 <div class="mb-4 w-11/12">
-                    <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">konten</label>
+                    <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten</label>
                     <div id="editor" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
                         {!! old('konten', $tkr->konten) !!}
 
@@ -76,7 +75,6 @@
 
 @endsection
 @section("js")
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
@@ -101,14 +99,5 @@
             });
         });
 
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil update data tkr!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
     </script>
 @endsection

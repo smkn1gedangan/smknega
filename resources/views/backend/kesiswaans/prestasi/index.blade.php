@@ -1,13 +1,6 @@
 @extends("backend.layouts.main")
 
-@section("css")
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <style>
-        .swal-height {
-            padding: 0.4rem;
-        }
-    </style>
-@endsection
+
 
 @section("title","Prestasi")
 
@@ -15,8 +8,8 @@
     <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
         <div class="flex w-full justify-between items-center pt-4 ">
             <div class="w-3/4 ml-10">
-                <h3 class="text-3xl font-bold dark:text-white">Data Prestasi</h3>
-                <p class="mb-3 text-gray-800 dark:text-gray-400">Seluruh data Prestasi Smkn 1 Gedangan</p>
+                <h3 class="text-3xl font-bold dark:text-white">Data Prestasi Siswa</h3>
+                <p class="mb-3 text-gray-800 dark:text-gray-400">seluruh data prestasi siswa smkn 1 gedangan</p>
             </div>
             <a href="{{route("prestasi.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah Prestasi</a>
         </div>
@@ -38,7 +31,7 @@
                             <td class="px-6 py-4">{{ Str::words($prestasi->nama, 3, '...') }}</td>
                             <td class="px-6 py-4">{{ $prestasi->tingkat }}</td>
                             <td class="px-6 py-4">{{ $prestasi->penyelenggara }}</td>
-                            
+
                             <td class="px-6 flex gap-2 py-4 justify-center">
                                 <a href="{{ route('prestasi.edit', [Crypt::encrypt($prestasi->id)]) }}" class="text-orange-300 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>
                                 <form id="delete-form-{{ $prestasi->id }}" action="{{ route('prestasi.destroy', [Crypt::encrypt($prestasi->id)]) }}" method="POST" class="inline">
@@ -59,7 +52,6 @@
 @endsection
 
 @section("js")
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmDelete(articleId) {
             Swal.fire({
@@ -81,14 +73,8 @@
                 }
             });
         }
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
+        window.Laravel = {
+            successMessage: @json(session('success')),
+        };
     </script>
 @endsection

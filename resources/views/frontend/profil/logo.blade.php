@@ -1,6 +1,6 @@
 @extends("frontend.layouts.main")
 
-@section("title","Sejarah Smkn 1 Gedangan")
+@section("title","Logo Smkn 1 Gedangan")
 
 @section("content")
 

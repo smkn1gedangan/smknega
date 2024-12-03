@@ -32,11 +32,11 @@ class RightFeComponent extends Component
         return view('components.right-fe-component', compact("articleTerbarus", "galeris"));
     }
 
-  
+
     // private function getLatestYouTubeVideos()
     // {
-    //     $channelId = 'UCaW8arAuV0WMEJEzM1rZ1Nw';  
-    //     $apiKey = env("YOUTUBE_API_KEY"); 
+    //     $channelId = 'UCaW8arAuV0WMEJEzM1rZ1Nw';
+    //     $apiKey = env("YOUTUBE_API_KEY");
 
     //     $client = new Client();
 

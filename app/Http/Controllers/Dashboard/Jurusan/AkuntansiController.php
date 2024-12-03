@@ -61,7 +61,17 @@ class AkuntansiController extends Controller
         $akuntansi = Akuntansi::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
-            "konten"=> "min:6|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
             "judul"=> "min:3|max:100|required",
             "penulis_id"=> "required"
         ]);
@@ -80,7 +90,7 @@ class AkuntansiController extends Controller
             $akuntansi->judul = $data['judul'];
             $akuntansi->penulis_id = Auth::user()->id;
             $akuntansi->save();
-            return redirect()->route('akuntansi.index')->with('success', 'data akuntansi berhasil diperbarui!');
+            return redirect()->route('akuntansi.index')->with('success', 'data Jurusan Akuntansi berhasil diperbarui!');
     }
     }
 

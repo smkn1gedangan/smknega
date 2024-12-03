@@ -60,12 +60,19 @@
                     @enderror
                 </div>
                 <div class="flex flex-col w-11/12 gap-2 justify-center">
+                    <p class="text-red-600 text-sm">jika itu adalah artikel murni , hilangkan kategori prestasi </p>
                     <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 
                         @foreach ($kategoris as $kategori)
                         <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                           <div class="flex items-center ps-3">
-                              <input id="kategori_id" type="checkbox" name="kategori_id[]" value="{{$kategori->id}}" class="w-4 h-4 text-blue-600 bg-gray-100 ml-2 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                              <input id="kategori_id" type="checkbox" name="kategori_id[]" value="{{$kategori->id}}"
+                              @foreach ($article->kategoris as $articleKategori)
+                                @if ($articleKategori->id === $kategori->id)
+                                    checked
+                                @endif
+                                @endforeach
+                               class="w-4 h-4 text-blue-600 bg-gray-100 ml-2 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                               <label for="kategori_id" class="w-full ml-5 py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$kategori->nama}}</label>
                           </div>
                       </li>
@@ -92,7 +99,6 @@
 
 @endsection
 @section("js")
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -117,14 +123,5 @@
                 document.querySelector('#text_content').value = quill.root.innerHTML;
             });
         });
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil update artikel!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
     </script>
 @endsection

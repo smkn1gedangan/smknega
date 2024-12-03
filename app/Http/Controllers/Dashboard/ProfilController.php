@@ -27,7 +27,17 @@ class ProfilController extends Controller
         $profil = Profil::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             'photo' => 'required|file|mimes:jpg,png,jpeg|max:5096',
-            "konten"=> "min:6|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         if ($request->hasFile('photo')) {
             $path = "img/welcome/" . $profil->image;

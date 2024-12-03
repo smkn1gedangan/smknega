@@ -61,7 +61,17 @@ class PemetaanController extends Controller
         $pemetaan = Pemetaan::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
-            "konten"=> "min:6|required",
+           'konten' => [
+            'required',
+            function ($attribute, $value, $fail) {
+                if (trim(strip_tags($value)) === '') {
+                    $fail('Konten tidak boleh kosong.');
+                }else if(trim(str_word_count($value)) < 20){
+                    $fail('Konten harus memiliki minimal 20 kata..');
+
+                }
+            },
+        ],
             "penulis_id"=> "required"
         ]);
         if ($request->hasFile('photo')) {
@@ -78,7 +88,7 @@ class PemetaanController extends Controller
             $pemetaan->konten = $data['konten'];
             $pemetaan->penulis_id = Auth::user()->id;
             $pemetaan->save();
-            return redirect()->route('pemetaan.index')->with('success', 'data pemetaan kelulusan berhasil diperbarui!');
+            return redirect()->route('pemetaan.index')->with('success', 'data Pemetaan Kelulusan berhasil diperbarui!');
     }
     }
 

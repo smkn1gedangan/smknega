@@ -60,12 +60,22 @@ class DeskripsiKomiteController extends Controller
         $deskripsiKomite = DeskripsiKomite::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             "penulis_id"=> "required",
-            "konten"=> "min:10|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         $deskripsiKomite->penulis_id = Auth::user()->id;
         $deskripsiKomite->konten = $data['konten'];
         $deskripsiKomite->save();
-        return redirect()->route('deskripsiKomite.index')->with('success', 'deskripsi Komite  berhasil diperbarui!');
+        return redirect()->route('deskripsiKomite.index')->with('success', 'data Deskripsi Komite  berhasil diperbarui!');
     }
 
     /**

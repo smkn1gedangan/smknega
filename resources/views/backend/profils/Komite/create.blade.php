@@ -1,11 +1,4 @@
 @extends("backend.layouts.main")
-
-@section("css")
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-@endsection
-
 @section("title","Komite")
 
 @section("content")
@@ -28,7 +21,7 @@
                     </div>
 
                     <div class="mb-4 w-2/5">
-                        <label for="jabatan" class="block text-sm font-medium text-gray-700 dark:text-gray-300">jabatan</label>
+                        <label for="jabatan" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Jabatan</label>
                         <input type="text" autocomplete="off" name="jabatan" id="jabatan"
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
                                required placeholder="Masukkan jabatan Komite">
@@ -65,16 +58,10 @@
 
 @endsection
 @section("js")
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
+    window.Laravel = {
+        successMessage: @json(session('success')),
+    };
     </script>
 @endsection

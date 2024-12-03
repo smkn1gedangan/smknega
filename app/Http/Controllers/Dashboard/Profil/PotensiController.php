@@ -60,15 +60,25 @@ class PotensiController extends Controller
         $potensi = Potensi::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             "penulis_id"=> "required",
-            "konten"=> "min:10|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         $potensi->penulis_id = Auth::user()->id;
         $potensi->konten = $data['konten'];
         $potensi->save();
-        return redirect()->route('potensi.index')->with('success', 'Potensi Unggulan berhasil diperbarui!');
+        return redirect()->route('potensi.index')->with('success', 'data Potensi Unggulan berhasil diperbarui!');
 
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */

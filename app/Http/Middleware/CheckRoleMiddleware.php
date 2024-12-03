@@ -19,8 +19,7 @@ class CheckRoleMiddleware
         if (Auth::check() && Auth::user()->role == 1) {
             return $next($request); // Jika admin, lanjutkan permintaan
         }
-
         // Jika bukan admin, redirect ke halaman lain (misalnya halaman home atau error 403)
-        return redirect('/')->with('error', "Anda tidak boleh mengakses ke halaman ini.");
+        return redirect('/')->with('error', "Anda tidak boleh mengakses ke halaman ini. silahkan login terlebih dahulu menggunakan user dengan role admin");
     }
 }

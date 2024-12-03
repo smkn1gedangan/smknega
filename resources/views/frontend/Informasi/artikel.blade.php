@@ -12,7 +12,7 @@ $artikels = \App\Models\Article::query()
 
 
 @extends("frontend.layouts.main")
-@section("title","Artikel")
+@section("title","Artikel Smkn 1 Gedangan")
 @section("content")
     <section class="relative bg-no-repeat">
        <div class="w-screen md:max-w-[95%]  p-2 md:py-16 flex md:flex-row justify-evenly flex-wrap">

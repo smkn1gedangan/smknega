@@ -61,7 +61,17 @@ class BogaController extends Controller
         $boga = Boga::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
-            "konten"=> "min:6|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
             "judul"=> "min:3|max:100|required",
             "penulis_id"=> "required"
         ]);
@@ -80,7 +90,7 @@ class BogaController extends Controller
             $boga->judul = $data['judul'];
             $boga->penulis_id = Auth::user()->id;
             $boga->save();
-            return redirect()->route('boga.index')->with('success', 'data tata boga berhasil diperbarui!');
+            return redirect()->route('boga.index')->with('success', 'data Jurusn Tata Boga berhasil diperbarui!');
     }
     }
     /**

@@ -60,12 +60,22 @@ class BursaController extends Controller
         $bursa = Bursa::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             "penulis_id"=> "required",
-            "konten"=> "min:10|required",
+           'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         $bursa->penulis_id = Auth::user()->id;
         $bursa->konten = $data['konten'];
         $bursa->save();
-        return redirect()->route('bursa.index')->with('success', 'Hubungan bursa berhasil diperbarui!');
+        return redirect()->route('bursa.index')->with('success', 'data Bursa Kerja berhasil diperbarui!');
 
     }
 

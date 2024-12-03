@@ -61,7 +61,17 @@ class AnimasiController extends Controller
         $animasi = Animasi::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
-            "konten"=> "min:6|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
             "judul"=> "min:3|max:100|required",
             "penulis_id"=> "required"
         ]);
@@ -80,7 +90,7 @@ class AnimasiController extends Controller
             $animasi->judul = $data['judul'];
             $animasi->penulis_id = Auth::user()->id;
             $animasi->save();
-            return redirect()->route('animasi.index')->with('success', 'data animasi berhasil diperbarui!');
+            return redirect()->route('animasi.index')->with('success', 'data Jurusan Animasi berhasil diperbarui!');
     }
     }
 

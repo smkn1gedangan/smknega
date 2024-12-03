@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             // 1 admin ,2 user
             $table->integer('role')->default(2);
+            $table->boolean("deletable")->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

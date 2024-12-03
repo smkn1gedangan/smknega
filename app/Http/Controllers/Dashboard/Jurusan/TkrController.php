@@ -61,7 +61,17 @@ class TkrController extends Controller
         $tkr = Tkr::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
-            "konten"=> "min:6|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
             "judul"=> "min:3|max:100|required",
             "penulis_id"=> "required"
         ]);
@@ -80,7 +90,7 @@ class TkrController extends Controller
             $tkr->judul = $data['judul'];
             $tkr->penulis_id = Auth::user()->id;
             $tkr->save();
-            return redirect()->route('tkr.index')->with('success', 'data tkr berhasil diperbarui!');
+            return redirect()->route('tkr.index')->with('success', 'data Jurusna Tkr berhasil diperbarui!');
     }
     }
 

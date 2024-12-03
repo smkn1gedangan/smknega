@@ -1,10 +1,5 @@
 @extends("backend.layouts.main")
 
-@section("css")
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-@endsection
 
 @section("title","Guru")
 
@@ -64,17 +59,4 @@
 
 
 @endsection
-@section("js")
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
 
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
-    </script>
-@endsection

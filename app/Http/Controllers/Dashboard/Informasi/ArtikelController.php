@@ -53,7 +53,17 @@ class ArtikelController extends Controller
             'image' => 'required|file|mimes:jpg,png,pdf|max:2048',
             "title"=> "min:6|max:100|required",
             "writer_id"=> "required",
-            "text_content"=> "min:10|required",
+            'text_content' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
             "kategori_id" => "required|array"
         ]);
 
@@ -108,7 +118,17 @@ class ArtikelController extends Controller
            'image' => 'required|file|mimes:jpg,png,pdf|max:2048',
             "title"=> "min:6|max:100|required",
             "writer_id"=> "required",
-            "text_content"=> "min:10|required",
+            'text_content' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
             "kategori_id" => "required|array"
         ]);
         if ($request->hasFile('image')) {

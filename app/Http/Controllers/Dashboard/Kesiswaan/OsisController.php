@@ -60,12 +60,22 @@ class OsisController extends Controller
         $osis = Osis::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             "penulis_id"=> "required",
-            "konten"=> "min:10|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         $osis->penulis_id = Auth::user()->id;
         $osis->konten = $data['konten'];
         $osis->save();
-        return redirect()->route('osis.index')->with('success', 'data osis berhasil diperbarui!');
+        return redirect()->route('osis.index')->with('success', 'data Osis berhasil diperbarui!');
     }
 
     /**

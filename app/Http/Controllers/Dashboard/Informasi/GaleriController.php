@@ -51,7 +51,7 @@ class GaleriController extends Controller
             "judul"=> $request->judul,
 
         ]);
-        return redirect()->route("galeri.index")->with('success', 'Data galeri berhasil diupload dan disimpan!');
+        return redirect()->route("galeri.index")->with('success', 'Data Galeri berhasil diupload dan disimpan!');
 
     }
 

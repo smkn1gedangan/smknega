@@ -3,7 +3,7 @@
 @extends("frontend.layouts.main")
 @section("title","homepage")
 @section("css")
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
 <style>
     .swal-height {
            padding: 0.4rem;
@@ -61,20 +61,16 @@
 {{-- header end --}}
 {{-- header start --}}
 <section  class="relative block sm:hidden">
-    <div class="swiper mySwiper w-full">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide object-cover  ">
-                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
+    <div class="w-full">
+        <div class="object-cover  ">
+            <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
-                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">Selamat datang di Smkn 1 Gedangan</h1>
-                <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+            <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">Selamat datang di Smkn 1 Gedangan</h1>
+            <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
 
-                </div>
-                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
-           
+            <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
         </div>
-        <!-- Swiper Navigation Buttons -->
 
     </div>
 
@@ -89,7 +85,7 @@
                 @if (file_exists(public_path('img/welcome/' . $profil->photo)) && $profil->photo)
                     <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-11/12 my-5  sm:w-4/5 h-52 sm:h-64 lg:h-80 overflow-hidden">
                         <img class="w-full hover:scale-110 transition-all duration-700  rounded-md object-cover h-full" src="{{ asset("img/welcome/" . $profil->photo) }}" alt="">
-                        
+
                     </div>
                     @else
                         <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="bg-gray-200 w-11/12 sm:w-4/5 h-52 sm:h-64 my-5">
@@ -203,7 +199,7 @@
                 @foreach ($articles as $article)
                 <div class="flex flex-col relative items-center  bg-white border border-gray-200 rounded-lg shadow md:flex-row  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-[100%] ">
                     @if (file_exists(public_path('img/articles_images/' . $article->image)) && $article->image)
-                            <img src="{{ asset('img/articles_images/' . $article->image) }}" class="object-cover w-full sm:w-3/5 sm:h-52 rounded-t-lg h-40 md:h-52 md:w-52 md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
+                            <img src="{{ asset('img/articles_images/' . $article->image) }}" class="object-cover w-full sm:w-3/5 sm:h-52 rounded-t-lg h-auto md:h-52 md:w-52 md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
 
                         @else
                             <div class="w-full grid place-content-center bg-gray-200 sm:w-3/5 h-52 md:w-52">
@@ -288,16 +284,11 @@
 {{-- artikel end --}}
 
 
-
-
-
-
 @endsection
 
 
 @section("js")
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var swiper = new Swiper(".mySwiper", {
@@ -315,31 +306,18 @@
                 disableOnInteraction: false,
             },
         });
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid!',
+                text: '{{ session('error') }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        @endif
     });
-    
-    @if(session('error'))
-        Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: '{{ session('error') }}',
-            showConfirmButton: true,
-            confirmButtonText: 'Ke Login',
-            confirmButtonColor: '#d33', 
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "{{ route('login') }}";
-            }
-        });
-    @endif
-
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Sukses!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
+    window.Laravel = {
+            successMessage: @json(session('success')),
+        };
 </script>
 @endsection

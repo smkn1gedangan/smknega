@@ -62,12 +62,22 @@ class BisnisController extends Controller
         $bisnis = Bisnis::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             "penulis_id"=> "required",
-            "konten"=> "min:10|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         $bisnis->penulis_id = Auth::user()->id;
         $bisnis->konten = $data['konten'];
         $bisnis->save();
-        return redirect()->route('bisnis.index')->with('success', 'program bisnis berhasil diperbarui!');
+        return redirect()->route('bisnis.index')->with('success', 'data Program bisnis Sekolah berhasil diperbarui!');
 
     }
     /**

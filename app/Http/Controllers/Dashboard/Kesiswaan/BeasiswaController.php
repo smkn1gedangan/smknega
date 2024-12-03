@@ -60,12 +60,22 @@ class BeasiswaController extends Controller
         $beasiswa = Beasiswa::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             "penulis_id"=> "required",
-            "konten"=> "min:10|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         $beasiswa->penulis_id = Auth::user()->id;
         $beasiswa->konten = $data['konten'];
         $beasiswa->save();
-        return redirect()->route('beasiswa.index')->with('success', 'data beasiswa berhasil diperbarui!');
+        return redirect()->route('beasiswa.index')->with('success', 'data Beasiswa berhasil diperbarui!');
     }
 
     /**

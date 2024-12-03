@@ -2,7 +2,6 @@
 
 @section("css")
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 @endsection
 
@@ -62,7 +61,6 @@
 
 @endsection
 @section("js")
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
@@ -87,14 +85,5 @@
             });
         });
 
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil update data pemetaan kelulusan!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
     </script>
 @endsection

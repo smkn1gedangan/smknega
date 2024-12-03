@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\CheckRoleMiddleware;
+use App\Http\Middleware\NoCacheMidlleware;
 use App\Http\Middleware\StatistikPengunjungMiddleware;
 use App\Http\Middleware\ViewarticleMiddleware;
 use Illuminate\Foundation\Application;
@@ -16,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             "checkRole"=> CheckRoleMiddleware::class,"viewArticle"=>ViewarticleMiddleware::class,
-        "pengunjung"=>StatistikPengunjungMiddleware::class]);
+        "pengunjung"=>StatistikPengunjungMiddleware::class,"cache"=>NoCacheMidlleware::class]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

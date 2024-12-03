@@ -102,7 +102,7 @@ class GuruController extends Controller
             $guru->tugas = $data['tugas'];
             $guru->save();
 
-            return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui!');
+            return redirect()->route('guru.index')->with('success', 'Data Guru berhasil diperbarui!');
     }
     }
     /**

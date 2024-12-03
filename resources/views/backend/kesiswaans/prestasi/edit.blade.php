@@ -1,16 +1,10 @@
 @extends("backend.layouts.main")
 
-@section("css")
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-@endsection
-
 @section("title","Prestasi")
 
 @section("content")
     <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
-        <x-title-create-dashboard>edit data prestasi Smkn 1 Gedangan</x-title-create-dashboard>
+        <x-title-create-dashboard>edit data prestasi siswa</x-title-create-dashboard>
         <div class="w-full">
             <form action="{{ route('prestasi.update',[Crypt::encrypt($prestasi->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -64,12 +58,12 @@
                 </div>
 
 
-                
+
                 <!-- Tombol Submit -->
                 <div class="w-11/12 mt-4 mb-8">
                     <button type="submit"
                             class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:bg-blue-700 focus:outline-none">
-                        Ubah data prestasi
+                        Ubah Data Prestasi Siswa
                     </button>
                 </div>
             </form>
@@ -77,19 +71,4 @@
     </div>
 
 
-@endsection
-@section("js")
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil update data prestasi!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
-    </script>
 @endsection

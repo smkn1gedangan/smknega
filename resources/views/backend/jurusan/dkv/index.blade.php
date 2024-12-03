@@ -1,9 +1,5 @@
 @extends("backend.layouts.main")
 
-@section("css")
-
-@endsection
-
 @section("title","dkv")
 
 @section("content")
@@ -25,7 +21,7 @@
                            </div>
            @endif
            <h1 class="text-2xl mt-6 mb-2 text-gray-800 dark:text-gray-100">{{$dkv->nama}}</h1>
-            
+
             <blockquote class="text-sm italic text-gray-900 dark:text-white">
                 <p>{!!$dkv->konten!!}</p>
             </blockquote>
@@ -33,11 +29,15 @@
         </div>
             <div class="items-center ml-6 pb-6">
 
-                <a href="{{ route('dkv.edit', [Crypt::encrypt($dkv->id)]) }}" class="bg-yellow-600 hover:bg-orange-400 dark:text-blue-400 ml-4 text-white py-2.5 px-4 rounded-md">Edit data dkv</a>
+                <a href="{{ route('dkv.edit', [Crypt::encrypt($dkv->id)]) }}" class="bg-yellow-600 hover:bg-orange-400 dark:text-blue-400 ml-4 text-white py-2.5 px-4 rounded-md">Edit Data Jurusan Dkv</a>
             </div>
         </div>
 @endsection
 
 @section("js")
-
+<script>
+    window.Laravel = {
+        successMessage: @json(session('success')),
+    };
+</script>
 @endsection

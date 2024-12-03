@@ -48,8 +48,11 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
-        Auth::logout();
 
+        if (!$user->isDeletable()) {
+            return redirect()->back()->with('error', 'User ini adalah utma ,tidak dapat dihapus.');
+        }
+        Auth::logout();
         $user->delete();
 
         $request->session()->invalidate();

@@ -29,7 +29,17 @@ class KepsekController extends Controller
         $data = $request->validate([
             'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
             "nama"=> "min:6|max:100|required",
-            "sambutan"=> "min:10|required",
+            'sambutan' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('sambutan tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('sambutan harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         if ($request->hasFile('photo')) {
             $path = "img/kepala_sekolah/" . $kepsek->photo;

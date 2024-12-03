@@ -61,7 +61,17 @@ class StrukturController extends Controller
         $struktur = StrukturOrganisasi::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
            'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
-            "konten"=> "min:6|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
             "penulis_id"=> "required"
         ]);
         if ($request->hasFile('photo')) {
@@ -78,7 +88,7 @@ class StrukturController extends Controller
             $struktur->konten = $data['konten'];
             $struktur->penulis_id = Auth::user()->id;
             $struktur->save();
-            return redirect()->route('struktur.index')->with('success', 'Struktur organisasi berhasil diperbarui!');
+            return redirect()->route('struktur.index')->with('success', 'data Struktur Organisasi berhasil diperbarui!');
     }
     }
 

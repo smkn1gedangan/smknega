@@ -2,7 +2,6 @@
 
 @section("css")
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 @endsection
 
@@ -15,7 +14,7 @@
             <form id="form" action="{{ route('deskripsiKomite.update',[Crypt::encrypt($deskripsiKomite->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
-                
+
                 <div class="mb-4 w-2/5">
                     <label for="penulis" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Penulis</label>
                     <input type="text" name="penulis_id" id="penulis" value="{{ Auth::user()->name}}"
@@ -42,12 +41,12 @@
                     @enderror
                 </div>
 
-               
+
                 <!-- Tombol Submit -->
                 <div class="w-11/12 mt-4 mb-8">
                     <button type="submit"
                             class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:bg-blue-700 focus:outline-none">
-                        Ubah data deskripsi
+                        Ubah Deskripsi Komite
                     </button>
                 </div>
             </form>
@@ -57,7 +56,6 @@
 
 @endsection
 @section("js")
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
@@ -82,13 +80,8 @@
             });
         });
 
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
+        window.Laravel = {
+        successMessage: @json(session('success')),
+    };
     </script>
 @endsection

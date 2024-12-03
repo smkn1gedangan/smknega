@@ -1,6 +1,6 @@
 @extends("frontend.layouts.main")
 
-@section("title","guru Smkn 1 Gedangan")
+@section("title","Galeri Smkn 1 Gedangan")
 
 
 @section("content")
@@ -10,7 +10,7 @@
     <div class="w-full flex justify-center mb-8 pt-20 md:pt-28">
         <x-heading-profil class="w-5/6 md:w-2/3 lg:w-2/3">galeri galeri</x-heading-profil>
     </div>
- 
+
     <div class="md:max-w-[95%] grid grid-cols-2 md:grid-cols-3 gap-4">
        @foreach ($galeris as $galeri)
         <div class="border border-gray-100">
@@ -24,7 +24,7 @@
             <h1 class="text-center text-slate-700 text-xs sm:text-base">{{ $galeri->judul }}</h1>
         </div>
        @endforeach
-       
+
     </div>
 </section>
 

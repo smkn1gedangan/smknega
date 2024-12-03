@@ -60,12 +60,22 @@ class PeraturanController extends Controller
         $peraturan = Peraturan::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             "penulis_id"=> "required",
-            "konten"=> "min:10|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         $peraturan->penulis_id = Auth::user()->id;
         $peraturan->konten = $data['konten'];
         $peraturan->save();
-        return redirect()->route('peraturan.index')->with('success', 'peraturan sekolah berhasil diperbarui!');
+        return redirect()->route('peraturan.index')->with('success', 'data Peraturan Sekolah berhasil diperbarui!');
 
     }
 

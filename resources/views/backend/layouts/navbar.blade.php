@@ -17,6 +17,14 @@
                 <div id="welcome" class="z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-52 dark:bg-gray-700">
                     <ul class="py-2 text-sm text-gray-700 mt-2" aria-labelledby="welcomeDropdown">
                         <li class="mr-3 flex-1 ml-3">
+                            <a href="{{ route("link.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
+
+
+                                <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-link pr-0 md:pr-3"></i>
+                                </i> Link Sosial Media</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1 ml-3">
                             <a href="{{ route("profil.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
 
 
@@ -155,7 +163,7 @@
                                     Bursa Kerja</span>
                             </a>
                         </li>
-                       
+
                     </ul>
                 </div>
               </li>
@@ -221,7 +229,7 @@
                                     Tkr</span>
                             </a>
                         </li>
-                       
+
                     </ul>
                 </div>
               </li>
@@ -232,7 +240,7 @@
                 <!-- Dropdown menu -->
                 <div id="kesiswaan" class="z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-52 dark:bg-gray-700">
                     <ul class="py-2 text-sm text-gray-700 mt-2" aria-labelledby="kesiswaanDropdown">
-                       
+
                         <li class="mr-3 flex-1 ml-3">
                             <a href="{{ route("prestasi.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
                                 <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-award pr-3 md:pr-3"></i>
@@ -273,7 +281,7 @@
                                     Pemetaan Kelulusan</span>
                             </a>
                         </li>
-                       
+
                     </ul>
                 </div>
               </li>
@@ -284,7 +292,7 @@
                 <!-- Dropdown menu -->
                 <div id="informasi" class="z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-52 dark:bg-gray-700">
                     <ul class="py-2 text-sm text-gray-700 mt-2" aria-labelledby="informasiDropdown">
-                       
+
                         <li class="mr-3 flex-1 ml-3">
                             <a href="{{ route("guru.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
                                 <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-user-graduate pr-3 md:pr-3"></i>

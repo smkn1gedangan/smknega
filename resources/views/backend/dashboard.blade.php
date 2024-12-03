@@ -45,6 +45,13 @@
             <div class="w-full ps-3">
                 <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400"><span class="font-semibold text-gray-900 dark:text-white mx-3">{{ $masukan->nama }}</span>{{ Str::words($masukan->masukan, 10, '...') }}</div>
                 <div class="text-xs text-blue-600 dark:text-blue-500">{{ \Carbon\Carbon::parse($masukan->created_at)->translatedFormat('l, d F Y') }}</div>
+                <form action="{{route('deleteMasukan',[Crypt::encrypt($masukan->id)]) }}" method="post" id="delete-form-{{$masukan->id}}">
+                    @csrf
+                    @method("delete")
+                    <button type="button" onclick="confirmDelete({{$masukan->id}})" class="text-xs text-red-600 dark:text-red-500">hapus masukan</button>
+
+                </form>
+
             </div>
             </a>
           @endforeach
@@ -100,5 +107,28 @@
         window.onload = checkScreenWidth;
 
         window.onresize = checkScreenWidth;
+        function confirmDelete(articleId) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data Masukan ini akan dihapus secara permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Tidak , Batal',
+                width: '550px',
+                customClass: {
+                    popup: 'swal-height'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(`delete-form-${articleId}`).submit();
+                }
+            });
+        }
+        window.Laravel = {
+            successMessage: @json(session('success')),
+        };
 </script>
 @endsection

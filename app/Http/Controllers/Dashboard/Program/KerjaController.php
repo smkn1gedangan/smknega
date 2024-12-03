@@ -60,12 +60,22 @@ class KerjaController extends Controller
         $kerja = Kerja::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
             "penulis_id"=> "required",
-            "konten"=> "min:10|required",
+            'konten' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (trim(strip_tags($value)) === '') {
+                        $fail('Konten tidak boleh kosong.');
+                    }else if(trim(str_word_count($value)) < 20){
+                        $fail('Konten harus memiliki minimal 20 kata..');
+
+                    }
+                },
+            ],
         ]);
         $kerja->penulis_id = Auth::user()->id;
         $kerja->konten = $data['konten'];
         $kerja->save();
-        return redirect()->route('kerja.index')->with('success', 'program kerja berhasil diperbarui!');
+        return redirect()->route('kerja.index')->with('success', 'data Program Kerja berhasil diperbarui!');
 
     }
 

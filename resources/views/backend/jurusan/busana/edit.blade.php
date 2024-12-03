@@ -2,8 +2,6 @@
 
 @section("css")
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
 @endsection
 
 @section("title","Busana")
@@ -30,7 +28,7 @@
                 </div>
                 <div class="w-11/12 gap-2 ">
                     <div class="mb-4 w-2/5">
-                        <label for="judul" class="block text-sm font-medium text-gray-700 dark:text-gray-300">judul</label>
+                        <label for="judul" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Judul</label>
                         <input type="text" value="{{old("judul",$busana->judul)}}" name="judul" id="judul"
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
                                >
@@ -66,7 +64,7 @@
                 <div class="w-11/12 mt-4 mb-8">
                     <button type="submit"
                             class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:bg-blue-700 focus:outline-none">
-                        Ubah data busana
+                        Ubah Data Tata Busana
                     </button>
                 </div>
             </form>
@@ -76,7 +74,6 @@
 
 @endsection
 @section("js")
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
@@ -100,15 +97,5 @@
                 document.querySelector('#konten').value = quill.root.innerHTML;
             });
         });
-
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil update data busana!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
     </script>
 @endsection

@@ -124,7 +124,7 @@
               <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 <a href="{{ route("pemetaan") }}" class="text-gray-700 transition hover:opacity-75"> Pemetaan Kelulusan </a>
               </li>
-             
+
             </ul>
           </div>
 
@@ -254,7 +254,7 @@
               </a>
             </li>
 
-            
+
           </ul>
         </div>
       </div>
