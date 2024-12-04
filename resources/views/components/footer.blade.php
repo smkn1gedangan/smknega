@@ -170,7 +170,7 @@
           <ul class="col-span-2 flex justify-start gap-6 lg:col-span-5 lg:justify-end">
             <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a
-                href="#"
+                href="{{$link["facebook"]}}"
                 rel="noreferrer"
                 target="_blank"
                 class="text-gray-700 transition hover:opacity-75"
@@ -189,7 +189,7 @@
 
             <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a
-                href="#"
+                href="{{$link["instagram"]}}"
                 rel="noreferrer"
                 target="_blank"
                 class="text-gray-700 transition hover:opacity-75"
@@ -243,7 +243,7 @@
             </li>
             <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a
-                href="#"
+                href="{{$link["tiktok"]}}"
                 rel="noreferrer"
                 target="_blank"
                 class="text-gray-700 transition hover:opacity-75"

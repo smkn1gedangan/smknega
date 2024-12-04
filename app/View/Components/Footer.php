@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Link;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -21,6 +22,7 @@ class Footer extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('frontend.layouts.footer');
+        $link = Link::first();
+        return view('components.footer',compact("link"));
     }
 }

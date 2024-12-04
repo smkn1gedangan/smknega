@@ -35,7 +35,7 @@
 
 @include("frontend.layouts.contact")
 @include("frontend.layouts.maps")
-@include("frontend.layouts.footer")
+<x-footer></x-footer>
 
 </body>
 @yield("js")

@@ -22,16 +22,10 @@ class UserSeeder extends Seeder
             "role"=> 1
           ],
           [
-            "name"=> "admin",
-            "email"=> "usammuhajir09@gmail.com",
-            "password"=> bcrypt("admin"),
-            "role"=> 1
-          ],
-          [
             "name"=> "usammuhajir",
             "email"=> "usammuhajir047@gmail.com",
             "password"=> bcrypt("hajir"),
-            "role"=> 2
+            "role"=> 1
           ]
         ];
         foreach ($datas as $key => $data) {
