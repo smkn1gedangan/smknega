@@ -222,6 +222,8 @@ class FrontendController extends Controller
         if(!$email){
             return redirect()->route("welcome")->with("error","email tidak dikenali , anda harus login terlebih dahulu");
         }
+     
+
         Masukan::create([
             "nama"=>$request->nama,
             "email"=>$request->masukan,

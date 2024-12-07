@@ -28,6 +28,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
         if(Auth::user()->role === 2){
+            if (!Auth::user()->hasVerifiedEmail()) {
+                return redirect()->route('verification.notice')
+                    ->with('error', 'Silakan verifikasi email Anda terlebih dahulu.');
+            }
             return redirect()->intended(route("welcome"))->with("success","anda berhasil login");
         }
         return redirect()->intended(route('dashboard', absolute: false));

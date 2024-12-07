@@ -43,8 +43,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
 
-        return redirect(route('welcome', absolute: false));
+        return redirect(route('welcome', absolute: false))->with("success","sukses membuat akun baru");
     }
 }

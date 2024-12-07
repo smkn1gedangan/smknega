@@ -206,7 +206,7 @@
               </a>
             </li>
 
-            <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
+            {{-- <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a
                 href="#"
                 rel="noreferrer"
@@ -221,9 +221,9 @@
                   />
                 </svg>
               </a>
-            </li>
+            </li> --}}
 
-            <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
+            {{-- <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a
                 href="#"
                 rel="noreferrer"
@@ -240,7 +240,7 @@
                   />
                 </svg>
               </a>
-            </li>
+            </li> --}}
             <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
               <a
                 href="{{$link["tiktok"]}}"
