@@ -20,7 +20,7 @@
     <div class="w-full lg:w-full p-2 flex flex-col items-center">
 
         @if (file_exists(public_path('img/jurusan/' . $busana->photo)) && $busana->photo)
-                    <div class="img-fixed my-5 rounded-md w-11/12 sm:w-5/6 md:w-3/4 lg:w-4/5 min-h-64 md:min-h-96 md:h-auto"
+                    <div class="img-fixed my-5 rounded object-cover object-center-md w-11/12 sm:w-5/6 md:w-3/4 lg:w-4/5 min-h-64 md:min-h-96 md:h-auto"
                         style="background-image: url('{{ asset("img/jurusan/" . $busana->photo) }}');">
                     </div>
                     @else
