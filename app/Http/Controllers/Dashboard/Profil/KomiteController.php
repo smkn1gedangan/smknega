@@ -20,7 +20,7 @@ class KomiteController extends Controller
     {
         $komites = Komite::latest()->paginate(10);
         $ketuaKomites = KetuaKomite::get();
-        return view("backend.profils.komite.index",compact("komites","ketuaKomites"));
+        return view("backend.profils.Komite.index",compact("komites","ketuaKomites"));
     }
 
     /**
@@ -28,7 +28,7 @@ class KomiteController extends Controller
      */
     public function create()
     {
-        return view("backend.profils.komite.create");
+        return view("backend.profils.Komite.create");
     }
 
     /**
@@ -72,7 +72,7 @@ class KomiteController extends Controller
     {
         $komite = Komite::findOrFail(Crypt::decrypt($id));
         if($komite){
-            return view("backend.profils.komite.edit",compact("komite"));
+            return view("backend.profils.Komite.edit",compact("komite"));
         }
     }
 
