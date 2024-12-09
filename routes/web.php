@@ -84,6 +84,7 @@ Route::controller(FrontendController::class)->group(function(){
     Route::prefix("ppdb")->group(function(){
         route::get("jadwal","jadwal")->name("jadwal");
         route::get("info_ppdb","info_ppdb")->name("info_ppdb");
+        route::get("survey","survey")->name("survey");
     });
     Route::get("/informasi/article/{slug}","readArticle")->name("readArticle");
 

@@ -56,7 +56,8 @@
           ]">INFORMASI</x-dropdown>
           <x-dropdown data="data-ppdb" :dataLinks="[
           ['route'=>'jadwal','name'=>'JADWAL PPDB'],
-          ['route'=>'info_ppdb','name'=>'INFORMASI PPDB']
+          ['route'=>'info_ppdb','name'=>'INFORMASI PPDB'],
+          ['route'=>'survey','name'=>'SURVEY PEMINATAN']
           ]">PPDB</x-dropdown>
 
         </ul>

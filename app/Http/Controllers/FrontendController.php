@@ -124,12 +124,12 @@ class FrontendController extends Controller
     }
     public function peraturan()  {
         $peraturan = Peraturan::first();
-        return view("frontend.program.peraturan",compact("peraturan"));
+        return view("frontend.program.Peraturan",compact("peraturan"));
     }
     public function bisnis()  {
         $bisnis = Bisnis::first();
         $bisnisPhoto = BisnisPhoto::get();
-        return view("frontend.program.bisnis",compact("bisnis","bisnisPhoto"));
+        return view("frontend.program.Bisnis",compact("bisnis","bisnisPhoto"));
     }
     public function industri()  {
         $industri = Industri::first();
@@ -190,26 +190,29 @@ class FrontendController extends Controller
     public function guru()  {
         $gurus = Guru::latest()->paginate(10);
         $kepsek = Kepsek::latest()->first();
-        return view("frontend.informasi.guru",compact("gurus","kepsek"));
+        return view("frontend.Informasi.guru",compact("gurus","kepsek"));
     }
     public function artikel()  {
         $artikels = Article::latest()->paginate(6);
         $kategoris = Kategori::get();
-        return view("frontend.informasi.artikel",compact("artikels","kategoris"));
+        return view("frontend.Informasi.artikel",compact("artikels","kategoris"));
     }
     public function sarana()  {
         $sarana = Sarana::first();
-        return view("frontend.informasi.sarana",compact("sarana"));
+        return view("frontend.Informasi.sarana",compact("sarana"));
     }
     public function galeri()  {
         $galeris = Galeri::latest()->paginate(10);
-        return view("frontend.informasi.galeri",compact("galeris"));
+        return view("frontend.Informasi.galeri",compact("galeris"));
     }
     public function jadwal()  {
         return redirect()->away("https://ppdbjatim.net/informasi/jadwal/");
     }
     public function info_ppdb()  {
         return redirect()->away("https://ppdbjatim.net/");
+    }
+    public function survey()  {
+        return redirect()->away("https://surveyminat.smkn1gedangan-malang.sch.id/");
     }
 
     public function save_masukan(Request $request)  {
