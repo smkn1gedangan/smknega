@@ -18,7 +18,7 @@ $artikels = \App\Models\Article::query()
        <div class="w-screen md:max-w-[95%]  p-2 md:py-16 flex md:flex-row justify-evenly flex-wrap">
            <div class="md:pl-12 mt-20 md:mt-0 p-2 md:py-6 flex flex-wrap gap-3 flex-col sm:flex-row lg:flex-col w-full lg:w-2/3 ">
             @foreach ($artikels as $artikel)
-            <div class="w-full sm:w-[47%] lg:w-5/6 md:p-4 mt-6 md:mt-4">
+            <div class="w-full sm:w-[47%] border border-gray-200 lg:w-5/6 md:p-4 mt-6 md:mt-4">
                 <a data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" href="{{route("readArticle",$artikel->slug)}}" class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white hover:text-slate-600">{{ $artikel->title }}</a>
                 <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-xs md:text-sm ">dibuat pada {{ \Carbon\Carbon::parse($artikel->created_at)->translatedFormat('l, d F Y') }}
                 </p>

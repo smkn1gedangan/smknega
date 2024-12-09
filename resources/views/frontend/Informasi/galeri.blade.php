@@ -11,7 +11,7 @@
         <x-heading-profil class="w-5/6 md:w-2/3 lg:w-2/3">galeri galeri</x-heading-profil>
     </div>
 
-    <div class="md:max-w-[95%] grid grid-cols-2 md:grid-cols-3 gap-4">
+    <div class="md:max-w-[95%] grid grid-cols-1 md:grid-cols-3 gap-4">
        @foreach ($galeris as $galeri)
         <div class="border border-gray-100">
             @if (file_exists(public_path('img/galeri/' . $galeri->photo)) && $galeri->photo)
