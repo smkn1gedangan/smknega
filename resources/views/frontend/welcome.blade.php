@@ -156,7 +156,7 @@
 
 {{-- guru guru start --}}
     <section  class="flex w-full flex-col items-center">
-        <x-heading-welcome classAdventage="mb-3 md:mb-5 text-center">Waka Smkn 1 Gedangan</x-heading-welcome>
+        <x-heading-welcome classAdventage="mb-3 md:mb-5 text-center">Komite Smkn 1 Gedangan</x-heading-welcome>
 
         <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"   class="flex overflow-x-auto gap-3 w-[95%]">
             @foreach ($gurus as $guru)

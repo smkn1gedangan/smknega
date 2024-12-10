@@ -68,7 +68,7 @@ class FrontendController extends Controller
     // }
    public function welcome()  {
         $kepsek = Kepsek::latest()->first();
-        $gurus = Guru::take(10)->get();
+        $gurus = Komite::take(10)->get();
         // $youtubeVideos = $this->getLatestYouTubeVideos();
         $galeris = Galeri::latest()->take(2)->get();
         $prestasis = Article::whereHas("kategoris",function($query){

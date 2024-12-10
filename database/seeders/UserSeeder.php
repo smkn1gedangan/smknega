@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         $datas = [
           [
             "name"=> "admin",
-            "email"=> "jonoundo88@gmail.com",
+            "email"=> "smknega@gmail.com",
             "deletable"=>false,
             "password"=> bcrypt("admin"),
             "role"=> 1

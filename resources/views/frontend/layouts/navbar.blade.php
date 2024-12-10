@@ -1,5 +1,5 @@
 <nav id="navbar" class="{{Request::is("/") ?"text-slate-900 md:text-white" :"text-slate-900 border "}}  z-50 w-full  fixed border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <div class="max-w-screen-xl flex flex-wrap items-center  justify-between mx-auto p-4">
         <a href="{{route("welcome")}}" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{{asset("img/static_icon.png")}}" class="h-8" alt="Flowbite Logo" />
         </a>
