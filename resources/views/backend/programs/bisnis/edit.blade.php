@@ -6,7 +6,7 @@
 
 @endsection
 
-@section("title","  progam bisnis sekolah")
+@section("title","  Progam Bisnis Sekolah")
 
 @section("content")
     <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">

@@ -113,6 +113,12 @@
                                     Struktur Organisasi</span>
                             </a>
                         </li>
+                        <li class="mr-3 flex-1 ml-3">
+                            <a href="{{ route("waka.index") }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-900 border-b-2 md:text-gray-700 no-underline hover:border-blue-500">
+                                <span class="pb-1 md:pb-0 text-xs md:text-base  block md:inline-block"><i class="fas fa-users pr-0 md:pr-3"></i>
+                                    Waka</span>
+                            </a>
+                        </li>
 
                     </ul>
                 </div>

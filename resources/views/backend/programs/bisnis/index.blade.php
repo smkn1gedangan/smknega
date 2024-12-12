@@ -2,14 +2,17 @@
 
 
 
-@section("title","progam bisnis sekolah")
+@section("title","Progam Bisnis Sekolah")
 
 @section("content")
     <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
         <div class="flex w-full justify-between items-center pt-4 ">
-            <div class="w-3/4 ml-10">
-                <h3 class="text-3xl font-bold dark:text-white">Program Bisnis Sekolah</h3>
-                <p class="mb-3 text-gray-800 dark:text-gray-400">program bisnis smkn 1 gedangan</p>
+            <div class="flex w-full justify-between items-center pt-4 ">
+                <div class="w-3/4 ml-10">
+                    <h3 class="text-3xl font-bold dark:text-white">Data Bisnis Sekolah</h3>
+                    <p class="mb-3 text-gray-800 dark:text-gray-400">seluruh data bisnis jurusan smkn 1 gedangan</p>
+                </div>
+                <a href="{{route("bisnisPhoto.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah photo</a>
             </div>
 
         </div>

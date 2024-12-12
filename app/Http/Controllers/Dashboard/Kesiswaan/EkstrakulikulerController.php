@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Kesiswaan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kesiswaan\Ekstrakulikuler;
+use App\Models\Kesiswaan\EkstraPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -16,7 +17,8 @@ class EkstrakulikulerController extends Controller
     public function index()
     {
         $ekstrakulikuler = Ekstrakulikuler::first();
-        return view("backend.kesiswaans.ekstrakulikuler.index",compact("ekstrakulikuler"));
+        $ekstraPhotos = EkstraPhoto::latest()->paginate(10);
+        return view("backend.kesiswaans.ekstrakulikuler.index",compact("ekstrakulikuler","ekstraPhotos"));
     }
 
     /**

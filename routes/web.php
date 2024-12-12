@@ -14,7 +14,9 @@ use App\Http\Controllers\Dashboard\Jurusan\TkrController;
 use App\Http\Controllers\Dashboard\KepsekController;
 use App\Http\Controllers\Dashboard\Kesiswaan\BeasiswaController;
 use App\Http\Controllers\Dashboard\Kesiswaan\EkstrakulikulerController;
+use App\Http\Controllers\Dashboard\Kesiswaan\EkstraPhotoController;
 use App\Http\Controllers\Dashboard\Kesiswaan\OsisController;
+use App\Http\Controllers\Dashboard\Kesiswaan\OsisPhotoController;
 use App\Http\Controllers\Dashboard\Kesiswaan\PemetaanController;
 use App\Http\Controllers\Dashboard\Kesiswaan\PrestasiController;
 use App\Http\Controllers\Dashboard\LinkController;
@@ -27,6 +29,7 @@ use App\Http\Controllers\Dashboard\Profil\RencanaController;
 use App\Http\Controllers\Dashboard\Profil\SejarahController;
 use App\Http\Controllers\Dashboard\Profil\StrukturController;
 use App\Http\Controllers\Dashboard\Profil\VisiController;
+use App\Http\Controllers\Dashboard\Profil\WakaController;
 use App\Http\Controllers\Dashboard\ProfilController;
 use App\Http\Controllers\Dashboard\Program\BisnisController;
 use App\Http\Controllers\Dashboard\Program\BisnisPhotoController;
@@ -111,6 +114,7 @@ Route::middleware(['auth', 'verified',"checkRole","cache"])->prefix("be")->group
         Route::resource("komite",  KomiteController::class);
         Route::resource("ketuaKomite",  KetuaKomiteController::class);
         Route::resource("struktur",  StrukturController::class);
+        Route::resource("waka",  WakaController::class);
     });
     Route::prefix("program")->group(function(){
         Route::resource("kerja",KerjaController::class);
@@ -135,6 +139,8 @@ Route::middleware(['auth', 'verified',"checkRole","cache"])->prefix("be")->group
         Route::resource("osis",OsisController::class);
         Route::resource("beasiswa",BeasiswaController::class);
         Route::resource("pemetaan",PemetaanController::class);
+        Route::resource("ekstraPhoto",EkstraPhotoController::class);
+        Route::resource("osisPhoto",OsisPhotoController::class);
     });
     Route::prefix("informasi")->group(function(){
         Route::resource("artikel",ArtikelController::class);

@@ -15,7 +15,9 @@ use App\Models\Kategori;
 use App\Models\Kepsek;
 use App\Models\Kesiswaan\Beasiswa;
 use App\Models\Kesiswaan\Ekstrakulikuler;
+use App\Models\Kesiswaan\EkstraPhoto;
 use App\Models\Kesiswaan\Osis;
+use App\Models\Kesiswaan\OsisPhoto;
 use App\Models\Kesiswaan\Pemetaan;
 use App\Models\Kesiswaan\Prestasi;
 use App\Models\Masukan;
@@ -29,6 +31,7 @@ use App\Models\Profil\Rencana;
 use App\Models\Profil\Sejarah;
 use App\Models\Profil\StrukturOrganisasi;
 use App\Models\Profil\VisiMisi;
+use App\Models\Profil\Waka;
 use App\Models\Program\Bisnis;
 use App\Models\Program\BisnisPhoto;
 use App\Models\Program\Bursa;
@@ -68,7 +71,7 @@ class FrontendController extends Controller
     // }
    public function welcome()  {
         $kepsek = Kepsek::latest()->first();
-        $gurus = Komite::take(10)->get();
+        $wakas = Waka::take(10)->get();
         // $youtubeVideos = $this->getLatestYouTubeVideos();
         $galeris = Galeri::latest()->take(2)->get();
         $prestasis = Article::whereHas("kategoris",function($query){
@@ -78,7 +81,7 @@ class FrontendController extends Controller
             $query->where("nama","prestasi");
         })->take(5)->latest()->get();
         $profil =Profil::first();
-        return view("frontend.welcome",compact("articles","kepsek","prestasis","gurus","galeris","profil"));
+        return view("frontend.welcome",compact("articles","kepsek","prestasis","wakas","galeris","profil"));
    }
     public function sambutan_kepsek() {
         $kepsek = Kepsek::first();
@@ -116,7 +119,8 @@ class FrontendController extends Controller
     }
     public function struktur()  {
         $struktur = StrukturOrganisasi::first();
-        return view("frontend.profil.struktur",compact("struktur"));
+        $wakas = Waka::latest()->paginate(10);
+        return view("frontend.profil.struktur",compact("struktur","wakas"));
     }
     public function kerja()  {
         $programKerja = Kerja::first();
@@ -128,7 +132,7 @@ class FrontendController extends Controller
     }
     public function bisnis()  {
         $bisnis = Bisnis::first();
-        $bisnisPhoto = BisnisPhoto::get();
+        $bisnisPhoto = BisnisPhoto::latest()->get();
         return view("frontend.program.Bisnis",compact("bisnis","bisnisPhoto"));
     }
     public function industri()  {
@@ -173,11 +177,13 @@ class FrontendController extends Controller
     }
     public function ekstrakulikuler()  {
         $ekstrakulikuler = Ekstrakulikuler::first();
-        return view("frontend.kesiswaan.ekstrakulikuler",compact("ekstrakulikuler"));
+        $ekstraPhotos = EkstraPhoto::latest()->get();
+        return view("frontend.kesiswaan.ekstrakulikuler",compact("ekstrakulikuler","ekstraPhotos"));
     }
     public function osis()  {
         $osis = Osis::first();
-        return view("frontend.kesiswaan.osis",compact("osis"));
+        $osisPhotos = OsisPhoto::latest()->get();
+        return view("frontend.kesiswaan.osis",compact("osis","osisPhotos"));
     }
     public function beasiswa()  {
         $beasiswa = Beasiswa::first();

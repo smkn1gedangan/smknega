@@ -156,14 +156,14 @@
 
 {{-- guru guru start --}}
     <section  class="flex w-full flex-col items-center">
-        <x-heading-welcome classAdventage="mb-3 md:mb-5 text-center">Komite Smkn 1 Gedangan</x-heading-welcome>
+        <x-heading-welcome classAdventage="mb-3 md:mb-5 text-center">Waka Smkn 1 Gedangan</x-heading-welcome>
 
         <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"   class="flex overflow-x-auto gap-3 w-[95%]">
-            @foreach ($gurus as $guru)
+            @foreach ($wakas as $waka)
             <div class="w-[48%] sm:w-[32%] md:w-[23%] lg:w-[19%] bg-white border border-gray-200 rounded-lg shadow h-auto dark:border-gray-700 relative flex-shrink-0">
                 <div class="relative">
-                    @if (file_exists(public_path('img/guru/' . $guru->photo)) && $guru->photo)
-                        <img class="rounded-md w-full h-auto md:h-auto relative left-1/2 -translate-x-1/2" src="{{ asset('img/guru/' . $guru->photo) }}" alt="" />
+                    @if (file_exists(public_path('img/waka/' . $waka->photo)) && $waka->photo)
+                        <img class="rounded-md w-full h-auto md:h-auto relative left-1/2 -translate-x-1/2" src="{{ asset('img/waka/' . $waka->photo) }}" alt="" />
                     @else
                         <div class="bg-gray-200 relative h-52 w-full flex justify-center items-center">
                             <span>No Image</span>
@@ -173,10 +173,10 @@
                 <div class="swiper mySwiper bg-transparent bgMorpish absolute bottom-0 w-full p-2">
                   <div class="swiper-wrapper ">
                     <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="swiper-slide tx-sh  font-semibold text-center text-gray-100 dark:text-gray-400 md:font-bold capitalize  mb-0 md:mb-3 ">
-                        {{ $guru->nama }}
+                        {{ $waka->nama }}
                     </div>
                     <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="swiper-slide tracking-wide tx-sh text-center text-sm text-gray-100 dark:text-gray-400 capitalize">
-                        {{ $guru->tugas }}
+                        {{ $waka->jabatan }}
                     </div>
                   </div>
                 </div>

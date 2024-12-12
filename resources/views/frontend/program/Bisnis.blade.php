@@ -17,8 +17,7 @@
                             <img class="relative left-1/2 -translate-x-1/2 w-11/12 sm:w-5/6 sm:h-64 rounded-md object-cover my-5" src="{{ asset('img/bisnis/' . $bp->photo) }}" alt="">
                         </div>
                         @else
-                            <div class="bg-black w-11/12 sm:w-5/6 h-64 my-5">
-                                <span>No Image</span> <!-- Pesan fallback -->
+                            <div class="bg-gray-100 w-11/12 sm:w-5/6 h-64 my-5">
                             </div>
                         @endif
                     @endforeach

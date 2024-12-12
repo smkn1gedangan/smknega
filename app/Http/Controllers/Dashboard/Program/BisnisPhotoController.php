@@ -15,7 +15,7 @@ class BisnisPhotoController extends Controller
      */
     public function index()
     {
- 
+
     }
 
     /**
@@ -23,7 +23,7 @@ class BisnisPhotoController extends Controller
      */
     public function create()
     {
-        //
+        return view("backend.programs.bisnis.createPhoto");
     }
 
     /**
@@ -31,7 +31,19 @@ class BisnisPhotoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+        ]);
+        if ($request->hasFile('photo')) {
+
+            $file = $request->file('photo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img/bisnis'), $filename);
+
+            BisnisPhoto::create(["photo"=>$filename]);
+
+            return redirect()->route('bisnis.index')->with('success', 'Data Photo berhasil ditambah dan disimpan!');
+        }
     }
 
     /**

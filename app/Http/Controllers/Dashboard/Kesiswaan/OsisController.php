@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Kesiswaan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kesiswaan\Osis;
+use App\Models\Kesiswaan\OsisPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -16,7 +17,8 @@ class OsisController extends Controller
     public function index()
     {
         $osis = Osis::first();
-        return view("backend.kesiswaans.osis.index",compact("osis"));
+        $osisPhotos = OsisPhoto::latest()->paginate(10);
+        return view("backend.kesiswaans.osis.index",compact("osis","osisPhotos"));
     }
 
     /**

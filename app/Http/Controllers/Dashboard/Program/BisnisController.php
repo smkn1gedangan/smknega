@@ -16,7 +16,7 @@ class BisnisController extends Controller
      */
     public function index()
     {
-        $bisnisPhotos= BisnisPhoto::paginate(10);
+        $bisnisPhotos= BisnisPhoto::latest()->paginate(10);
         $bisnis = Bisnis::first();
         return view("backend.programs.bisnis.index",compact("bisnis","bisnisPhotos"));
     }
