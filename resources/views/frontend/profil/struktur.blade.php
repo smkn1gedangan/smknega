@@ -41,7 +41,7 @@
             <h2 data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="{{$wakas->count()< 1 ? "invisible":"mb-2 md:mt-8 text-xl uppercase font-semibold text-gray-900 dark:text-white"}}  ">Anggota Waka</h2>
             <div class="w-full flex flex-wrap justify-center gap-2">
                 @foreach ($wakas as $waka)
-                <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-full sm:w-[48%] lg:w-[31%] max-w-sm white border border-gray-200 rounded-lg shadow  dark:border-gray-700 relative flex-shrink-0">
+                <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-[48%] lg:w-[31%] max-w-sm white border border-gray-200 rounded-lg shadow  dark:border-gray-700 relative flex-shrink-0">
                     <a class="relative" href="#">
                         @if (file_exists(public_path('img/waka/' . $waka->photo)) && $waka->photo)
                         <img class="rounded-md w-full h-auto md:h-auto relative left-1/2 -translate-x-1/2" src="{{ asset('img/waka/' . $waka->photo) }}" alt="" />

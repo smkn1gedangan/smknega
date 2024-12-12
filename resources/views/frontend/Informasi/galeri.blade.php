@@ -21,7 +21,7 @@
                     <span>No Image</span> <!-- Pesan fallback -->
                 </div>
             @endif
-            <h1 class="text-center text-slate-700 text-xs sm:text-base">{{ $galeri->judul }}</h1>
+            <h1 class="text-center text-slate-700 p-4 text-sm sm:text-base">{{ $galeri->judul }}</h1>
         </div>
        @endforeach
 

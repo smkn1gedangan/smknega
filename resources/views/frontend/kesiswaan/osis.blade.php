@@ -35,7 +35,7 @@
                             </div>
                         @endif
                         <div class="left-1/2 -translate-x-1/2 bg-transparent bgMorpish absolute bottom-0 w-11/12 sm:w-5/6 md:w-1/2">
-                            <div class="">
+                            <div class="p-2">
                               <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class=" tx-sh  font-semibold text-center text-gray-100 dark:text-gray-400 md:font-bold capitalize  mb-0 md:mb-3 ">
                                 {{ $op->nama }} sebagai {{$op->jabatan}}
                               </div>
