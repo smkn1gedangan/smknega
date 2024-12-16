@@ -8,86 +8,86 @@
 ## can be used when the IP address configuration has been completed (requirement)
 ## installation / instalasi
 
-- for super user
-**sudo su** 
+###### For Superuser
+- **sudo su** 
 - **apt update**
 
-- for install php and exstension requirement
-**apt install php8.3 php8.3-cli php8.3-mbstring php8.3-xml php8.3-bcmath php8.3-curl php8.3-zip php8.3-mysql unzip curl** 
+###### For Install PHP and Exstension Requirement
+- **apt install php8.3 php8.3-cli php8.3-mbstring php8.3-xml php8.3-bcmath php8.3-curl php8.3-zip php8.3-mysql unzip curl** 
 
-- for install web server
-**apt install nginx** 
+######  For Install Web Server
+- **apt install nginx** 
 
-- for install dbms
-**apt install mysql-server** 
+######  For Install DBMS
+- **apt install mysql-server** 
 
-- for install composer
-**curl -sS https://getcomposer.org/installer | php** 
+###### For Install Composer
+- **curl -sS https://getcomposer.org/installer | php** 
 
-- for move composer
-**mv composer.phar /usr/bin/composer** 
+###### For Move Composer
+- **mv composer.phar /usr/bin/composer** 
 
-- for get a version composer
-**composer --version**  
+###### For Get A Version Composer
+- **composer --version**  
 
-- for install nvm
-**curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash** 
-**source ~/.bashrc** if error use **source ~/.zshrc**
+###### For Install Nvm
+- **curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash** 
+- **source ~/.bashrc** if error use **source ~/.zshrc**
 
-- for install nodejs versi 22
-**nvm install 22** 
+###### For Install Nodejs Version 22
+- **nvm install 22** 
 
-- for get a version nodejs
-**node --version**
+###### For Get a Version Nodejs
+- **node --version**
 
-- for using node version 22
-**nvm use 22** 
+###### For Using Node Version 22
+- **nvm use 22** 
 
-- for installation npm
-**apt install npm** 
+###### For Installation NPM
+- **apt install npm** 
 
-- for get a version npm
-**npm --version** 
+###### For Get a Version NPM
+- **npm --version** 
 
 ## configuration mysql
 
-**mysql -u root -p**
+- **mysql -u root -p**
 
-- for create a new database (name database optional) 
-**create database smknega** 
+###### For Create a New Database (name database optional) 
+- **create database smknega** 
 
-- for a create new user
-**create user "name_user"@"localhost" indentified by "pass_user"** 
+###### For Create a New User
+- **create user "name_user"@"localhost" indentified by "pass_user"** 
 
-- to allow a user
-**grant all privileges on *.* "name_user"@"localhost"** 
-**exit**
+###### To Allow a User
+- **grant all privileges on *.* "name_user"@"localhost"** 
+- **exit**
 
-- for restart mysql
-**systemctl restart mysql** 
+###### For Restart Mysql
+- **systemctl restart mysql** 
 - if you will try a new user , try logging into mysql with the newest user
 
 
 ## configurasi web
 
-- go to the directory html
-**cd /var/www/html** 
+###### Go To the Directory Html
+- **cd /var/www/html** 
 
-- for clone a new project
-**git clone https://github.com/smkn1gedangan/smknega.git** 
+###### For Clone a New Project
+- **git clone https://github.com/smkn1gedangan/smknega.git** 
 - if git not installed yet , install git with command *apt install git*
 
-- for change file owner
-**chown wwww-data:www-data smknega** 
+###### For Change File Owner
+- **chown wwww-data:www-data smknega** 
 
-- for go to new directory
-**cd smknega** 
+###### For Go To New Directory
+- **cd smknega** 
 
 ## Make sure it's in the smknega folder 
 
-- for copy env.example to env
-**cp .env-example .env** 
-**nano .env**
+###### For Copy env.example To env
+- **cp .env-example .env** 
+- **nano .env**
 
 - must be the same
 - ![.env](./github/env1.png)
@@ -100,30 +100,30 @@
 
 ## if config .env have been completed type the command below correctly
 
-- for access permissions for a file
-**chmod -R 775 storage bootstrap/cache** 
+###### For Access Permissions For a File
+- **chmod -R 775 storage bootstrap/cache** 
 
-- for new key website
-**php artisan key:generate** 
+###### For New Key Website
+- **php artisan key:generate** 
 
-- for installing dependency composer
-**composer install** 
+###### For Installing Dependency Composer
+- **composer install** 
 
-- for installing node_module
-**npm install** 
-**npm run build**
+###### For Installing Node_module
+- **npm install** 
+- **npm run build**
 
-- for migrate all table to database smknega (database name depends on config in the .env)
-**php artisan migrate:fresh --seed** 
+###### For Migrate All Table to Database Smknega (database name depends on config in the .env)
+- **php artisan migrate:fresh --seed** 
 
 ## configuration nginx
 
 - ![etc/nginx/sites-avaible/default](./github/konfigurasi%20nginx.png)
 
-- Make sure there are no errors in the root directory and configuration code (pastikan tidak ada yang error untuk root directory dan konfigurasi lainnya)
-**nginx -t** 
+###### Make sure there are no errors in the root directory and configuration code (pastikan tidak ada yang error untuk root directory dan konfigurasi lainnya)
+- **nginx -t** 
 
-**systemctl restart nginx**
+- **systemctl restart nginx**
 
 - open in browser ip public web server
 
