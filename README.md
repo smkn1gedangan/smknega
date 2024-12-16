@@ -65,7 +65,7 @@
 
 ###### For Restart Mysql
 - **systemctl restart mysql** 
-- if you will try a new user , try logging into mysql with the newest user
+###### if you will try a new user , try logging into mysql with the newest user
 
 
 ## configurasi web
@@ -78,7 +78,7 @@
 - if git not installed yet , install git with command *apt install git*
 
 ###### For Change File Owner
-- **chown wwww-data:www-data smknega** 
+- **chown www-data:www-data smknega** 
 
 ###### For Go To New Directory
 - **cd smknega** 
