@@ -22,7 +22,7 @@
 - **apt install mysql-server** 
 
 ###### For Install Composer
-- **curl -sS https://getcomposer.org/installer | php** 
+- **curl  -sS  https://getcomposer.org/installer | php** 
 
 ###### For Move Composer
 - **mv composer.phar /usr/bin/composer** 
@@ -31,14 +31,14 @@
 - **composer --version**  
 
 ###### For Install Nvm
-- **curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash** 
-- **source ~/.bashrc** if error use **source ~/.zshrc**
+- **curl  -o-  https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash** 
+- **source  ~/.bashrc** if error use **source  ~/.zshrc**
 
 ###### For Install Nodejs Version 22
 - **nvm install 22** 
 
 ###### For Get a Version Nodejs
-- **node --version**
+- **node  --version**
 
 ###### For Using Node Version 22
 - **nvm use 22** 
@@ -47,7 +47,7 @@
 - **apt install npm** 
 
 ###### For Get a Version NPM
-- **npm --version** 
+- **npm  --version** 
 
 ## configuration mysql
 
@@ -60,7 +60,7 @@
 - **create user "name_user"@"localhost" indentified by "pass_user"** 
 
 ###### To Allow a User
-- **grant all privileges on *.* "name_user"@"localhost"** 
+- grant all privileges on *.* "name_user"@"localhost" 
 - **exit**
 
 ###### For Restart Mysql
