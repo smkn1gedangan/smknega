@@ -66,8 +66,8 @@
             <div class="object-cover swiper-slide">
                 <div class="py-8 flex flex-col items-center justify-center px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
-                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none mt-20 text-slate-700 md:text-5xl lg:text-6xl dark:text-slate-700">Selamat datang di Smkn 1 Gedangan</h1>
-                <p class="mb-8 text-lg font-semibold text-slate-700 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ..</p>
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none mt-20 text-slate-900 md:text-5xl lg:text-6xl dark:text-slate-700">Selamat datang di Smkn 1 Gedangan</h1>
+                <p class="mb-8 text-lg font-semibold text-slate-800 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ..</p>
 
                 </div>
             </div>

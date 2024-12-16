@@ -1,66 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# step by step installation in web server ubuntu (cara installasi di web server ubuntu)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## requirement / dibutuhkan
 
-## About Laravel
+- php8.3 php8.3-cli php8.3-mbstring php8.3-xml php8.3-bcmath php8.3-curl php8.3-zip php8.3-mysql
+- nginx unzip curl composer mysql-server nodejs npm git .
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## can be used when the IP address configuration has been completed (requirement)
+## installation / instalasi
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **sudo su** for super user
+- **apt update**
+- **apt install php8.3 php8.3-cli php8.3-mbstring php8.3-xml php8.3-bcmath php8.3-curl php8.3-zip php8.3-mysql unzip curl** (for install php and exstension requirement)
+- **apt install nginx** (for install web server)
+- **apt install mysql-server** (for install dbms)
+- **curl -sS https://getcomposer.org/installer | php** (for install composer)
+- **mv composer.phar /usr/bin/composer** (for move composer)
+- **composer --version** (for get a version composer) 
+- **curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash** (for install nvm)
+- **source ~/.bashrc** if error use **source ~/.zshrc**
+- **nvm install 22** (for install nodejs versi 22 )
+- **node --version** (for get a version nodejs)
+- **nvm use 22** (for using node version 22)
+- **apt install npm** (for installation npm)
+- **npm --version** (for get a version npm)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## configuration mysql
 
-## Learning Laravel
+- **mysql -u root -p**
+- **create database smknega** (name database optional)(for create a new database)
+- **create user "name_user"@"localhost" indentified by "pass_user"** (for a create new user)
+- **grant all privileges on *.* "name_user"@"localhost"** (to allow a user)
+- **exit**
+- **systemctl restart mysql** (for restart mysql)
+- if you will try a new user , try logging into mysql with the newest user
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## configurasi web
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **cd /var/www/html** (go to the directory html)
+- **git clone https://github.com/smkn1gedangan/smknega.git** (for clone a new project)(if git not installed yet , install git with command *apt install git*)
+- **chown wwww-data:www-data smknega** (for change file owner)
+- **cd smknega** (for go to new directory)
 
-## Laravel Sponsors
+## Make sure it's in the smknega folder 
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **cp .env-example .env** (for copy env.example to env)
+- **nano .env**
+- ![.env](./github/konfigurasi%20env.png)
+- ![.env](./github/env%202.png)
 
-### Premium Partners
+## type the command below correctly
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- **chmod -R 775 storage bootstrap/cache** (for access permissions for a file)
+- **php artisan key:generate** (for new key website)
+- **composer install** (for installing dependency composer)
+- **npm install** (for installing node_module)
+- **npm run build**
+- **php artisan migrate:fresh --seed** (for migrate all table to database smknega)
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- open in browser ip public web server
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## configuration nginx
 
-## Security Vulnerabilities
+- ![etc/nginx/sites-avaible/default](./github/konfigurasi%20nginx.png)
+- **nginx -t** Make sure there are no errors in the root directory and configuration code (pastikan tidak ada yang error untuk root directory dan konfigurasi lainnya)
+- **systemctl restart nginx**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Developers
 
-## License
+If that command not successfull , Double-check the command you ran earlier 
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
