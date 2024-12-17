@@ -1,11 +1,11 @@
-# step by step installation in web server ubuntu (cara installasi di web server ubuntu)
+### step by step installation in web server ubuntu (cara installasi di web server ubuntu)
 
 ## requirement / dibutuhkan
 
 - php8.3 php8.3-cli php8.3-mbstring php8.3-xml php8.3-bcmath php8.3-curl php8.3-zip php8.3-mysql
 - nginx unzip curl composer mysql-server nodejs npm git .
 
-## can be used when the IP address configuration has been completed (requirement)
+### can be used when the IP address configuration has been completed (requirement)
 ## installation / instalasi
 
 ###### For Superuser
@@ -37,11 +37,14 @@
 ###### For Install Nodejs Version 22
 - **nvm install 22** 
 
-###### For Get a Version Nodejs
-- **node  --version**
 
 ###### For Using Node Version 22
 - **nvm use 22** 
+
+
+###### For Get a Version Nodejs
+- **node  --version**
+
 
 ###### For Installation NPM
 - **apt install npm** 
@@ -60,7 +63,7 @@
 - **create user "name_user"@"localhost" indentified by "pass_user"** 
 
 ###### To Allow a User
-- grant all privileges on *.* "name_user"@"localhost" 
+- grant all privileges on *.* to "name_user"@"localhost" 
 - **exit**
 
 ###### For Restart Mysql
@@ -86,7 +89,7 @@
 ## Make sure it's in the smknega folder 
 
 ###### For Copy env.example To env
-- **cp .env-example .env** 
+- **cp .env.example .env** 
 - **nano .env**
 
 - must be the same
@@ -100,14 +103,13 @@
 
 ## if config .env have been completed type the command below correctly
 
-###### For Access Permissions For a File
-- **chmod -R 775 storage bootstrap/cache** 
+
+###### For Installing Dependency Composer
+- **composer install** 
 
 ###### For New Key Website
 - **php artisan key:generate** 
 
-###### For Installing Dependency Composer
-- **composer install** 
 
 ###### For Installing Node_module
 - **npm install** 
@@ -116,18 +118,64 @@
 ###### For Migrate All Table to Database Smknega (database name depends on config in the .env)
 - **php artisan migrate:fresh --seed** 
 
+
+###### For Access Permissions For a File
+- **chmod -R 777 storage bootstrap/cache** 
+
+###### For Clear All Cache / Routes / View (Require / Wajib Jika Konfigurasi Html sudah dijalankan semua)
+- **php artisan route:clear** 
+- **php artisan cache:clear** 
+- **php artisan view:clear** 
+- **php artisan config:clear** 
+
 ## configuration nginx
 
+###### For Go To Nginx Config
+- **nano /etc/nginx/sites-avaible/default**
+
+###### make sure nginx have been enable 
+- **systemctl enable nginx**
+
+
+### please Also pay attention to semicolons and spaces (perhatikan titik koma dan spasi)
 - ![etc/nginx/sites-avaible/default](./github/konfigurasi%20nginx.png)
 
 ###### Make sure there are no errors in the root directory and configuration code (pastikan tidak ada yang error untuk root directory dan konfigurasi lainnya)
 - **nginx -t** 
 
+
 - **systemctl restart nginx**
+- **systemctl restart mysql**
 
 - open in browser ip public web server
+###### if the web server is successfully opened, open command below in url
+- **https://ip or domain/login**
+
+###### login with role admin
+- **username : smknega@gmail.com**
+- **password : admin**
+
+
+###### Later an email will come to smknega@gmail.com
+###### Confirm
+###### And All Configuration Finished , Good Luck
+
+
 
 ## Developers
 
 If that command not successfull , Double-check the command you ran earlier 
 
+##### error with command (systemctl restart nginx)
+
+if config nginx have been finished and correctly but do not running , it usually happens because nginx conflicts with apache2 
+- solution remove apache2 or nginx , depends on needs
+because the web server command uses nginx , I recommend removing apache2 (karena perintah web server menggunakan nginx , saya rekomendasikan menghapus apache2)
+
+- **sudo systemctl stop apache2**
+- **sudo systemctl disable apache2**
+- **sudo apt-get purge apache2 apache2-utils apache2-bin apache2.2-common**
+- **sudo apt-get autoremove**
+- **sudo rm -rf /etc/apache2**
+- **apache2 -v**
+- **systemctl restart nginx**
