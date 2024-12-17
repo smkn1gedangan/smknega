@@ -168,9 +168,9 @@
 - **username : smknega@gmail.com**
 - **password : admin**
 
-
 ###### Later an email will come to smknega@gmail.com
 ###### Confirm
+
 ###### And All Configuration Finished , Good Luck
 
 
@@ -196,8 +196,8 @@ because the web server command uses nginx , I recommend removing apache2 (karena
 
 if you encounter this error(jika anda menemukan error tersebut)
 ubah 
-- **MAIL_ENCRYPTION = ssl With port 465**
-- **MAIL_ENCRYPTION = tls 587**
+- **MAIL_ENCRYPTION = ssl With port 465** or 
+- **MAIL_ENCRYPTION = tls With port 587**
 
 If that command not successfull , Double-check the command you ran earlier
 
