@@ -262,7 +262,7 @@
       <div class="mt-8 border-t border-gray-100 pt-8">
         <div class="sm:flex sm:justify-between">
           <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="text-xs text-gray-500">2024. Smkn 1 Gedangan. All rights reserved.</p>
-          <a target="_blank" href="https://usammuhazir.vercel.app/" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="text-xs text-gray-500">visit more about developer.</a>
+          <a target="_blank" href="https://usammuhazir.vercel.app/" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="text-xs text-gray-500 font-bold">visit more about developer.</a>
 
           <ul class="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
             <li data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">

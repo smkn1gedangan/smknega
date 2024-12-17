@@ -191,6 +191,14 @@ because the web server command uses nginx , I recommend removing apache2 (karena
 - **apache2 -v**
 - **systemctl restart nginx**
 
+##### error with 
+- ![email server](./github/error1.png)
+
+if you encounter this error(jika anda menemukan error tersebut)
+ubah 
+- **MAIL_ENCRYPTION = ssl With port 465**
+- **MAIL_ENCRYPTION = tls 587**
+
 If that command not successfull , Double-check the command you ran earlier
 
 
