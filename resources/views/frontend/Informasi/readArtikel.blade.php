@@ -2,13 +2,14 @@
 @extends("frontend.layouts.main")
 @section("title","article")
 @section("content")
+<p>{{$article}}</p>
     <section class="relative bg-no-repeat">
        <div class="w-screen md:max-w-[95%] p-2 md:py-16 flex md:flex-row justify-evenly flex-wrap">
             <div class="md:pl-12 mt-20  md:py-6 flex flex-col w-full md:w-11/12 lg:w-2/3">
                 <a data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" href="{{route("readArticle",$article->slug)}}" class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white hover:text-slate-600">{{ $article->title }}</a>
-                <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 font-normal text-sm text-gray-700 dark:text-gray-400 md:text-xs ">dibuat pada {{ \Carbon\Carbon::parse($article->created_at)->translatedFormat('l, d F Y') }}
-                    @if (file_exists(public_path('img/artikels_images/' . $article->image)) && $article->image)
-                    <img src="{{ asset('img/artikels_images/' . $article->image) }}" class="object-cover w-full md:w-5/6 rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
+                <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-5 font-normal text-sm text-gray-700 dark:text-gray-400">dibuat pada {{ \Carbon\Carbon::parse($article->created_at)->translatedFormat('l, d F Y') }}
+                    @if (file_exists(public_path('img/articles_images/' . $article->image)) && $article->image)
+                    <img src="{{ asset('img/articles_images/' . $article->image) }}" class="object-cover w-full md:w-5/6 rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
                 @else
                     <div class="w-full md:w-5/6 text-xs grid place-content-center text-slate-800 bg-gray-200 h-64">
                         <span>No Image</span> <!-- Pesan fallback -->
@@ -21,7 +22,7 @@
             </div>
             <div class="flex flex-col items-center w-full md:w-full p-2 md:py-6 lg:w-[30%] border border-gray-200">
 
-           
+
             <h2 class="w-full my-5 text-center text-2xl uppercase font-semibold text-gray-900 dark:text-white">Ketegori Artikel</h2>
             <ul class="w-full flex flex-col gap-6 max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400 pl-3">
 

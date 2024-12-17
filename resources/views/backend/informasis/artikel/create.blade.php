@@ -101,9 +101,13 @@
                 placeholder: 'Tulis konten artikel di sini...',
                 modules: {
                     toolbar: [
-                        ['bold', 'italic', 'underline'],
+                        ['bold', 'italic', 'underline','strike'],
                         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        [{ 'script': 'sub'}, { 'script': 'super' }],
                         [{ 'align': [] }],
+                        [{ 'font': [] }],
+                        [{ 'header':[1,2,3,4,5,6,false] }],
+                        [{ 'color': [] },{'background':[]}],
                         [{ 'indent': '-1'}, { 'indent': '+1' }],
                         ['blockquote', 'code-block']
                     ],

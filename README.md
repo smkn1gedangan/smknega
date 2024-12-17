@@ -1,4 +1,4 @@
-### step by step installation in web server ubuntu (cara installasi di web server ubuntu)
+### step by step installation in web server ubuntu 24 (cara installasi di web server ubuntu)
 
 ## requirement / dibutuhkan
 
@@ -139,10 +139,7 @@
 - **chmod -R 777 storage bootstrap/cache** 
 
 ###### For Clear All Cache / Routes / View (Require / Wajib Jika Konfigurasi Html sudah dijalankan semua)
-- **php artisan route:clear** 
-- **php artisan cache:clear** 
-- **php artisan view:clear** 
-- **php artisan config:clear** 
+- **php artisan optimize:clear** 
 
 ## configuration nginx
 
