@@ -168,9 +168,11 @@
 - **username : smknega@gmail.com**
 - **password : admin**
 
+###### If You Dont have an Account you can edited in database 
 
 ###### Later an email will come to smknega@gmail.com
 ###### Confirm
+
 ###### And All Configuration Finished , Good Luck
 
 

@@ -220,6 +220,14 @@ class FrontendController extends Controller
     public function survey()  {
         return redirect()->away("https://surveyminat.smkn1gedangan-malang.sch.id/");
     }
+    public function elearning()  {
+        return redirect()->back();
+
+    }
+    public function islamic()  {
+        return redirect()->away("https://imamuslim.vercel.app");
+
+    }
 
     public function save_masukan(Request $request)  {
         $request->validate([

@@ -52,7 +52,8 @@
           ['route'=>'artikel','name'=>'ARTIKEL'],
           ['route'=>'galeri','name'=>'GALERI'],
           ['route'=>'sarana','name'=>'SARANA PRASARANA'],
-          ['route'=>'','name'=>'E-LEARNING']
+          ['route'=>'elearning','name'=>'E-LEARNING'],
+          ['route'=>'islamic','name'=>'NEGA ISLAMIC']
           ]">INFORMASI</x-dropdown>
           <x-dropdown data="data-ppdb" :dataLinks="[
           ['route'=>'jadwal','name'=>'JADWAL PPDB'],
