@@ -1,4 +1,4 @@
-ni### step by step installation in web server ubuntu 24 (cara installasi di web server ubuntu)
+### step by step installation in web server ubuntu 24 (cara installasi di web server ubuntu)
 
 ## requirement / dibutuhkan
 
