@@ -1,4 +1,4 @@
-### step by step installation in web server ubuntu 24 (cara installasi di web server ubuntu)
+ni### step by step installation in web server ubuntu 24 (cara installasi di web server ubuntu)
 
 ## requirement / dibutuhkan
 
@@ -168,7 +168,7 @@
 - **username : smknega@gmail.com**
 - **password : admin**
 
-###### If You Dont have an Account you can edited in database with table users
+###### If You Dont have an Account  woth with email smknega@gmail.com you can edited in database with table users
 
 ###### Later an email will come to smknega@gmail.com
 ###### Confirm
