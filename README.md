@@ -40,7 +40,7 @@
 ###### For Install Nvm
 
 -   **curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash**
--   **source ~/.bashrc** if error use **source ~/.zshrc**
+-   command **source ~/.bashrc** if error use **source ~/.zshrc**
 
 ###### For Install Nodejs Version 22
 - **nvm install 22**
@@ -168,10 +168,11 @@
 - **username : smknega@gmail.com**
 - **password : admin**
 
-###### If You Dont have an Account  woth with email smknega@gmail.com you can edited in database with table users
 
 ###### Later an email will come to smknega@gmail.com
 ###### Confirm
+
+###### If You Dont have an Account  woth with email smknega@gmail.com you can edited in database with table users
 
 ###### And All Configuration Finished , Good Luck
 
