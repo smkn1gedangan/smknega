@@ -9,10 +9,10 @@
         <div class="flex w-full justify-between items-center pt-4 ">
             <div class="flex w-full justify-between items-center pt-4 ">
                 <div class="w-3/4 ml-10">
-                    <h3 class="text-3xl font-bold dark:text-white">Data Bisnis Sekolah</h3>
+                    <h3 class="text-3xl font-semibold dark:text-white">Data Bisnis Sekolah</h3>
                     <p class="mb-3 text-gray-800 dark:text-gray-400">seluruh data bisnis jurusan smkn 1 gedangan</p>
                 </div>
-                <a href="{{route("bisnisPhoto.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah photo</a>
+                <a href="{{route("bisnisPhoto.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 shadow-md transition-all duration-200">Tambah photo</a>
             </div>
 
         </div>
@@ -33,7 +33,7 @@
                                 <img src="{{ asset('img/bisnis/' . $bisnisPhoto->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg" alt="{{ $bisnisPhoto->photo }}">
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-center">
-                                <a href="{{ route('bisnisPhoto.edit', [Crypt::encrypt($bisnisPhoto->id)]) }}" class="text-orange-300 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>
+                                <a href="{{ route('bisnisPhoto.edit', [Crypt::encrypt($bisnisPhoto->id)]) }}" class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 ml-4">Edit</a>
                                 <form id="delete-form-{{ $bisnisPhoto->id }}" action="{{ route('bisnisPhoto.destroy', [Crypt::encrypt($bisnisPhoto->id)]) }}" method="POST" class="inline">
                                     @csrf
                                     @method('delete')
@@ -54,7 +54,7 @@
         </div>
             <div class="items-center ml-6 pb-6">
 
-                <a href="{{ route('bisnis.edit', [Crypt::encrypt($bisnis->id)]) }}" class="bg-yellow-600 hover:bg-orange-400 dark:text-blue-400 ml-4 text-white py-2.5 px-4 rounded-md">Edit Data Bisnis</a>
+                <a href="{{ route('bisnis.edit', [Crypt::encrypt($bisnis->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 dark:text-yellow-500 ml-4 text-white py-2.5 px-4 rounded-md shadow-md transition-all duration-200">Edit Bisnis</a>
             </div>
         </div>
 @endsection

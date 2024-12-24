@@ -83,7 +83,7 @@ class KomiteController extends Controller
     {
         $komite = komite::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
+           'photo' => 'file|mimes:jpg,png,pdf|max:5096',
             "nama"=> "min:6|max:100|required",
             "jabatan"=> "min:3|required",
         ]);
@@ -98,13 +98,12 @@ class KomiteController extends Controller
             $file->move(public_path('img/komite'), $filename);
 
             $komite->photo = $filename;
-            $komite->nama = $data['nama'];
-            $komite->jabatan = $data['jabatan'];
-            $komite->save();
-
-            return redirect()->route('komite.index')->with('success', 'Data Komite berhasil diperbarui!');
-
+    }else{
+        $komite->nama = $data['nama'];
+        $komite->jabatan = $data['jabatan'];
     }
+    $komite->save();
+    return redirect()->route('komite.index')->with('success', 'Data Komite berhasil diperbarui!');
     }
 
     /**

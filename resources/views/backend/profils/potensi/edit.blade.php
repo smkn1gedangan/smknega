@@ -17,7 +17,7 @@
                 <div class="mb-4 w-2/5">
                     <label for="penulis" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Penulis</label>
                     <input type="text" name="penulis_id" id="penulis" value="{{ Auth::user()->name}}"
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
+                           class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
                            readonly
                            >
                     @error("penulis")
@@ -28,11 +28,11 @@
                 </div>
                 <div class="mb-4 w-11/12">
                     <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten</label>
-                    <div id="editor" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                    <div id="editor" class="mt-1 shadow-md bg-white block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
                         {!! old('konten', $potensi->konten) !!}
 
                     </div>
-                    <input type="hidden" name="konten" id="konten">
+                    <input type="hidden" class="rounded-md" name="konten" id="konten">
                     @error('konten')
                         <p class="mt-2 text-sm text-red-800">
                             {{ $message }}
@@ -44,8 +44,8 @@
                 <!-- Tombol Submit -->
                 <div class="w-11/12 mt-4 mb-8">
                     <button type="submit"
-                            class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:bg-blue-700 focus:outline-none">
-                        Ubah Data Potensi Unggulan
+                            class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg shadow-md transition-all duration-200 hover:bg-yellow-600 focus:bg-yellow-500 focus:outline-none">
+                        Ubah Potensi Unggulan
                     </button>
                 </div>
             </form>

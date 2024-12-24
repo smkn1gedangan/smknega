@@ -115,7 +115,7 @@ class ArtikelController extends Controller
     {
         $article = Article::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'image' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'image' => 'file|mimes:jpg,png,pdf|max:2048',
             "title"=> "min:6|max:100|required",
             "writer_id"=> "required",
             'text_content' => [
@@ -140,15 +140,15 @@ class ArtikelController extends Controller
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('img/articles_images'), $filename);
-
             $article->image = $filename;
+        }else{
             $article->title = $data['title'];
             $article->writer_id = Auth::user()->id;
             $article->text_content = $data['text_content'];
-            $article->save();
-            $article->kategoris()->sync($data["kategori_id"]);
-            return redirect()->route('artikel.index')->with('success', 'Artikel berhasil diperbarui!');
-    }
+        }
+        $article->save();
+        $article->kategoris()->sync($data["kategori_id"]);
+        return redirect()->route('artikel.index')->with('success', 'Artikel berhasil diperbarui!');
 }
 
     /**

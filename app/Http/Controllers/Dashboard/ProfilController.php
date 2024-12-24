@@ -26,7 +26,7 @@ class ProfilController extends Controller
     public function update(Request $request, string $id)  {
         $profil = Profil::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-            'photo' => 'required|file|mimes:jpg,png,jpeg|max:5096',
+            'photo' => 'file|mimes:jpg,png,jpeg|max:5096',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -48,12 +48,14 @@ class ProfilController extends Controller
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('img/welcome'), $filename);
-
-            $profil->photo = $filename;
             $profil->konten = html_entity_decode($data['konten']);
-            $profil->save();
+            $profil->photo = $filename;
+        }else{
+            $profil->konten = html_entity_decode($data['konten']);
+        }
 
-            return redirect()->route('profil.index')->with('success', 'Profil berhasil diperbarui!');
-    }
+    $profil->save();
+
+    return redirect()->route('profil.index')->with('success', 'Profil berhasil diperbarui!');
 }
 }

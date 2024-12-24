@@ -18,7 +18,7 @@
                 <div class="mb-4 w-2/5">
                     <label for="penulis" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Penulis</label>
                     <input type="text" name="penulis_id" id="penulis" value="{{ Auth::user()->name}}"
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
+                           class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
                            readonly
                            >
                     @error("penulis")
@@ -30,7 +30,7 @@
                 <!-- Konten -->
                 <div class="mb-4 w-11/12">
                     <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten</label>
-                    <div id="editor" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                    <div id="editor" class="mt-1 block bg-white shadow-md w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
                         {!! old('konten', $industri->konten) !!}
 
                     </div>
@@ -46,8 +46,8 @@
                 <!-- Tombol Submit -->
                 <div class="w-11/12 mt-4 mb-8">
                     <button type="submit"
-                            class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:bg-blue-700 focus:outline-none">
-                        Ubah Data Hubungan Industri
+                            class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg shadow-md transition-all duration-200 hover:bg-yellow-600 focus:bg-yellow-500 focus:outline-none">
+                        Ubah Hubungan Industri
                     </button>
                 </div>
             </form>

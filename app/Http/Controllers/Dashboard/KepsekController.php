@@ -27,7 +27,7 @@ class KepsekController extends Controller
     {
         $kepsek = Kepsek::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-            'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
+            'photo' => 'file|mimes:jpg,png,pdf|max:5096',
             "nama"=> "min:6|max:100|required",
             'sambutan' => [
                 'required',
@@ -54,9 +54,12 @@ class KepsekController extends Controller
             $kepsek->photo = $filename;
             $kepsek->nama = $data['nama'];
             $kepsek->sambutan = $data['sambutan'];
-            $kepsek->save();
 
-            return redirect()->route('kepsek.index')->with('success', 'data kepala sekolah berhasil diperbarui!');
-    }
+        }else{
+            $kepsek->nama = $data['nama'];
+            $kepsek->sambutan = $data['sambutan'];
+        }
+        $kepsek->save();
+        return redirect()->route('kepsek.index')->with('success', 'data kepala sekolah berhasil diperbarui!');
 }
 }

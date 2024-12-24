@@ -60,7 +60,7 @@ class SijaController extends Controller
     {
         $sija = Sija::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -89,9 +89,14 @@ class SijaController extends Controller
             $sija->konten = $data['konten'];
             $sija->judul = $data['judul'];
             $sija->penulis_id = Auth::user()->id;
-            $sija->save();
-            return redirect()->route('sija.index')->with('success', 'data Jurusan Sija berhasil diperbarui!');
-    }
+
+        }else{
+            $sija->konten = $data['konten'];
+            $sija->judul = $data['judul'];
+            $sija->penulis_id = Auth::user()->id;
+        }
+    $sija->save();
+    return redirect()->route('sija.index')->with('success', 'data Jurusan Sija berhasil diperbarui!');
     }
 
     /**

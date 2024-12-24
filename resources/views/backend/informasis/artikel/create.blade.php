@@ -23,7 +23,7 @@
                     <div class="mb-4 w-2/5">
                         <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Judul</label>
                         <input type="text" value="{{old("title")}}" name="title" id="title"
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
+                               class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
                                required autocomplete="title" placeholder="Masukkan Judul">
                         @error("title")
                         <p class="mt-2 text-sm text-red-800">
@@ -35,7 +35,7 @@
                     <div class="mb-4 w-2/5">
                         <label for="writer" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Penulis</label>
                         <input type="text" name="writer_id" id="writer" value="{{ Auth::user()->name}}"
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
+                               class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
                                readonly
                                >
                         @error("writer")
@@ -50,7 +50,7 @@
 
                 <<div class="mb-4 w-11/12">
                     <label for="text_content" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten Artikel</label>
-                    <div id="editor" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                    <div id="editor" class="mt-1 shadow-md bg-white block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
                     </div>
                     <input type="hidden" name="text_content" id="text_content">
                     @error('text_content')
@@ -64,15 +64,15 @@
                 <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 
                     @foreach ($kategoris as $kategori)
-                    <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                    <li class="w-full bg-white border-b border-gray-300 rounded-t-lg dark:border-gray-600">
                       <div class="flex items-center ps-3">
-                          <input id="kategori_id" type="checkbox" name="kategori_id[]" value="{{$kategori->id}}" class="w-4 h-4 text-blue-600 bg-gray-100 ml-2 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                          <input id="kategori_id" type="checkbox" name="kategori_id[]" value="{{$kategori->id}}" class="w-4 h-4 text-blue-600 bg-gray-100 ml-2 border-gray-500 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                           <label for="kategori_id" class="w-full ml-5 py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$kategori->nama}}</label>
                       </div>
                   </li>
                     @endforeach
                   </ul>
-                <input class="mt-6 rounded-md" type="file" name="image" id="image">
+                <input class="mt-6 rounded-md shadow-md bg-white w-2/5" type="file" name="image" id="image">
                 @error('image')
                 <p class="mt-2 text-sm text-red-800">
                     {{ $message }}

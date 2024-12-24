@@ -60,7 +60,7 @@ class StrukturController extends Controller
     {
         $struktur = StrukturOrganisasi::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
+           'photo' => 'file|mimes:jpg,png,pdf|max:5096',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -85,11 +85,12 @@ class StrukturController extends Controller
             $file->move(public_path('img/profil'), $filename);
 
             $struktur->photo = $filename;
+        }else{
             $struktur->konten = $data['konten'];
             $struktur->penulis_id = Auth::user()->id;
-            $struktur->save();
+        }
+    $struktur->save();
             return redirect()->route('struktur.index')->with('success', 'data Struktur Organisasi berhasil diperbarui!');
-    }
     }
 
     /**

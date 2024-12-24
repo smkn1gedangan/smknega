@@ -60,7 +60,7 @@ class DkvController extends Controller
     {
         $dkv = Dkv::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -91,7 +91,13 @@ class DkvController extends Controller
             $dkv->penulis_id = Auth::user()->id;
             $dkv->save();
             return redirect()->route('dkv.index')->with('success', 'data Jurusan Dkv berhasil diperbarui!');
-    }
+        }else{
+            $dkv->konten = $data['konten'];
+            $dkv->judul = $data['judul'];
+            $dkv->penulis_id = Auth::user()->id;
+        }
+        $dkv->save();
+        return redirect()->route('dkv.index')->with('success', 'data Jurusan Dkv berhasil diperbarui!');
     }
 
     /**

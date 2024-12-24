@@ -14,7 +14,7 @@
                     <h3 class="text-3xl font-semibold dark:text-white">Esktrakulikuler</h3>
                     <p class="mb-3 text-gray-800 dark:text-gray-400">seluruh data ekstrakulikuler smkn 1 gedangan</p>
                 </div>
-                <a href="{{route("ekstraPhoto.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah photo</a>
+                <a href="{{route("ekstraPhoto.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 shadow-md transition-all duration-200">Tambah photo</a>
             </div>
 
         </div>
@@ -35,7 +35,7 @@
                                 <img src="{{ asset('img/ekstra/' . $ekstraPhoto->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg" alt="{{ $ekstraPhoto->photo }}">
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-center">
-                                <a href="{{ route('ekstraPhoto.edit', [Crypt::encrypt($ekstraPhoto->id)]) }}" class="text-orange-300 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>
+                                <a href="{{ route('ekstraPhoto.edit', [Crypt::encrypt($ekstraPhoto->id)]) }}" class="text-yellow-500 hover:text-yellow-600 ">Edit</a>
                                 <form id="delete-form-{{ $ekstraPhoto->id }}" action="{{ route('ekstraPhoto.destroy', [Crypt::encrypt($ekstraPhoto->id)]) }}" method="POST" class="inline">
                                     @csrf
                                     @method('delete')
@@ -54,7 +54,7 @@
         </div>
             <div class="items-center ml-6 pb-6">
 
-                <a href="{{ route('ekstrakulikuler.edit', [Crypt::encrypt($ekstrakulikuler->id)]) }}" class="bg-yellow-600 hover:bg-orange-400 dark:text-blue-400 ml-4 text-white py-2.5 px-4 rounded-md">Edit Data Ekstrakulikuler</a>
+                <a href="{{ route('ekstrakulikuler.edit', [Crypt::encrypt($ekstrakulikuler->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 dark:text-yellow-500 ml-4 text-white py-2.5 px-4 rounded-md shadow-md transition-all duration-200">Edit Ekstrakulikuler</a>
             </div>
         </div>
 @endsection

@@ -78,7 +78,7 @@ class OsisPhotoController extends Controller
     {
         $osis = OsisPhoto::findOrFail(Crypt::decrypt($id));
         $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'file|mimes:jpg,png,pdf|max:2048',
            "nama"=> "min:3|max:100|required",
            "jabatan"=> "min:3|required",
         ]);
@@ -93,12 +93,15 @@ class OsisPhotoController extends Controller
             $file->move(public_path('img/osis'), $filename);
 
             $osis->photo = $filename;
+
+
+        }else{
             $osis->nama = $request->nama;
             $osis->jabatan = $request->jabatan;
-            $osis->save();
-
-            return redirect()->route('osis.index')->with('success', 'Data Osis berhasil diperbarui!');
         }
+        $osis->save();
+
+        return redirect()->route('osis.index')->with('success', 'Data Osis berhasil diperbarui!');
     }
 
     /**

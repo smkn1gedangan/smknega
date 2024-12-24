@@ -29,7 +29,7 @@
         </div>
             <div class="items-center ml-6 pb-6">
 
-                <a href="{{ route('profil.edit', [Crypt::encrypt($profil->id)]) }}" class="bg-yellow-600 hover:bg-orange-400 dark:text-blue-400 ml-4 text-white py-2.5 px-4 rounded-md">Edit Data Profil</a>
+                <a href="{{ route('profil.edit', [Crypt::encrypt($profil->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 dark:text-yellow-400 ml-4 text-white py-2.5 px-4 rounded-md shadow-md transition-all duration-200">Edit Profil</a>
             </div>
         </div>
 @endsection

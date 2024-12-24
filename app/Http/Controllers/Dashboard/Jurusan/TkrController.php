@@ -60,7 +60,7 @@ class TkrController extends Controller
     {
         $tkr = Tkr::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -91,7 +91,13 @@ class TkrController extends Controller
             $tkr->penulis_id = Auth::user()->id;
             $tkr->save();
             return redirect()->route('tkr.index')->with('success', 'data Jurusna Tkr berhasil diperbarui!');
-    }
+        }else{
+            $tkr->konten = $data['konten'];
+            $tkr->judul = $data['judul'];
+            $tkr->penulis_id = Auth::user()->id;
+        }
+    $tkr->save();
+    return redirect()->route('tkr.index')->with('success', 'data Jurusna Tkr berhasil diperbarui!');
     }
 
     /**

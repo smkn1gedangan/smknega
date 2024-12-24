@@ -10,7 +10,7 @@
                 <h3 class="text-3xl font-bold dark:text-white">Data Komite</h3>
                 <p class="mb-3 text-gray-800 dark:text-gray-400">seluruh data komite smkn 1 gedangan</p>
             </div>
-            <a href="{{route("komite.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah komite</a>
+            <a href="{{route("komite.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 shadow-md transition-all duration-200">Tambah komite</a>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg flex flex-col items-center mt-10">
             <x-heading-welcome classAdventage="md:my-6">Ketua Komite</x-heading-welcome>
@@ -34,7 +34,7 @@
                                 <img src="{{ asset('img/komite/' . $k->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg">
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-center">
-                                <a href="{{ route('ketuaKomite.edit', [Crypt::encrypt($k->id)]) }}" class="text-orange-500 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>
+                                <a href="{{ route('ketuaKomite.edit', [Crypt::encrypt($k->id)]) }}" class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 ml-4">Edit</a>
                             </td>
                         </tr>
                     @endforeach
@@ -61,7 +61,7 @@
                                 <img src="{{ asset('img/komite/' . $komite->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg" alt="{{ $komite->photo }}">
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-evenly">
-                                <a href="{{ route('komite.edit', [Crypt::encrypt($komite->id)]) }}" class="text-orange-500 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>
+                                <a href="{{ route('komite.edit', [Crypt::encrypt($komite->id)]) }}" class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 ml-4 transition-all duration-200">Edit</a>
                                 <form id="delete-form-{{ $komite->id }}" action="{{ route('komite.destroy', [Crypt::encrypt($komite->id)]) }}" method="POST" class="inline">
                                     @csrf
                                     @method('delete')

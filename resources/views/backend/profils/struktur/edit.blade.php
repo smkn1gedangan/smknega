@@ -17,7 +17,7 @@
                     <div class="mb-4 w-2/5">
                         <label for="penulis_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">penulis_id</label>
                         <input type="text" value="{{ Auth::user()->name}}" name="penulis_id" id="penulis_id"
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
+                               class="mt-1 bg-white shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
                                readOnly>
                         @error("penulis_id")
                         <p class="mt-2 text-sm text-red-800">
@@ -29,7 +29,7 @@
 
                 <div class="mb-4 w-11/12">
                     <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">konten</label>
-                    <div id="editor" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                    <div id="editor" class="mt-1 bg-white shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
                         {!! old('konten', $struktur->konten) !!}
 
                     </div>
@@ -41,7 +41,7 @@
                     @enderror
                 </div>
 
-                <input class="mt-6 rounded-md" type="file" name="photo" id="photo">
+                <input class="mt-6 rounded-md shadow-md bg-white w-2/5" type="file" name="photo" id="photo">
                 @error('photo')
                 <p class="mt-2 text-sm text-red-800">
                     {{ $message }}
@@ -50,8 +50,8 @@
                 <!-- Tombol Submit -->
                 <div class="w-11/12 mt-4 mb-8">
                     <button type="submit"
-                            class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:bg-blue-700 focus:outline-none">
-                        Ubah Data Struktur Organisasi
+                            class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 focus:bg-yellow-500 focus:outline-none shadow-md transition-all duration-200">
+                        Ubah Struktur Organisasi
                     </button>
                 </div>
             </form>

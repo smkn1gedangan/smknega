@@ -60,7 +60,7 @@ class LogoController extends Controller
     {
         $logo = Logo::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -85,11 +85,12 @@ class LogoController extends Controller
             $file->move(public_path('img/profil'), $filename);
 
             $logo->photo = $filename;
-            $logo->konten = $data['konten'];
+    }else{
+        $logo->konten = $data['konten'];
             $logo->penulis_id = Auth::user()->id;
-            $logo->save();
-            return redirect()->route('logo.index')->with('success', 'data Logo berhasil diperbarui!');
     }
+    $logo->save();
+    return redirect()->route('logo.index')->with('success', 'data Logo berhasil diperbarui!');
     }
     /**
      * Remove the specified resource from storage.

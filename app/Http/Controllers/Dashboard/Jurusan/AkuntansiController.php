@@ -89,9 +89,14 @@ class AkuntansiController extends Controller
             $akuntansi->konten = $data['konten'];
             $akuntansi->judul = $data['judul'];
             $akuntansi->penulis_id = Auth::user()->id;
-            $akuntansi->save();
-            return redirect()->route('akuntansi.index')->with('success', 'data Jurusan Akuntansi berhasil diperbarui!');
-    }
+
+            }else{
+                $akuntansi->konten = $data['konten'];
+                $akuntansi->judul = $data['judul'];
+                $akuntansi->penulis_id = Auth::user()->id;
+            }
+        $akuntansi->save();
+        return redirect()->route('akuntansi.index')->with('success', 'data Jurusan Akuntansi berhasil diperbarui!');
     }
 
     /**

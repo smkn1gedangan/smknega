@@ -60,7 +60,7 @@ class BusanaController extends Controller
     {
         $busana = Busana::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -91,7 +91,13 @@ class BusanaController extends Controller
             $busana->penulis_id = Auth::user()->id;
             $busana->save();
             return redirect()->route('busana.index')->with('success', 'data Jurusn Tata Busana berhasil diperbarui!');
+    }else{
+            $busana->konten = $data['konten'];
+            $busana->judul = $data['judul'];
+            $busana->penulis_id = Auth::user()->id;
     }
+    $busana->save();
+    return redirect()->route('busana.index')->with('success', 'data Jurusn Tata Busana berhasil diperbarui!');
     }
 
     /**

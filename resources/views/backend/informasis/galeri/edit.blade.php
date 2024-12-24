@@ -5,7 +5,7 @@
 
 @section("content")
     <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
-        <x-title-create-dashboard>edit data galeri Smkn 1 Gedangan</x-title-create-dashboard>
+        <x-title-create-dashboard>edit galeri Smkn 1 Gedangan</x-title-create-dashboard>
         <div class="w-full">
             <form action="{{ route('galeri.update',[Crypt::encrypt($galeri->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -27,7 +27,7 @@
                 </div>
 
 
-                <input class="mt-6 rounded-md" type="file" name="photo" id="photo">
+                <input class="mt-6 rounded-md bg-white shadow-md w-2/5" type="file" name="photo" id="photo">
                 @error('photo')
                 <p class="mt-2 text-sm text-red-800">
                     {{ $message }}
@@ -36,8 +36,8 @@
                 <!-- Tombol Submit -->
                 <div class="mt-4 mb-8 w-11/12">
                     <button type="submit"
-                            class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:bg-blue-700 focus:outline-none">
-                        Ubah data Galeri
+                            class="inline-block px-6 py-2 text-white bg-yellow-500 transition-all duration-200 rounded-lg shadow hover:bg-yellow-600 focus:bg-yellow-700 focus:outline-none">
+                        Ubah Galeri
                     </button>
                 </div>
             </form>

@@ -82,7 +82,7 @@ class WakaController extends Controller
     {
         $waka = Waka::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
+           'photo' => 'file|mimes:jpg,png,pdf|max:5096',
             "nama"=> "min:3|max:100|required",
             "jabatan"=> "min:3|required",
         ]);
@@ -97,12 +97,12 @@ class WakaController extends Controller
             $file->move(public_path('img/waka'), $filename);
 
             $waka->photo = $filename;
+        }else{
             $waka->nama = $data['nama'];
             $waka->jabatan = $data['jabatan'];
-            $waka->save();
-
-            return redirect()->route('waka.index')->with('success', 'Data Waka berhasil diperbarui!');
         }
+        $waka->save();
+        return redirect()->route('waka.index')->with('success', 'Data Waka berhasil diperbarui!');
     }
 
     /**

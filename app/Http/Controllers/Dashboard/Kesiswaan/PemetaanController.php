@@ -60,7 +60,7 @@ class PemetaanController extends Controller
     {
         $pemetaan = Pemetaan::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'file|mimes:jpg,png,pdf|max:2048',
            'konten' => [
             'required',
             function ($attribute, $value, $fail) {
@@ -87,9 +87,13 @@ class PemetaanController extends Controller
             $pemetaan->photo = $filename;
             $pemetaan->konten = $data['konten'];
             $pemetaan->penulis_id = Auth::user()->id;
-            $pemetaan->save();
-            return redirect()->route('pemetaan.index')->with('success', 'data Pemetaan Kelulusan berhasil diperbarui!');
-    }
+
+        }else{
+            $pemetaan->konten = $data['konten'];
+            $pemetaan->penulis_id = Auth::user()->id;
+        }
+    $pemetaan->save();
+    return redirect()->route('pemetaan.index')->with('success', 'data Pemetaan Kelulusan berhasil diperbarui!');
     }
 
     /**

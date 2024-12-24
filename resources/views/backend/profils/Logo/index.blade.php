@@ -20,7 +20,7 @@
             @if (file_exists(public_path('img/profil/' . $logo->photo)) && $logo->photo)
                            <img src="{{ asset('img/profil/' . $logo->photo) }}" class="object-cover w-full rounded-t-lg h-40 md:h-52 md:w-52 md:rounded-none md:rounded-s-lg" alt="{{ $logo->photo }}">
            @else
-                           <div class="w-full bg-gray-200 h-52 md:w-52">
+                           <div class="w-full bg-gray-200 h-64 grid place-content-center md:w-4/5">
                                <span>No Image</span> <!-- Pesan fallback -->
                            </div>
            @endif
@@ -33,7 +33,7 @@
         </div>
             <div class="items-center ml-6 pb-6">
 
-                <a href="{{ route('logo.edit', [Crypt::encrypt($logo->id)]) }}" class="bg-yellow-600 hover:bg-orange-400 dark:text-blue-400 ml-4 text-white py-2.5 px-4 rounded-md">Edit Data Logo</a>
+                <a href="{{ route('logo.edit', [Crypt::encrypt($logo->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 dark:text-yellow-500 ml-4 text-white py-2.5 px-4 rounded-md shadow-md transition-all duration-200">Edit Logo</a>
             </div>
         </div>
 @endsection

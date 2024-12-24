@@ -83,7 +83,7 @@ class GuruController extends Controller
     {
         $guru = Guru::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             "nama"=> "min:6|max:100|required",
             "tugas"=> "min:3|required",
         ]);
@@ -98,12 +98,15 @@ class GuruController extends Controller
             $file->move(public_path('img/guru'), $filename);
 
             $guru->photo = $filename;
-            $guru->nama = $data['nama'];
-            $guru->tugas = $data['tugas'];
-            $guru->save();
+
+
+    }else{
+        $guru->nama = $data['nama'];
+        $guru->tugas = $data['tugas'];
+    }
+    $guru->save();
 
             return redirect()->route('guru.index')->with('success', 'Data Guru berhasil diperbarui!');
-    }
     }
     /**
      * Remove the specified resource from storage.

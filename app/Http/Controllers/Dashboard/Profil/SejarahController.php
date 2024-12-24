@@ -60,7 +60,7 @@ class SejarahController extends Controller
     {
         $sejarah = Sejarah::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+            'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -88,9 +88,12 @@ class SejarahController extends Controller
             $sejarah->photo = $filename;
             $sejarah->penulis_id = Auth::user()->id;
             $sejarah->konten = $data['konten'];
-            $sejarah->save();
+        }else{
+            $sejarah->penulis_id = Auth::user()->id;
+            $sejarah->konten = $data['konten'];
+        }
+        $sejarah->save();
             return redirect()->route('sejarah.index')->with('success', 'data sejarah berhasil diperbarui!');
-    }
 }
 
     /**

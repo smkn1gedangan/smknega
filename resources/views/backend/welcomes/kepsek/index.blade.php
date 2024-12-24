@@ -20,7 +20,7 @@
             @if (file_exists(public_path('img/kepala_sekolah/' . $kepsek->photo)) && $kepsek->photo)
                            <img src="{{ asset('img/kepala_sekolah/' . $kepsek->photo) }}" class="object-cover w-full rounded-t-lg h-auto md:w-2/5 md:rounded-none md:rounded-s-lg" alt="{{ $kepsek->photo }}">
            @else
-                           <div class="w-full bg-gray-200 h-52 md:w-52">
+                           <div class="w-full bg-gray-200 grid place-content-center h-64 md:w-4/5">
                                <span>No Image</span> <!-- Pesan fallback -->
                            </div>
            @endif
@@ -36,7 +36,7 @@
         </div>
             <div class="items-center ml-6 pb-6">
 
-                <a href="{{ route('kepsek.edit', [Crypt::encrypt($kepsek->id)]) }}" class="bg-yellow-600 hover:bg-orange-400 dark:text-blue-400 ml-4 text-white py-2.5 px-4 rounded-md">Edit Data Kepala Sekolah</a>
+                <a href="{{ route('kepsek.edit', [Crypt::encrypt($kepsek->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 dark:text-yellow-400 transition-all duration-300 ml-4 text-white py-2.5 px-4 rounded-md">Edit Kepala Sekolah</a>
             </div>
         </div>
 @endsection

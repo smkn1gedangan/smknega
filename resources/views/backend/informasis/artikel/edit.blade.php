@@ -24,7 +24,7 @@
                     <div class="mb-4 w-2/5">
                         <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Judul</label>
                         <input type="text" value="{{old("title",$article->title)}}" name="title" id="title"
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
+                               class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
                                required placeholder="Masukkan Judul">
                         @error("title")
                         <p class="mt-2 text-sm text-red-800">
@@ -36,7 +36,7 @@
                     <div class="mb-4 w-2/5">
                         <label for="writer" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Penulis</label>
                         <input type="text" name="writer_id" id="writer" value="{{ Auth::user()->name}}"
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
+                               class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
                                readonly
                                >
                         @error("writer")
@@ -49,7 +49,7 @@
 
                 <div class="mb-4 w-11/12">
                     <label for="text_content" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten Artikel</label>
-                    <div id="editor" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                    <div id="editor" class="mt-1 shadow-md bg-white block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
                         {!! old('text_content', $article->text_content) !!}
                     </div>
                     <input type="hidden" name="text_content" id="text_content">
@@ -61,10 +61,10 @@
                 </div>
                 <div class="flex flex-col w-11/12 gap-2 justify-center">
                     <p class="text-red-600 text-sm">jika itu adalah artikel murni , hilangkan kategori prestasi </p>
-                    <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <ul class="w-48 text-sm font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 
                         @foreach ($kategoris as $kategori)
-                        <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                        <li class="w-full bg-white border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                           <div class="flex items-center ps-3">
                               <input id="kategori_id" type="checkbox" name="kategori_id[]" value="{{$kategori->id}}"
                               @foreach ($article->kategoris as $articleKategori)
@@ -78,7 +78,7 @@
                       </li>
                         @endforeach
                       </ul>
-                    <input class="mt-6 rounded-md" type="file" name="image" id="image">
+                    <input class="mt-6 rounded-md shadow-md w-2/5 bg-white" type="file" name="image" id="image">
                     @error('image')
                     <p class="mt-2 text-sm text-red-800">
                         {{ $message }}
@@ -88,8 +88,8 @@
                 <!-- Tombol Submit -->
                 <div class="mt-4 mb-8 w-11/12">
                     <button type="submit"
-                            class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:bg-blue-700 focus:outline-none">
-                        Ubah data artikel
+                            class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 transition-all duration-200 shadow-md focus:bg-blue-700 focus:outline-none">
+                        Ubah Artikel
                     </button>
                 </div>
             </form>

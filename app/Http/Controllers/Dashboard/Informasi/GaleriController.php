@@ -95,11 +95,13 @@ class GaleriController extends Controller
             $file->move(public_path('img/galeri'), $filename);
 
             $galeri->photo = $filename;
-            $galeri->judul = $data['judul'];
-            $galeri->save();
 
+
+        }else{
+            $galeri->judul = $data['judul'];
+        }
+            $galeri->save();
             return redirect()->route('galeri.index')->with('success', 'Galeri berhasil diperbarui!');
-    }
     }
     /**
      * Remove the specified resource from storage.

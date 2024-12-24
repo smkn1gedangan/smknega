@@ -7,10 +7,10 @@
     <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
         <div class="flex w-full justify-between items-center pt-4 ">
             <div class="w-3/4 ml-10">
-                <h3 class="text-3xl font-bold dark:text-white">Data Waka</h3>
+                <h3 class="text-3xl font-semibold dark:text-white">Data Waka</h3>
                 <p class="mb-3 text-gray-800 dark:text-gray-400">seluruh data Waka smkn 1 gedangan</p>
             </div>
-            <a href="{{route("waka.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah Waka</a>
+            <a href="{{route("waka.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 shadow-md transition-all duration-200">Tambah Waka</a>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg flex flex-col items-center mt-10">
 
@@ -34,7 +34,7 @@
                                 <img src="{{ asset('img/waka/' . $waka->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg" alt="{{ $waka->photo }}">
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-evenly">
-                                <a href="{{ route('waka.edit', [Crypt::encrypt($waka->id)]) }}" class="text-orange-500 hover:text-orange-400 dark:text-blue-400 ml-4">Edit</a>
+                                <a href="{{ route('waka.edit', [Crypt::encrypt($waka->id)]) }}" class="text-yellow-500 hover:text-yellow-600 transition-all duration-200 dark:text-yellow-400 ml-4">Edit</a>
                                 <form id="delete-form-{{ $waka->id }}" action="{{ route('waka.destroy', [Crypt::encrypt($waka->id)]) }}" method="POST" class="inline">
                                     @csrf
                                     @method('delete')
