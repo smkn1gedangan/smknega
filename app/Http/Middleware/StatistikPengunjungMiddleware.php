@@ -15,9 +15,10 @@ class StatistikPengunjungMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
-        $exists = ModelsStatistikPengunjung::where('ip_address', $request->ip())
+        {
+            $exists = ModelsStatistikPengunjung::where('ip_address', $request->ip())
             ->where('user_agent', $request->userAgent())
+            ->whereDate('visited_at', now()->toDateString()) // Membatasi hanya untuk hari ini
             ->exists();
 
         if (!$exists) {
@@ -27,6 +28,7 @@ class StatistikPengunjungMiddleware
                 'visited_at' => now(),
             ]);
         }
+
 
         return $next($request);
     }
