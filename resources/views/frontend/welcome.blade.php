@@ -20,7 +20,7 @@
 
 @section("content")
 {{-- header start --}}
-<section  class="relative hidden md:block">
+<section  class="relative hidden sm:block">
     <div class="swiper mySwiper w-full">
         <div class="swiper-wrapper">
             <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_baner3.jpg")}})">
@@ -60,16 +60,34 @@
 </section>
 {{-- header end --}}
 {{-- header start --}}
-<section  class="relative block md:hidden">
-    <div class="w-full swiper mySwiper">
+<section  class="relative block sm:hidden">
+    <div class="w-swiper mySwiper w-full">
         <div class="swiper-wrapper">
-            <div class="object-cover swiper-slide">
-                <div style="background:linear-gradient(to top, transparent, rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.8))" class="py-8 flex flex-col items-center justify-center px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative shadow-lg ">
+            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_sm_baner_1.jpg")}})">
+                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
-                <h1 style="-webkit-text-stroke: 1px black" class="mb-4 text-4xl font-extrabold tracking-tight leading-none mt-20 text-white xt-5xl lg:text-6xl dark:text-slate-700">Selamat datang di Smkn 1 Gedangan</h1>
-                <p id="typed" style="-webkit-text-stroke: 1px black" class="min-h-[10rem] mb-8 text-lg font-semibold text-slate-900 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200"></p>
+                <h1 style="-webkit-text-stroke:1px black" class=" mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">Selamat datang di Smkn 1 Gedangan</h1>
+                <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200 capitalize">sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ..</p>
+                </div>
+                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
+            </div>
+            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_sm_baner2.jpg")}})">
+                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
+
+                {{-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">isi title2</h1> --}}
+                {{-- <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p> --}}
 
                 </div>
+                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
+            </div>
+            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_sm_baner3.jpg")}})">
+                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
+
+                {{-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">isi title2</h1> --}}
+                {{-- <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p> --}}
+
+                </div>
+                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
         </div>
 
@@ -290,18 +308,18 @@
 
 
 @section("js")
-<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+{{-- <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script> --}}
 
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-    var typed = new Typed("#typed", {
-        strings: ["sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ.."], // Teks yang akan ditampilkan
-        typeSpeed: 100, // Kecepatan pengetikan (dalam milliseconds)
-        backSpeed: 10, // Kecepatan penghapusan teks (dalam milliseconds)
-        loop: true, // Apakah teks akan diulang secara terus-menerus
-        cursorChar: "",
-      });
+    // var typed = new Typed("#typed", {
+    //     strings: ["sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ.."], // Teks yang akan ditampilkan
+    //     typeSpeed: 100, // Kecepatan pengetikan (dalam milliseconds)
+    //     backSpeed: 10, // Kecepatan penghapusan teks (dalam milliseconds)
+    //     loop: true, // Apakah teks akan diulang secara terus-menerus
+    //     cursorChar: "",
+    //   });
     document.addEventListener("DOMContentLoaded", function () {
         var swiper = new Swiper(".mySwiper", {
             loop: true,
