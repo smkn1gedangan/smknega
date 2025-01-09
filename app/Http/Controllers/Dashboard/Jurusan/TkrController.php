@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Jurusan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jurusan\Tkr;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -59,6 +61,7 @@ class TkrController extends Controller
     public function update(Request $request, string $id)
     {
         $tkr = Tkr::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
            'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
@@ -86,13 +89,13 @@ class TkrController extends Controller
             $file->move(public_path('img/jurusan'), $filename);
 
             $tkr->photo = $filename;
-            $tkr->konten = $data['konten'];
+            $tkr->konten = $purifier->purify($request->konten);
             $tkr->judul = $data['judul'];
             $tkr->penulis_id = Auth::user()->id;
             $tkr->save();
             return redirect()->route('tkr.index')->with('success', 'data Jurusna Tkr berhasil diperbarui!');
         }else{
-            $tkr->konten = $data['konten'];
+            $tkr->konten = $purifier->purify($request->konten);
             $tkr->judul = $data['judul'];
             $tkr->penulis_id = Auth::user()->id;
         }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Jurusan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jurusan\Animasi;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -59,6 +61,7 @@ class AnimasiController extends Controller
     public function update(Request $request, string $id)
     {
         $animasi = Animasi::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
            'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
@@ -86,13 +89,13 @@ class AnimasiController extends Controller
             $file->move(public_path('img/jurusan'), $filename);
 
             $animasi->photo = $filename;
-            $animasi->konten = $data['konten'];
+            $animasi->konten = $purifier->purify($request->konten);
             $animasi->judul = $data['judul'];
             $animasi->penulis_id = Auth::user()->id;
             $animasi->save();
             return redirect()->route('animasi.index')->with('success', 'data Jurusan Animasi berhasil diperbarui!');
     }else{
-            $animasi->konten = $data['konten'];
+            $animasi->konten = $purifier->purify($request->konten);
             $animasi->judul = $data['judul'];
             $animasi->penulis_id = Auth::user()->id;
     }

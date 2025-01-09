@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profil;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -25,6 +27,8 @@ class ProfilController extends Controller
 
     public function update(Request $request, string $id)  {
         $profil = Profil::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
+
         $data = $request->validate([
             'photo' => 'file|mimes:jpg,png,jpeg|max:5096',
             'konten' => [
@@ -48,10 +52,10 @@ class ProfilController extends Controller
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('img/welcome'), $filename);
-            $profil->konten = html_entity_decode($data['konten']);
+            $profil->konten = $purifier->purify($request->konten);
             $profil->photo = $filename;
         }else{
-            $profil->konten = html_entity_decode($data['konten']);
+            $profil->konten = $purifier->purify($request->konten);
         }
 
     $profil->save();

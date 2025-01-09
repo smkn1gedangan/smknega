@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Profil;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profil\DeskripsiKomite;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +60,7 @@ class DeskripsiKomiteController extends Controller
     public function update(Request $request, string $id)
     {
         $deskripsiKomite = DeskripsiKomite::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
             'konten' => [
@@ -73,7 +76,7 @@ class DeskripsiKomiteController extends Controller
             ],
         ]);
         $deskripsiKomite->penulis_id = Auth::user()->id;
-        $deskripsiKomite->konten = $data['konten'];
+        $deskripsiKomite->konten = $purifier->purify($request->konten);;
         $deskripsiKomite->save();
         return redirect()->route('deskripsiKomite.index')->with('success', 'data Deskripsi Komite  berhasil diperbarui!');
     }

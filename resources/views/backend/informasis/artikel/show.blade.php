@@ -23,7 +23,8 @@
                                 <span>No Image</span> <!-- Pesan fallback -->
                             </div>
             @endif
-            <div class="mt-5 text-slate-800">{!!$article->text_content!!}</div>
+
+            <div class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6">{!!$article->text_content!!}</div>
             <div class="flex justify-between mt-4">
                 <p class="font-normal text-sm text-gray-700 dark:text-gray-400">ditulis oleh {{ $article->writer->name}}</p>
                 <p class="font-normal text-sm text-gray-700 dark:text-gray-400"> {{ $article->created_at->diffForHumans()}}</p>

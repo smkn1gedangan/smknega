@@ -26,9 +26,7 @@
            @endif
            <h1 class="text-2xl mt-6 mb-2 text-gray-800 dark:text-gray-100">{{$boga->nama}}</h1>
 
-            <blockquote class="text-sm italic text-gray-900 dark:text-white">
-                <p>{!!$boga->konten!!}</p>
-            </blockquote>
+           <div class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6">{!!$boga->konten!!}</div>
 
         </div>
             <div class="items-center ml-6 pb-6">

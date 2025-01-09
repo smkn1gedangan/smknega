@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Kesiswaan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kesiswaan\Pemetaan;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -59,6 +61,7 @@ class PemetaanController extends Controller
     public function update(Request $request, string $id)
     {
         $pemetaan = Pemetaan::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
            'photo' => 'file|mimes:jpg,png,pdf|max:2048',
            'konten' => [
@@ -85,11 +88,11 @@ class PemetaanController extends Controller
             $file->move(public_path('img/pemetaan'), $filename);
 
             $pemetaan->photo = $filename;
-            $pemetaan->konten = $data['konten'];
+            $pemetaan->konten =$purifier->purify($request->konten);
             $pemetaan->penulis_id = Auth::user()->id;
 
         }else{
-            $pemetaan->konten = $data['konten'];
+            $pemetaan->konten =$purifier->purify($request->konten);
             $pemetaan->penulis_id = Auth::user()->id;
         }
     $pemetaan->save();

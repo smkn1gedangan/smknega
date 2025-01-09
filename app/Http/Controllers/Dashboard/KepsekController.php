@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kepsek;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -26,6 +28,7 @@ class KepsekController extends Controller
     public function update(Request $request, string $id)
     {
         $kepsek = Kepsek::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             'photo' => 'file|mimes:jpg,png,pdf|max:5096',
             "nama"=> "min:6|max:100|required",
@@ -53,11 +56,11 @@ class KepsekController extends Controller
 
             $kepsek->photo = $filename;
             $kepsek->nama = $data['nama'];
-            $kepsek->sambutan = $data['sambutan'];
+            $kepsek->sambutan = $purifier->purify($request->sambutan);
 
         }else{
             $kepsek->nama = $data['nama'];
-            $kepsek->sambutan = $data['sambutan'];
+            $kepsek->sambutan = $purifier->purify($request->sambutan);
         }
         $kepsek->save();
         return redirect()->route('kepsek.index')->with('success', 'data kepala sekolah berhasil diperbarui!');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Jurusan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jurusan\Akuntansi;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -59,6 +61,7 @@ class AkuntansiController extends Controller
     public function update(Request $request, string $id)
     {
         $akuntansi = Akuntansi::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
@@ -86,12 +89,12 @@ class AkuntansiController extends Controller
             $file->move(public_path('img/jurusan'), $filename);
 
             $akuntansi->photo = $filename;
-            $akuntansi->konten = $data['konten'];
+            $akuntansi->konten = $purifier->purify($request->konten);
             $akuntansi->judul = $data['judul'];
             $akuntansi->penulis_id = Auth::user()->id;
 
             }else{
-                $akuntansi->konten = $data['konten'];
+                $akuntansi->konten = $purifier->purify($request->konten);
                 $akuntansi->judul = $data['judul'];
                 $akuntansi->penulis_id = Auth::user()->id;
             }

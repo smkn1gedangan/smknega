@@ -25,8 +25,9 @@
                            </div>
            @endif
 
-            <div class="mb-3 font-normal text-gray-900 dark:text-gray-400 text-sm mt-6">{!!$profil->konten!!}</div>
+            <div class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6">{!!$profil->konten!!}</div>
         </div>
+        
             <div class="items-center ml-6 pb-6">
 
                 <a href="{{ route('profil.edit', [Crypt::encrypt($profil->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 dark:text-yellow-400 ml-4 text-white py-2.5 px-4 rounded-md shadow-md transition-all duration-200">Edit Profil</a>

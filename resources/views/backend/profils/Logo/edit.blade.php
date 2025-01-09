@@ -72,6 +72,9 @@
                         ['bold', 'italic', 'underline'],
                         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                         [{ 'align': [] }],
+                        [{ 'font': [] }],
+                        [{ 'header':[1,2,3,4,5,6,false] }],
+                        [{ 'color': [] },{'background':[]}],
                         [{ 'indent': '-1'}, { 'indent': '+1' }],
                         ['blockquote', 'code-block']
                     ],

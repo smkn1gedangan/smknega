@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Program;
 
 use App\Http\Controllers\Controller;
 use App\Models\Program\Industri;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +60,7 @@ class IndustriController extends Controller
     public function update(Request $request, string $id)
     {
         $industri = Industri::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
            'konten' => [
@@ -73,7 +76,7 @@ class IndustriController extends Controller
             ],
         ]);
         $industri->penulis_id = Auth::user()->id;
-        $industri->konten = $data['konten'];
+        $industri->konten = $purifier->purify($request->konten);
         $industri->save();
         return redirect()->route('industri.index')->with('success', 'data Hubungan Industri berhasil diperbarui!');
 

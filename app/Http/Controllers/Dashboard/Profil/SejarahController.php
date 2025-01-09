@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Profil;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profil\Sejarah;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -59,6 +61,7 @@ class SejarahController extends Controller
     public function update(Request $request, string $id)
     {
         $sejarah = Sejarah::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
@@ -87,10 +90,10 @@ class SejarahController extends Controller
 
             $sejarah->photo = $filename;
             $sejarah->penulis_id = Auth::user()->id;
-            $sejarah->konten = $data['konten'];
+            $sejarah->konten = $purifier->purify($request->konten);
         }else{
             $sejarah->penulis_id = Auth::user()->id;
-            $sejarah->konten = $data['konten'];
+            $sejarah->konten = $purifier->purify($request->konten);
         }
         $sejarah->save();
             return redirect()->route('sejarah.index')->with('success', 'data sejarah berhasil diperbarui!');

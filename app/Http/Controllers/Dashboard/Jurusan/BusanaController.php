@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Jurusan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jurusan\Busana;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -59,6 +61,7 @@ class BusanaController extends Controller
     public function update(Request $request, string $id)
     {
         $busana = Busana::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
            'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
@@ -86,13 +89,13 @@ class BusanaController extends Controller
             $file->move(public_path('img/jurusan'), $filename);
 
             $busana->photo = $filename;
-            $busana->konten = $data['konten'];
+            $busana->konten = $purifier->purify($request->konten);
             $busana->judul = $data['judul'];
             $busana->penulis_id = Auth::user()->id;
             $busana->save();
             return redirect()->route('busana.index')->with('success', 'data Jurusn Tata Busana berhasil diperbarui!');
     }else{
-            $busana->konten = $data['konten'];
+            $busana->konten = $purifier->purify($request->konten);
             $busana->judul = $data['judul'];
             $busana->penulis_id = Auth::user()->id;
     }

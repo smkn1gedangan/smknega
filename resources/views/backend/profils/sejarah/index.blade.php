@@ -1,5 +1,8 @@
 @extends("backend.layouts.main")
 
+@section("css")
+
+@endsection
 
 @section("title","Sejarah")
 
@@ -8,33 +11,35 @@
         <div class="flex w-full justify-between items-center pt-4 ">
             <div class="w-3/4 ml-10">
                 <h3 class="text-3xl font-semibold dark:text-white">Data Sejarah</h3>
-                <p class="mb-3 text-gray-800 dark:text-gray-400 lowercase">data sejarah  Smkn 1 Gedangan</p>
+                <p class="mb-3 text-gray-800 dark:text-gray-400">data sejarah smkn 1 gedangan</p>
             </div>
 
         </div>
         <div class="my-5 w-3/4 pl-10">
 
             @if (file_exists(public_path('img/profil/' . $sejarah->photo)) && $sejarah->photo)
-                           <img src="{{ asset('img/profil/' . $sejarah->photo) }}" class="object-cover w-full rounded-t-lg h-40 md:h-auto md:w-auto md:rounded-none md:rounded-s-lg" alt="{{ $sejarah->photo }}">
+                           <img src="{{ asset('img/profil/' . $sejarah->photo) }}" class="object-cover w-full rounded-t-lg h-40 md:h-auto md:w-4/5 md:rounded-none md:rounded-s-lg">
            @else
-                           <div class="w-full bg-gray-200 h-64 md:w-4/5 grid place-content-center">
+                           <div class="w-full bg-gray-200 h-40 md:w-80">
                                <span>No Image</span> <!-- Pesan fallback -->
                            </div>
            @endif
 
-            <p class="mb-3 text-gray-900 dark:text-gray-400 text-sm mt-6">{!!$sejarah->konten!!}</p>
+            <div class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6">{!!$sejarah->konten!!}</div>
         </div>
+
             <div class="items-center ml-6 pb-6">
 
-                <a href="{{ route('sejarah.edit', [Crypt::encrypt($sejarah->id)]) }}" class="bg-yellow-500 transition-all shadow-md duration-200 hover:bg-yellow-600 dark:text-yellow-400 ml-4 text-white py-2.5 px-4 rounded-md">Edit Sejarah</a>
+                <a href="{{ route('sejarah.edit', [Crypt::encrypt($sejarah->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 dark:text-yellow-400 ml-4 text-white py-2.5 px-4 rounded-md shadow-md transition-all duration-200">Edit Sejarah</a>
             </div>
         </div>
 @endsection
 
 @section("js")
- <script>
-     window.Laravel = {
+    <script>
+        window.Laravel = {
             successMessage: @json(session('success')),
         };
- </script>
+    </script>
+
 @endsection

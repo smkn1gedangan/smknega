@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\Program;
 use App\Http\Controllers\Controller;
 use App\Models\Program\Bisnis;
 use App\Models\Program\BisnisPhoto;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -60,6 +62,7 @@ class BisnisController extends Controller
     public function update(Request $request, string $id)
     {
         $bisnis = Bisnis::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
             'konten' => [
@@ -75,7 +78,7 @@ class BisnisController extends Controller
             ],
         ]);
         $bisnis->penulis_id = Auth::user()->id;
-        $bisnis->konten = $data['konten'];
+        $bisnis->konten = $purifier->purify($request->konten);;
         $bisnis->save();
         return redirect()->route('bisnis.index')->with('success', 'data Program bisnis Sekolah berhasil diperbarui!');
 

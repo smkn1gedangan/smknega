@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Profil;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profil\Rencana;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +60,7 @@ class RencanaController extends Controller
     public function update(Request $request, string $id)
     {
         $rencana = Rencana::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
             'konten' => [
@@ -73,7 +76,7 @@ class RencanaController extends Controller
             ],
         ]);
         $rencana->penulis_id = Auth::user()->id;
-        $rencana->konten = $data['konten'];
+        $rencana->konten =$purifier->purify($request->konten);;
         $rencana->save();
         return redirect()->route('rencana.index')->with('success', 'data Rencana Unggulan berhasil diperbarui!');
 

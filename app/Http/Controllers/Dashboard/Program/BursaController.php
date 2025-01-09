@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Program;
 
 use App\Http\Controllers\Controller;
 use App\Models\Program\Bursa;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +60,7 @@ class BursaController extends Controller
     public function update(Request $request, string $id)
     {
         $bursa = Bursa::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
            'konten' => [
@@ -73,7 +76,7 @@ class BursaController extends Controller
             ],
         ]);
         $bursa->penulis_id = Auth::user()->id;
-        $bursa->konten = $data['konten'];
+        $bursa->konten = $purifier->purify($request->konten);
         $bursa->save();
         return redirect()->route('bursa.index')->with('success', 'data Bursa Kerja berhasil diperbarui!');
 

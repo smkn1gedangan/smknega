@@ -95,7 +95,7 @@
 -   if git not installed yet , install git with command _apt install git_
 
 ###### For Change File Owner
-- **chown www-data:www-data smknega** 
+- **chown www-data:www-data smknega/public** 
 
 ###### For Go To New Directory
 
