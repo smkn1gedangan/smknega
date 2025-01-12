@@ -40,7 +40,15 @@
                         </p>
                     @enderror
                 </div>
-
+                @if (file_exists(public_path('img/profil/' . $struktur->photo)) && $struktur->photo)
+                <p class="mt-3">Photo saat ini : </p>
+                <img class="w-1/5  duration-700  rounded-md object-cover h-full" src="{{ asset("img/profil/" . $struktur->photo) }}" alt="">
+                @else
+                <p class="mt-3">Photo saat ini : </p>
+                <div class="bg-gray-200 w-1/5 h-52 grid place-content-center">
+                <span>No Image</span> <!-- Pesan fallback -->
+                </div>
+                @endif
                 <input class="mt-6 rounded-md shadow-md bg-white w-2/5" type="file" name="photo" id="photo">
                 @error('photo')
                 <p class="mt-2 text-sm text-red-800">

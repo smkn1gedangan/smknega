@@ -31,7 +31,12 @@
                             <td class="px-6 py-4">{{ Str::words($k->nama, 3, '...') }}</td>
                             <td class="px-6 py-4">{{ $k->jabatan }}</td>
                             <td class="px-6 py-4">
-                                <img src="{{ asset('img/komite/' . $k->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg">
+                                @if (file_exists(public_path('img/komite/' . $k->photo)) && $k->photo)
+                                <img class="w-10 rounded-md object-cover h-10" src="{{ asset("img/komite/" . $k->photo) }}" alt="">
+                                @else
+                                <div class="bg-gray-200 w-10 h-10 grid place-content-center">
+                                </div>
+                                @endif
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-center">
                                 <a href="{{ route('ketuaKomite.edit', [Crypt::encrypt($k->id)]) }}" class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 ml-4">Edit</a>
@@ -58,7 +63,12 @@
                             <td class="px-6 py-4">{{ Str::words($komite->nama, 3, '...') }}</td>
                             <td class="px-6 py-4">{{ $komite->jabatan }}</td>
                             <td class="px-6 py-4">
-                                <img src="{{ asset('img/komite/' . $komite->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg" alt="{{ $komite->photo }}">
+                                @if (file_exists(public_path('img/komite/' . $komite->photo)) && $komite->photo)
+                                <img class="w-10  duration-700  object-cover h-10" src="{{ asset("img/komite/" . $komite->photo) }}" alt="">
+                                @else
+                                <div class="bg-gray-200 w-10 h-10 grid place-content-center">
+                                </div>
+                                @endif
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-evenly">
                                 <a href="{{ route('komite.edit', [Crypt::encrypt($komite->id)]) }}" class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 ml-4 transition-all duration-200">Edit</a>

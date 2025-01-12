@@ -32,7 +32,12 @@
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4">
-                                <img src="{{ asset('img/ekstra/' . $ekstraPhoto->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg" alt="{{ $ekstraPhoto->photo }}">
+                                @if (file_exists(public_path('img/ekstra/' . $ekstraPhoto->photo)) && $ekstraPhoto->photo)
+                                <img class="w-10 rounded-md object-cover h-10" src="{{ asset("img/ekstra/" . $ekstraPhoto->photo) }}" alt="">
+                                @else
+                                <div class="bg-gray-200 w-10 h-10 grid place-content-center">
+                                </div>
+                                @endif
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-center">
                                 <a href="{{ route('ekstraPhoto.edit', [Crypt::encrypt($ekstraPhoto->id)]) }}" class="text-yellow-500 hover:text-yellow-600 ">Edit</a>

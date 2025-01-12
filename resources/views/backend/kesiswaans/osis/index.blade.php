@@ -32,7 +32,12 @@
                             <td class="px-6 py-4">{{ $osisPhoto->nama }}</td>
                             <td class="px-6 py-4">{{ $osisPhoto->jabatan }}</td>
                             <td class="px-6 py-4">
-                                <img src="{{ asset('img/osis/' . $osisPhoto->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg" alt="{{ $osisPhoto->photo }}">
+                                @if (file_exists(public_path('img/osis/' . $osisPhoto->photo)) && $osisPhoto->photo)
+                                    <img class="w-10 rounded-md object-cover h-10" src="{{ asset("img/osis/" . $osisPhoto->photo) }}" alt="">
+                                    @else
+                                    <div class="bg-gray-200 w-10 h-10 grid place-content-center">
+                                    </div>
+                                    @endif
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-center">
                                 <a href="{{ route('osisPhoto.edit', [Crypt::encrypt($osisPhoto->id)]) }}" class="text-yellow-500 hover:text-yellow-600  ml-4">Edit</a>

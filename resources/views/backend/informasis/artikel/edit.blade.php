@@ -78,6 +78,15 @@
                       </li>
                         @endforeach
                       </ul>
+                      @if (file_exists(public_path('img/articles_images/' . $article->image)) && $article->image)
+                      <p class="mt-3">Photo saat ini : </p>
+                      <img class="w-1/5  duration-700  rounded-md object-cover h-full" src="{{ asset("img/articles_images/" . $article->image) }}" alt="">
+                      @else
+                      <p class="mt-3">Photo saat ini : </p>
+                      <div class="bg-gray-200 w-1/5 h-52 grid place-content-center">
+                      <span>No Image</span> <!-- Pesan fallback -->
+                      </div>
+                      @endif
                     <input class="mt-6 rounded-md shadow-md w-2/5 bg-white" type="file" name="image" id="image">
                     @error('image')
                     <p class="mt-2 text-sm text-red-800">

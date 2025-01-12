@@ -31,7 +31,12 @@
                             <td class="px-6 py-4">{{ Str::words($waka->nama, 3, '...') }}</td>
                             <td class="px-6 py-4">{{ $waka->jabatan }}</td>
                             <td class="px-6 py-4">
-                                <img src="{{ asset('img/waka/' . $waka->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg" alt="{{ $waka->photo }}">
+                                @if (file_exists(public_path('img/waka/' . $waka->photo)) && $waka->photo)
+                                <img class="w-10 rounded-md object-cover h-10" src="{{ asset("img/waka/" . $waka->photo) }}" alt="">
+                                @else
+                                <div class="bg-gray-200 w-10 h-10 grid place-content-center">
+                                </div>
+                                @endif
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-evenly">
                                 <a href="{{ route('waka.edit', [Crypt::encrypt($waka->id)]) }}" class="text-yellow-500 hover:text-yellow-600 transition-all duration-200 dark:text-yellow-400 ml-4">Edit</a>

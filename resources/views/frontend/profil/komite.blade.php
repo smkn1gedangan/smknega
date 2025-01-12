@@ -21,7 +21,7 @@
         <x-heading-profil class="w-5/6 md:w-2/3 lg:w-2/3">komite</x-heading-profil>
        </div>
     <div class="w-full flex md:justify-center flex-wrap">
-        <div class="flex flex-col w-full p-4 md:items-center md:p-8 lg:w-5/6">
+        <div class="flex flex-col w-full p-2 md:items-center md:p-8 lg:w-5/6">
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 text-gray-900 dark:text-gray-400 mt-6 w-full  ">
                 {!! $deskripsiKomite->konten !!}
             </div>

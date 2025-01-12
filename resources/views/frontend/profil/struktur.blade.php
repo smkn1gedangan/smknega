@@ -32,7 +32,7 @@
         <x-heading-profil class="w-full md:w-4/5">struktur organisasi sekolah</x-heading-profil>
     </div>
 
-    <div class="flex flex-col w-full p-4 sm:w-5/6 md:w-4/5 md:items-center md:p-8  lg:w-3/5">
+    <div class="flex flex-col w-full p-2 sm:w-5/6 md:w-4/5 md:items-center md:p-8  lg:w-3/5">
 
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6 w-full">
                 {!! $struktur->konten !!}

@@ -10,7 +10,7 @@
         <x-heading-profil class="w-5/6 md:w-2/3">ekstrakulikuler</x-heading-profil>
        </div>
     <div class="w-full flex md:justify-center flex-wrap">
-        <div class="flex flex-col w-full p-4 md:w-4/5 md:items-center md:p-8 lg:w-3/5">
+        <div class="flex flex-col w-full p-2 md:w-4/5 md:items-center md:p-8 lg:w-3/5">
             <div class="swiper mySwiper w-full flex justify-center">
                 <div class="swiper-wrapper">
                     @foreach ($ekstraPhotos as $ep)

@@ -29,13 +29,18 @@
                         </p>
                     @enderror
                 </div>
-
-
+                 @if (file_exists(public_path('img/welcome/' . $profil->photo)) && $profil->photo)
+                    <p class="mt-3">Photo saat ini : </p>
+                    <img class="w-1/5  duration-700  rounded-md object-cover h-full" src="{{ asset("img/welcome/" . $profil->photo) }}" alt="">
+                    @else
+                    <p class="mt-3">Photo saat ini : </p>
+                    <div class="bg-gray-200 w-1/5 h-52 grid place-content-center">
+                    <span>No Image</span> <!-- Pesan fallback -->
+                    @endif
                 <x-text-input id="photo" class="block mt-1 bg-white w-2/5"
-                                type="file"
-                                name="photo"
-                                autocomplete="current-photo" />
-
+                type="file"
+                name="photo"
+                autocomplete="current-photo" />
                 <x-input-error :messages="$errors->get('photo')" class="mt-2" />
 
                 <!-- Tombol Submit -->

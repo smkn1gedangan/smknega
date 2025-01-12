@@ -8,9 +8,9 @@
 <section class="w-full flex flex-col md:justify-center flex-wrap">
     <div class="flex justify-center pt-20 md:pt-28">
         <x-heading-profil class="w-5/6 md:w-2/3">kepala sekolah</x-heading-profil>
-       </div>   
+       </div>
     <div class="w-full flex md:justify-center flex-wrap">
-        <div class="flex flex-col w-full p-4 md:w-4/5 md:items-center md:p-8 lg:w-3/5">
+        <div class="flex flex-col w-full p-2 md:w-4/5 md:items-center md:p-8 lg:w-3/5">
             <div class="relative">
                 @if (file_exists(public_path('img/kepala_sekolah/' . $kepsek->photo)) && $kepsek->photo)
                 <img class="rounded-t-lg w-4/5 md:w-full h-96 object-cover relative left-1/2 -translate-x-1/2" src="{{asset("img/kepala_sekolah/" . $kepsek->photo)}}" alt="" />
@@ -20,7 +20,7 @@
                     <span>No Image</span> <!-- Pesan fallback -->
                 </div>
             @endif
-    
+
             </div>
             <h5 class="mb-2 pt-3 md:pt-5 text-xl font-semibold tracking-tight text-gray-900 dark:text-white text-left">{{$kepsek->nama}}</h5>
             <div class="lg:first-letter:pl-16 mb-3 text-sm md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-6">
