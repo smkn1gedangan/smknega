@@ -2,17 +2,6 @@
 
 @section("title","Jurusan Sija Smkn 1 Gedangan")
 
-@section("css")
-    <style>
-         .img-fixed {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-    </style>
-@endsection
-
 @section("content")
 
 {{-- sija start --}}
@@ -20,9 +9,7 @@
     <div class="w-full lg:w-full p-2 flex flex-col items-center">
 
         @if (file_exists(public_path('img/jurusan/' . $sija->photo)) && $sija->photo)
-                    <div class="img-fixed my-5 object-cover object-center rounded-md w-11/12 sm:w-5/6 md:w-3/4 lg:w-4/5 min-h-64 md:min-h-96 md:h-auto"
-                        style="background-image: url('{{ asset("img/jurusan/" . $sija->photo) }}');">
-                    </div>
+                    <img src="{{ asset("img/jurusan/" . $sija->photo) }}" class="relative my-5 object-cover object-center rounded-md w-11/12 sm:w-5/6 md:w-3/4 lg:w-4/5 h-auto"/>
                     @else
                         <div class="bg-gray-200 w-11/12 sm:w-5/6 h-64 md:h-96 my-5 grid place-content-center text-xs">
                             <span>No Image</span> <!-- Pesan fallback -->
