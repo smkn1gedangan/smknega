@@ -32,7 +32,7 @@ class OsisPhotoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+            'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
             "nama"=> "min:3|max:100|required",
             "jabatan"=> "min:3|required",
          ]);
@@ -78,7 +78,7 @@ class OsisPhotoController extends Controller
     {
         $osis = OsisPhoto::findOrFail(Crypt::decrypt($id));
         $request->validate([
-           'photo' => 'file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'file|mimes:jpg,png,pdf|max:5096',
            "nama"=> "min:3|max:100|required",
            "jabatan"=> "min:3|required",
         ]);

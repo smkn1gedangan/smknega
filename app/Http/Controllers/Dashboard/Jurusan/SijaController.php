@@ -63,7 +63,7 @@ class SijaController extends Controller
         $sija = Sija::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-           'photo' => 'file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'file|mimes:jpg,png,pdf|max:5096',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
