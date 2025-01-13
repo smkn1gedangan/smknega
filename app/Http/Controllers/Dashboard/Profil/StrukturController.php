@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Profil;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profil\StrukturOrganisasi;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -59,6 +61,7 @@ class StrukturController extends Controller
     public function update(Request $request, string $id)
     {
         $struktur = StrukturOrganisasi::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
            'photo' => 'file|mimes:jpg,png,pdf|max:5096',
             'konten' => [
@@ -85,8 +88,10 @@ class StrukturController extends Controller
             $file->move(public_path('img/profil'), $filename);
 
             $struktur->photo = $filename;
+            $struktur->konten = $purifier->purify($request->konten);;
+            $struktur->penulis_id = Auth::user()->id;
         }else{
-            $struktur->konten = $data['konten'];
+            $struktur->konten = $purifier->purify($request->konten);;
             $struktur->penulis_id = Auth::user()->id;
         }
     $struktur->save();

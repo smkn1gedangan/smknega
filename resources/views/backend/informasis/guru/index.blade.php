@@ -30,7 +30,13 @@
                             <td class="px-6 py-4">{{ Str::words($guru->nama, 3, '...') }}</td>
                             <td class="px-6 py-4">{{ $guru->tugas }}</td>
                             <td class="px-6 py-4">
-                                <img src="{{ asset('img/guru/' . $guru->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg" alt="{{ $guru->photo }}">
+                                @if (file_exists(public_path('img/guru/' . $guru->photo)) && $guru->photo)
+                                <img class="w-10  duration-700  rounded-md object-cover h-10" src="{{ asset("img/guru/" . $guru->photo) }}" alt="">
+                                @else
+                                <div class="bg-gray-200 w-10 h-10 rounded-md grid place-content-center">
+                                <span></span> <!-- Pesan fallback -->
+                                </div>
+                                @endif
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-center">
                                 <a href="{{ route('guru.edit', [Crypt::encrypt($guru->id)]) }}" class="text-yellow-500 hover:text-yellow-600 dark:text-blue-400 ml-4">Edit</a>

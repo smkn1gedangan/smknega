@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Informasi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sarana;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +60,7 @@ class SaranaController extends Controller
     public function update(Request $request, string $id)
     {
         $sarana = Sarana::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
             'konten' => [
@@ -73,7 +76,7 @@ class SaranaController extends Controller
             ],
         ]);
         $sarana->penulis_id = Auth::user()->id;
-        $sarana->konten = $data['konten'];
+        $sarana->konten = $purifier->purify($request->konten);
         $sarana->save();
         return redirect()->route('sarana.index')->with('success', 'data Sarana Prasarana berhasil diperbarui!');
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Profil;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profil\Logo;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -59,6 +61,7 @@ class LogoController extends Controller
     public function update(Request $request, string $id)
     {
         $logo = Logo::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
            'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
@@ -83,10 +86,11 @@ class LogoController extends Controller
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('img/profil'), $filename);
-
             $logo->photo = $filename;
+            $logo->konten = $purifier->purify($request->konten);;
+            $logo->penulis_id = Auth::user()->id;
     }else{
-        $logo->konten = $data['konten'];
+            $logo->konten = $purifier->purify($request->konten);;
             $logo->penulis_id = Auth::user()->id;
     }
     $logo->save();

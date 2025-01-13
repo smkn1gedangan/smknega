@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\Kesiswaan;
 use App\Http\Controllers\Controller;
 use App\Models\Kesiswaan\Osis;
 use App\Models\Kesiswaan\OsisPhoto;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -60,6 +62,7 @@ class OsisController extends Controller
     public function update(Request $request, string $id)
     {
         $osis = Osis::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
             'konten' => [
@@ -75,7 +78,7 @@ class OsisController extends Controller
             ],
         ]);
         $osis->penulis_id = Auth::user()->id;
-        $osis->konten = $data['konten'];
+        $osis->konten = $purifier->purify($request->konten);
         $osis->save();
         return redirect()->route('osis.index')->with('success', 'data Osis berhasil diperbarui!');
     }

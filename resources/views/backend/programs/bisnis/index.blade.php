@@ -30,7 +30,12 @@
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4">
-                                <img src="{{ asset('img/bisnis/' . $bisnisPhoto->photo) }}" class="object-cover rounded-t-lg w-10 h-10 md:rounded-none md:rounded-s-lg" alt="{{ $bisnisPhoto->photo }}">
+                                @if (file_exists(public_path('img/bisnis/' . $bisnisPhoto->photo)) && $bisnisPhoto->photo)
+                                <img class="w-10  rounded-md object-cover h-10" src="{{ asset("img/bisnis/" . $bisnisPhoto->photo) }}" alt="">
+                                @else
+                                <div class="bg-gray-200 w-10 h-10 grid place-content-center">
+                                </div>
+                                @endif
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-center">
                                 <a href="{{ route('bisnisPhoto.edit', [Crypt::encrypt($bisnisPhoto->id)]) }}" class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 ml-4">Edit</a>
@@ -50,7 +55,7 @@
 
         <div class="mt-10 pb-4">{{ $bisnisPhotos->links() }}</div>
         <div class="my-5 w-3/4 pl-10">
-            <p class="mb-3 font-normal text-gray-900 dark:text-gray-400 text-sm mt-6">{!!$bisnis->konten!!}</p>
+            <div class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6">{!!$bisnis->konten!!}</div>
         </div>
             <div class="items-center ml-6 pb-6">
 

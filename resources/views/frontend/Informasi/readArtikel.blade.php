@@ -1,8 +1,6 @@
-
 @extends("frontend.layouts.main")
 @section("title","article")
 @section("content")
-<p>{{$article}}</p>
     <section class="relative bg-no-repeat">
        <div class="w-screen md:max-w-[95%] p-2 md:py-16 flex md:flex-row justify-evenly flex-wrap">
             <div class="md:pl-12 mt-20  md:py-6 flex flex-col w-full md:w-11/12 lg:w-2/3">

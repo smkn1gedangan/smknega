@@ -20,10 +20,10 @@
 
 @section("content")
 {{-- header start --}}
-<section  class="relative hidden md:block">
+<section  class="relative hidden sm:block">
     <div class="swiper mySwiper w-full">
         <div class="swiper-wrapper">
-            <div class="swiper-slide object-cover  " style="background: url({{asset("img/welcome/static_baner3.jpg")}})">
+            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_baner3.jpg")}})">
                 <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
                 <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">Selamat datang di Smkn 1 Gedangan</h1>
@@ -33,7 +33,7 @@
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
             <!-- Slide 2 -->
-            <div class="swiper-slide object-cover  " style="background: url({{asset("img/welcome/static_baner1.jpg")}})">
+            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_baner1.jpg")}})">
                 <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
                 {{-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">isi title1</h1> --}}
@@ -43,7 +43,7 @@
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
             <!-- Slide 3 -->
-            <div class="swiper-slide object-cover  " style="background: url({{asset("img/welcome/static_baner2.jpg")}})">
+            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_baner2.jpg")}})">
                 <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
                 {{-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">isi title2</h1> --}}
@@ -60,17 +60,31 @@
 </section>
 {{-- header end --}}
 {{-- header start --}}
-<section  class="relative block md:hidden">
-    <div class="w-full swiper mySwiper">
+<section  class="relative block sm:hidden">
+    <div class="w-swiper mySwiper w-full">
         <div class="swiper-wrapper">
-            <div class="object-cover swiper-slide">
-                <div style="background:linear-gradient(to top, transparent, rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.8))" class="py-8 flex flex-col items-center justify-center px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative shadow-lg ">
+            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_sm_baner_1.jpg")}})">
+                <div class="py-10 flex flex-col items-center justify-center px-4 h-screen max-w-screen-sm text-center lg:py-16 z-10 relative ">
 
-                <h1 style="-webkit-text-stroke: 1px black" class="mb-4 text-4xl font-extrabold tracking-tight leading-none mt-20 text-white xt-5xl lg:text-6xl dark:text-slate-700">Selamat datang di Smkn 1 Gedangan</h1>
-                <p id="typed" style="-webkit-text-stroke: 1px black" class="min-h-[10rem] mb-8 text-lg font-semibold text-slate-900 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200"></p>
+                <h1 style="-webkit-text-stroke:1px black" class=" mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">Selamat datang di Smkn 1 Gedangan</h1>
+                <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200 capitalize">sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ..</p>
+                </div>
+                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
+            </div>
+            {{-- <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_sm_baner2.jpg")}})">
+                <div class="py-8 flex flex-col items-center justify-center px-4 max-w-screen-sm text-center lg:py-16 z-10 relative ">
+
 
                 </div>
+                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
+            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_sm_baner3.jpg")}})">
+                <div class="py-8 flex flex-col items-center justify-center px-4 max-w-screen-sm text-center lg:py-16 z-10 relative ">
+
+
+                </div>
+                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
+            </div> --}}
         </div>
 
 
@@ -95,7 +109,7 @@
                         </div>
                     @endif
 
-                    <div class="mb-3 text-sm md:text-base font-normal text-gray-700 dark:text-gray-400 mt-6 lg:first-letter:pl-16">
+                    <div class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6 w-full">
                         {!!$profil->konten!!}
                     </div>
                     <button onclick="window.location.href ='https://ppdbjatim.net/'" type="button" class="w-2/5 sm:w-1/5 lg:w-1/5 mt-2 mb-8 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Info ppdb</button>
@@ -116,8 +130,8 @@
                     <div class="w-4/5 md:w-full relative left-1/2 -translate-x-1/2 md:pl-1">
                         <h5 data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="mb-2 pt-3 md:pt-5 text-xl font-semibold tracking-tight text-gray-900 dark:text-white text-left">{{$kepsek->nama}}</h5>
                         <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="mb-3 text-sm md:text-base font-normal text-gray-800 dark:text-gray-400">{{ Str::words(strip_tags($kepsek->sambutan), 25, '...') }}.</p>
-                        <a data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" href="{{ route("sambutan_kepsek") }}" class="inline-flex transition-all duration-200 items-center px-3 py-2 text-sm font-medium text-center text-white bg-black rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Read more
+                        <a data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" href="{{ route("sambutan_kepsek") }}" class="inline-flex mb-1 transition-all duration-200 items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Baca Selengkapnya
                              <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                             </svg>
@@ -172,10 +186,10 @@
                 </div>
                 <div class="swiper mySwiper bg-transparent bgMorpish absolute bottom-0 w-full p-2">
                   <div class="swiper-wrapper ">
-                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="swiper-slide tx-sh  font-semibold text-center text-gray-100 dark:text-gray-400 md:font-bold capitalize  mb-0 md:mb-3 ">
+                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="swiper-slide tx-sh  font-semibold text-center text-gray-100 dark:text-gray-400 md:font-bold capitalize  mb-0 md:mb-3 min-h-20 flex items-end justify-center">
                         {{ $waka->nama }}
                     </div>
-                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="swiper-slide tracking-wide tx-sh text-center text-sm text-gray-100 dark:text-gray-400 capitalize">
+                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="swiper-slide tracking-wide tx-sh text-center text-sm text-gray-100 dark:text-gray-400 capitalize min-h-20 flex items-end justify-center">
                         {{ $waka->jabatan }}
                     </div>
                   </div>
@@ -290,8 +304,18 @@
 
 
 @section("js")
+{{-- <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script> --}}
+
+
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
+    // var typed = new Typed("#typed", {
+    //     strings: ["sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ.."], // Teks yang akan ditampilkan
+    //     typeSpeed: 100, // Kecepatan pengetikan (dalam milliseconds)
+    //     backSpeed: 10, // Kecepatan penghapusan teks (dalam milliseconds)
+    //     loop: true, // Apakah teks akan diulang secara terus-menerus
+    //     cursorChar: "",
+    //   });
     document.addEventListener("DOMContentLoaded", function () {
         var swiper = new Swiper(".mySwiper", {
             loop: true,

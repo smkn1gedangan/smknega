@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Program;
 
 use App\Http\Controllers\Controller;
 use App\Models\Program\Peraturan;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +60,7 @@ class PeraturanController extends Controller
     public function update(Request $request, string $id)
     {
         $peraturan = Peraturan::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
             'konten' => [
@@ -73,7 +76,7 @@ class PeraturanController extends Controller
             ],
         ]);
         $peraturan->penulis_id = Auth::user()->id;
-        $peraturan->konten = $data['konten'];
+        $peraturan->konten = $purifier->purify($request->konten);
         $peraturan->save();
         return redirect()->route('peraturan.index')->with('success', 'data Peraturan Sekolah berhasil diperbarui!');
 

@@ -11,7 +11,7 @@
     </div>
 
     <div class="w-full flex md:justify-center flex-wrap">
-        <div class="flex flex-col w-full p-4 md:w-4/5 md:items-center md:p-8 md:mt-6 lg:w-3/5">
+        <div class="flex flex-col w-full p-2 md:w-4/5 md:items-center md:p-8 md:mt-6 lg:w-3/5">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">

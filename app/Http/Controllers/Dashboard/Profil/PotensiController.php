@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Profil;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profil\Potensi;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +60,7 @@ class PotensiController extends Controller
     public function update(Request $request, string $id)
     {
         $potensi = Potensi::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
             'konten' => [
@@ -73,7 +76,7 @@ class PotensiController extends Controller
             ],
         ]);
         $potensi->penulis_id = Auth::user()->id;
-        $potensi->konten = $data['konten'];
+        $potensi->konten = $purifier->purify($request->konten);;
         $potensi->save();
         return redirect()->route('potensi.index')->with('success', 'data Potensi Unggulan berhasil diperbarui!');
 

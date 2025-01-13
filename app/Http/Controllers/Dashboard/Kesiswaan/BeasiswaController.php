@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Kesiswaan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kesiswaan\Beasiswa;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +60,7 @@ class BeasiswaController extends Controller
     public function update(Request $request, string $id)
     {
         $beasiswa = Beasiswa::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
             'konten' => [
@@ -73,7 +76,7 @@ class BeasiswaController extends Controller
             ],
         ]);
         $beasiswa->penulis_id = Auth::user()->id;
-        $beasiswa->konten = $data['konten'];
+        $beasiswa->konten = $purifier->purify($request->konten);
         $beasiswa->save();
         return redirect()->route('beasiswa.index')->with('success', 'data Beasiswa berhasil diperbarui!');
     }

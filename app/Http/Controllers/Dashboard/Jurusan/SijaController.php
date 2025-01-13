@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Jurusan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jurusan\Sija;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -59,6 +61,7 @@ class SijaController extends Controller
     public function update(Request $request, string $id)
     {
         $sija = Sija::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
            'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
@@ -86,12 +89,12 @@ class SijaController extends Controller
             $file->move(public_path('img/jurusan'), $filename);
 
             $sija->photo = $filename;
-            $sija->konten = $data['konten'];
+            $sija->konten =$purifier->purify($request->konten);
             $sija->judul = $data['judul'];
             $sija->penulis_id = Auth::user()->id;
 
         }else{
-            $sija->konten = $data['konten'];
+            $sija->konten =$purifier->purify($request->konten);
             $sija->judul = $data['judul'];
             $sija->penulis_id = Auth::user()->id;
         }

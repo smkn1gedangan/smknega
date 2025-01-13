@@ -13,7 +13,7 @@
 
         </div>
         <div class="my-5 w-3/4 pl-10">
-            <p class="mb-3 font-normal text-gray-900 dark:text-gray-400 text-sm mt-6">{!!$bursa->konten!!}</p>
+            <div class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6">{!!$bursa->konten!!}</div>
         </div>
             <div class="items-center ml-6 pb-6">
 

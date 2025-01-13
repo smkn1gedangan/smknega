@@ -11,14 +11,14 @@
                     <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="w-11/12 my-5  sm:w-5/6 h-52 sm:h-64 lg:h-auto overflow-hidden">
                         <img class="w-full hover:scale-110 transition-all duration-700  rounded-md object-cover" src="{{ asset("img/profil/" . $sejarah->photo) }}" alt="">
                     </div>
-                    
+
                     @else
                         <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="bg-gray-200 w-11/12 sm:w-5/6 h-52 sm:h-64 my-5">
                             <span>No Image</span> <!-- Pesan fallback -->
                         </div>
                     @endif
 
-            <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="mb-3 text-sm md:text-base font-normal text-gray-800 dark:text-gray-400 mt-6 lg:first-letter:pl-16">
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6 w-full">
                 {!! $sejarah->konten !!}
             </div>
             <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="mb-3 w-full text-xs md:text-base text-left font-normal text-gray-800 dark:text-gray-400 mt-3">ditulis oleh {{$sejarah->penulis->name}}  {{$sejarah->created_at->diffForHumans()}}</p>

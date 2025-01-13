@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Jurusan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jurusan\Dkv;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -59,6 +61,7 @@ class DkvController extends Controller
     public function update(Request $request, string $id)
     {
         $dkv = Dkv::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
            'photo' => 'file|mimes:jpg,png,pdf|max:2048',
             'konten' => [
@@ -86,13 +89,13 @@ class DkvController extends Controller
             $file->move(public_path('img/jurusan'), $filename);
 
             $dkv->photo = $filename;
-            $dkv->konten = $data['konten'];
+            $dkv->konten = $purifier->purify($request->konten);
             $dkv->judul = $data['judul'];
             $dkv->penulis_id = Auth::user()->id;
             $dkv->save();
             return redirect()->route('dkv.index')->with('success', 'data Jurusan Dkv berhasil diperbarui!');
         }else{
-            $dkv->konten = $data['konten'];
+            $dkv->konten = $purifier->purify($request->konten);
             $dkv->judul = $data['judul'];
             $dkv->penulis_id = Auth::user()->id;
         }

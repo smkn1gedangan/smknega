@@ -18,7 +18,7 @@ class WakaFactory extends Factory
     {
         return [
             'nama' => $this->faker->name,
-             'jabatan' => implode(' ', $this->faker->words(rand(1, 2))),
+             'jabatan' => implode(' ', $this->faker->words(rand(1, 8))),
              'photo' => ""
         ];
     }

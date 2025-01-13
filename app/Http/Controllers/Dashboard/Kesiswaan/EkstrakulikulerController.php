@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\Kesiswaan;
 use App\Http\Controllers\Controller;
 use App\Models\Kesiswaan\Ekstrakulikuler;
 use App\Models\Kesiswaan\EkstraPhoto;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -60,6 +62,7 @@ class EkstrakulikulerController extends Controller
     public function update(Request $request, string $id)
     {
         $ekstrakulikuler = Ekstrakulikuler::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
             'konten' => [
@@ -75,7 +78,7 @@ class EkstrakulikulerController extends Controller
             ],
         ]);
         $ekstrakulikuler->penulis_id = Auth::user()->id;
-        $ekstrakulikuler->konten = $data['konten'];
+        $ekstrakulikuler->konten = $purifier->purify($request->konten);
         $ekstrakulikuler->save();
         return redirect()->route('ekstrakulikuler.index')->with('success', 'data Ekstrakulikuler Sekolah berhasil diperbarui!');
 

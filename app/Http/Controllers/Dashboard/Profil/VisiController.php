@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Profil;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profil\VisiMisi;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +60,7 @@ class VisiController extends Controller
     public function update(Request $request, string $id)
     {
         $visi = VisiMisi::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
             'konten' => [
@@ -73,7 +76,7 @@ class VisiController extends Controller
             ],
         ]);
         $visi->penulis_id = Auth::user()->id;
-        $visi->konten = $data['konten'];
+        $visi->konten = $purifier->purify($request->konten);
         $visi->save();
         return redirect()->route('visi.index')->with('success', 'data Visi Misi berhasil diperbarui!');
 

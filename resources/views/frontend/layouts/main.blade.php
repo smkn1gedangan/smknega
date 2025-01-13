@@ -39,7 +39,7 @@
 
 </body>
 @yield("js")
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function () {
         const navbar = document.getElementById('navbar');
 
@@ -51,5 +51,5 @@
             }
         });
     });
-</script>
+</script> --}}
 </html>

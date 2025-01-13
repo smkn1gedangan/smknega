@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Program;
 
 use App\Http\Controllers\Controller;
 use App\Models\Program\Kerja;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +60,7 @@ class KerjaController extends Controller
     public function update(Request $request, string $id)
     {
         $kerja = Kerja::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             "penulis_id"=> "required",
             'konten' => [
@@ -73,7 +76,7 @@ class KerjaController extends Controller
             ],
         ]);
         $kerja->penulis_id = Auth::user()->id;
-        $kerja->konten = $data['konten'];
+        $kerja->konten = $purifier->purify($request->konten);
         $kerja->save();
         return redirect()->route('kerja.index')->with('success', 'data Program Kerja berhasil diperbarui!');
 

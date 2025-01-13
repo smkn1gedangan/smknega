@@ -12,9 +12,16 @@
                 @csrf
                 @method("PUT")
 
-
+                @if (file_exists(public_path('img/ekstra/' . $ekstraPhoto->photo)) && $ekstraPhoto->photo)
+                <p class="mt-3">Photo saat ini : </p>
+                <img class="w-1/5  duration-700  rounded-md object-cover h-full" src="{{ asset("img/ekstra/" . $ekstraPhoto->photo) }}" alt="">
+                @else
+                <p class="mt-3">Photo saat ini : </p>
+                <div class="bg-gray-200 w-1/5 h-52 grid place-content-center">
+                <span>No Image</span> <!-- Pesan fallback -->
+                </div>
+                @endif
                 <div class="mb-4 w-11/12">
-
                     <input class="mt-6 rounded-md bg-white shadow-md w-2/5" type="file" name="photo" id="photo">
 
                 </div>

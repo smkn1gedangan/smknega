@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Kategori;
 use Carbon\Carbon;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -49,6 +51,7 @@ class ArtikelController extends Controller
      */
     public function store(Request $request)
     {
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
             'image' => 'required|file|mimes:jpg,png,pdf|max:2048',
             "title"=> "min:6|max:100|required",
@@ -80,7 +83,7 @@ class ArtikelController extends Controller
         $article = Article::create([
             "image"=> $data["image"],
             "title"=> $request->title,
-            "text_content"=> $request->text_content,
+            "text_content"=> $purifier->purify($request->text_content),
             "writer_id"=> Auth::user()->id,
             "slug"=> strtolower(str_replace(' ', '-', $request->title)) . '-' . $currentDateTime
 
@@ -114,6 +117,7 @@ class ArtikelController extends Controller
     public function update(Request $request, string $id)
     {
         $article = Article::findOrFail(Crypt::decrypt($id));
+        $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
            'image' => 'file|mimes:jpg,png,pdf|max:2048',
             "title"=> "min:6|max:100|required",
@@ -144,7 +148,7 @@ class ArtikelController extends Controller
         }else{
             $article->title = $data['title'];
             $article->writer_id = Auth::user()->id;
-            $article->text_content = $data['text_content'];
+            $article->text_content = $purifier->purify($data["text_content"]);
         }
         $article->save();
         $article->kategoris()->sync($data["kategori_id"]);
