@@ -18,7 +18,7 @@
         <div class="my-5 w-3/4 pl-10">
 
             @if (file_exists(public_path('img/profil/' . $logo->photo)) && $logo->photo)
-                           <img src="{{ asset('img/profil/' . $logo->photo) }}" class="object-cover w-full rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $logo->photo }}">
+                           <img src="{{ asset('img/profil/' . $logo->photo) }}" class="object-cover w-72 rounded-t-lg h-72 md:rounded-none md:rounded-s-lg" alt="{{ $logo->photo }}">
            @else
                            <div class="w-full bg-gray-200 h-64 grid place-content-center md:w-4/5">
                                <span>No Image</span> <!-- Pesan fallback -->

@@ -14,6 +14,20 @@
     .tx-sh{
         text-shadow: 2px 2px 5px black;
     }
+    @keyframes swp-sm {
+        0%{
+            background: url({{asset("img/welcome/static_sm_baner_1.jpg")}});
+        }
+        50%{
+            background: url({{asset("img/welcome/static_sm_baner2.jpg")}});
+        }
+        100%{
+            background: url({{asset("img/welcome/static_sm_baner3.jpg")}});
+        }
+    }
+    .swp{
+        animation: swp-sm backwards 10s infinite;
+    }
 </style>
 
 @endsection
@@ -26,7 +40,7 @@
             <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_baner3.jpg")}})">
                 <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
-                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">Selamat datang di Smkn 1 Gedangan</h1>
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl dark:text-white uppercase">Selamat datang di Smkn 1 Gedangan</h1>
                 <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200 capitalize">sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ..</p>
 
                 </div>
@@ -61,37 +75,15 @@
 {{-- header end --}}
 {{-- header start --}}
 <section  class="relative block sm:hidden">
-    <div class="w-swiper mySwiper w-full">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_sm_baner_1.jpg")}})">
-                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
+    <div class="w-full">
+        <div class="swp object-cover bg-no-repeat ">
+            <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
-                <h1 style="-webkit-text-stroke:1px black" class=" mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">Selamat datang di Smkn 1 Gedangan</h1>
-                <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200 capitalize">sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ..</p>
-                </div>
-                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
+            <h1 style="-webkit-text-stroke:1px black" class=" mb-4 text-4xl font-extrabold tracking-tight leading-none text-white uppercase dark:text-white ">Selamat datang di Smkn 1 Gedangan</h1>
+            <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200 capitalize">sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ..</p>
             </div>
-            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_sm_baner2.jpg")}})">
-                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
-
-                {{-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">isi title2</h1> --}}
-                {{-- <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p> --}}
-
-                </div>
-                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
-            </div>
-            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_sm_baner3.jpg")}})">
-                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
-
-                {{-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">isi title2</h1> --}}
-                {{-- <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p> --}}
-
-                </div>
-                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
-            </div>
+            <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
         </div>
-
-
     </div>
 
 </section>
@@ -184,11 +176,11 @@
                         <img class="rounded-md w-full h-auto md:h-auto relative left-1/2 -translate-x-1/2" src="{{ asset('img/waka/' . $waka->photo) }}" alt="" />
                     @else
                         <div class="bg-gray-200 relative h-52 w-full flex justify-center items-center">
-                            <span>No Image</span>
+
                         </div>
                     @endif
                 </div>
-                <div class="swiper mySwiper bg-transparent bgMorpish absolute bottom-0 w-full p-2">
+                <div class="swiper mySwiper bg-transparent bgMorpish absolute bottom-0 w-full p-1">
                   <div class="swiper-wrapper ">
                     <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="swiper-slide tx-sh  font-semibold text-center text-gray-100 dark:text-gray-400 md:font-bold capitalize  mb-0 md:mb-3 min-h-20 flex items-end justify-center">
                         {{ $waka->nama }}

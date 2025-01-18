@@ -16,15 +16,17 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            <div class="w-11/12 sm:w-3/4 md:w-1/2 max-w-sm border-black border ">
+            <div class="border-b rounded-b-[150%] h-auto p-2 border-b-black bg-blue-600">
+                <a class="flex w-full justify-center " href="/">
+                    <img src="{{asset("img/static_icon.png")}}" class="w-20 h-20 border rounded-full border-black object-cover p-4 bg-white" alt="" srcset="">
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4  dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
+        </div>
         </div>
     </body>
 </html>
