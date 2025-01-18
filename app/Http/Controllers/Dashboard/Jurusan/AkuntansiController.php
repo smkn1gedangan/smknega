@@ -63,7 +63,7 @@ class AkuntansiController extends Controller
         $akuntansi = Akuntansi::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {

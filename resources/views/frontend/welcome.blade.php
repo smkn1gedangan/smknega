@@ -40,7 +40,7 @@
             <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_baner3.jpg")}})">
                 <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
-                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl dark:text-white uppercase">Selamat datang di Smkn 1 Gedangan</h1>
+                <h1 class="mb-4 text-4xl tracking-tight leading-none text-white md:text-5xl dark:text-white uppercase">Selamat datang di Smkn 1 Gedangan</h1>
                 <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200 capitalize">sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ..</p>
 
                 </div>
@@ -79,7 +79,7 @@
         <div class="swp object-cover bg-no-repeat ">
             <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
-            <h1 style="-webkit-text-stroke:1px black" class=" mb-4 text-4xl font-extrabold tracking-tight leading-none text-white uppercase dark:text-white ">Selamat datang di Smkn 1 Gedangan</h1>
+            <h1 style="-webkit-text-stroke:1px black" class=" mb-4 text-4xl font-bold tracking-tight leading-none text-white uppercase dark:text-white ">Selamat datang di Smkn 1 Gedangan</h1>
             <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200 capitalize">sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ..</p>
             </div>
             <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>

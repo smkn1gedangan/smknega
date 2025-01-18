@@ -31,10 +31,10 @@
                 </div>
                  @if (file_exists(public_path('img/welcome/' . $profil->photo)) && $profil->photo)
                     <p class="mt-3">Photo saat ini : </p>
-                    <img class="w-1/5  duration-700  rounded-md object-cover h-full" src="{{ asset("img/welcome/" . $profil->photo) }}" alt="">
+                    <img class="w-60 rounded-md object-cover h-full" src="{{ asset("img/welcome/" . $profil->photo) }}" alt="">
                     @else
                     <p class="mt-3">Photo saat ini : </p>
-                    <div class="bg-gray-200 w-1/5 h-52 grid place-content-center">
+                    <div class="bg-gray-200 w-60 h-52 grid place-content-center">
                     <span>No Image</span> <!-- Pesan fallback -->
                     @endif
                 <x-text-input id="photo" class="block mt-1 bg-white w-2/5"

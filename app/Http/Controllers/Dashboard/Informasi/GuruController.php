@@ -34,7 +34,7 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+            'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
             "nama"=> "min:6|max:100|required",
             "tugas"=> "required|max:100",
         ]);
@@ -83,7 +83,7 @@ class GuruController extends Controller
     {
         $guru = Guru::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'file|mimes:jpg,png,pdf|max:5096',
             "nama"=> "min:6|max:100|required",
             "tugas"=> "min:3|required",
         ]);

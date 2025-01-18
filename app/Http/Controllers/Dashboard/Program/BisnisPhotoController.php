@@ -32,7 +32,7 @@ class BisnisPhotoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
         ]);
         if ($request->hasFile('photo')) {
 

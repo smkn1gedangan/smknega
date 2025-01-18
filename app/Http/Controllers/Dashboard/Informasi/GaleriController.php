@@ -33,7 +33,7 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+            'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
             "judul"=> "min:6|max:100|required",
         ]);
 
@@ -81,7 +81,7 @@ class GaleriController extends Controller
     {
         $galeri = Galeri::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
             "judul"=> "min:6|max:100|required",
         ]);
         if ($request->hasFile('photo')) {

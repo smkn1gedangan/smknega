@@ -53,7 +53,7 @@ class ArtikelController extends Controller
     {
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            'image' => 'required|file|mimes:jpg,png,pdf|max:2048',
+            'image' => 'required|file|mimes:jpg,png,pdf|max:5096',
             "title"=> "min:6|max:100|required",
             "writer_id"=> "required",
             'text_content' => [
@@ -119,7 +119,7 @@ class ArtikelController extends Controller
         $article = Article::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-           'image' => 'file|mimes:jpg,png,pdf|max:2048',
+           'image' => 'file|mimes:jpg,png,pdf|max:5096',
             "title"=> "min:6|max:100|required",
             "writer_id"=> "required",
             'text_content' => [
