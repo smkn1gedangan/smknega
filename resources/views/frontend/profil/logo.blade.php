@@ -6,7 +6,7 @@
 
 {{-- logo start --}}
 <section class="w-full flex md:justify-center flex-wrap pt-20 md:pt-28">
-    <div class="flex flex-col w-full p-2 sm:w-5/6 md:w-4/5 md:items-center md:p-8  lg:w-3/5">
+    <div class="relative flex flex-col w-full p-2 sm:w-5/6 md:w-4/5 md:items-center md:p-8  lg:w-3/5">
         <x-heading-profil class="w-full">logo sekolah</x-heading-profil>
         @if (file_exists(public_path('img/profil/' . $logo->photo)) && $logo->photo)
                 <img data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-11/12 sm:w-5/6 lg:w-1/2 h-auto sm:h-64 lg:h-auto rounded-md object-cover my-5 max-sm:relative max-sm:left-1/2 max-sm:-translate-x-1/2" src="{{ asset("img/profil/" . $logo->photo) }}" alt="">

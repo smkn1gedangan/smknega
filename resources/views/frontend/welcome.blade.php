@@ -26,7 +26,7 @@
         }
     }
     .swp{
-        animation: swp-sm backwards 10s infinite;
+        animation: swp-sm alternate-reverse 10s infinite;
     }
 </style>
 

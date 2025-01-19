@@ -8,6 +8,7 @@
         "php": "^8.2",
         "ezyang/htmlpurifier": "^4.18",
         "guzzlehttp/guzzle": "^7.9",
+        "laravel-notification-channels/telegram": "^5.0",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9"
     },

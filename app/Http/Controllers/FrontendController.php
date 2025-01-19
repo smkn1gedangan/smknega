@@ -40,6 +40,7 @@ use App\Models\Program\Kerja;
 use App\Models\Program\Peraturan;
 use App\Models\Sarana;
 use App\Models\User;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -235,18 +236,30 @@ class FrontendController extends Controller
             "nama"=>"required|string",
             "masukan"=>"required|string|min:5",
         ]);
-        $email = User::where("email",$request->email)->first();
-        if(!$email){
-            return redirect()->route("welcome")->with("error","email tidak dikenali , anda harus login terlebih dahulu");
-        }
-
-
         Masukan::create([
             "nama"=>$request->nama,
-            "email"=>$request->masukan,
+            "email"=>$request->email,
             "masukan"=>$request->masukan,
         ]);
-        return redirect()->route("welcome")->with("success","pesan yang anda masukan telah disimpan ke database");
+        $url = "https://api.telegram.org/bot" .env("TELEGRAM_TOKEN") ."/sendMessage";
+        $params = [
+            'chat_id' => env("TELEGRAM_CHAT_ID"),
+            'text' => "pesan dari " . $request->email . " pada ". Carbon::now() ."  ". $request->masukan,
+        ];
+        $client = new Client(['timeout' => 10]);
+        $response = $client->postAsync($url, [
+                'query' => $params,
+            ])->wait();
+
+        $data = json_decode($response->getBody(), true);
+
+
+        if (isset($data['ok']) && $data['ok']) {
+            return redirect()->route("welcome")->with("success","pesan yang anda masukan telah disimpan ke database");
+        } else {
+            return back()->with('error', 'Gagal mengirim pesan ke Telegram.');
+        }
+
     }
 
    public function readArticle($slug)  {
