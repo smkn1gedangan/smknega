@@ -20,7 +20,7 @@
 
     <div class="flex flex-col w-full p-2 sm:w-5/6 md:w-4/5 md:items-center md:p-8  lg:w-3/5">
 
-            <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6 w-full">
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="prose mb-3 text-gray-900 md:text-center dark:text-gray-400 mt-6 w-full">
                 {!! $pemetaan->konten !!}
             </div>
             <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 w-full text-xs md:text-base text-left md:text-center font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$pemetaan->penulis->name}}  {{$pemetaan->created_at->diffForHumans()}}</p>

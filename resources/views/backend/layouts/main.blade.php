@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="{{asset("img/static_icon.png")}}" type="image/x-icon">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
-    
+
     <style>
         .swal-height {
             padding: 0.4rem;
@@ -21,7 +21,6 @@
     @yield("css")
 
     @vite(['resources/css/app.css','resources/js/app.js'])
-    @livewireStyles
 </head>
 
 <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">

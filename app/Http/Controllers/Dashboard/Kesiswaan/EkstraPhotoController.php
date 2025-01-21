@@ -72,7 +72,7 @@ class EkstraPhotoController extends Controller
     {
         $ekstra = EkstraPhoto::findOrFail(Crypt::decrypt($id));
         $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
         ]);
         if ($request->hasFile('photo')) {
             $path = "img/ekstra/" . $ekstra->photo;

@@ -1,8 +1,8 @@
 <section class="bg-white dark:bg-gray-900">
     <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
         <h2  data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-4 text-2xl md:text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Kontak Kami</h2>
-        <p  data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Jika Pengunjung menemukan error atau bug pada website ini silahkan kiriman feedback dengan menyertakan email pada form dibawah ini </p>
-        <form   action="{{ route("save_masukan") }}" method="POST" class="space-y-8">
+        <p  data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Jika Pengunjung menemukan error atau bug pada website ini silahkan kirimkan feedback dengan menyertakan email pada form dibawah ini </p>
+        <form action="{{ route("save_masukan") }}" method="POST" class="space-y-8">
             @csrf
             <div>
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">email</label>
@@ -33,7 +33,10 @@
                 </p>
             @enderror
             </div>
-            <button data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" type="submit" class="py-3 transition-all duration-300 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 bg-black hover:bg-slate-800 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Kirim Pesan</button>
+            <button data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" type="submit" class="py-3 transition-all duration-300 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 bg-black hover:bg-slate-800 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            @guest
+                disabled
+            @endguest>Kirim Pesan</button>
         </form>
     </div>
   </section>
