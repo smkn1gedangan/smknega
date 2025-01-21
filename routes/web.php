@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\Dashboard\Informasi\ArtikelController;
 use App\Http\Controllers\Dashboard\Informasi\GaleriController;
 use App\Http\Controllers\Dashboard\Informasi\GuruController;
@@ -42,8 +43,9 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+Route::resource("captcha",CaptchaController::class);
 Route::controller(FrontendController::class)->group(function(){
-    Route::get("/","welcome")->name("welcome")->middleware("pengunjung");
+    Route::get("/","welcome")->name("welcome")->middleware(["pengunjung","captcha"]);
     Route::get("sambutan_kepsek","sambutan_kepsek")->name("sambutan_kepsek");
     Route::post("save_masukan","save_masukan")->name("save_masukan");
     Route::prefix("profil")->group(function(){

@@ -20,12 +20,6 @@ class StatistikPengunjungMiddleware
      */
     public function handle(Request $request, Closure $next): Response
         {
-            $userAgent = $request->header('User-Agent');
-
-            // Tolak jika User-Agent kosong
-            if (!$userAgent || str_contains($userAgent, 'bot')) {
-                abort(429, 'Too Many Requests');
-            }
             $exists = ModelsStatistikPengunjung::where('ip_address', $request->ip())
             ->where('user_agent', $request->userAgent())
             ->whereDate('visited_at', now()->toDateString()) // Membatasi hanya untuk hari ini

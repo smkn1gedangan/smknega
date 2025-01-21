@@ -70,6 +70,7 @@ class FrontendController extends Controller
     //     }
     //     return $videos;
     // }
+    
    public function welcome()  {
         $kepsek = Kepsek::latest()->first();
         $wakas = Waka::take(10)->get();

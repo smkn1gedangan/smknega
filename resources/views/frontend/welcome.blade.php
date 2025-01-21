@@ -1,6 +1,3 @@
-{{--  --}}
-{{-- site key : 6LfYB74qAAAAAKHZW-dtW2fkQ90eL3xB4ND-bmNI --}}
-{{-- secret key : 6LfYB74qAAAAAPIWATUe8DWu3FjYqlflY4OJaTIz --}}
 @extends("frontend.layouts.main")
 @section("title","homepage")
 @section("css")
