@@ -29,9 +29,9 @@
                 </div>
             @endif
             <div class="flex flex-col justify-center mx-4">
-                <h1 class="text-base text-center font-semibold mt-6 text-gray-800 dark:text-gray-100 capitalize">{{$boga->nama_kaprog}}</h1>
-                <p class="text-center">sebagai</p>
-                <h1 class="text-base text-center font-semibold mb-2 text-gray-800 dark:text-gray-100 capitalize">{{$boga->ket_kaprog}}</h1>
+                <h1 class="text-base text-center md:text-left font-semibold mt-6 text-gray-800 dark:text-gray-100 capitalize">{{$boga->nama_kaprog}}</h1>
+                <p class="text-center md:text-left">sebagai</p>
+                <h1 class="text-base text-center md:text-left font-semibold mb-2 text-gray-800 dark:text-gray-100 capitalize">{{$boga->ket_kaprog}}</h1>
             </div>
         </div>
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6 w-full">

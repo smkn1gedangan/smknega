@@ -6,7 +6,7 @@ use App\Models\Jurusan\Boga;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
 class BogaSeeder extends Seeder
 {
     /**
@@ -14,6 +14,7 @@ class BogaSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('bogas')->truncate();
         $penulis = User::first();
         $data =[
             "photo"=>"tentang.jpg",

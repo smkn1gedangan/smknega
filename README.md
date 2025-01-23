@@ -97,6 +97,9 @@
 ###### For Change File Owner
 - **chown www-data:www-data smknega/public** 
 
+###### For Change File Owner Library Purifier
+- **chown www-data:www-data smknega** 
+
 ###### For Go To New Directory
 
 -   **cd smknega**

@@ -6,7 +6,7 @@ use App\Models\Jurusan\Sija;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
 class SijaSeeder extends Seeder
 {
     /**
@@ -14,6 +14,7 @@ class SijaSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('sijas')->truncate();
         $penulis = User::first();
         $data =[
             "photo"=>"tentang.jpg",

@@ -6,7 +6,7 @@ use App\Models\Jurusan\Animasi;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
 class AnimasiSeeder extends Seeder
 {
     /**
@@ -14,6 +14,7 @@ class AnimasiSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('animasis')->truncate();
         $penulis = User::first();
         $data =[
             "photo"=>"tentang.jpg",

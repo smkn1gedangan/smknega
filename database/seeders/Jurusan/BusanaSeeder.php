@@ -6,7 +6,7 @@ use App\Models\Jurusan\Busana;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
 class BusanaSeeder extends Seeder
 {
     /**
@@ -14,6 +14,7 @@ class BusanaSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('busanas')->truncate();
         $penulis = User::first();
         $data =[
             "photo"=>"tentang.jpg",

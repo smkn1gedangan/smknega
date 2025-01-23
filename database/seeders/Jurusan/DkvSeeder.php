@@ -6,7 +6,7 @@ use App\Models\Jurusan\Dkv;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
 class DkvSeeder extends Seeder
 {
     /**
@@ -14,6 +14,7 @@ class DkvSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('dkvs')->truncate();
         $penulis = User::first();
         $data =[
             "photo"=>"tentang.jpg",

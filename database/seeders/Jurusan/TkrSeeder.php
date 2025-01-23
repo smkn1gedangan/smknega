@@ -6,7 +6,7 @@ use App\Models\Jurusan\Tkr;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
 class TkrSeeder extends Seeder
 {
     /**
@@ -14,6 +14,7 @@ class TkrSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('tkrs')->truncate();
         $penulis = User::first();
         $data =[
             "photo"=>"tentang.jpg",

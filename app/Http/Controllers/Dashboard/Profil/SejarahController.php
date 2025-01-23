@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class SejarahController extends Controller
 {
@@ -82,12 +83,16 @@ class SejarahController extends Controller
             $path = "img/profil/" . $sejarah->photo;
             if ($sejarah->photo && File::exists(public_path($path))) {
                 File::delete(public_path($path));
+                Storage::disk("custom_images")->delete($path);
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+              // Simpan ke folder public
             $file->move(public_path('img/profil'), $filename);
 
+            // Simpan juga ke folder backup
+            Storage::disk('custom_images')->putFileAs('images', $file, $filename);
             $sejarah->photo = $filename;
             $sejarah->penulis_id = Auth::user()->id;
             $sejarah->konten = $purifier->purify($request->konten);
