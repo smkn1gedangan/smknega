@@ -32,7 +32,7 @@
                                 <span>No Image</span> <!-- Pesan fallback -->
                             </div>
                 @endif
-                <div class="w-full flex flex-col justify-center mx-4">
+                <div class="flex flex-col justify-center mx-4">
                     <h1 class="text-base font-semibold mt-6 text-gray-800 dark:text-gray-100 capitalize">{{$sija->nama_kaprog}}</h1>
                     <p>sebagai</p>
                     <h1 class="text-base font-semibold mb-2 text-gray-800 dark:text-gray-100 capitalize">{{$sija->ket_kaprog}}</h1>
