@@ -34,9 +34,9 @@ class StatistikPengunjungMiddleware
         }
         $visitorCount = ModelsStatistikPengunjung::count();
         if ($visitorCount > 0 && $visitorCount % 100 == 0) {
-            $url = "https://api.telegram.org/bot" . env("TELEGRAM_TOKEN") . "/sendMessage";
+            $url = "https://api.telegram.org/bot" . config("services.telegram.bot_token") . "/sendMessage";
             $params = [
-                'chat_id' => env("TELEGRAM_CHAT_ID"),
+                'chat_id' => config("services.telegram.chat_id"),
                 'text' => "Website SMKN 1 Gedangan telah dikunjungi sebanyak " . $visitorCount . " kali pada " . Carbon::now(),
             ];
 

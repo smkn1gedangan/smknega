@@ -7,6 +7,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -33,6 +35,19 @@ class AuthenticatedSessionController extends Controller
                     ->with('error', 'Silakan verifikasi email Anda terlebih dahulu.');
             }
             return redirect()->intended(route("welcome"))->with("success","anda berhasil login");
+        }
+        $params = [
+            'chat_id' => config("services.telegram.chat_id"),
+            'text' => "Halaman Admin dibuka pada " .now() ."\n" ."dengan user \n" . Auth::user()->name .
+            " dan email \n" . Auth::user()->email
+        ];
+        $url = "https://api.telegram.org/bot" . config("services.telegram.bot_token") . "/sendMessage";
+        $response = Http::post($url, $params);
+
+        if ($response->successful()) {
+            Log::info("Halaman Admin Dibuka pada" . now());
+        } else {
+            Log::error("Halaman Admin Dibuka pada: " .now());
         }
         return redirect()->intended(route('dashboard', absolute: false));
     }

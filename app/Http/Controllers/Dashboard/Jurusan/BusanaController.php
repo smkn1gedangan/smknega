@@ -63,7 +63,8 @@ class BusanaController extends Controller
         $busana = Busana::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-           'photo' => 'file|mimes:jpg,png,pdf|max:5096',
+           'photo' => 'file|mimes:jpg,png,jpeg|max:5096',
+           'photo_kaprog' => 'file|mimes:jpg,png,jpeg|max:5096',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -76,30 +77,40 @@ class BusanaController extends Controller
                 },
             ],
             "judul"=> "min:3|max:100|required",
+            "nama_kaprog"=> "min:3|max:100|required",
+            "ket_kaprog"=> "min:3|max:100|required",
             "penulis_id"=> "required"
         ]);
-        if ($request->hasFile('photo')) {
-            $path = "img/jurusan/" . $busana->photo;
-            if ($busana->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+        $deleteFile = function($filePath){
+            if($filePath && File::exists(public_path($filePath))){
+                File::delete(public_path($filePath));
             }
+        };
+        if ($request->hasFile('photo')) {
+            $deleteFile("img/jurusan/" . $busana->photo);
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('img/jurusan'), $filename);
 
             $busana->photo = $filename;
-            $busana->konten = $purifier->purify($request->konten);
-            $busana->judul = $data['judul'];
-            $busana->penulis_id = Auth::user()->id;
-            $busana->save();
-            return redirect()->route('busana.index')->with('success', 'data Jurusn Tata Busana berhasil diperbarui!');
-    }else{
-            $busana->konten = $purifier->purify($request->konten);
-            $busana->judul = $data['judul'];
-            $busana->penulis_id = Auth::user()->id;
-    }
-    $busana->save();
+        }
+        if ($request->hasFile('photo_kaprog')) {
+            $deleteFile("img/jurusan/" . $busana->photo_kaprog);
+
+            $file = $request->file('photo_kaprog');
+            $filenameKaprog = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img/jurusan'), $filenameKaprog);
+
+            $busana->photo_kaprog = $filenameKaprog;
+
+        }
+        $busana->konten =$purifier->purify($request->konten);
+        $busana->judul = $data['judul'];
+        $busana->penulis_id = Auth::user()->id;
+        $busana->nama_kaprog = $data['nama_kaprog'];
+        $busana->ket_kaprog = $data['ket_kaprog'];
+        $busana->save();
     return redirect()->route('busana.index')->with('success', 'data Jurusn Tata Busana berhasil diperbarui!');
     }
 

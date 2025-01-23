@@ -70,7 +70,7 @@ class FrontendController extends Controller
     //     }
     //     return $videos;
     // }
-    
+
    public function welcome()  {
         $kepsek = Kepsek::latest()->first();
         $wakas = Waka::take(10)->get();
@@ -223,12 +223,11 @@ class FrontendController extends Controller
         return redirect()->away("https://surveyminat.smkn1gedangan-malang.sch.id/");
     }
     public function elearning()  {
-        return redirect()->back();
+        return redirect()->away("https://elearning.smkn1gedangan-malang.sch.id/login/index.php");
 
     }
     public function islamic()  {
         return redirect()->away("https://imamuslim.vercel.app");
-
     }
 
     public function save_masukan(Request $request)  {
@@ -242,10 +241,10 @@ class FrontendController extends Controller
             "email"=>$request->email,
             "masukan"=>$request->masukan,
         ]);
-        $url = "https://api.telegram.org/bot" .env("TELEGRAM_TOKEN") ."/sendMessage";
+        $url = "https://api.telegram.org/bot" .config("services.telegram.bot_token") ."/sendMessage";
         $params = [
-            'chat_id' => env("TELEGRAM_CHAT_ID"),
-            'text' => "pesan dari " . $request->email . " pada ". Carbon::now() ."  ". $request->masukan,
+            'chat_id' => config("services.telegram.chat_id"),
+            'text' => "pesan dari " . $request->email . "\t pada ". Carbon::now() ."\t  ". $request->masukan,
         ];
         $client = new Client(['timeout' => 10]);
         $response = $client->postAsync($url, [

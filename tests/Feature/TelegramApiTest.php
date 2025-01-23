@@ -64,7 +64,7 @@ class TelegramApiTest extends TestCase
     public function test_sends_telegram_message_on_visitor_milestone()
     {
         // Fake the HTTP client for Telegram API
-        Http::fake();
+        // Http::fake();
 
         // Seed the database with 99 visitors
         for ($i = 1; $i <= 99; $i++) {

@@ -63,7 +63,8 @@ class SijaController extends Controller
         $sija = Sija::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-           'photo' => 'file|mimes:jpg,png,pdf|max:5096',
+           'photo' => 'file|mimes:jpg,png,jpeg|max:5096',
+           'photo_kaprog' => 'file|mimes:jpg,png,jpeg|max:5096',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -76,30 +77,41 @@ class SijaController extends Controller
                 },
             ],
             "judul"=> "min:3|max:100|required",
+            "nama_kaprog"=> "min:3|max:100|required",
+            "ket_kaprog"=> "min:3|max:100|required",
             "penulis_id"=> "required"
         ]);
-        if ($request->hasFile('photo')) {
-            $path = "img/jurusan/" . $sija->photo;
-            if ($sija->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+        $deleteFile = function($filePath){
+            if($filePath && File::exists(public_path($filePath))){
+                File::delete(public_path($filePath));
             }
+        };
+        if ($request->hasFile('photo')) {
+            $deleteFile("img/jurusan/" . $sija->photo);
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('img/jurusan'), $filename);
 
             $sija->photo = $filename;
-            $sija->konten =$purifier->purify($request->konten);
-            $sija->judul = $data['judul'];
-            $sija->penulis_id = Auth::user()->id;
-
-        }else{
-            $sija->konten =$purifier->purify($request->konten);
-            $sija->judul = $data['judul'];
-            $sija->penulis_id = Auth::user()->id;
         }
-    $sija->save();
-    return redirect()->route('sija.index')->with('success', 'data Jurusan Sija berhasil diperbarui!');
+        if ($request->hasFile('photo_kaprog')) {
+            $deleteFile("img/jurusan/" . $sija->photo_kaprog);
+
+            $file = $request->file('photo_kaprog');
+            $filenameKaprog = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img/jurusan'), $filenameKaprog);
+
+            $sija->photo_kaprog = $filenameKaprog;
+
+        }
+        $sija->konten =$purifier->purify($request->konten);
+        $sija->judul = $data['judul'];
+        $sija->penulis_id = Auth::user()->id;
+        $sija->nama_kaprog = $data['nama_kaprog'];
+        $sija->ket_kaprog = $data['ket_kaprog'];
+        $sija->save();
+        return redirect()->route('sija.index')->with('success', 'data Jurusan Sija berhasil diperbarui!');
     }
 
     /**

@@ -18,12 +18,26 @@
         <div class="my-5 w-3/4 pl-10">
 
             @if (file_exists(public_path('img/jurusan/' . $sija->photo)) && $sija->photo)
-                           <img src="{{ asset('img/jurusan/' . $sija->photo) }}" class="object-cover w-full rounded-t-lg h-40 md:h-auto md:w-72 md:rounded-none md:rounded-s-lg" alt="{{ $sija->photo }}">
+                           <img src="{{ asset('img/jurusan/' . $sija->photo) }}" class="object-cover w-full rounded-t-lg h-auto md:w-80 md:rounded-none md:rounded-s-lg" alt="{{ $sija->photo }}">
            @else
                            <div class="w-full bg-gray-200 grid place-content-center h-64 md:w-4/5">
                                <span>No Image</span> <!-- Pesan fallback -->
                            </div>
            @endif
+           <div class="w-full flex gap-2">
+                @if (file_exists(public_path('img/jurusan/' . $sija->photo_kaprog)) && $sija->photo_kaprog)
+                <img src="{{ asset('img/jurusan/' . $sija->photo_kaprog) }}" class="object-cover w-52 rounded-t-lg md:rounded-s-lg mt-8" alt="{{ $sija->photo_kaprog }}">
+                @else
+                            <div class="w-52 mt-8 bg-gray-200 grid place-content-center h-64 ">
+                                <span>No Image</span> <!-- Pesan fallback -->
+                            </div>
+                @endif
+                <div class="w-full flex flex-col justify-center mx-4">
+                    <h1 class="text-base font-semibold mt-6 text-gray-800 dark:text-gray-100 capitalize">{{$sija->nama_kaprog}}</h1>
+                    <p>sebagai</p>
+                    <h1 class="text-base font-semibold mb-2 text-gray-800 dark:text-gray-100 capitalize">{{$sija->ket_kaprog}}</h1>
+                </div>
+           </div>
            <h1 class="text-2xl mt-6 mb-2 text-gray-800 dark:text-gray-100">{{$sija->nama}}</h1>
 
            <div class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6">{!!$sija->konten!!}</div>

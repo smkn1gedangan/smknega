@@ -51,7 +51,7 @@
                             </div>
                         @endif
                     </a>
-                    <div class="swiper mySwiper bg-transparent bgMorpish absolute bottom-0 w-full p-2">
+                    <div class="swiper mySwiper bg-transparent bgMorpish absolute bottom-0 w-full p-1">
                       <div class="swiper-wrapper ">
                         <div class="swiper-slide tx-sh font-semibold text-center text-gray-100 dark:text-gray-400 md:font-bold capitalize  mb-0 md:mb-3 min-h-20 flex items-end justify-center ">
                             {{ $waka->nama }}

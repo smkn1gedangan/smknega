@@ -32,7 +32,7 @@ class BisnisPhotoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
+           'photo' => 'required|file|mimes:jpg,png,jpeg|max:5096',
         ]);
         if ($request->hasFile('photo')) {
 
@@ -72,7 +72,7 @@ class BisnisPhotoController extends Controller
     {
         $bisnis = BisnisPhoto::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:2048',
+           'photo' => 'required|file|mimes:jpg,png,jpeg|max:2048',
         ]);
         if ($request->hasFile('photo')) {
             $path = "img/bisnis/" . $bisnis->photo;

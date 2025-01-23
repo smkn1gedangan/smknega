@@ -63,7 +63,8 @@ class TkrController extends Controller
         $tkr = Tkr::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-           'photo' => 'file|mimes:jpg,png,pdf|max:5096',
+           'photo' => 'file|mimes:jpg,png,jpeg|max:5096',
+           'photo_kaprog' => 'file|mimes:jpg,png,jpeg|max:5096',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -76,30 +77,40 @@ class TkrController extends Controller
                 },
             ],
             "judul"=> "min:3|max:100|required",
+            "nama_kaprog"=> "min:3|max:100|required",
+            "ket_kaprog"=> "min:3|max:100|required",
             "penulis_id"=> "required"
         ]);
-        if ($request->hasFile('photo')) {
-            $path = "img/jurusan/" . $tkr->photo;
-            if ($tkr->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+        $deleteFile = function($filePath){
+            if($filePath && File::exists(public_path($filePath))){
+                File::delete(public_path($filePath));
             }
+        };
+        if ($request->hasFile('photo')) {
+            $deleteFile("img/jurusan/" . $tkr->photo);
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('img/jurusan'), $filename);
 
             $tkr->photo = $filename;
-            $tkr->konten = $purifier->purify($request->konten);
-            $tkr->judul = $data['judul'];
-            $tkr->penulis_id = Auth::user()->id;
-            $tkr->save();
-            return redirect()->route('tkr.index')->with('success', 'data Jurusna Tkr berhasil diperbarui!');
-        }else{
-            $tkr->konten = $purifier->purify($request->konten);
-            $tkr->judul = $data['judul'];
-            $tkr->penulis_id = Auth::user()->id;
         }
-    $tkr->save();
+        if ($request->hasFile('photo_kaprog')) {
+            $deleteFile("img/jurusan/" . $tkr->photo_kaprog);
+
+            $file = $request->file('photo_kaprog');
+            $filenameKaprog = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img/jurusan'), $filenameKaprog);
+
+            $tkr->photo_kaprog = $filenameKaprog;
+
+        }
+        $tkr->konten =$purifier->purify($request->konten);
+        $tkr->judul = $data['judul'];
+        $tkr->penulis_id = Auth::user()->id;
+        $tkr->nama_kaprog = $data['nama_kaprog'];
+        $tkr->ket_kaprog = $data['ket_kaprog'];
+        $tkr->save();
     return redirect()->route('tkr.index')->with('success', 'data Jurusna Tkr berhasil diperbarui!');
     }
 

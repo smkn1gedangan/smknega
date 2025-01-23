@@ -33,7 +33,7 @@ class WakaController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
+            'photo' => 'required|file|mimes:jpg,png,jpeg|max:5096',
             "nama"=> "min:3|max:100|required",
             "jabatan"=> "required|max:100",
         ]);

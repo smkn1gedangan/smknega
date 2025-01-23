@@ -63,7 +63,7 @@ class StrukturController extends Controller
         $struktur = StrukturOrganisasi::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-           'photo' => 'file|mimes:jpg,png,pdf',
+           'photo' => 'file|mimes:jpg,png,jpeg',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {

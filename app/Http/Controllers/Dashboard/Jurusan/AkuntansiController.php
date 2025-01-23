@@ -63,7 +63,8 @@ class AkuntansiController extends Controller
         $akuntansi = Akuntansi::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-           'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
+           'photo' => 'file|mimes:jpg,png,jpeg|max:5096',
+           'photo_kaprog' => 'file|mimes:jpg,png,jpeg|max:5096',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -76,28 +77,39 @@ class AkuntansiController extends Controller
                 },
             ],
             "judul"=> "min:3|max:100|required",
+            "nama_kaprog"=> "min:3|max:100|required",
+            "ket_kaprog"=> "min:3|max:100|required",
             "penulis_id"=> "required"
         ]);
-        if ($request->hasFile('photo')) {
-            $path = "img/jurusan/" . $akuntansi->photo;
-            if ($akuntansi->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+        $deleteFile = function($filePath){
+            if($filePath && File::exists(public_path($filePath))){
+                File::delete(public_path($filePath));
             }
+        };
+        if ($request->hasFile('photo')) {
+            $deleteFile("img/jurusan/" . $akuntansi->photo);
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('img/jurusan'), $filename);
 
             $akuntansi->photo = $filename;
-            $akuntansi->konten = $purifier->purify($request->konten);
-            $akuntansi->judul = $data['judul'];
-            $akuntansi->penulis_id = Auth::user()->id;
+        }
+        if ($request->hasFile('photo_kaprog')) {
+            $deleteFile("img/jurusan/" . $akuntansi->photo_kaprog);
 
-            }else{
-                $akuntansi->konten = $purifier->purify($request->konten);
-                $akuntansi->judul = $data['judul'];
-                $akuntansi->penulis_id = Auth::user()->id;
-            }
+            $file = $request->file('photo_kaprog');
+            $filenameKaprog = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img/jurusan'), $filenameKaprog);
+
+            $akuntansi->photo_kaprog = $filenameKaprog;
+
+        }
+        $akuntansi->konten =$purifier->purify($request->konten);
+        $akuntansi->judul = $data['judul'];
+        $akuntansi->penulis_id = Auth::user()->id;
+        $akuntansi->nama_kaprog = $data['nama_kaprog'];
+        $akuntansi->ket_kaprog = $data['ket_kaprog'];
         $akuntansi->save();
         return redirect()->route('akuntansi.index')->with('success', 'data Jurusan Akuntansi berhasil diperbarui!');
     }

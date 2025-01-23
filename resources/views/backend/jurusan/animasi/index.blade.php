@@ -1,6 +1,8 @@
 @extends("backend.layouts.main")
 
+@section("css")
 
+@endsection
 
 @section("title","Animasi")
 
@@ -9,19 +11,33 @@
         <div class="flex w-full justify-between items-center pt-4 ">
             <div class="w-3/4 ml-10">
                 <h3 class="text-3xl font-semibold dark:text-white">Data {{ $animasi->judul }}</h3>
-                <p class="mb-3 text-gray-800 dark:text-gray-400 lowercase">data {{ $animasi->judul }} smkn 1 Gedangan</p>
+                <p class="mb-3 text-gray-800 dark:text-gray-400 lowercase">data {{ $animasi->judul }} Smkn 1 Gedangan</p>
             </div>
 
         </div>
         <div class="my-5 w-3/4 pl-10">
 
             @if (file_exists(public_path('img/jurusan/' . $animasi->photo)) && $animasi->photo)
-                           <img src="{{ asset('img/jurusan/' . $animasi->photo) }}" class="object-cover w-full rounded-t-lg h-40 md:h-auto md:w-72 md:rounded-none md:rounded-s-lg" alt="{{ $animasi->photo }}">
+                           <img src="{{ asset('img/jurusan/' . $animasi->photo) }}" class="object-cover w-full rounded-t-lg h-auto md:w-80 md:rounded-none md:rounded-s-lg" alt="{{ $animasi->photo }}">
            @else
-                           <div class="w-full bg-gray-200 h-64 grid place-content-center md:w-4/5">
+                           <div class="w-full bg-gray-200 grid place-content-center h-64 md:w-4/5">
                                <span>No Image</span> <!-- Pesan fallback -->
                            </div>
            @endif
+           <div class="w-full flex gap-2">
+                @if (file_exists(public_path('img/jurusan/' . $animasi->photo_kaprog)) && $animasi->photo_kaprog)
+                <img src="{{ asset('img/jurusan/' . $animasi->photo_kaprog) }}" class="object-cover w-52 rounded-t-lg md:rounded-s-lg mt-8" alt="{{ $animasi->photo_kaprog }}">
+                @else
+                            <div class="w-52 mt-8 bg-gray-200 grid place-content-center h-64 ">
+                                <span>No Image</span> <!-- Pesan fallback -->
+                            </div>
+                @endif
+                <div class="w-full flex flex-col justify-center mx-4">
+                    <h1 class="text-base font-semibold mt-6 text-gray-800 dark:text-gray-100 capitalize">{{$animasi->nama_kaprog}}</h1>
+                    <p>sebagai</p>
+                    <h1 class="text-base font-semibold mb-2 text-gray-800 dark:text-gray-100 capitalize">{{$animasi->ket_kaprog}}</h1>
+                </div>
+           </div>
            <h1 class="text-2xl mt-6 mb-2 text-gray-800 dark:text-gray-100">{{$animasi->nama}}</h1>
 
            <div class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6">{!!$animasi->konten!!}</div>
@@ -29,7 +45,7 @@
         </div>
             <div class="items-center ml-6 pb-6">
 
-                <a href="{{ route('animasi.edit', [Crypt::encrypt($animasi->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 dark:text-yellow-500 ml-4 text-white py-2.5 px-4 rounded-md shadow-md transition-all duration-200">Edit Jurusan Animasi</a>
+                <a href="{{ route('animasi.edit', [Crypt::encrypt($animasi->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 dark:text-yellow-600 ml-4 text-white py-2.5 px-4 rounded-md shadow-md transition-all duration-200">Edit Jurusan Animasi</a>
             </div>
         </div>
 @endsection

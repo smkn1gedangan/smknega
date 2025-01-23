@@ -44,8 +44,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource("captcha",CaptchaController::class);
-Route::controller(FrontendController::class)->group(function(){
-    Route::get("/","welcome")->name("welcome")->middleware(["pengunjung","captcha"]);
+Route::controller(FrontendController::class)->middleware(["captcha","monitorPage"])->group(function(){
+    Route::get("/","welcome")->name("welcome")->middleware(["pengunjung"]);
     Route::get("sambutan_kepsek","sambutan_kepsek")->name("sambutan_kepsek");
     Route::post("save_masukan","save_masukan")->name("save_masukan");
     Route::prefix("profil")->group(function(){
@@ -86,7 +86,6 @@ Route::controller(FrontendController::class)->group(function(){
         route::get("sarana","sarana")->name("sarana");
         route::get("galeri","galeri")->name("galeri");
         route::get("elearning","elearning")->name("elearning");
-        route::get("islamic","islamic")->name("islamic");
     });
     Route::prefix("ppdb")->group(function(){
         route::get("jadwal","jadwal")->name("jadwal");

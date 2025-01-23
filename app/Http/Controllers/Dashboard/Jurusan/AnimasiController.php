@@ -63,7 +63,8 @@ class AnimasiController extends Controller
         $animasi = Animasi::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-           'photo' => 'file|mimes:jpg,png,pdf|max:5096',
+           'photo' => 'file|mimes:jpg,png,jpeg|max:5096',
+           'photo_kaprog' => 'file|mimes:jpg,png,jpeg|max:5096',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -76,30 +77,40 @@ class AnimasiController extends Controller
                 },
             ],
             "judul"=> "min:3|max:100|required",
+            "nama_kaprog"=> "min:3|max:100|required",
+            "ket_kaprog"=> "min:3|max:100|required",
             "penulis_id"=> "required"
         ]);
-        if ($request->hasFile('photo')) {
-            $path = "img/jurusan/" . $animasi->photo;
-            if ($animasi->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+        $deleteFile = function($filePath){
+            if($filePath && File::exists(public_path($filePath))){
+                File::delete(public_path($filePath));
             }
+        };
+        if ($request->hasFile('photo')) {
+            $deleteFile("img/jurusan/" . $animasi->photo);
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('img/jurusan'), $filename);
 
             $animasi->photo = $filename;
-            $animasi->konten = $purifier->purify($request->konten);
-            $animasi->judul = $data['judul'];
-            $animasi->penulis_id = Auth::user()->id;
-            $animasi->save();
-            return redirect()->route('animasi.index')->with('success', 'data Jurusan Animasi berhasil diperbarui!');
-    }else{
-            $animasi->konten = $purifier->purify($request->konten);
-            $animasi->judul = $data['judul'];
-            $animasi->penulis_id = Auth::user()->id;
-    }
-    $animasi->save();
+        }
+        if ($request->hasFile('photo_kaprog')) {
+            $deleteFile("img/jurusan/" . $animasi->photo_kaprog);
+
+            $file = $request->file('photo_kaprog');
+            $filenameKaprog = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img/jurusan'), $filenameKaprog);
+
+            $animasi->photo_kaprog = $filenameKaprog;
+
+        }
+        $animasi->konten =$purifier->purify($request->konten);
+        $animasi->judul = $data['judul'];
+        $animasi->penulis_id = Auth::user()->id;
+        $animasi->nama_kaprog = $data['nama_kaprog'];
+        $animasi->ket_kaprog = $data['ket_kaprog'];
+        $animasi->save();
     return redirect()->route('animasi.index')->with('success', 'data Jurusan Animasi berhasil diperbarui!');
     }
 

@@ -28,6 +28,9 @@ class AnimasiSeeder extends Seeder
             Dalam kegiatan belajar mengajar sehari-hari, SMK Negeri 1 Gedangan selalu memanfaatkan teknologi informasi, mulai dari penyampaian materi hingga pelaksanaan evaluasi pembelajaran . Bahkan, ujian semester pun juga berbasis computer (paperless) sehingga kemungkinan terjadi kecurangan sangat kecil.
 
             SMK Negeri 1 Gedangan tidak hanya mewadahi peserta didik dalam bidang akademik, non akademik pun juga turut dikembangkan dalam kegiatan ekstrakurikuler. Ekstrakurikuler di SMK Negeri 1 Gedangan, antara lain: Futsal, Sepakbola, Basket, Voli, Badan Dakwah Islam, Pencak Silat, Taekwondo, Pramuka, PMR, Tari, Band, Jurnalis. Seluruh ekstrakurikuler dilaksanakan sepulang sekolah sesua dengan jadwal masing masing kegiatan.",
+            "photo_kaprog"=>"",
+            "nama_kaprog"=>"Tes tes tes S.Kom",
+            "ket_kaprog"=>"Tes tes tes",
         ];
         Animasi::create($data);
     }

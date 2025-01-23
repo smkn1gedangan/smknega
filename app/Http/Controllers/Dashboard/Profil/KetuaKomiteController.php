@@ -60,7 +60,7 @@ class KetuaKomiteController extends Controller
     {
         $komite = KetuaKomite::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           'photo' => 'file|mimes:jpg,png,pdf|max:5096',
+           'photo' => 'file|mimes:jpg,png,jpeg|max:5096',
             "nama"=> "min:6|max:100|required",
             "jabatan"=> "min:3|required",
         ]);
