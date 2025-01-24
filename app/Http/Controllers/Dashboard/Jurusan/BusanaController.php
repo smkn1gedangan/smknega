@@ -82,25 +82,50 @@ class BusanaController extends Controller
             "penulis_id"=> "required"
         ]);
         $deleteFile = function($filePath){
-            if($filePath && File::exists(public_path($filePath))){
-                File::delete(public_path($filePath));
+            if (File::exists($filePath)) {
+                File::delete($filePath);
             }
         };
         if ($request->hasFile('photo')) {
             $deleteFile("img/jurusan/" . $busana->photo);
-
+            $deleteFile(env("BACKUP_PHOTOS") ."jurusan/" . $busana->photo); // Lokasi kedua (backup)
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+
+            $publicPath = public_path("img/jurusan/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "jurusan/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/jurusan'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('busana.index')->with('error', 'gambar gagal disimpan!');
+            };
 
             $busana->photo = $filename;
         }
         if ($request->hasFile('photo_kaprog')) {
             $deleteFile("img/jurusan/" . $busana->photo_kaprog);
-
+            $deleteFile(env("BACKUP_PHOTOS") ."jurusan/" . $busana->photo_kaprog); // Lokasi kedua (backup)
             $file = $request->file('photo_kaprog');
             $filenameKaprog = time() . '_' . $file->getClientOriginalName();
+            $publicPath = public_path("img/jurusan/" . $filenameKaprog);
+            $backupPath = env("BACKUP_PHOTOS") . "jurusan/" . $filenameKaprog;
+
+            // upload to public
             $file->move(public_path('img/jurusan'), $filenameKaprog);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('busana.index')->with('error', 'gambar gagal disimpan!');
+            };
 
             $busana->photo_kaprog = $filenameKaprog;
 

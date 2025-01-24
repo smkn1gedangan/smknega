@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
+use function PHPUnit\Framework\fileExists;
+
 class SejarahController extends Controller
 {
     /**
@@ -63,7 +65,7 @@ class SejarahController extends Controller
     {
         $sejarah = Sejarah::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
-        $data = $request->validate([
+        $request->validate([
             'photo' => 'file|mimes:jpg,png,pdf|max:5096',
             'konten' => [
                 'required',
@@ -80,19 +82,37 @@ class SejarahController extends Controller
 
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/profil/" . $sejarah->photo;
-            if ($sejarah->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
-                Storage::disk("custom_images")->delete($path);
+            if ($sejarah->photo) {
+                $publicPath = public_path('img/profil/' . $sejarah->photo); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."profil/" . $sejarah->photo; // Lokasi kedua (backup)
+
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
-              // Simpan ke folder public
+
+            $primaryPath = public_path("img/profil/". $filename);
+            $secondPath = env("BACKUP_PHOTOS") . "profil/" . $filename;
+
+            // Simpan ke folder public
             $file->move(public_path('img/profil'), $filename);
 
+            if (!file_exists(dirname($secondPath))) {
+                mkdir(dirname($secondPath), 0777, true);
+            }
             // Simpan juga ke folder backup
-            Storage::disk('custom_images')->putFileAs('images', $file, $filename);
+            if(!copy($primaryPath, $secondPath)){
+                return redirect()->route('sejarah.index')->with('error', 'gambar gagal disimpan!');
+            }
             $sejarah->photo = $filename;
             $sejarah->penulis_id = Auth::user()->id;
             $sejarah->konten = $purifier->purify($request->konten);
@@ -100,8 +120,11 @@ class SejarahController extends Controller
             $sejarah->penulis_id = Auth::user()->id;
             $sejarah->konten = $purifier->purify($request->konten);
         }
+        // simpan
         $sejarah->save();
-            return redirect()->route('sejarah.index')->with('success', 'data sejarah berhasil diperbarui!');
+
+
+        return redirect()->route('sejarah.index')->with('success', 'data sejarah berhasil diperbarui!');
 }
 
     /**

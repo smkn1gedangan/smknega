@@ -97,7 +97,7 @@
                 <!-- Tombol Submit -->
                 <div class="mt-4 mb-8 w-11/12">
                     <button type="submit"
-                            class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 transition-all duration-200 shadow-md focus:bg-blue-700 focus:outline-none">
+                            class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 transition-all duration-200 shadow-md focus:bg-yellow-700 focus:outline-none">
                         Ubah Artikel
                     </button>
                 </div>

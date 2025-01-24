@@ -15,12 +15,12 @@
             </div>
 
         </div>
-        <div class="my-5 w-3/4 pl-10">
+        <div class="w-3/4 pl-10">
 
             @if (file_exists(public_path('img/kepala_sekolah/' . $kepsek->photo)) && $kepsek->photo)
-                           <img src="{{ asset('img/kepala_sekolah/' . $kepsek->photo) }}" class="object-cover w-full rounded-t-lg h-auto md:w-2/5 md:rounded-none md:rounded-s-lg" alt="{{ $kepsek->photo }}">
+                           <img src="{{ asset('img/kepala_sekolah/' . $kepsek->photo) }}" class="object-cover w-full rounded-t-lg h-auto md:w-72 md:rounded-none md:rounded-s-lg" alt="{{ $kepsek->photo }}">
            @else
-                           <div class="w-full bg-gray-200 grid place-content-center h-64 md:w-4/5">
+                           <div class="bg-gray-200 grid place-content-center h-52 md:w-72">
                                <span>No Image</span> <!-- Pesan fallback -->
                            </div>
            @endif

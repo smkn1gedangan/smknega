@@ -78,14 +78,37 @@ class PemetaanController extends Controller
             "penulis_id"=> "required"
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/pemetaan/" . $pemetaan->photo;
-            if ($pemetaan->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+            if ($pemetaan->photo) {
+                $publicPath = public_path('img/pemetaan/' . $pemetaan->photo); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."pemetaan/" . $pemetaan->photo; // Lokasi kedua (backup)
+
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+
+            $publicPath = public_path("img/pemetaan/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "pemetaan/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/pemetaan'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('pemetaan.index')->with('error', 'gambar gagal disimpan!');
+            };
 
             $pemetaan->photo = $filename;
             $pemetaan->konten =$purifier->purify($request->konten);

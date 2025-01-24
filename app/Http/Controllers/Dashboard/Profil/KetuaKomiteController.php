@@ -65,20 +65,43 @@ class KetuaKomiteController extends Controller
             "jabatan"=> "min:3|required",
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/komite/" . $komite->photo;
-            if ($komite->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+            if ($komite->photo) {
+                $publicPath = public_path('img/komite/' . $komite->photo); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."komite/" . $komite->photo; // Lokasi kedua (backup)
+
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+
+            $publicPath = public_path("img/komite/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "komite/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/komite'), $filename);
 
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('komite.index')->with('error', 'gambar gagal disimpan!');
+            }
             $komite->photo = $filename;
         }else{
             $komite->nama = $data['nama'];
             $komite->jabatan = $data['jabatan'];
         }
+        // simpan
         $komite->save();
         return redirect()->route('komite.index')->with('success', 'data Ketua Komite berhasil diperbarui!');
     }

@@ -44,14 +44,39 @@ class ProfilController extends Controller
             ],
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/welcome/" . $profil->image;
-            if ($profil->image && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+            if ($profil->photo) {
+                $publicPath = public_path('img/welcome/' . $profil->photo); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."welcome/" . $profil->photo; // Lokasi kedua (backup)
+
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+
+            $publicPath = public_path("img/welcome/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "welcome/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/welcome'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('profil.index')->with('error', 'gambar gagal disimpan!');
+            };
+
+
             $profil->konten = $purifier->purify($request->konten);
             $profil->photo = $filename;
         }else{

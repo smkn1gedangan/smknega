@@ -42,7 +42,19 @@ class GaleriController extends Controller
 
             $filename = time() . '_' . $file->getClientOriginalName();
 
+            $publicPath = public_path("img/galeri/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "galeri/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/galeri'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('galeri.create')->with('error', 'gambar gagal disimpan!');
+            };
             $data["photo"] = $filename;
         }
 
@@ -85,14 +97,36 @@ class GaleriController extends Controller
             "judul"=> "min:6|max:100|required",
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/galeri/" . $galeri->photo;
-            if ($galeri->image && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+            if ($galeri->photo) {
+                $publicPath = public_path('img/galeri/' . $galeri->photo); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."galeri/" . $galeri->photo; // Lokasi kedua (backup)
+
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+            $publicPath = public_path("img/galeri/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "galeri/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/galeri'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('galeri.index')->with('error', 'gambar gagal disimpan!');
+            };
 
             $galeri->photo = $filename;
 
@@ -110,10 +144,17 @@ class GaleriController extends Controller
     {
         $galeri = Galeri::findOrFail(Crypt::decrypt($id));
         if ($galeri->photo) {
-            $imagePath = public_path('img/galeri/' . $galeri->photo);
+            $publicPath = public_path('img/galeri/' . $galeri->photo); // Lokasi pertama (public)
+            $backupPath = env("BACKUP_PHOTOS") ."galeri/" . $galeri->photo; // Lokasi kedua (backup)
 
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
+            // Hapus file di lokasi pertama (public)
+            if (File::exists($publicPath)) {
+                File::delete($publicPath);
+            }
+
+            // Hapus file di lokasi kedua (backup)
+            if (File::exists($backupPath)) {
+                File::delete($backupPath);
             }
         }
         $galeri->delete();

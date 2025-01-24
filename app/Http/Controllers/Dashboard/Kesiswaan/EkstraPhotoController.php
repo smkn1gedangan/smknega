@@ -36,13 +36,26 @@ class EkstraPhotoController extends Controller
          ]);
          if ($request->hasFile('photo')) {
 
-             $file = $request->file('photo');
-             $filename = time() . '_' . $file->getClientOriginalName();
-             $file->move(public_path('img/ekstra'), $filename);
+            $file = $request->file('photo');
+            $filename = time() . '_' . $file->getClientOriginalName();
 
-             EkstraPhoto::create(["photo"=>$filename]);
 
-             return redirect()->route('ekstrakulikuler.index')->with('success', 'Photo ekstrakulikuler berhasil ditambah dan disimpan!');
+            $publicPath = public_path("img/ekstra/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "ekstra/" . $filename;
+
+            // upload to public
+            $file->move(public_path('img/ekstra'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('ekstraPhoto.create')->with('error', 'gambar gagal disimpan!');
+            };
+            EkstraPhoto::create(["photo"=>$filename]);
+
+            return redirect()->route('ekstrakulikuler.index')->with('success', 'Photo ekstrakulikuler berhasil ditambah dan disimpan!');
          }
     }
 
@@ -75,14 +88,37 @@ class EkstraPhotoController extends Controller
            'photo' => 'required|file|mimes:jpg,png,pdf|max:5096',
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/ekstra/" . $ekstra->photo;
-            if ($ekstra->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+            if ($ekstra->photo) {
+                $publicPath = public_path('img/ekstra/' . $ekstra->photo); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."ekstra/" . $ekstra->photo; // Lokasi kedua (backup)
+
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+            $publicPath = public_path("img/ekstra/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "ekstra/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/ekstra'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('ekstrakulikuler.index')->with('error', 'gambar gagal disimpan!');
+            };
+
 
             $ekstra->photo = $filename;
             $ekstra->save();
@@ -98,10 +134,17 @@ class EkstraPhotoController extends Controller
     {
         $ekstra = EkstraPhoto::findOrFail(Crypt::decrypt($id));
         if ($ekstra->photo) {
-            $imagePath = public_path('img/ekstra/' . $ekstra->photo);
+            $publicPath = public_path('img/ekstra/' . $ekstra->photo); // Lokasi pertama (public)
+            $backupPath = env("BACKUP_PHOTOS") ."ekstra/" . $ekstra->photo; // Lokasi kedua (backup)
 
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
+            // Hapus file di lokasi pertama (public)
+            if (File::exists($publicPath)) {
+                File::delete($publicPath);
+            }
+
+            // Hapus file di lokasi kedua (backup)
+            if (File::exists($backupPath)) {
+                File::delete($backupPath);
             }
         }
         $ekstra->delete();

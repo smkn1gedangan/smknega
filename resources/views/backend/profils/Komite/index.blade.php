@@ -7,11 +7,12 @@
     <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
         <div class="flex w-full justify-between items-center pt-4 ">
             <div class="w-3/4 ml-10">
-                <h3 class="text-3xl font-bold dark:text-white">Data Komite</h3>
+                <h3 class="text-3xl font-semibold dark:text-white">Data Komite</h3>
                 <p class="mb-3 text-gray-800 dark:text-gray-400">seluruh data komite smkn 1 gedangan</p>
             </div>
             <a href="{{route("komite.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 shadow-md transition-all duration-200">Tambah komite</a>
         </div>
+
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg flex flex-col items-center mt-10">
             <x-heading-welcome classAdventage="md:my-6">Ketua Komite</x-heading-welcome>
             <table class="w-11/12 text-sm text-left text-gray-500 dark:text-gray-400 md:mb-20">

@@ -49,7 +49,7 @@
                </div>
                 <div class="w-11/12 mt-4 mb-8">
                     <button type="submit"
-                            class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg shadow hover:bg-yellow-600 transition-all duration-200 focus:bg-yellow-500 focus:outline-none">
+                            class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition-all duration-200 focus:bg-blue-600 focus:outline-none">
                         Tambah Guru
                     </button>
                 </div>

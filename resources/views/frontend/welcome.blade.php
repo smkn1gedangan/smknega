@@ -98,7 +98,7 @@
 
                     </div>
                     @else
-                        <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="bg-gray-200 w-11/12 sm:w-4/5 h-52 sm:h-64 my-5">
+                        <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="bg-gray-200 w-11/12 sm:w-4/5 h-52 sm:h-64 my-5 grid place-content-center">
                             <span>No Image</span> <!-- Pesan fallback -->
                         </div>
                     @endif

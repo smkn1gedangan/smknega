@@ -48,7 +48,7 @@
                 <div class="w-11/12 my-8">
                     <button type="submit"
                             class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:bg-blue-700 focus:outline-none transition-all duration-200">
-                        Tambah Data Komite
+                        Tambah Komite
                     </button>
                 </div>
             </form>

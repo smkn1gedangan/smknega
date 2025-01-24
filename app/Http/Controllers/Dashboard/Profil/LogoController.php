@@ -62,7 +62,7 @@ class LogoController extends Controller
     {
         $logo = Logo::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
-        $data = $request->validate([
+        $request->validate([
            'photo' => 'file|mimes:jpg,png,jpeg|max:5096',
             'konten' => [
                 'required',
@@ -78,22 +78,47 @@ class LogoController extends Controller
             "penulis_id"=> "required"
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/profil/" . $logo->photo;
-            if ($logo->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+            if ($logo->photo) {
+                $publicPath = public_path('img/profil/' . $logo->photo); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."profil/" . $logo->photo; // Lokasi kedua (backup)
+
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+
+            $publicPath = public_path("img/profil/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "profil/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/profil'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('logo.index')->with('error', 'gambar gagal disimpan!');
+            }
             $logo->photo = $filename;
             $logo->konten = $purifier->purify($request->konten);;
             $logo->penulis_id = Auth::user()->id;
-    }else{
+        }else{
             $logo->konten = $purifier->purify($request->konten);;
             $logo->penulis_id = Auth::user()->id;
-    }
-    $logo->save();
+        }
+
+        // simpan
+        $logo->save();
     return redirect()->route('logo.index')->with('success', 'data Logo berhasil diperbarui!');
     }
     /**

@@ -76,7 +76,20 @@ class ArtikelController extends Controller
 
             $filename = time() . '_' . $file->getClientOriginalName();
 
+            $publicPath = public_path("img/articles_images/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "articles_images/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/articles_images'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('artikel.create')->with('error', 'gambar gagal disimpan!');
+            };
+
             $data["image"] = $filename;
         }
 
@@ -136,14 +149,37 @@ class ArtikelController extends Controller
             "kategori_id" => "required|array"
         ]);
         if ($request->hasFile('image')) {
-            $path = "img/articles_images/" . $article->image;
-            if ($article->image && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+            if ($article->image) {
+                $publicPath = public_path('img/articles_images/' . $article->image); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."articles_images/" . $article->image; // Lokasi kedua (backup)
+
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
 
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
+            $publicPath = public_path("img/articles_images/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "articles_images/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/articles_images'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('artikel.index')->with('error', 'gambar gagal disimpan!');
+            };
+
             $article->image = $filename;
         }else{
             $article->title = $data['title'];
@@ -161,11 +197,18 @@ class ArtikelController extends Controller
     public function destroy(string $id)
     {
         $article = Article::findOrFail(Crypt::decrypt($id));
-        if ($article->image) {
-            $imagePath = public_path('img/articles_images/' . $article->image);
+        if ($article->photo) {
+            $publicPath = public_path('img/articles_images/' . $article->photo); // Lokasi pertama (public)
+            $backupPath = env("BACKUP_PHOTOS") ."articles_images/" . $article->photo; // Lokasi kedua (backup)
 
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
+            // Hapus file di lokasi pertama (public)
+            if (File::exists($publicPath)) {
+                File::delete($publicPath);
+            }
+
+            // Hapus file di lokasi kedua (backup)
+            if (File::exists($backupPath)) {
+                File::delete($backupPath);
             }
         }
         $article->delete();

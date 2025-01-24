@@ -40,7 +40,21 @@ class OsisPhotoController extends Controller
 
              $file = $request->file('photo');
              $filename = time() . '_' . $file->getClientOriginalName();
+
+             $publicPath = public_path("img/osis/" . $filename);
+             $backupPath = env("BACKUP_PHOTOS") . "osis/" . $filename;
+
+             // upload to public
              $file->move(public_path('img/osis'), $filename);
+
+             if (!file_exists(dirname($backupPath))) {
+                 mkdir(dirname($backupPath), 0777, true);
+             }
+             // Simpan juga ke folder backup
+             if(!copy($publicPath, $backupPath)){
+                 return redirect()->route('osisPhoto.create')->with('error', 'gambar gagal disimpan!');
+             };
+
 
              OsisPhoto::create([
                 "photo"=>$filename,
@@ -83,18 +97,41 @@ class OsisPhotoController extends Controller
            "jabatan"=> "min:3|required",
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/osis/" . $osis->photo;
-            if ($osis->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+            if ($osis->photo) {
+                $publicPath = public_path('img/osis/' . $osis->photo); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."osis/" . $osis->photo; // Lokasi kedua (backup)
+
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+            $publicPath = public_path("img/osis/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "osis/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/osis'), $filename);
 
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('osis.edit')->with('error', 'gambar gagal disimpan!');
+            };
+
+
             $osis->photo = $filename;
-
-
+            $osis->nama = $request->nama;
+            $osis->jabatan = $request->jabatan;
         }else{
             $osis->nama = $request->nama;
             $osis->jabatan = $request->jabatan;
@@ -111,10 +148,17 @@ class OsisPhotoController extends Controller
     {
         $osis = OsisPhoto::findOrFail(Crypt::decrypt($id));
         if ($osis->photo) {
-            $imagePath = public_path('img/osis/' . $osis->photo);
+            $publicPath = public_path('img/osis/' . $osis->photo); // Lokasi pertama (public)
+            $backupPath = env("BACKUP_PHOTOS") ."osis/" . $osis->photo; // Lokasi kedua (backup)
 
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
+            // Hapus file di lokasi pertama (public)
+            if (File::exists($publicPath)) {
+                File::delete($publicPath);
+            }
+
+            // Hapus file di lokasi kedua (backup)
+            if (File::exists($backupPath)) {
+                File::delete($backupPath);
             }
         }
         $osis->delete();

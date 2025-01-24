@@ -78,14 +78,38 @@ class StrukturController extends Controller
             "penulis_id"=> "required"
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/profil/" . $struktur->photo;
-            if ($struktur->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+            if ($struktur->photo) {
+                $publicPath = public_path('img/profil/' . $struktur->photo); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."profil/" . $struktur->photo; // Lokasi kedua (backup)
+
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+
+            //backup
+            $publicPath = public_path("img/profil/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "profil/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/profil'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('struktur.index')->with('error', 'gambar gagal disimpan!');
+            }
 
             $struktur->photo = $filename;
             $struktur->konten = $purifier->purify($request->konten);;

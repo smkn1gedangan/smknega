@@ -38,7 +38,20 @@ class BisnisPhotoController extends Controller
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+
+            $publicPath = public_path("img/bisnis/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "bisnis/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/bisnis'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('bisnisPhoto.create')->with('error', 'gambar gagal disimpan!');
+            };
 
             BisnisPhoto::create(["photo"=>$filename]);
 
@@ -75,14 +88,37 @@ class BisnisPhotoController extends Controller
            'photo' => 'required|file|mimes:jpg,png,jpeg|max:2048',
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/bisnis/" . $bisnis->photo;
-            if ($bisnis->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
+            if ($bisnis->photo) {
+                $publicPath = public_path('img/bisnis/' . $bisnis->photo); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."bisnis/" . $bisnis->photo; // Lokasi kedua (backup)
+
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+
+            $publicPath = public_path("img/bisnis/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "bisnis/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/bisnis'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('bisnisPhoto.index')->with('error', 'gambar gagal disimpan!');
+            };
 
             $bisnis->photo = $filename;
             $bisnis->save();
@@ -98,10 +134,17 @@ class BisnisPhotoController extends Controller
     {
         $bisnis = BisnisPhoto::findOrFail(Crypt::decrypt($id));
         if ($bisnis->photo) {
-            $imagePath = public_path('img/bisnis/' . $bisnis->photo);
+            $publicPath = public_path('img/bisnis/' . $bisnis->photo); // Lokasi pertama (public)
+            $backupPath = env("BACKUP_PHOTOS") ."bisnis/" . $bisnis->photo; // Lokasi kedua (backup)
 
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
+            // Hapus file di lokasi pertama (public)
+            if (File::exists($publicPath)) {
+                File::delete($publicPath);
+            }
+
+            // Hapus file di lokasi kedua (backup)
+            if (File::exists($backupPath)) {
+                File::delete($backupPath);
             }
         }
         $bisnis->delete();

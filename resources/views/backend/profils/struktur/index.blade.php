@@ -18,9 +18,9 @@
         <div class="my-5 w-3/4 pl-10">
 
             @if (file_exists(public_path('img/profil/' . $struktur->photo)) && $struktur->photo)
-                           <img src="{{ asset('img/profil/' . $struktur->photo) }}" class="object-cover w-full rounded-t-lg h-40 md:h-auto md:rounded-none md:rounded-s-lg" alt="{{ $struktur->photo }}">
+                           <img src="{{ asset('img/profil/' . $struktur->photo) }}" class="object-cover w-80 rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $struktur->photo }}">
            @else
-                           <div class="w-full bg-gray-200 h-64 grid place-content-center md:w-4/5">
+                           <div class="w-80 bg-gray-200 h-64 grid place-content-center md:w-4/5">
                                <span>No Image</span> <!-- Pesan fallback -->
                            </div>
            @endif

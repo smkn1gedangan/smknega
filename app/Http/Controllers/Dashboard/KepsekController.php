@@ -45,14 +45,36 @@ class KepsekController extends Controller
             ],
         ]);
         if ($request->hasFile('photo')) {
-            $path = "img/kepala_sekolah/" . $kepsek->photo;
-            if ($kepsek->photo && File::exists(public_path($path))) {
-                File::delete(public_path($path));
-            }
+            if ($kepsek->photo) {
+                $publicPath = public_path('img/kepala_sekolah/' . $kepsek->photo); // Lokasi pertama (public)
+                $backupPath = env("BACKUP_PHOTOS") ."kepala_sekolah/" . $kepsek->photo; // Lokasi kedua (backup)
 
+                // Hapus file di lokasi pertama (public)
+                if (File::exists($publicPath)) {
+                    File::delete($publicPath);
+                }
+
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
+            }
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
+            $publicPath = public_path("img/kepala_sekolah/" . $filename);
+            $backupPath = env("BACKUP_PHOTOS") . "kepala_sekolah/" . $filename;
+
+            // upload to public
             $file->move(public_path('img/kepala_sekolah'), $filename);
+
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
+            }
+            // Simpan juga ke folder backup
+            if(!copy($publicPath, $backupPath)){
+                return redirect()->route('kepsek.index')->with('error', 'gambar gagal disimpan!');
+            };
+
 
             $kepsek->photo = $filename;
             $kepsek->nama = $data['nama'];
