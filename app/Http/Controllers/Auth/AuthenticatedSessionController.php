@@ -29,13 +29,6 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-        if(Auth::user()->role === 2){
-            if (!Auth::user()->hasVerifiedEmail()) {
-                return redirect()->route('verification.notice')
-                    ->with('error', 'Silakan verifikasi email Anda terlebih dahulu.');
-            }
-            return redirect()->intended(route("welcome"))->with("success","anda berhasil login");
-        }
         $params = [
             'chat_id' => config("services.telegram.chat_id"),
             'text' => "Halaman Admin dibuka pada " .now() ."\n" ."dengan user \n" . Auth::user()->name .
@@ -49,6 +42,15 @@ class AuthenticatedSessionController extends Controller
         } else {
             Log::error("Halaman Admin Dibuka pada: " .now());
         }
+        if(Auth::user()->role === 2){
+            if (!Auth::user()->hasVerifiedEmail()) {
+                return redirect()->route('verification.notice')
+                    ->with('error', 'Silakan verifikasi email Anda terlebih dahulu.');
+            }
+            return redirect()->intended(route("welcome"))->with("success","anda berhasil login");
+        }
+        $request->session()->put("captcha_validated",true);
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

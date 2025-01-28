@@ -19,7 +19,7 @@ class MonitorPageErrors
     public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);
-        if ($request->is('/') && ($response->getStatusCode() === 404 || $response->getStatusCode() === 500)) {
+        if ($response->getStatusCode() === 404 || $response->getStatusCode() === 500) {
             $content = $response->getStatusCode() === 404 ? "not found" : "server error";
             $params = [
                 'chat_id' => config("services.telegram.chat_id"),

@@ -198,20 +198,20 @@ class FrontendController extends Controller
     public function guru()  {
         $gurus = Guru::latest()->paginate(10);
         $kepsek = Kepsek::latest()->first();
-        return view("frontend.Informasi.guru",compact("gurus","kepsek"));
+        return view("frontend.informasi.guru",compact("gurus","kepsek"));
     }
     public function artikel()  {
         $artikels = Article::latest()->paginate(6);
         $kategoris = Kategori::get();
-        return view("frontend.Informasi.artikel",compact("artikels","kategoris"));
+        return view("frontend.informasi.artikel",compact("artikels","kategoris"));
     }
     public function sarana()  {
         $sarana = Sarana::first();
-        return view("frontend.Informasi.sarana",compact("sarana"));
+        return view("frontend.informasi.sarana",compact("sarana"));
     }
     public function galeri()  {
         $galeris = Galeri::latest()->paginate(10);
-        return view("frontend.Informasi.galeri",compact("galeris"));
+        return view("frontend.informasi.galeri",compact("galeris"));
     }
     public function jadwal()  {
         return redirect()->away("https://ppdbjatim.net/informasi/jadwal/");
@@ -266,6 +266,6 @@ class FrontendController extends Controller
         $kategoris = Kategori::get();
         $articleTerbarus = Article::take(5)->latest()->get();
         $article = Article::where("slug",$slug)->first();
-        return view("frontend.Informasi.readArtikel",compact("article","kategoris","articleTerbarus"));
+        return view("frontend.informasi.readArtikel",compact("article","kategoris","articleTerbarus"));
    }
 }

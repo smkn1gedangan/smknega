@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -32,7 +33,10 @@
             </label>
         </div>
         <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('if you dont have an account please') }} <a class="underline" href="{{ route("register") }}">Register</a> </span>
-
+        <div  class="g-recaptcha mt-8 mb-2" data-sitekey="{{ config('captcha.sitekey') }}" ></div>
+        @error('g-recaptcha-response')
+            <p style="color: red;">{{ $message }}</p>
+        @enderror
 
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))

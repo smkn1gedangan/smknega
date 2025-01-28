@@ -18,7 +18,7 @@
                     {{ Str::words(str_replace('&nbsp;', '', strip_tags($article->text_content)), 1000, '...') }}
                 </p>
             </div>
-            <div class="flex flex-col items-center w-full md:w-full p-2 md:py-6 lg:w-[30%] border border-gray-200">
+            <div class="flex flex-col mt-20 items-center w-full md:w-full p-2 md:py-6 lg:w-[30%] border border-gray-200">
 
 
             <h2 class="w-full my-5 text-center text-2xl uppercase font-semibold text-gray-900 dark:text-white">Ketegori Artikel</h2>
