@@ -18,7 +18,7 @@
 
                 <div class="mb-4 w-11/12">
                     <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten Profil</label>
-                    <div id="editor" class="mt-1 block w-full px-3 py-2 border bg-white border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                    <div id="editor" class="mt-1 block w-full px-3 py-2 border bg-gray-100 border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
                         {!! old('konten', $profil->konten) !!}
 
                     </div>
@@ -34,8 +34,9 @@
                     <img class="w-60 rounded-md object-cover h-full" src="{{ asset("img/welcome/" . $profil->photo) }}" alt="">
                     @else
                     <p class="mt-3">Photo saat ini : </p>
-                    <div class="bg-gray-200 w-60 h-52 grid place-content-center">
+                    <div class="bg-gray-200 my-2 w-60 h-52 grid place-content-center">
                     <span>No Image</span> <!-- Pesan fallback -->
+                    </div>
                     @endif
                 <x-text-input id="photo" class="block mt-1 bg-white w-2/5"
                 type="file"

@@ -235,6 +235,7 @@ class FrontendController extends Controller
             "email"=>"email|required|string",
             "nama"=>"required|string",
             "masukan"=>"required|string|min:5",
+            'g-recaptcha-response' => 'required',
         ]);
         Masukan::create([
             "nama"=>$request->nama,
@@ -253,7 +254,7 @@ class FrontendController extends Controller
 
         $data = json_decode($response->getBody(), true);
 
-
+        $request->session()->put("captcha_validated",true);
         if (isset($data['ok']) && $data['ok']) {
             return redirect()->route("welcome")->with("success","pesan yang anda masukan telah disimpan ke database");
         } else {

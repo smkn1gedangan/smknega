@@ -34,7 +34,9 @@
 
     <div class="flex flex-col md:flex-row">
         @include("backend.layouts.navbar")
-        @yield("content")
+        <div class="bg-white p-4 flex-1 mt-5">
+            @yield("content")
+        </div>
     </div>
 </main>
 
