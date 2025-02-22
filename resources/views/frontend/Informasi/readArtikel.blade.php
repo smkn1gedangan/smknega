@@ -1,11 +1,12 @@
 @extends("frontend.layouts.main")
-@section("title","article")
+@section("title","Artikel $article->title Smkn 1 Gedangan")
 @section("content")
     <section class="relative bg-no-repeat">
        <div class="w-screen md:max-w-[95%] p-2 md:py-16 flex md:flex-row justify-evenly flex-wrap">
             <div class="md:pl-12 mt-20  md:py-6 flex flex-col w-full md:w-11/12 lg:w-2/3">
-                <a data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" href="{{route("readArticle",$article->slug)}}" class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white hover:text-slate-600">{{ $article->title }}</a>
-                <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-5 font-normal text-sm text-gray-700 dark:text-gray-400">dibuat pada {{ \Carbon\Carbon::parse($article->created_at)->translatedFormat('l, d F Y') }}
+                <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="text-xl font-semibold capitalize tracking-tight text-gray-900 dark:text-white">{{ $article->title }}</p>
+                <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-5 mt-2 md:mt-0 font-normal text-xs text-gray-700 dark:text-gray-400">dibuat pada {{ \Carbon\Carbon::parse($article->created_at)->translatedFormat('l, d F Y') }}
+                </p>
                     @if (file_exists(public_path('img/articles_images/' . $article->image)) && $article->image)
                     <img src="{{ asset('img/articles_images/' . $article->image) }}" class="object-cover w-full md:w-5/6 rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
                 @else
@@ -14,9 +15,8 @@
                     </div>
                 @endif
 
-                <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 mt-2 font-normal text-gray-900 dark:text-gray-400">
-                    {{ Str::words(str_replace('&nbsp;', '', strip_tags($article->text_content)), 1000, '...') }}
-                </p>
+                <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="prose mb-3 text-gray-900 dark:text-gray-400 mt-3">{!!$article->text_content!!}</div>
+                <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mt-1 font-normal relative text-gray-900 dark:text-gray-400 text-xs md:text-sm">artikel ini dilihat {{ $article->view}} kali</p>
             </div>
             <div class="flex flex-col mt-20 items-center w-full md:w-full p-2 md:py-6 lg:w-[30%] border border-gray-200">
 

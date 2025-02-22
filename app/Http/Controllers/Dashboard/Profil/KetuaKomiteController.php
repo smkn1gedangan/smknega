@@ -97,6 +97,8 @@ class KetuaKomiteController extends Controller
                 return redirect()->route('komite.index')->with('error', 'gambar gagal disimpan!');
             }
             $komite->photo = $filename;
+            $komite->nama = $data['nama'];
+            $komite->jabatan = $data['jabatan'];
         }else{
             $komite->nama = $data['nama'];
             $komite->jabatan = $data['jabatan'];

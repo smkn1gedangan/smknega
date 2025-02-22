@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Article;
+use App\Models\Drive;
 use App\Models\Galeri;
 use App\Models\Guru;
 use App\Models\Jurusan\Akuntansi;
@@ -18,7 +19,6 @@ use App\Models\Kesiswaan\Ekstrakulikuler;
 use App\Models\Kesiswaan\EkstraPhoto;
 use App\Models\Kesiswaan\Osis;
 use App\Models\Kesiswaan\OsisPhoto;
-use App\Models\Kesiswaan\Pemetaan;
 use App\Models\Kesiswaan\Prestasi;
 use App\Models\Masukan;
 use App\Models\Profil;
@@ -191,10 +191,7 @@ class FrontendController extends Controller
         $beasiswa = Beasiswa::first();
         return view("frontend.kesiswaan.beasiswa",compact("beasiswa"));
     }
-    public function pemetaan()  {
-        $pemetaan = Pemetaan::first();
-        return view("frontend.kesiswaan.pemetaan",compact("pemetaan"));
-    }
+
     public function guru()  {
         $gurus = Guru::latest()->paginate(10);
         $kepsek = Kepsek::latest()->first();
@@ -212,6 +209,10 @@ class FrontendController extends Controller
     public function galeri()  {
         $galeris = Galeri::latest()->paginate(10);
         return view("frontend.informasi.galeri",compact("galeris"));
+    }
+    public function drive()  {
+        $drives = Drive::latest()->paginate(10);
+        return view("frontend.informasi.drive",compact("drives"));
     }
     public function jadwal()  {
         return redirect()->away("https://ppdbjatim.net/informasi/jadwal/");

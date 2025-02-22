@@ -1,5 +1,5 @@
 @extends("frontend.layouts.main")
-@section("title","homepage")
+@section("title",config("app.name"))
 @section("css")
 
 <style>
@@ -11,20 +11,6 @@
     }
     .tx-sh{
         text-shadow: 2px 2px 5px black;
-    }
-    @keyframes swp-sm {
-        0%{
-            background: url({{asset("img/welcome/static_sm_baner_1.jpg")}});
-        }
-        50%{
-            background: url({{asset("img/welcome/static_sm_baner2.jpg")}});
-        }
-        100%{
-            background: url({{asset("img/welcome/static_sm_baner3.jpg")}});
-        }
-    }
-    .swp{
-        animation: swp-sm alternate-reverse 10s infinite;
     }
 </style>
 
@@ -45,23 +31,13 @@
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
             <!-- Slide 2 -->
-            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_baner1.jpg")}})">
-                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
+            <div class="swiper-slide object-cover bg-no-repeat min-w-screen-2xl h-auto" style="background: url({{asset("img/welcome/static_baner1.jpg")}})">
 
-                {{-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">isi title1</h1> --}}
-                {{-- <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p> --}}
-
-                </div>
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
             <!-- Slide 3 -->
-            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_baner2.jpg")}})">
-                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
+            <div class="swiper-slide object-cover bg-no-repeat w-full h-auto" style="background: url({{asset("img/welcome/static_baner2.jpg")}})">
 
-                {{-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">isi title2</h1> --}}
-                {{-- <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p> --}}
-
-                </div>
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
         </div>
@@ -71,17 +47,32 @@
 
 </section>
 {{-- header end --}}
-{{-- header start --}}
+{{-- header start layar hp--}}
 <section  class="relative block sm:hidden">
-    <div class="w-full">
-        <div class="swp object-cover bg-no-repeat ">
-            <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
+    <div class="swiper mySwiper w-full">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_sm_baner3.jpg")}})">
+                <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
-            <h1 style="-webkit-text-stroke:1px black" class=" mb-4 text-4xl font-bold tracking-tight leading-none text-white uppercase dark:text-white ">Selamat datang di Smkn 1 Gedangan</h1>
-            <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200 capitalize">sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ..</p>
+                <h1 class="mb-4 text-4xl tracking-tight leading-none text-white md:text-5xl dark:text-white uppercase font-bold">Selamat datang di Smkn 1 Gedangan</h1>
+                <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200 capitalize">sekolah unggulan yang menghasilkan tamatan berkualitas serta melahirkan tenaga kerja yang kompeten dan mandiri melalui pengembangan IPTEK dan IMTAQ..</p>
+
+                </div>
+                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
-            <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
+            <!-- Slide 2 -->
+            <div class="swiper-slide object-cover bg-no-repeat min-w-screen-2xl h-auto" style="background: url({{asset("img/welcome/static_sm_baner2.jpg")}})">
+
+                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="swiper-slide object-cover bg-no-repeat w-full h-auto" style="background: url({{asset("img/welcome/static_sm_baner_1.jpg")}})">
+
+                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
+            </div>
         </div>
+        <!-- Swiper Navigation Buttons -->
+
     </div>
 
 </section>
@@ -91,7 +82,7 @@
     <section  id="profil" class="pt-10">
         <div class="w-screen md:max-w-[95%] h-auto md:gap-6 p-2 md:pl-10 flex md:flex-row justify-evenly flex-wrap">
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="flex flex-col w-full md:p-8 md:w-11/12 lg:w-3/5">
-                <x-heading-welcome classAdventage="">SMK Negeri 1 Gedangan Malang</x-heading-welcome>
+                <x-heading-welcome data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  classAdventage="">SMK Negeri 1 Gedangan Malang</x-heading-welcome>
                 @if (file_exists(public_path('img/welcome/' . $profil->photo)) && $profil->photo)
                     <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-11/12 my-5  sm:w-4/5 h-52 sm:h-64 lg:h-80 overflow-hidden">
                         <img class="w-full hover:scale-110 transition-all duration-700  rounded-md object-cover h-full" src="{{ asset("img/welcome/" . $profil->photo) }}" alt="">
@@ -162,9 +153,9 @@
 {{-- profil sekolah end --}}
 
 
-{{-- guru guru start --}}
+{{-- waka start --}}
     <section  class="flex w-full flex-col items-center">
-        <x-heading-welcome classAdventage="mb-3 md:mb-5 text-center">Waka Smkn 1 Gedangan</x-heading-welcome>
+        <x-heading-welcome data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  classAdventage="mb-3 md:mb-5 text-center">Waka Smkn 1 Gedangan</x-heading-welcome>
 
         <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"   class="flex overflow-x-auto gap-3 w-[95%]">
             @foreach ($wakas as $waka)
@@ -180,10 +171,10 @@
                 </div>
                 <div class="swiper mySwiper bg-transparent bgMorpish absolute bottom-0 w-full p-1">
                   <div class="swiper-wrapper ">
-                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="swiper-slide tx-sh  font-semibold text-center text-gray-100 dark:text-gray-400 md:font-bold capitalize  mb-0 md:mb-3 min-h-20 flex items-end justify-center">
+                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="swiper-slide tx-sh  font-semibold text-center text-gray-100 dark:text-gray-400 md:font-bold capitalize  mb-0 md:mb-3 min-h-16 md:min-h-8 flex items-end justify-center">
                         {{ $waka->nama }}
                     </div>
-                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="swiper-slide tracking-wide tx-sh text-center text-sm text-gray-100 dark:text-gray-400 capitalize min-h-20 flex items-end justify-center">
+                    <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="swiper-slide tracking-wide tx-sh text-center text-sm text-gray-100 dark:text-gray-400 capitalize min-h-16 md:min-h-8 flex items-end justify-center">
                         {{ $waka->jabatan }}
                     </div>
                   </div>
@@ -194,14 +185,14 @@
 
     </section>
 
-{{-- guru guru end --}}
+{{-- waka end --}}
 
 {{-- artikel start--}}
 <section class="flex w-full justify-center flex-wrap ">
     <div class="w-screen md:max-w-[95%] p-2 md:py-2 flex md:flex-row justify-evenly flex-wrap md:gap-1">
        <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="flex flex-col w-full md:w-11/12 lg:w-3/5 ">
         <div class="flex flex-col w-full mt-5 md:mt-0 ">
-            <x-heading-welcome classAdventage="{{ $articles->count() < 1 ? 'invisible' : 'mb-3 md:text-xl underline underline-offset-4' }}">
+            <x-heading-welcome data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" classAdventage="{{ $articles->count() < 1 ? 'invisible' : 'mb-3 md:text-xl underline underline-offset-4' }}">
                 Artikel Terbaru
             </x-heading-welcome>
 
@@ -242,7 +233,7 @@
        </div>
         <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="flex flex-col md:flex-row-reverse flex-wrap lg:flex-col items-center w-full md:w-full  lg:w-[35%] sm:gap-2">
             <div class="flex flex-col w-full mt-5 md:mt-0">
-                <x-heading-welcome classAdventage="{{ $galeris->count() < 1 ? 'invisible' : 'mb-3 md:text-xl underline underline-offset-4' }}">
+                <x-heading-welcome data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  classAdventage="{{ $galeris->count() < 1 ? 'invisible' : 'mb-3 md:text-xl underline underline-offset-4' }}">
                     Galeri Terbaru
                 </x-heading-welcome>
                 <div class="flex flex-row flex-wrap w-full gap-2 sm:gap-5 md:gap-3 ">

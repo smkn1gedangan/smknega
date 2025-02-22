@@ -24,7 +24,7 @@
 
                     <div class="mb-4 w-2/5">
                         <label for="juara" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Juara</label>
-                        <input type="text" name="juara" id="juara" value="{{old("juara",$prestasi->juara)}}"
+                        <input type="number" name="juara" id="juara" value="{{old("juara",$prestasi->juara)}}"
                                class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
                                >
                         @error("juara")
@@ -34,15 +34,23 @@
                         @enderror
                     </div>
                     <div class="mb-4 w-2/5">
-                        <label for="tingkat" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tingkat</label>
-                        <input type="text" name="tingkat" id="tingkat" value="{{old("tingkat",$prestasi->tingkat)}}"
-                               class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
-                               >
-                        @error("tingkat")
-                        <p class="mt-2 text-sm text-red-800">
-                            {{ $message }}
-                        </p>
-                        @enderror
+                        <div>
+                            <label for="tingkat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tingkat</label>
+                            <select id="tingkat" name="tingkat" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                @if ($prestasi->tingkat )
+
+                                @endif
+                                <option value="Antar Sekolah" {{$prestasi->tingkat == "Antar Sekolah" ? 'selected' :''}}>Antar Sekolah</option>
+                                <option value="Kabupaten" {{$prestasi->tingkat == "Kabupaten" ? 'selected' :''}}>Kabupaten</option>
+                                <option value="Provinsi" {{$prestasi->tingkat == "Provinsi" ? 'selected' :''}}>Provinsi</option>
+                                <option value="Nasional" {{$prestasi->tingkat == "Nasional" ? 'selected' :''}}>Nasional</option>
+                            </select>
+                            @error('tingkat')
+                            <p class="mt-2 text-sm text-red-800">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                        </div>
                     </div>
                     <div class="mb-4 w-2/5">
                         <label for="penyelenggara" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Penyelenggara</label>

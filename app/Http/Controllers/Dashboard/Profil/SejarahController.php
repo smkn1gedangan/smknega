@@ -66,7 +66,7 @@ class SejarahController extends Controller
         $sejarah = Sejarah::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $request->validate([
-            'photo' => 'file|mimes:jpg,png,pdf|max:5096',
+            'photo' => 'file|mimes:jpg,png,jpeg|max:5096',
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {

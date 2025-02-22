@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\Dashboard\Informasi\ArtikelController;
+use App\Http\Controllers\Dashboard\Informasi\DriveController;
 use App\Http\Controllers\Dashboard\Informasi\GaleriController;
 use App\Http\Controllers\Dashboard\Informasi\GuruController;
 use App\Http\Controllers\Dashboard\Informasi\SaranaController;
@@ -18,7 +19,6 @@ use App\Http\Controllers\Dashboard\Kesiswaan\EkstrakulikulerController;
 use App\Http\Controllers\Dashboard\Kesiswaan\EkstraPhotoController;
 use App\Http\Controllers\Dashboard\Kesiswaan\OsisController;
 use App\Http\Controllers\Dashboard\Kesiswaan\OsisPhotoController;
-use App\Http\Controllers\Dashboard\Kesiswaan\PemetaanController;
 use App\Http\Controllers\Dashboard\Kesiswaan\PrestasiController;
 use App\Http\Controllers\Dashboard\LinkController;
 use App\Http\Controllers\Dashboard\Profil\DeskripsiKomiteController;
@@ -78,13 +78,13 @@ Route::controller(FrontendController::class)->middleware(["monitorPage"])->group
         route::get("ekstrakulikuler","ekstrakulikuler")->name("ekstrakulikuler");
         route::get("osis","osis")->name("osis");
         route::get("beasiswa","beasiswa")->name("beasiswa");
-        route::get("pemetaan","pemetaan")->name("pemetaan");
     });
     Route::prefix("informasi")->group(function(){
         route::get("guru","guru")->name("guru");
         route::get("artikel","artikel")->name("artikel");
         route::get("sarana","sarana")->name("sarana");
         route::get("galeri","galeri")->name("galeri");
+        route::get("drive","drive")->name("drive");
         route::get("elearning","elearning")->name("elearning");
     });
     Route::prefix("ppdb")->group(function(){
@@ -141,7 +141,6 @@ Route::middleware(['auth', 'verified',"checkRole","cache"])->prefix("be")->group
         Route::resource("ekstrakulikuler",EkstrakulikulerController::class);
         Route::resource("osis",OsisController::class);
         Route::resource("beasiswa",BeasiswaController::class);
-        Route::resource("pemetaan",PemetaanController::class);
         Route::resource("ekstraPhoto",EkstraPhotoController::class);
         Route::resource("osisPhoto",OsisPhotoController::class);
     });
@@ -149,6 +148,7 @@ Route::middleware(['auth', 'verified',"checkRole","cache"])->prefix("be")->group
         Route::resource("artikel",ArtikelController::class);
         Route::resource("guru",GuruController::class);
         Route::resource("galeri",GaleriController::class);
+        Route::resource("drive",DriveController::class);
         Route::resource("sarana",SaranaController::class);
 
     });

@@ -18,6 +18,13 @@
         border-bottom: 1px solid gray;
         color: #111827;
     }
+    .ql-align-center {
+        text-align: center;
+    }
+    .ql-align-right {
+        text-align: right;
+    }
+
     </style>
    @yield("css")
 </head>
@@ -33,7 +40,6 @@
     <i class="fas fa-arrow-up text-white"></i>
 
 </div>
-
 @include("frontend.layouts.contact")
 @include("frontend.layouts.maps")
 <x-footer></x-footer>

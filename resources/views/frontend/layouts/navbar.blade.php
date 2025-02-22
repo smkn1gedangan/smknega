@@ -33,11 +33,11 @@
           PROGRAM SEKOLAH</x-dropdown>
           <x-dropdown data="data-jurusan" :dataLinks="[
           ['route'=>'sija','name'=>'SISTEM INFORMATIKA DAN JARINGAN APLIKASI'],
-          ['route'=>'dkv','name'=>'DKV'],
+          ['route'=>'dkv','name'=>'DESAIN KOMUNIKASI VISUAL'],
           ['route'=>'animasi','name'=>'ANIMASI'],
-          ['route'=>'boga','name'=>'TATA BOGA'],
+          ['route'=>'boga','name'=>'KULINER'],
           ['route'=>'akuntansi','name'=>'AKUNTANSI'],
-          ['route'=>'busana','name'=>'TATA BUSANA'],
+          ['route'=>'busana','name'=>'DESAIN PRODUKSI BUSANA'],
           ['route'=>'tkr','name'=>'TERKNIK KENDARAAN RINGAN']]">
           JURUSAN</x-dropdown>
           <x-dropdown data="data-kesiswaan" :dataLinks="[
@@ -45,12 +45,13 @@
           ['route'=>'ekstrakulikuler','name'=>'EKSTRAKULIKULER'],
           ['route'=>'osis','name'=>'OSIS'],
           ['route'=>'beasiswa','name'=>'BEASISWA'],
-          ['route'=>'pemetaan','name'=>'INFORMASI PEMETAAN KELULUSAN']]">
+          ]">
           KESISWAAN</x-dropdown>
           <x-dropdown dataurl="informasi" data="data-informasi" :dataLinks="[
           ['route'=>'guru','name'=>'GURU'],
           ['route'=>'artikel','name'=>'ARTIKEL'],
           ['route'=>'galeri','name'=>'GALERI'],
+          ['route'=>'drive','name'=>'DRIVE'],
           ['route'=>'sarana','name'=>'SARANA PRASARANA'],
           ['route'=>'elearning','name'=>'E-LEARNING'],
           ]">INFORMASI</x-dropdown>

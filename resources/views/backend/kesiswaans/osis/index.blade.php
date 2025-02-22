@@ -3,14 +3,14 @@
 @section("title","Osis Smkn 1 Gedangan")
 
 @section("content")
-    <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
+    <div id="main" class="main-content relative flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
         <div class="flex w-full justify-between items-center pt-4 ">
             <div class="flex w-full justify-between items-center pt-4 ">
                 <div class="w-3/4 ml-10">
                     <h3 class="text-3xl font-semibold dark:text-white">Osis Sekolah</h3>
                     <p class="mb-3 text-gray-800 dark:text-gray-400">seluruh data osis smkn 1 gedangan</p>
                 </div>
-                <a href="{{route("osisPhoto.create")}}" class="text-white mr-10 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 shadow-md transition-all duration-200">Tambah osis</a>
+                <a data-modal-target="t-osis" data-modal-toggle="t-osis" class="text-white mr-10 cursor-pointer bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 shadow-md transition-all duration-200">Tambah osis</a>
             </div>
 
         </div>
@@ -40,7 +40,7 @@
                                     @endif
                             </td>
                             <td class="px-6 flex gap-2 py-4 justify-center">
-                                <a href="{{ route('osisPhoto.edit', [Crypt::encrypt($osisPhoto->id)]) }}" class="text-yellow-500 hover:text-yellow-600  ml-4">Edit</a>
+
                                 <form id="delete-form-{{ $osisPhoto->id }}" action="{{ route('osisPhoto.destroy', [Crypt::encrypt($osisPhoto->id)]) }}" method="POST" class="inline">
                                     @csrf
                                     @method('delete')
@@ -57,11 +57,66 @@
         <div class="my-5 w-3/4 pl-10">
             <div class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6">{!!$osis->konten!!}</div>
         </div>
-            <div class="items-center ml-6 pb-6">
+        <div class="items-center ml-6 pb-6">
 
                 <a href="{{ route('osis.edit', [Crypt::encrypt($osis->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 dark:text-yellow-500 ml-4 text-white py-2.5 px-4 rounded-md shadow-md transition-all duration-200">Edit Osis</a>
+        </div>
+          {{-- tambah photo osis --}}
+          <div id="t-osis" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed bg-black bg-opacity-50 top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            Tambah Osis Baru
+                        </h3>
+                        <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="t-osis">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="p-4 md:p-5">
+                        <form class="space-y-4" method="post" enctype="multipart/form-data" action="{{route("osisPhoto.store")}}">
+                            @csrf
+                            <div>
+                                <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
+                                <input type="nama" name="nama" id="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Masukkan Nama" required />
+                                @error('nama')
+                                <p class="mt-2 text-sm text-red-800">
+                                    {{ $message }}
+                                </p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="jabatan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jabatan</label>
+                                <input type="text" placeholder="Masukkan Jabatan" name="jabatan" id="jabatan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+                                @error('jabatan')
+                                <p class="mt-2 text-sm text-red-800">
+                                    {{ $message }}
+                                </p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="photo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Photo</label>
+                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="file" name="photo" id="photo">
+                                @error('photo')
+                                <p class="mt-2 text-sm text-red-800">
+                                    {{ $message }}
+                                </p>
+                                @enderror
+                            </div>
+                            <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tambah</button>
+
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
 @endsection
 
 @section("js")

@@ -17,6 +17,13 @@
         .swal-height {
             padding: 0.4rem;
         }
+        .ql-align-center {
+            text-align: center;
+        }
+        .ql-align-right {
+            text-align: right;
+        }
+
     </style>
     @yield("css")
 

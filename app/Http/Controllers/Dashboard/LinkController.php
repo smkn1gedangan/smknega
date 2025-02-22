@@ -22,7 +22,7 @@ class LinkController extends Controller
     public function update(Request $request , string $id)  {
         $link = Link::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-            "facebook"=>"string|required",
+            "facebook"=>"string|required|url",
             "tiktok"=>"string|required|url",
             "instagram"=>"string|required|url",
             "website"=>"string|required|url",

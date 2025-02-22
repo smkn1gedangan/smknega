@@ -19,8 +19,8 @@ class KomiteController extends Controller
     public function index()
     {
         $komites = Komite::latest()->paginate(10);
-        $ketuaKomites = KetuaKomite::get();
-        return view("backend.profils.Komite.index",compact("komites","ketuaKomites"));
+        $ketuaKomite = KetuaKomite::first();
+        return view("backend.profils.Komite.index",compact("komites","ketuaKomite"));
     }
 
     /**

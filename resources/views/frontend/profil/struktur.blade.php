@@ -25,7 +25,7 @@
         @if (file_exists(public_path('img/profil/' . $struktur->photo)) && $struktur->photo)
                 <img data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-11/12 sm:w-5/6 md:w-3/4 lg:w-4/5 h-52 sm:h-64 md:h-auto rounded-md object-cover my-5 md:min-h-96" src="{{ asset("img/profil/" . $struktur->photo) }}" alt="">
                     @else
-                        <div class="bg-gray-200 w-11/12 sm:w-5/6 h-64 my-5">
+                        <div class="bg-gray-200 w-11/12 grid place-content-center sm:w-5/6 h-64 my-5">
                             <span>No Image</span> <!-- Pesan fallback -->
                         </div>
         @endif
