@@ -15,7 +15,7 @@
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6 w-full">
                 {!! $potensi->konten !!}
             </div>
-            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 w-full text-xs md:text-base text-left md:text-center font-normal text-gray-800 dark:text-gray-400 mt-3">ditulis oleh {{$potensi->penulis->name}}  {{$potensi->created_at->diffForHumans()}}</p>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 w-full text-xs md:text-base text-left md:text-center font-normal text-gray-800 dark:text-gray-400 mt-2">ditulis oleh {{$potensi->penulis->name}}  {{$potensi->created_at->diffForHumans()}}</p>
     </div>
     <div class="w-full lg:w-[37%] p-4 gap-4 flex flex-wrap lg:flex-col">
 

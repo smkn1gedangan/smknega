@@ -25,7 +25,7 @@
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 text-gray-900 dark:text-gray-400 mt-6 w-full  ">
                 {!! $deskripsiKomite->konten !!}
             </div>
-            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 w-full text-xs md:text-base text-left md:text-center font-normal text-gray-800 dark:text-gray-400 mt-6">ditulis oleh {{$deskripsiKomite->penulis->name}}  {{$deskripsiKomite->created_at->diffForHumans()}}</p>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 w-full text-xs md:text-base text-left md:text-center font-normal text-gray-800 dark:text-gray-400 mt-2">ditulis oleh {{$deskripsiKomite->penulis->name}}  {{$deskripsiKomite->created_at->diffForHumans()}}</p>
     </div>
     <div class="w-full p-2 flex flex-col items-center">
         <x-heading-profil class="max-w-sm mt-4 md:mt-2 w-full">ketua komite</x-heading-profil>
@@ -66,10 +66,10 @@
                 </a>
                 <div class="swiper mySwiper bg-transparent bgMorpish absolute bottom-0 w-full p-2">
                   <div class="swiper-wrapper ">
-                    <div class="swiper-slide tx-sh font-semibold text-center text-gray-100 dark:text-gray-400 md:font-bold capitalize mb-0 md:mb-3 min-h-20 flex items-end justify-center ">
+                    <div class="swiper-slide tx-sh font-semibold text-center text-gray-100 dark:text-gray-400 md:font-bold capitalize mb-0 md:mb-3 min-h-16 md:min-h-8 flex items-end justify-center ">
                         {{ $komite->nama }}
                     </div>
-                    <div class="swiper-slide tracking-wide tx-sh text-center text-sm text-gray-100 dark:text-gray-400 capitalize min-h-20 flex items-end justify-center">
+                    <div class="swiper-slide tracking-wide tx-sh text-center text-sm text-gray-100 dark:text-gray-400 capitalize min-h-16 md:min-h-8 flex items-end justify-center">
                         {{ $komite->jabatan }}
                     </div>
                   </div>

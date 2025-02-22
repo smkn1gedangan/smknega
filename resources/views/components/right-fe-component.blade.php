@@ -12,7 +12,7 @@
                 @endif
 
                     <div class="flex flex-col justify-between p-4 leading-normal">
-                        <h5 data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="mb-2 text-base font-semibold tracking-tight text-gray-800 dark:text-white">{{$articleTerbaru->title}}</h5>
+                        <h5 data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="mb-2 text-base font-semibold tracking-tight capitalize text-gray-800 dark:text-white">{{$articleTerbaru->title}}</h5>
                         <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">{{ \Carbon\Carbon::parse($articleTerbaru->created_at)->translatedFormat('l, d F Y') }}</p>
                     </div>
                 </a>
