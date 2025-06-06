@@ -74,7 +74,7 @@
 -   **create user "name_user"@"localhost" indentified by "pass_user"**
 
 ###### To Allow a User
-- grant all privileges on * . * "name_user"@"localhost" 
+- grant all privileges on * . * to "name_user"@"localhost" 
 
 - **exit**
 
