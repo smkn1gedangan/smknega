@@ -18,13 +18,13 @@ class UserSeeder extends Seeder
             "name"=> "admin",
             "email"=> "smknega@gmail.com",
             "deletable"=>false,
-            "password"=> bcrypt("admin"),
+            "password"=> bcrypt("a"),
             "role"=> 1
           ],
           [
             "name"=> "usammuhajir",
             "email"=> "usammuhajir047@gmail.com",
-            "password"=> bcrypt("hajir"),
+            "password"=> bcrypt("h"),
             "role"=> 1
           ]
         ];
