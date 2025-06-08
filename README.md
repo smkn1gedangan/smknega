@@ -54,23 +54,18 @@
 
 
 ###### For Installation NPM
-
 -   **apt install npm**
 
 ###### For Get a Version NPM
-
 -   **npm --version**
 
 ## configuration mysql
-
 -   **mysql -u root -p**
 
 ###### For Create a New Database (name database optional)
-
 -   **create database smknega**
 
 ###### For Create a New User
-
 -   **create user "name_user"@"localhost" indentified by "pass_user"**
 
 ###### To Allow a User
@@ -97,11 +92,14 @@
 ###### For Change File Owner
 - **chown www-data:www-data smknega/public** 
 
+
+###### for writetable ezyang library
+- **chmod -R 777 smknega**
+
 ###### For Change File Owner Library Purifier
 - **chown www-data:www-data smknega** 
 
 ###### For Go To New Directory
-
 -   **cd smknega**
 
 ## Make sure it's in the smknega folder
@@ -206,5 +204,20 @@ ubah
 - **MAIL_ENCRYPTION = tls With port 587**
 
 If that command not successfull , Double-check the command you ran earlier
+
+
+
+###### if you want to seeding database only one table
+- **php artisan db:seed --class=Nameclass**
+
+###### if you want to add /update migration 
+- **php artisan migrate**
+
+###### if you want to clone repository but project very large
+- **git clone --depth=1 https://github.com/smkn1gedangan/smknega.git**
+
+
+
+###### make sure .env and img have been backup in another folder
 
 

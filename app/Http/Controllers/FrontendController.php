@@ -268,6 +268,10 @@ class FrontendController extends Controller
         $kategoris = Kategori::get();
         $articleTerbarus = Article::take(5)->latest()->get();
         $article = Article::where("slug",$slug)->first();
+
+        if(!$article){
+            abort(404,"artikel yang anda cari tidak ada di database");
+        }
         return view("frontend.informasi.readArtikel",compact("article","kategoris","articleTerbarus"));
    }
 }

@@ -1,5 +1,9 @@
+@props([
+    "url"=>"",
+])
+
 @extends("frontend.layouts.main")
-@section("title","Artikel $article->title Smkn 1 Gedangan")
+@section("title","Artikel $article->title ? $url : $article->title  Smkn 1 Gedangan")
 @section("content")
     <section class="relative bg-no-repeat">
        <div class="w-screen md:max-w-[95%] p-2 md:py-16 flex md:flex-row justify-evenly flex-wrap">

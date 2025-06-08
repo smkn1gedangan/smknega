@@ -92,7 +92,7 @@ Route::controller(FrontendController::class)->middleware(["monitorPage"])->group
         route::get("info_ppdb","info_ppdb")->name("info_ppdb");
         route::get("survey","survey")->name("survey");
     });
-    Route::get("/informasi/article/{slug}","readArticle")->name("readArticle");
+    Route::get("/informasi/article/{slug}","readArticle")->name("readArticle")->middleware("viewArticle");
 
 });
 

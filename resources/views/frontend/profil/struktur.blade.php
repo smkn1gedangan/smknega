@@ -37,7 +37,7 @@
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="prose mb-3 text-gray-900 dark:text-gray-400 mt-6 w-full">
                 {!! $struktur->konten !!}
             </div>
-            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 w-full text-xs md:text-base text-left md:text-center font-normal text-gray-800 dark:text-gray-400 mt-2">ditulis oleh {{$struktur->penulis->name}}  {{$struktur->created_at->diffForHumans()}}</p>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 w-full text-xs md:text-base text-left md:text-center font-normal text-gray-800 dark:text-gray-400 mt-2">ditulis oleh {{$struktur->penulis->name}}  {{$struktur->updated_at->diffForHumans()}}</p>
             <h2 data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="{{$wakas->count()< 1 ? "invisible":"mb-2 md:mt-8 text-xl uppercase font-semibold text-gray-900 dark:text-white"}}  ">Anggota Waka</h2>
             <div class="w-full flex flex-wrap justify-center gap-2">
                 @foreach ($wakas as $waka)

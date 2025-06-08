@@ -21,7 +21,7 @@
 <section  class="relative hidden sm:block">
     <div class="swiper mySwiper w-full">
         <div class="swiper-wrapper">
-            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_baner3.jpg")}})">
+            <div class="swiper-slide object-cover bg-no-repeat " style="background: url('{{asset("img/welcome/static_baner3.jpg")}}')">
                 <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
                 <h1 class="mb-4 text-4xl tracking-tight leading-none text-white md:text-5xl dark:text-white uppercase font-bold">Selamat datang di Smkn 1 Gedangan</h1>
@@ -31,12 +31,15 @@
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
             <!-- Slide 2 -->
-            <div class="swiper-slide object-cover bg-no-repeat min-w-screen-2xl h-auto" style="background: url({{asset("img/welcome/static_baner1.jpg")}})">
+            <div class="swiper-slide bg-no-repeat bg-cover bg-center w-full h-auto relative" 
+                style="background-image: url('{{ asset('img/welcome/static_baner1.jpg') }}')">
 
-                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
+                <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
+
             </div>
+
             <!-- Slide 3 -->
-            <div class="swiper-slide object-cover bg-no-repeat w-full h-auto" style="background: url({{asset("img/welcome/static_baner2.jpg")}})">
+            <div class="swiper-slide object-cover bg-no-repeat w-full h-auto" style="background: url('{{asset("img/welcome/static_baner2.jpg")}}')">
 
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
@@ -51,7 +54,7 @@
 <section  class="relative block sm:hidden">
     <div class="swiper mySwiper w-full">
         <div class="swiper-wrapper">
-            <div class="swiper-slide object-cover bg-no-repeat " style="background: url({{asset("img/welcome/static_sm_baner3.jpg")}})">
+            <div class="swiper-slide object-cover bg-no-repeat " style="background: url('{{asset("img/welcome/static_sm_baner3.jpg")}}')">
                 <div class="py-8 flex flex-col items-center justify-center px-4 h-screen mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative ">
 
                 <h1 class="mb-4 text-4xl tracking-tight leading-none text-white md:text-5xl dark:text-white uppercase font-bold">Selamat datang di Smkn 1 Gedangan</h1>
@@ -61,12 +64,12 @@
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
             <!-- Slide 2 -->
-            <div class="swiper-slide object-cover bg-no-repeat min-w-screen-2xl h-auto" style="background: url({{asset("img/welcome/static_sm_baner2.jpg")}})">
+            <div class="swiper-slide object-cover bg-no-repeat min-w-screen-2xl h-auto" style="background: url('{{asset("img/welcome/static_sm_baner2.jpg")}}')">
 
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-white w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
             <!-- Slide 3 -->
-            <div class="swiper-slide object-cover bg-no-repeat w-full h-auto" style="background: url({{asset("img/welcome/static_sm_baner_1.jpg")}})">
+            <div class="swiper-slide object-cover bg-no-repeat w-full h-auto" style="background: url('{{asset("img/welcome/static_sm_baner_1.jpg")}}')">
 
                 <div class="bg-gradient-to-t from-slate-900 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
             </div>
@@ -209,11 +212,10 @@
                         @endif
 
                     <div class="w-full  flex flex-col justify-between p-2 md:p-4 leading-normal ">
-                        <a data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  href="{{route("readArticle",$article->slug)}}" class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white hover:text-slate-600">{{ $article->title }}</a>
+                        <a data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  href="{{route("readArticle",$article->slug)}}" class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white hover:text-slate-600 capitalize">{{ $article->title }}</a>
                         <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="mb-3 w-full text-sm md:text-base font-normal text-gray-700 dark:text-gray-400">
                             {{ Str::words(str_replace('&nbsp;', '', strip_tags($article->text_content)), 15, '...') }}
                         </p>
-
 
                         <div class="min-w-full flex justify-between mt-4">
                             <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="font-normal text-gray-700 dark:text-gray-400 text-xs md:text-sm">ditulis oleh {{ $article->writer->name}}</p>
