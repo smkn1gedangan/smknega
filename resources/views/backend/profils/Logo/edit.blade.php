@@ -2,63 +2,48 @@
 
 @section("css")
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
 @endsection
 
-@section("title","Logo sekolah")
+@section("title","Logo Sekolah")
 
 @section("content")
-    <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
-        <x-title-create-dashboard class="lowercase">edit logo Smkn 1 Gedangan</x-title-create-dashboard>
-        <div class="w-full">
+    <div id="main" class="main-content flex-1 ">
+        <x-titlepage title="data logo" quote="data logo smkn 1 gedangan " isRoute="true" nameRoute="List logo" href="{{ route('logo.index') }}"></x-titlepage>
+        <div class="w-full p-5">
             <form id="form" action="{{ route('logo.update',[Crypt::encrypt($logo->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
-                <div class="w-11/12 gap-2 ">
-                    <div class="mb-4 w-2/5">
-                        <label for="penulis_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">penulis_id</label>
-                        <input type="text" value="{{ Auth::user()->name}}" name="penulis_id" id="penulis_id"
-                               class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
-                               readOnly>
-                        @error("penulis_id")
-                        <p class="mt-2 text-sm text-red-800">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="mb-4 w-11/12">
-                    <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">konten</label>
-                    <div id="editor" class="mt-1 shadow-md bg-white block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                <div class="grid grid-cols-12 space-y-5">
+                    <div class="col-span-10">
+                    <x-input-label value="Konten"></x-input-label>
+                    <div id="editor" class="mt-1 bg-white shadow-md  block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:border-blue-500 focus:outline-none" style="height: 300px;">
                         {!! old('konten', $logo->konten) !!}
 
                     </div>
                     <input type="hidden" name="konten" id="konten">
-                    @error('konten')
-                        <p class="mt-2 text-sm text-red-800">
-                            {{ $message }}
-                        </p>
-                    @enderror
+                    <x-input-error :messages="$errors->get('konten')" class="mt-2" />
+                    </div>
+
+                    <div class="mb-4 col-span-8">
+                        <x-input-label value="Photo"></x-input-label>
+                        <x-text-input type="file" id="photo" class="block mt-1 w-full border border-black" name="photo" :value="old('photo',$logo->photo)"  />
+                        <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+                        @if (file_exists(public_path('storage/' . $logo->photo)) && $logo->photo)
+                            <p class="mt-3">Photo saat ini : </p>
+                            <img class="w-40  duration-700  rounded-md object-cover h-auto" src="{{ asset("storage/" . $logo->photo) }}" alt="">
+                        @else
+                            <p class="mt-3">Photo saat ini : </p>
+                            <div class="bg-gray-200 w-40 h-52 grid place-content-center">
+                                <span>No Image</span> <!-- Pesan fallback -->
+                            </div>
+                        @endif
+                    </div>
                 </div>
-                @if (file_exists(public_path('img/profil/' . $logo->photo)) && $logo->photo)
-                <p class="mt-3">Photo saat ini : </p>
-                <img class="w-1/5  duration-700  rounded-md object-cover h-full" src="{{ asset("img/profil/" . $logo->photo) }}" alt="">
-                @else
-                <p class="mt-3">Photo saat ini : </p>
-                <div class="bg-gray-200 w-1/5 h-52 grid place-content-center">
-                <span>No Image</span> <!-- Pesan fallback -->
-                </div>
-                @endif
-                <input class="mt-6 rounded-md shadow-md w-2/5 bg-white" class="rounded-md" type="file" name="photo" id="photo">
-                @error('photo')
-                <p class="mt-2 text-sm text-red-800">
-                    {{ $message }}
-                </p>
-                @enderror
                 <!-- Tombol Submit -->
-                <div class="w-11/12 mt-4 mb-8">
+                <div class="mt-4 mb-8">
                     <button type="submit"
-                            class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg shadow-md transition-all duration-200 hover:bg-yellow-600 focus:bg-yellow-500 focus:outline-none">
+                            class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg shadow-md hover:bg-yellow-600  focus:bg-yellow-500 transition-all duration-200 focus:outline-none">
                         Ubah Logo
                     </button>
                 </div>
@@ -74,11 +59,12 @@
       document.addEventListener("DOMContentLoaded", function() {
             const quill = new Quill('#editor', {
                 theme: 'snow',
-                placeholder: 'Tulis konten di sini...',
+                placeholder: 'Tulis konten profil di sini...',
                 modules: {
                     toolbar: [
-                        ['bold', 'italic', 'underline'],
+                        ['bold', 'italic', 'underline','strike'],
                         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        [{ 'script': 'sub'}, { 'script': 'super' }],
                         [{ 'align': [] }],
                         [{ 'font': [] }],
                         ['link'],
@@ -97,5 +83,8 @@
             });
         });
 
+         window.Laravel = {
+            successMessage: @json(session('success')),
+        };
     </script>
 @endsection

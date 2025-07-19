@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Dashboard\Informasi;
 
 use App\Http\Controllers\Controller;
+use App\Models\Drive;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +17,20 @@ class DriveController extends Controller
      */
     public function index()
     {
-        $drives = DB::select("select * from drives");
+        $datas = Cache::remember('drives', 60, function () {
+            return Drive::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $drives = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
         return view("backend.informasis.drive.index",compact("drives"));
     }
 
@@ -23,7 +39,7 @@ class DriveController extends Controller
      */
     public function create()
     {
-        //
+        return view("backend.informasis.drive.create");
     }
 
     /**
@@ -39,6 +55,7 @@ class DriveController extends Controller
         DB::insert("insert into drives (judul,link) values (?,?)",[
             $request->judul,$request->link
         ]);
+        Cache::delete("drives");
         return redirect()->route('drive.index')->with('success', 'Berhasil menambah drive baru!');
     }
 
@@ -72,6 +89,7 @@ class DriveController extends Controller
     public function destroy(string $id)
     {
         DB::delete("delete from drives where id = ?",[Crypt::decrypt($id)]);
+        Cache::delete("drives");
         return redirect()->route('drive.index')->with('success', 'Data Drive berhasil dihapus!');
     }
 }

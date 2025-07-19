@@ -30,18 +30,30 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 
-<body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
+<body x-data="{isSidebarOpen : true}" class="font-sans leading-normal tracking-normal">
 
-<header>
+<header class="bg-gray-300">
     @include("backend.layouts.header")
+    <button type="button" class="" @click="isSidebarOpen = !isSidebarOpen">
+    <span x-show="isSidebarOpen" x-cloak class="my-4">Close</span>
+    <span x-show="!isSidebarOpen" x-cloak class="my-4">
+        Open
+    </span>
+</button>
 </header>
 
 
 <main>
 
-    <div class="flex flex-col md:flex-row">
-        @include("backend.layouts.navbar")
-        <div class="bg-white p-4 flex-1 mt-5">
+    <div class="flex overflow-x-auto" >
+        <div class="min-h-screen" 
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="-translate-x-full opacity-0"
+        x-transition:enter-end="translate-x-0 opacity-100"
+        x-show="isSidebarOpen">
+            @include("backend.layouts.sidebar")
+        </div>
+        <div class="bg-white p-2 flex-1">
             @yield("content")
         </div>
     </div>

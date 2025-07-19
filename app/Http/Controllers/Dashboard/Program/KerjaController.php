@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class KerjaController extends Controller
@@ -17,7 +18,9 @@ class KerjaController extends Controller
      */
     public function index()
     {
-        $kerja = Kerja::first();
+        $kerja = Cache::remember("kerja",60 * 60 * 24 * 7 , function(){
+            return Kerja::first();
+        });
         return view("backend.programs.kerja.index",compact("kerja"));
     }
 
@@ -50,7 +53,10 @@ class KerjaController extends Controller
      */
     public function edit(string $id)
     {
-        $kerja = Kerja::findOrFail(Crypt::decrypt($id));
+        $kerja = Cache::remember("kerja",60 * 60 * 24 * 7 , function()use($id){
+            return  Kerja::findOrFail(Crypt::decrypt($id));
+
+        });
         return view("backend.programs.kerja.edit",compact("kerja"));
     }
 
@@ -62,7 +68,6 @@ class KerjaController extends Controller
         $kerja = Kerja::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            "penulis_id"=> "required",
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -78,6 +83,7 @@ class KerjaController extends Controller
         $kerja->penulis_id = Auth::user()->id;
         $kerja->konten = $purifier->purify($request->konten);
         $kerja->save();
+        Cache::delete("kerja");
         return redirect()->route('kerja.index')->with('success', 'data Program Kerja berhasil diperbarui!');
 
     }

@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class BeasiswaController extends Controller
@@ -17,7 +18,10 @@ class BeasiswaController extends Controller
      */
     public function index()
     {
-        $beasiswa = Beasiswa::first();
+
+        $beasiswa = Cache::remember("beasiswa",60 * 60 * 24 * 7 , function(){
+            return Beasiswa::first();
+        });
         return view("backend.kesiswaans.beasiswa.index",compact("beasiswa"));
     }
 
@@ -50,7 +54,9 @@ class BeasiswaController extends Controller
      */
     public function edit(string $id)
     {
-        $beasiswa = Beasiswa::findOrFail(Crypt::decrypt($id));
+        $beasiswa = Cache::remember("beasiswa",60 * 60 * 24 * 7 , function() use($id){
+            return Beasiswa::findOrFail(Crypt::decrypt($id));
+        });
         return view("backend.kesiswaans.beasiswa.edit",compact("beasiswa"));
     }
 
@@ -62,7 +68,6 @@ class BeasiswaController extends Controller
         $beasiswa = Beasiswa::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            "penulis_id"=> "required",
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -78,6 +83,7 @@ class BeasiswaController extends Controller
         $beasiswa->penulis_id = Auth::user()->id;
         $beasiswa->konten = $purifier->purify($request->konten);
         $beasiswa->save();
+        Cache::delete("beasiswa");
         return redirect()->route('beasiswa.index')->with('success', 'data Beasiswa berhasil diperbarui!');
     }
 

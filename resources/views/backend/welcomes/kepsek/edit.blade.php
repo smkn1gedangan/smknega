@@ -8,56 +8,46 @@
 @section("title","Kepala sekolah")
 
 @section("content")
-    <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
-        <x-title-create-dashboard class="lowercase">edit data kepala sekolah smkn 1 gedangan</x-title-create-dashboard>
-        <div class="w-full">
+    <div id="main" class="main-content flex-1 ">
+        <x-titlepage title="Kepala Sekolah" quote="ubah data kepala sekolah smkn 1 gedangan"></x-titlepage>
+        <div class="w-full p-5">
             <form id="form" action="{{ route('kepsek.update',[Crypt::encrypt($kepsek->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
-                <div class="w-11/12 gap-2 ">
-                    <div class="mb-4 w-2/5">
-                        <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nama</label>
-                        <input type="text" value="{{old("nama",$kepsek->nama)}}" name="nama" id="nama"
-                               class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
-                               required placeholder="Masukkan Judul">
-                        @error("nama")
-                        <p class="mt-2 text-sm text-red-800">
-                            {{ $message }}
-                        </p>
-                        @enderror
+                <div class="w-full space-y-4 grid grid-cols-12">
+                    <div class="mb-4 col-span-6">
+                                <x-input-label value="Nama"></x-input-label>
+                                <x-text-input type="text" id="nama" class="block mt-1 w-full" name="nama" :value="old('nama',$kepsek->nama)" required  />
+                                <x-input-error :messages="$errors->get('nama')" class="mt-2" />
                     </div>
-                </div>
-
-                <div class="mb-4 w-11/12">
-                    <label for="sambutan" class="block text-sm font-medium text-gray-700 dark:text-gray-300">sambutan</label>
-                    <div id="editor" class="mt-1 bg-white shadow-md  block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                    <div class="col-span-10">
+                    <x-input-label value="Sambutan"></x-input-label>
+                    <div id="editor" class="mt-1 bg-white shadow-md  block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:border-blue-500 focus:outline-none" style="height: 300px;">
                         {!! old('sambutan', $kepsek->sambutan) !!}
 
                     </div>
                     <input type="hidden" name="sambutan" id="sambutan">
-                    @error('sambutan')
-                        <p class="mt-2 text-sm text-red-800">
-                            {{ $message }}
-                        </p>
-                    @enderror
+                     <x-input-error :messages="$errors->get('sambutan')" class="mt-2" />
                 </div>
-                @if (file_exists(public_path('img/kepala_sekolah/' . $kepsek->photo)) && $kepsek->photo)
+                <div class="mb-4 col-span-8">
+                    <x-input-label value="Photo"></x-input-label>
+                    <x-text-input type="file" id="photo" class="block mt-1 w-full border border-black" name="photo" :value="old('photo',$kepsek->photo)"  />
+                    <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+                @if (file_exists(public_path('storage/' . $kepsek->photo)) && $kepsek->photo)
                 <p class="mt-3">Photo saat ini : </p>
-                <img class="w-1/5  duration-700  rounded-md object-cover h-full" src="{{ asset("img/kepala_sekolah/" . $kepsek->photo) }}" alt="">
+                <img class="w-40  duration-700  rounded-md object-cover h-auto" src="{{ asset("storage/" . $kepsek->photo) }}" alt="">
                 @else
                 <p class="mt-3">Photo saat ini : </p>
-                <div class="bg-gray-200 w-1/5 h-52 grid place-content-center">
+                <div class="bg-gray-200 w-40 h-52 grid place-content-center">
                 <span>No Image</span> <!-- Pesan fallback -->
                 </div>
                 @endif
-                <input class="mt-6 rounded-md bg-white shadow-md  w-2/5" type="file" name="photo" id="photo">
-                @error('photo')
-                <p class="mt-2 text-sm text-red-800">
-                    {{ $message }}
-                </p>
-                @enderror
+                </div>
+               
+                </div>
+                
                 <!-- Tombol Submit -->
-                <div class="w-11/12 mt-4 mb-8">
+                <div class="col-span-6 mt-6 mb-8">
                     <button type="submit"
                             class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg shadow-md hover:bg-yellow-600 focus:bg-yellow-500 transition-all duration-300 focus:outline-none">
                         Ubah Kepala Sekolah

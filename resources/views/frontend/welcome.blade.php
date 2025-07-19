@@ -86,9 +86,9 @@
         <div class="w-screen md:max-w-[95%] h-auto md:gap-6 p-2 md:pl-10 flex md:flex-row justify-evenly flex-wrap">
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="flex flex-col w-full md:p-8 md:w-11/12 lg:w-3/5">
                 <x-heading-welcome data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  classAdventage="">SMK Negeri 1 Gedangan Malang</x-heading-welcome>
-                @if (file_exists(public_path('img/welcome/' . $profil->photo)) && $profil->photo)
+                @if (file_exists(public_path('storage/' . $profil->photo)) && $profil->photo)
                     <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-11/12 my-5  sm:w-4/5 h-52 sm:h-64 lg:h-80 overflow-hidden">
-                        <img class="w-full hover:scale-110 transition-all duration-700  rounded-md object-cover h-full" src="{{ asset("img/welcome/" . $profil->photo) }}" alt="">
+                        <img class="w-full hover:scale-110 transition-all duration-700  rounded-md object-cover h-full" src="{{ asset("storage/" . $profil->photo) }}" alt="">
 
                     </div>
                     @else
@@ -105,8 +105,8 @@
             <div class="flex flex-col  md:flex-row-reverse lg:flex-col items-center w-full md:w-full  lg:w-[35%]">
                 <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-full md:mt-2 md:w-[38%] lg:w-full max-w-sm min-h-[40rem] rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-8 ">
                     <div class="relative">
-                        @if (file_exists(public_path('img/kepala_sekolah/' . $kepsek->photo)) && $kepsek->photo)
-                        <img class="rounded-t-lg w-4/5 md:w-full h-auto object-cover relative left-1/2 -translate-x-1/2" src="{{asset("img/kepala_sekolah/" . $kepsek->photo)}}" alt="" />
+                        @if (file_exists(public_path('storage/' . $kepsek->photo)) && $kepsek->photo)
+                        <img class="rounded-t-lg w-4/5 md:w-full h-auto object-cover relative left-1/2 -translate-x-1/2" src="{{asset("storage/" . $kepsek->photo)}}" alt="" />
                         <div style="box-shadow:inset 10px 10px 100px relative left-1/2 -translate-x-1/2 rgba(0, 0, 0, 0.6)" class=" dark:from-blue-900 w-4/5 h-full absolute top-0 left-0 z-0"></div>
                     @else
                         <div class="bg-gray-200 w-4/5 md:w-full h-96 relative left-1/2 -translate-x-1/2 grid place-content-center">
@@ -132,8 +132,8 @@
                         <div class="w-full flex md:pl-0 flex-col sm:flex-row md:flex-col flex-wrap gap-2">
                             @foreach ($prestasis as $prestasi)
                         <a href="{{route("readArticle",$prestasi->slug)}}" class="flex items-center  border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-full sm:w-[45%] md:w-full">
-                            @if (file_exists(public_path('img/articles_images/' . $prestasi->image)) && $prestasi->image)
-                            <img class="object-cover w-20 h-20 rounded-t-lg md rounded-md" src="{{ asset('img/articles_images/' . $prestasi->image) }}">
+                            @if (file_exists(public_path('storage/' . $prestasi->image)) && $prestasi->image)
+                            <img class="object-cover w-20 h-20 rounded-t-lg md rounded-md" src="{{ asset('storage/' . $prestasi->image) }}">
                         @else
                             <div class="bg-gray-200 h-20 w-20 grid place-content-center text-xs">
                                 <span>No Image</span> <!-- Pesan fallback -->
@@ -164,8 +164,8 @@
             @foreach ($wakas as $waka)
             <div class="w-[48%] sm:w-[32%] md:w-[23%] lg:w-[19%] bg-white border border-gray-200 rounded-lg shadow h-auto dark:border-gray-700 relative flex-shrink-0">
                 <div class="relative">
-                    @if (file_exists(public_path('img/waka/' . $waka->photo)) && $waka->photo)
-                        <img class="rounded-md w-full h-auto md:h-auto relative left-1/2 -translate-x-1/2" src="{{ asset('img/waka/' . $waka->photo) }}" alt="" />
+                    @if (file_exists(public_path('storage/' . $waka->photo)) && $waka->photo)
+                        <img class="rounded-md w-full h-auto md:h-auto relative left-1/2 -translate-x-1/2" src="{{ asset('storage/' . $waka->photo) }}" alt="" />
                     @else
                         <div class="bg-gray-200 relative h-52 w-full flex justify-center items-center">
 
@@ -202,8 +202,8 @@
             <div class="flex flex-col w-full gap-2 md:gap-10 ">
                 @foreach ($articles as $article)
                 <div class="flex flex-col relative items-center  bg-white border border-gray-200 rounded-lg shadow md:flex-row  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-[100%] ">
-                    @if (file_exists(public_path('img/articles_images/' . $article->image)) && $article->image)
-                            <img src="{{ asset('img/articles_images/' . $article->image) }}" class="object-cover w-full sm:w-3/5 sm:h-52 rounded-t-lg h-auto md:h-52 md:w-52 md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
+                    @if (file_exists(public_path('storage/' . $article->image)) && $article->image)
+                            <img src="{{ asset('storage/' . $article->image) }}" class="object-cover w-full sm:w-3/5 sm:h-52 rounded-t-lg h-auto md:h-52 md:w-52 md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
 
                         @else
                             <div class="w-full grid place-content-center bg-gray-200 sm:w-3/5 h-52 md:w-52">
@@ -241,8 +241,8 @@
                 <div class="flex flex-row flex-wrap w-full gap-2 sm:gap-5 md:gap-3 ">
                     @foreach ($galeris as $galeri)
                 <div class="w-11/12 sm:w-[47%] lg:w-full bg-white border border-gray-200 rounded-lg shadow md:mt-6 dark:bg-gray-800 dark:border-gray-700">
-                        @if (file_exists(public_path('img/galeri/' . $galeri->photo)) && $galeri->photo)
-                        <img class="rounded-t-lg object-cover w-full h-52" src="{{ asset("img/galeri/" . $galeri->photo) }}" alt="{{$galeri->judul}}"/>
+                        @if (file_exists(public_path('storage/' . $galeri->photo)) && $galeri->photo)
+                        <img class="rounded-t-lg object-cover w-full h-52" src="{{ asset("storage/" . $galeri->photo) }}" alt="{{$galeri->judul}}"/>
 
                     @else
                         <div class="w-full bg-gray-200 h-52">

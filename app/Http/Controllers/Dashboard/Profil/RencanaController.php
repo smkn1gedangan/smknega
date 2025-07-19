@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class RencanaController extends Controller
@@ -17,7 +18,9 @@ class RencanaController extends Controller
      */
     public function index()
     {
-        $rencana = Rencana::first();
+        $rencana = Cache::remember("rencana",60 * 60 * 24 * 7 , function(){
+            return Rencana::first();
+        });
         return view("backend.profils.rencana.index",compact("rencana"));
     }
 
@@ -50,7 +53,9 @@ class RencanaController extends Controller
      */
     public function edit(string $id)
     {
-        $rencana = Rencana::findOrFail(Crypt::decrypt($id));
+         $rencana = Cache::remember("rencana",60 * 60 * 24 * 7 , function()use($id){
+            return Rencana::findOrFail(Crypt::decrypt($id));
+        });
         return view("backend.profils.rencana.edit",compact("rencana"));
     }
 
@@ -62,7 +67,6 @@ class RencanaController extends Controller
         $rencana = Rencana::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            "penulis_id"=> "required",
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -78,6 +82,7 @@ class RencanaController extends Controller
         $rencana->penulis_id = Auth::user()->id;
         $rencana->konten =$purifier->purify($request->konten);;
         $rencana->save();
+        Cache::delete("rencana");
         return redirect()->route('rencana.index')->with('success', 'data Rencana Unggulan berhasil diperbarui!');
 
     }

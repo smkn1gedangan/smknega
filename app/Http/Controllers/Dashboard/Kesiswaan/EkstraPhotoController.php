@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Kesiswaan;
 use App\Http\Controllers\Controller;
 use App\Models\Kesiswaan\EkstraPhoto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 
@@ -36,27 +37,25 @@ class EkstraPhotoController extends Controller
          ]);
          if ($request->hasFile('photo')) {
 
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
 
 
-            $publicPath = public_path("img/ekstra/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "ekstra/" . $filename;
+            $sourcePath = $request->file("photo")->store("ekstra","public");
+            $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
 
             // upload to public
-            $file->move(public_path('img/ekstra'), $filename);
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
                 return redirect()->route('ekstraPhoto.create')->with('error', 'gambar gagal disimpan!');
             };
-            EkstraPhoto::create(["photo"=>$filename]);
-
-            return redirect()->route('ekstrakulikuler.index')->with('success', 'Photo ekstrakulikuler berhasil ditambah dan disimpan!');
-         }
+            EkstraPhoto::create(["photo"=>$sourcePath]);
+        }
+        Cache::delete("ekstraPhoto");
+        Cache::delete("ekstraPhotos_get_all");
+        return redirect()->route('ekstrakulikuler.index')->with('success', 'Photo ekstrakulikuler berhasil ditambah dan disimpan!');
     }
 
     /**
@@ -134,12 +133,11 @@ class EkstraPhotoController extends Controller
     {
         $ekstra = EkstraPhoto::findOrFail(Crypt::decrypt($id));
         if ($ekstra->photo) {
-            $publicPath = public_path('img/ekstra/' . $ekstra->photo); // Lokasi pertama (public)
             $backupPath = env("BACKUP_PHOTOS") ."ekstra/" . $ekstra->photo; // Lokasi kedua (backup)
 
             // Hapus file di lokasi pertama (public)
-            if (File::exists($publicPath)) {
-                File::delete($publicPath);
+            if (File::exists(storage_path("app/public/".$ekstra->photo))) {
+                File::delete(storage_path("app/public/".$ekstra->photo));
             }
 
             // Hapus file di lokasi kedua (backup)
@@ -148,7 +146,8 @@ class EkstraPhotoController extends Controller
             }
         }
         $ekstra->delete();
-
+        Cache::delete("ekstraPhotos");
+        Cache::delete("ekstraPhotos_get_all");
         return redirect()->route('ekstrakulikuler.index')->with('success', 'Data Photo Ekstrakulikuler berhasil dihapus!');
 }
 }

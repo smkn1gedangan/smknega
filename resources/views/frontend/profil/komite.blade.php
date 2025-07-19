@@ -32,8 +32,8 @@
         <x-heading-profil class="max-w-sm mt-4 md:mt-2 w-full">ketua komite</x-heading-profil>
         <div class="w-full max-w-sm bg-white min-h-auto rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
             <div class="relative w-full flex justify-center ">
-                @if (file_exists(public_path('img/komite/' . $ketuaKomite->photo)) && $ketuaKomite->photo)
-                <img data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="rounded-t-lg w-4/5 md:w-full h-auto object-cover" src="{{asset("img/komite/" . $ketuaKomite->photo)}}" alt="" />
+                @if (file_exists(public_path('storage/' . $ketuaKomite->photo)) && $ketuaKomite->photo)
+                <img data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="rounded-t-lg w-4/5 md:w-full h-auto object-cover" src="{{asset("storage/" . $ketuaKomite->photo)}}" alt="" />
 
             @else
                 <div class="bg-gray-200 w-4/5 md:w-full grid place-content-center text-xs h-96">
@@ -57,8 +57,8 @@
             @foreach ($komites as $komite)
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-[48%] sm:w-[32%] md:w-[23%] lg:w-[19%] bg-white border border-gray-200 rounded-lg shadow  dark:border-gray-700 relative flex-shrink-0">
                 <a class="relative" href="#">
-                    @if (file_exists(public_path('img/komite/' . $komite->photo)) && $komite->photo)
-                        <img class="rounded-md w-full h-auto relative left-1/2 -translate-x-1/2" src="{{ asset('img/komite/' . $komite->photo) }}" alt="" />
+                    @if (file_exists(public_path('storage/' . $komite->photo)) && $komite->photo)
+                        <img class="rounded-md w-full h-auto relative left-1/2 -translate-x-1/2" src="{{ asset('storage/' . $komite->photo) }}" alt="" />
                     @else
                         <div class="bg-gray-200 relative text-xs h-52 w-full grid place-content-center">
                             <span>No Image</span>

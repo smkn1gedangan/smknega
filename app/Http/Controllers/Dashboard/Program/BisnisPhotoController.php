@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Program;
 use App\Http\Controllers\Controller;
 use App\Models\Program\BisnisPhoto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 
@@ -36,25 +37,23 @@ class BisnisPhotoController extends Controller
         ]);
         if ($request->hasFile('photo')) {
 
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
 
-            $publicPath = public_path("img/bisnis/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "bisnis/" . $filename;
+            $sourcePath = $request->file("photo")->store("bisnis","public");
+            $backupPath = env("BACKUP_PHOTOS") . "bisnis/" . $sourcePath;
 
             // upload to public
-            $file->move(public_path('img/bisnis'), $filename);
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
                 return redirect()->route('bisnisPhoto.create')->with('error', 'gambar gagal disimpan!');
             };
 
-            BisnisPhoto::create(["photo"=>$filename]);
-
+            BisnisPhoto::create(["photo"=>$sourcePath]);
+            Cache::delete("bisnisPhotos");
+            Cache::delete("bisnisPhotos_getAll");
             return redirect()->route('bisnis.index')->with('success', 'Data Photo berhasil ditambah dan disimpan!');
         }
     }
@@ -134,12 +133,11 @@ class BisnisPhotoController extends Controller
     {
         $bisnis = BisnisPhoto::findOrFail(Crypt::decrypt($id));
         if ($bisnis->photo) {
-            $publicPath = public_path('img/bisnis/' . $bisnis->photo); // Lokasi pertama (public)
             $backupPath = env("BACKUP_PHOTOS") ."bisnis/" . $bisnis->photo; // Lokasi kedua (backup)
 
             // Hapus file di lokasi pertama (public)
-            if (File::exists($publicPath)) {
-                File::delete($publicPath);
+            if (File::exists(storage_path("app/public/".$bisnis->photo))) {
+                File::delete(storage_path("app/public/".$bisnis->photo));
             }
 
             // Hapus file di lokasi kedua (backup)
@@ -148,7 +146,8 @@ class BisnisPhotoController extends Controller
             }
         }
         $bisnis->delete();
-
+        Cache::delete("bisnisPhotos_getAll");
+        Cache::delete("bisnisPhotos");
         return redirect()->route('bisnis.index')->with('success', 'Data bisnis berhasil dihapus!');
 
     }

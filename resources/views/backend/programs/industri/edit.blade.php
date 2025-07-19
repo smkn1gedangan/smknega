@@ -2,51 +2,32 @@
 
 @section("css")
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
 @endsection
 
-@section("title","  hubungan industri sekolah")
+@section("title","Hubungan Industri")
 
 @section("content")
-    <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
-        <x-title-create-dashboard class="lowercase">edit data hubungan industri</x-title-create-dashboard>
-        <div class="w-full">
+    <div id="main" class="main-content flex-1 ">
+        <x-titlepage title="data Hubungan Industri" quote="ubah data Hubungan Industri smkn 1 gedangan " isRoute="true" nameRoute="Back" href="{{ route('industri.index') }}"></x-titlepage>
+        <div class="w-full p-5">
             <form id="form" action="{{ route('industri.update',[Crypt::encrypt($industri->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
-
-                <div class="mb-4 w-2/5">
-                    <label for="penulis" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Penulis</label>
-                    <input type="text" name="penulis_id" id="penulis" value="{{ Auth::user()->name}}"
-                           class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
-                           readonly
-                           >
-                    @error("penulis")
-                    <p class="mt-2 text-sm text-red-800">
-                        {{ $message }}
-                    </p>
-                    @enderror
-                </div>
-                <!-- Konten -->
-                <div class="mb-4 w-11/12">
-                    <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten</label>
-                    <div id="editor" class="mt-1 block bg-white shadow-md w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                <div class="grid grid-cols-12 space-y-5">
+                    <div class="col-span-10">
+                    <x-input-label value="Konten"></x-input-label>
+                    <div id="editor" class="mt-1 bg-white shadow-md  block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:border-blue-500 focus:outline-none" style="height: 300px;">
                         {!! old('konten', $industri->konten) !!}
 
                     </div>
                     <input type="hidden" name="konten" id="konten">
-                    @error('konten')
-                        <p class="mt-2 text-sm text-red-800">
-                            {{ $message }}
-                        </p>
-                    @enderror
+                    <x-input-error :messages="$errors->get('konten')" class="mt-2" />
+                    </div>
                 </div>
-
-
                 <!-- Tombol Submit -->
-                <div class="w-11/12 mt-4 mb-8">
+                <div class="mt-4 mb-8">
                     <button type="submit"
-                            class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg shadow-md transition-all duration-200 hover:bg-yellow-600 focus:bg-yellow-500 focus:outline-none">
+                            class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-lg shadow-md hover:bg-yellow-600  focus:bg-yellow-500 transition-all duration-200 focus:outline-none">
                         Ubah Hubungan Industri
                     </button>
                 </div>
@@ -62,7 +43,7 @@
       document.addEventListener("DOMContentLoaded", function() {
             const quill = new Quill('#editor', {
                 theme: 'snow',
-                placeholder: 'Tulis konten di sini...',
+                placeholder: 'Tulis konten profil di sini...',
                 modules: {
                     toolbar: [
                         ['bold', 'italic', 'underline','strike'],
@@ -86,6 +67,8 @@
             });
         });
 
-
+         window.Laravel = {
+            successMessage: @json(session('success')),
+        };
     </script>
 @endsection

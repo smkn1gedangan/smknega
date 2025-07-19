@@ -19,8 +19,8 @@
 <section class="w-full flex justify-center flex-wrap pt-20 md:pt-28">
     <div class="w-full lg:w-full p-2 flex flex-col items-center">
 
-        @if (file_exists(public_path('img/jurusan/' . $dkv->photo)) && $dkv->photo)
-        <img src="{{ asset("img/jurusan/" . $dkv->photo) }}" class="relative my-5 object-cover object-center rounded-md w-11/12 sm:w-5/6 md:w-3/4 lg:w-4/5 h-auto"/>
+        @if (file_exists(public_path('storage/' . $dkv->photo)) && $dkv->photo)
+        <img src="{{ asset("storage/" . $dkv->photo) }}" class="relative my-5 object-cover object-center rounded-md w-11/12 sm:w-5/6 md:w-3/4 lg:w-4/5 h-auto"/>
                     @else
                         <div class="bg-gray-200 w-11/12 sm:w-5/6 h-64 md:h-96 my-5 grid place-content-center text-xs">
                             <span>No Image</span> <!-- Pesan fallback -->
@@ -31,8 +31,8 @@
 
     <div class="flex flex-col w-full p-2 sm:w-5/6 md:items-center md:p-3 lg:w-3/5">
         <div class="w-full flex flex-wrap justify-center gap-2 ">
-            @if (file_exists(public_path('img/jurusan/' . $dkv->photo_kaprog)) && $dkv->photo_kaprog)
-            <img src="{{ asset('img/jurusan/' . $dkv->photo_kaprog) }}" class="object-cover w-64 sm:w-64 md:w-52 rounded-t-lg md:rounded-s-lg mt-8" alt="{{ $dkv->photo_kaprog }}">
+            @if (file_exists(public_path('storage/' . $dkv->photo_kaprog)) && $dkv->photo_kaprog)
+            <img src="{{ asset('storage/' . $dkv->photo_kaprog) }}" class="object-cover w-64 sm:w-64 md:w-52 rounded-t-lg md:rounded-s-lg mt-8" alt="{{ $dkv->photo_kaprog }}">
             @else
                 <div class="w-64 sm:w-64 md:w-52 mt-8 bg-gray-200 grid place-content-center h-72">
                     <span>No Image</span> <!-- Pesan fallback -->

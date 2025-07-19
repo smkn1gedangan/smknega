@@ -43,6 +43,9 @@ use App\Models\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class FrontendController extends Controller
 {
@@ -72,146 +75,303 @@ class FrontendController extends Controller
     // }
 
    public function welcome()  {
-        $kepsek = Kepsek::latest()->first();
-        $wakas = Waka::take(10)->get();
+        $kepsek = Cache::remember("kepsek", 60 * 60 * 24 * 7 , function(){
+            return Kepsek::latest()->first();
+        });
+        $wakas = Cache::remember("wakas_take_10", 60 * 60 * 24 * 7 , function(){
+            return Waka::take(10)->get();
+        });
+        $galeris = Cache::remember("galeris_take_2", 60 * 60 * 24 * 7 , function(){
+            return Galeri::latest()->take(2)->get();
+        });
         // $youtubeVideos = $this->getLatestYouTubeVideos();
-        $galeris = Galeri::latest()->take(2)->get();
-        $prestasis = Article::whereHas("kategoris",function($query){
+        $prestasis = Cache::remember("articles_by_prestatis_take_5", 60 * 60 * 24 * 7 , function(){
+            return Article::with(["kategoris"])->whereHas("kategoris",function($query){
             $query->where("nama","prestasi");
         })->take(5)->latest()->get();
-        $articles = Article::whereDoesntHave("kategoris",function($query){
+        });
+        $articles = Cache::remember("articles_by_not_prestatis_take_5", 60 * 60 * 24 * 7 , function(){
+            return Article::with(["kategoris"])->whereDoesntHave("kategoris",function($query){
             $query->where("nama","prestasi");
         })->take(5)->latest()->get();
-        $profil =Profil::first();
+        });
+
+        $profil = Cache::remember("profil",60 * 60* 24 * 7,function(){
+            return Profil::first();
+        });
         return view("frontend.welcome",compact("articles","kepsek","prestasis","wakas","galeris","profil"));
    }
     public function sambutan_kepsek() {
-        $kepsek = Kepsek::first();
+        $kepsek = Cache::remember("kepsek", 60 * 60 * 24 * 7 , function(){
+            return Kepsek::latest()->first();
+        });
         return view("frontend.sambutan_kepsek",compact("kepsek"));
     }
     public function sejarah()  {
-        $sejarah = Sejarah::first();
+        $sejarah = Cache::remember("sejarah",60 * 60 * 24 * 7,function(){
+            return Sejarah::first();
+        });
         return view("frontend.profil.sejarah",compact("sejarah"));
     }
     public function potensi()  {
-        $potensi = Potensi::first();
+        $potensi = Cache::remember("potensi",60 * 60 * 24 * 7 , function(){
+            return Potensi::first();
+        });
 
         return view("frontend.profil.potensi",compact("potensi"));
 
     }
     public function rencana()  {
-        $rencana = Rencana::first();
+        $rencana = Cache::remember("rencana",60 * 60 * 24 * 7 , function(){
+            return Rencana::first();
+        });
         return view("frontend.profil.rencana",compact("rencana"));
 
     }
     public function visi()  {
-        $visiMisi = VisiMisi::first();
+        $visiMisi = Cache::remember("visi",60 * 60 * 24 * 7,function(){
+            return VisiMisi::first();
+        });
         return view("frontend.profil.visi",compact("visiMisi"));
     }
 
     public function logo()  {
-        $logo = Logo::first();
+        $logo = Cache::remember("logos",60 * 60 * 24 * 7,function(){
+            return Logo::first();
+        });
         return view("frontend.profil.logo",compact("logo"));
     }
     public function komite()  {
-        $deskripsiKomite = DeskripsiKomite::first();
-        $ketuaKomite = KetuaKomite::first();
-        $komites = Komite::latest()->paginate(10);
+        $deskripsiKomite = Cache::remember("dKomite",60 * 60 * 24 * 7 , function(){
+            return  DeskripsiKomite::first();
+        });
+        $datas = Cache::remember('komites', 60, function () {
+            return Komite::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $komites = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+        $ketuaKomite = Cache::remember("ketuaKomite",60 * 60 * 24 * 7,function(){
+            return KetuaKomite::first();
+        });
         return view("frontend.profil.komite",compact("komites","deskripsiKomite","ketuaKomite"));
     }
     public function struktur()  {
-        $struktur = StrukturOrganisasi::first();
-        $wakas = Waka::latest()->paginate(10);
+        $struktur = Cache::remember("struktur",60 * 60 * 24 * 7,function(){
+            return StrukturOrganisasi::first();
+        });
+        $datas = Cache::remember('wakas', 60, function () {
+            return Waka::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $wakas = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
         return view("frontend.profil.struktur",compact("struktur","wakas"));
     }
     public function kerja()  {
-        $programKerja = Kerja::first();
+        $programKerja = Cache::remember("kerja",60 * 60 * 24 * 7 , function(){
+            return Kerja::first();
+        });
         return view("frontend.program.kerja",compact("programKerja"));
     }
     public function peraturan()  {
-        $peraturan = Peraturan::first();
+        $peraturan = Cache::remember("peraturan",60 * 60 * 24 * 7 , function(){
+            return Peraturan::first();
+        });
         return view("frontend.program.Peraturan",compact("peraturan"));
     }
     public function bisnis()  {
-        $bisnis = Bisnis::first();
-        $bisnisPhoto = BisnisPhoto::latest()->get();
+        $bisnisPhoto = Cache::remember('bisnisPhotos_getAll', 60 * 60 * 24 * 7, function () {
+            return BisnisPhoto::latest()->get(); // seluruh data guru
+        });
+        $bisnis = Cache::remember("bisnis",60 * 60 * 24 * 7 , function(){
+            return Bisnis::first();
+        });
         return view("frontend.program.Bisnis",compact("bisnis","bisnisPhoto"));
     }
     public function industri()  {
-        $industri = Industri::first();
+        $industri = Cache::remember("industri", 60 * 0 * 24 * 7, function(){
+            return Industri::first();
+        });
         return view("frontend.program.industri",compact("industri"));
     }
     public function bursa()  {
-        $bursa = Bursa::first();
+        $bursa = Cache::remember("bursa", 60 * 60 * 24* 7, function(){
+            return Bursa::first();
+        });
         return view("frontend.program.bursa",compact("bursa"));
     }
     public function sija()  {
-        $sija = Sija::first();
+        $sija = Cache::remember("sija",60 * 60 * 24 * 7 , function(){
+            return Sija::first();
+        });
         return view("frontend.jurusan.sija",compact("sija"));
     }
     public function dkv()  {
-        $dkv = Dkv::first();
+        $dkv = Cache::remember("dkv",60 * 60 * 24 * 7 , function(){
+            return Dkv::first();
+        });
         return view("frontend.jurusan.dkv",compact("dkv"));
     }
     public function animasi()  {
-        $animasi = Animasi::first();
+        $animasi = Cache::remember("animasi",60 * 60 * 24 * 7 , function(){
+            return Animasi::first();
+        });
         return view("frontend.jurusan.animasi",compact("animasi"));
     }
     public function tkr()  {
-        $tkr = Tkr::first();
+        $tkr = Cache::remember("tkr",60 * 60 * 24 * 7 , function(){
+            return Tkr::first();
+        });
         return view("frontend.jurusan.tkr",compact("tkr"));
     }
     public function busana()  {
-        $busana = Busana::first();
+        $busana = Cache::remember("busana",60 * 60 * 24 * 7 , function(){
+            return Busana::first();
+        });
         return view("frontend.jurusan.busana",compact("busana"));
     }
     public function boga()  {
-        $boga = Boga::first();
+        $boga = Cache::remember("boga",60 * 60 * 24 * 7 , function(){
+            return Boga::first();
+        });
         return view("frontend.jurusan.boga",compact("boga"));
     }
     public function akuntansi()  {
-        $akuntansi = Akuntansi::first();
+        $akuntansi = Cache::remember("akuntansi",60 * 60 * 24 * 7 , function(){
+            return Akuntansi::first();
+        });
         return view("frontend.jurusan.akuntansi",compact("akuntansi"));
     }
     public function prestasi()  {
-        $prestasis = Prestasi::latest()->paginate(10);
+         $datas = Cache::remember('prestasis', 60, function () {
+            return Prestasi::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $prestasis = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
         return view("frontend.kesiswaan.prestasi",compact("prestasis"));
     }
     public function ekstrakulikuler()  {
-        $ekstrakulikuler = Ekstrakulikuler::first();
-        $ekstraPhotos = EkstraPhoto::latest()->get();
+        $ekstraPhotos = Cache::remember('ekstraPhotos_get_all', 60 * 60 * 24 * 7, function () {
+            return EkstraPhoto::latest()->get(); // seluruh data guru
+        });
+
+
+        $ekstrakulikuler = Cache::remember("ekstrakulikuler",60 * 60 * 24 * 7, function(){
+            return Ekstrakulikuler::first();
+        });
         return view("frontend.kesiswaan.ekstrakulikuler",compact("ekstrakulikuler","ekstraPhotos"));
     }
     public function osis()  {
-        $osis = Osis::first();
-        $osisPhotos = OsisPhoto::latest()->get();
+        $osisPhotos = Cache::remember('osisPhotos_getAll', 60 * 69 * 24 * 7, function () {
+            return OsisPhoto::latest()->get(); // seluruh data guru
+        });
+
+
+        $osis = Cache::remember("osis",60 * 60 * 24 * 7, function(){
+            return Osis::first();
+        });
         return view("frontend.kesiswaan.osis",compact("osis","osisPhotos"));
     }
     public function beasiswa()  {
-        $beasiswa = Beasiswa::first();
+        $beasiswa = Cache::remember("beasiswa",60 * 60 * 24 * 7 , function(){
+            return Beasiswa::first();
+        });
         return view("frontend.kesiswaan.beasiswa",compact("beasiswa"));
     }
 
     public function guru()  {
-        $gurus = Guru::latest()->paginate(10);
-        $kepsek = Kepsek::latest()->first();
+        $datas = Cache::remember('gurus', 60, function () {
+            return Guru::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $gurus = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+         $kepsek = Cache::remember("kepsek",60 * 60 * 24 * 7 , function(){
+            return Kepsek::first();
+        });
         return view("frontend.informasi.guru",compact("gurus","kepsek"));
     }
     public function artikel()  {
-        $artikels = Article::latest()->paginate(6);
-        $kategoris = Kategori::get();
+        $artikels = Cache::remember("articles_get_6", 60 * 60 * 24 * 7 , function(){
+            return Article::latest()->paginate(6);
+        });
+        $kategoris = Cache::remember("kategoris", 60 * 60 * 24 * 7 * 38 *6, function(){
+            return Kategori::get();
+        });
         return view("frontend.informasi.artikel",compact("artikels","kategoris"));
     }
     public function sarana()  {
-        $sarana = Sarana::first();
+        $sarana = Cache::remember("sarana",60 * 60 * 24 * 7 , function(){
+            return Sarana::first();
+        });
         return view("frontend.informasi.sarana",compact("sarana"));
     }
     public function galeri()  {
-        $galeris = Galeri::latest()->paginate(10);
+        $datas = Cache::remember('galeris', 60 * 60 * 24 * 7, function () {
+            return Galeri::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $galeris = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
         return view("frontend.informasi.galeri",compact("galeris"));
     }
     public function drive()  {
-        $drives = Drive::latest()->paginate(10);
+        $datas = Cache::remember('drives', 60, function () {
+            return Drive::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $drives = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
         return view("frontend.informasi.drive",compact("drives"));
     }
     public function jadwal()  {
@@ -233,10 +393,13 @@ class FrontendController extends Controller
 
     public function save_masukan(Request $request)  {
         $request->validate([
-            "email"=>"email|required|string",
+            "email"=>"required|email",
             "nama"=>"required|string",
             "masukan"=>"required|string|min:5",
             'g-recaptcha-response' => 'required',
+        ],[
+            "masukan.required"=>"Masukan Wajib Diisi",
+            "g-recapthca-response.required"=>"Captcha Wajib Di centang",
         ]);
         Masukan::create([
             "nama"=>$request->nama,
@@ -246,12 +409,20 @@ class FrontendController extends Controller
         $url = "https://api.telegram.org/bot" .config("services.telegram.bot_token") ."/sendMessage";
         $params = [
             'chat_id' => config("services.telegram.chat_id"),
-            'text' => "pesan dari " . $request->email . "\t pada ". Carbon::now() ."\t  ". $request->masukan,
+            'text' => "pesan dari " . e($request->email) . "\t pada ". Carbon::now() ."\t  ". $request->masukan,
         ];
         $client = new Client(['timeout' => 10]);
-        $response = $client->postAsync($url, [
+        try {
+            $response = $client->postAsync($url, [
                 'query' => $params,
             ])->wait();
+
+            $data = json_decode($response->getBody(), true);
+            } catch (\Exception $e) {
+        Log::error("Telegram Error: " . $e->getMessage());
+        return back()->with('error', 'Gagal mengirim pesan ke Telegram.');
+}
+
 
         $data = json_decode($response->getBody(), true);
 

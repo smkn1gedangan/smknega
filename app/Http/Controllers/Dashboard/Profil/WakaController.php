@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\Profil;
 use App\Http\Controllers\Controller;
 use App\Models\Profil\Waka;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 
@@ -15,7 +17,20 @@ class WakaController extends Controller
      */
     public function index()
     {
-       $wakas = Waka::latest()->paginate(10);
+       $datas = Cache::remember('wakas', 60, function () {
+            return Waka::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $wakas = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
        return view("backend.profils.waka.index",compact("wakas"));
     }
 
@@ -40,32 +55,27 @@ class WakaController extends Controller
 
         if ($request->hasFile('photo')) {
 
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
-
-            //backup
-            $publicPath = public_path("img/waka/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "waka/" . $filename;
-
-            // upload to public
-            $file->move(public_path('img/waka'), $filename);
+            $sourcePath = $request->file("photo")->store("waka","public");
+            $backupPath = env("BACKUP_PHOTOS") . $sourcePath;
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('waka.create')->with('error', 'gambar gagal disimpan!');
-            }
-            $data["photo"] = $filename;
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+               return redirect()->back()->with('error', 'gambar gagal disimpan!');
+            };
+            $data["photo"] = $sourcePath;
         }
 
-        Waka::create([
+            Waka::create([
             "photo"=> $data["photo"],
             "nama"=> $request->nama,
             "jabatan"=> $request->jabatan,
 
         ]);
+        Cache::delete("wakas");
+        Cache::delete("wakas_take_10");
         return redirect()->route("waka.index")->with('success', 'data Waka berhasil diupload dan disimpan!');
     }
 
@@ -101,12 +111,11 @@ class WakaController extends Controller
         ]);
         if ($request->hasFile('photo')) {
             if ($waka->photo) {
-                $publicPath = public_path('img/waka/' . $waka->photo); // Lokasi pertama (public)
-                $backupPath = env("BACKUP_PHOTOS") ."waka/" . $waka->photo; // Lokasi kedua (backup)
+                $backupPath = env("BACKUP_PHOTOS") . $waka->photo; // Lokasi kedua (backup)
 
                 // Hapus file di lokasi pertama (public)
-                if (File::exists($publicPath)) {
-                    File::delete($publicPath);
+                if (File::exists(storage_path("app/public/".$waka->photo))) {
+                    File::delete(storage_path("app/public/".$waka->photo));
                 }
 
                 // Hapus file di lokasi kedua (backup)
@@ -114,32 +123,24 @@ class WakaController extends Controller
                     File::delete($backupPath);
                 }
             }
+            $sourcePath = $request->file("photo")->store("waka","public");
+            $backupPath = env("BACKUP_PHOTOS") . $sourcePath;
 
-
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
-
-            //backup
-            $publicPath = public_path("img/waka/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "waka/" . $filename;
-
-            // upload to public
-            $file->move(public_path('img/waka'), $filename);
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('waka.index')->with('error', 'gambar gagal disimpan!');
-            }
-
-            $waka->photo = $filename;
-        }else{
-            $waka->nama = $data['nama'];
-            $waka->jabatan = $data['jabatan'];
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
+            };
+            $waka->photo = $sourcePath;
         }
+        $waka->nama = $data['nama'];
+        $waka->jabatan = $data['jabatan'];
         $waka->save();
+        Cache::delete("wakas");
+        Cache::delete("wakas_take_10");
         return redirect()->route('waka.index')->with('success', 'Data Waka berhasil diperbarui!');
     }
 
@@ -150,22 +151,22 @@ class WakaController extends Controller
     {
         $waka = Waka::findOrFail(Crypt::decrypt($id));
         if ($waka->photo) {
-            $publicPath = public_path('img/waka/' . $waka->photo); // Lokasi pertama (public)
-            $backupPath = env("BACKUP_PHOTOS") ."waka/" . $waka->photo; // Lokasi kedua (backup)
+                $backupPath = env("BACKUP_PHOTOS") . $waka->photo; // Lokasi kedua (backup)
 
-            // Hapus file di lokasi pertama (public)
-            if (File::exists($publicPath)) {
-                File::delete($publicPath);
-            }
+                // Hapus file di lokasi pertama (public)
+                if (File::exists(storage_path("app/public/".$waka->photo))) {
+                    File::delete(storage_path("app/public/".$waka->photo));
+                }
 
-            // Hapus file di lokasi kedua (backup)
-            if (File::exists($backupPath)) {
-                File::delete($backupPath);
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
-        }
 
         $waka->delete();
-
+        Cache::delete("wakas");
+        Cache::delete("wakas_take_10");
         return redirect()->route('waka.index')->with('success', 'Data Waka berhasil dihapus!');
     }
 }

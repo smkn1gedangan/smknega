@@ -11,8 +11,8 @@
                 <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="text-xl font-semibold capitalize tracking-tight text-gray-900 dark:text-white">{{ $article->title }}</p>
                 <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-5 mt-2 md:mt-0 font-normal text-xs text-gray-700 dark:text-gray-400">dibuat pada {{ \Carbon\Carbon::parse($article->created_at)->translatedFormat('l, d F Y') }}
                 </p>
-                    @if (file_exists(public_path('img/articles_images/' . $article->image)) && $article->image)
-                    <img src="{{ asset('img/articles_images/' . $article->image) }}" class="object-cover w-full md:w-5/6 rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
+                    @if (file_exists(public_path('storage/' . $article->image)) && $article->image)
+                    <img src="{{ asset('storage/' . $article->image) }}" class="object-cover w-full md:w-5/6 rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $article->title }}">
                 @else
                     <div class="w-full md:w-5/6 text-xs grid place-content-center text-slate-800 bg-gray-200 h-64">
                         <span>No Image</span> <!-- Pesan fallback -->

@@ -14,8 +14,8 @@
     <div class="md:max-w-[95%] grid grid-cols-1 md:grid-cols-3 p-1 gap-4">
        @foreach ($galeris as $galeri)
         <div class="border border-gray-100">
-            @if (file_exists(public_path('img/galeri/' . $galeri->photo)) && $galeri->photo)
-                <img class="h-auto max-w-full rounded-lg" src="{{ asset("img/galeri/" . $galeri->photo) }}" alt="">
+            @if (file_exists(public_path('storage/' . $galeri->photo)) && $galeri->photo)
+                <img class="h-auto max-w-full rounded-lg" src="{{ asset("storage/" . $galeri->photo) }}" alt="">
             @else
                 <div class="w-96 text-xs md:text-sm grid place-content-center text-slate-800 bg-gray-200 h-64">
                     <span>No Image</span> <!-- Pesan fallback -->

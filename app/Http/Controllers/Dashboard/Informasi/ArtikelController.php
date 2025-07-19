@@ -10,6 +10,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 
@@ -20,11 +21,11 @@ class ArtikelController extends Controller
      */
     public function index(Request $request)
     {
-        $judul = $request->input("title");
+        
         $kategoris = $request->input("kategori_id",[1,2,3,4,5,6]);
-        $articles = Article::query()
-            ->when($judul, function ($query, $judul) {
-                $query->where('title', 'like', '%' . $judul . '%');
+        $articles = Article::query()->with(["kategoris"])
+            ->when($request->input("judul"), function ($query) use($request) {
+                $query->where('title', 'like', '%' . $request->input("judul") . '%');
             })
             ->when(count($kategoris) >= 1, function ($query) use ($kategoris) {
                 $query->whereHas("kategoris", function ($query) use ($kategoris) {
@@ -35,7 +36,8 @@ class ArtikelController extends Controller
             ->paginate(10);
 
         $kategoris = Kategori::get();
-        return view("backend.informasis.artikel.index",compact("articles","kategoris"));
+        $judul = $request->input("title");
+        return view("backend.informasis.artikel.index",compact("articles","judul","kategoris"));
     }
     /**
      * Show the form for creating a new resource.
@@ -55,7 +57,6 @@ class ArtikelController extends Controller
         $data = $request->validate([
             'image' => 'required|file|mimes:jpg,png,jpeg|max:5096',
             "title"=> "min:6|max:100|required",
-            "writer_id"=> "required",
             'text_content' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -72,28 +73,24 @@ class ArtikelController extends Controller
 
         $currentDateTime = Carbon::now()->format('Y-m-d-H-i-s');
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-
-            $filename = time() . '_' . $file->getClientOriginalName();
-
-            $publicPath = public_path("img/articles_images/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "articles_images/" . $filename;
+            $sourcePath = $request->file("image")->store("articles_images","public");
+            $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
 
             // upload to public
-            $file->move(public_path('img/articles_images'), $filename);
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('artikel.create')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/". $sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
             };
 
-            $data["image"] = $filename;
+            $data["image"] = $sourcePath;
         }
 
         $article = Article::create([
+            "write_id"=> Auth::user()->id,
             "image"=> $data["image"],
             "title"=> $request->title,
             "text_content"=> $purifier->purify($request->text_content),
@@ -102,7 +99,10 @@ class ArtikelController extends Controller
 
         ]);
         $article->kategoris()->sync($data["kategori_id"]);
-        return redirect()->route("artikel.index")->with('success', 'Article berhasil diupload dan disimpan!');
+        Cache::delete("articles_by_prestasis_take_5");
+        Cache::delete("articles_by_not_prestatis_take_5");
+        Cache::delete("articles_get_6");
+        return redirect()->route("artikel.index")->with('success', 'Artikel berhasil diupload dan disimpan!');
     }
 
     /**
@@ -110,7 +110,7 @@ class ArtikelController extends Controller
      */
     public function show(string $id)
     {
-        $article = Article::findOrFail(Crypt::decrypt($id));
+        $article = Article::with("kategoris")->findOrFail(Crypt::decrypt($id));
         return view("backend.informasis.artikel.show",compact("article"));
     }
 
@@ -129,12 +129,11 @@ class ArtikelController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $article = Article::findOrFail(Crypt::decrypt($id));
+        $article = Article::with("kategoris")->findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
            'image' => 'file|mimes:jpg,png,jpeg|max:5096',
             "title"=> "min:6|max:100|required",
-            "writer_id"=> "required",
             'text_content' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -148,46 +147,44 @@ class ArtikelController extends Controller
             ],
             "kategori_id" => "required|array"
         ]);
+        
         if ($request->hasFile('image')) {
             if ($article->image) {
-                $publicPath = public_path('img/articles_images/' . $article->image); // Lokasi pertama (public)
-                $backupPath = env("BACKUP_PHOTOS") ."articles_images/" . $article->image; // Lokasi kedua (backup)
+                $backupPath = env("BACKUP_PHOTOS") . $article->image; // Lokasi kedua (backup)
 
                 // Hapus file di lokasi pertama (public)
-                if (File::exists($publicPath)) {
-                    File::delete($publicPath);
+                if (File::exists(storage_path("app/public/". $article->image))) {
+                    File::delete(storage_path("app/public/". $article->image));
                 }
-
                 // Hapus file di lokasi kedua (backup)
                 if (File::exists($backupPath)) {
                     File::delete($backupPath);
                 }
             }
 
-            $file = $request->file('image');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $publicPath = public_path("img/articles_images/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "articles_images/" . $filename;
+             $sourcePath = $request->file("image")->store("articles_images","public");
+                $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
 
-            // upload to public
-            $file->move(public_path('img/articles_images'), $filename);
+                // upload to public
 
-            if (!file_exists(dirname($backupPath))) {
-                mkdir(dirname($backupPath), 0777, true);
-            }
-            // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('artikel.index')->with('error', 'gambar gagal disimpan!');
-            };
+                if (!file_exists(dirname($backupPath))) {
+                    mkdir(dirname($backupPath), 0777, true);
+                }
+                // Simpan juga ke folder backup
+                if(!copy(storage_path("app/public/". $sourcePath), $backupPath)){
+                    return redirect()->back()->with('error', 'gambar gagal disimpan!');
+                };
 
-            $article->image = $filename;
-        }else{
-            $article->title = $data['title'];
-            $article->writer_id = Auth::user()->id;
-            $article->text_content = $purifier->purify($data["text_content"]);
+            $article->image = $sourcePath;
         }
+        $article->title = $data['title'];
+        $article->writer_id = Auth::user()->id;
+        $article->text_content = $purifier->purify($data["text_content"]);
         $article->save();
         $article->kategoris()->sync($data["kategori_id"]);
+        Cache::delete("articles_by_prestasis_take_5");
+        Cache::delete("articles_by_not_prestatis_take_5");
+        Cache::delete("articles_get_6");
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil diperbarui!');
 }
 
@@ -197,22 +194,22 @@ class ArtikelController extends Controller
     public function destroy(string $id)
     {
         $article = Article::findOrFail(Crypt::decrypt($id));
-        if ($article->photo) {
-            $publicPath = public_path('img/articles_images/' . $article->photo); // Lokasi pertama (public)
-            $backupPath = env("BACKUP_PHOTOS") ."articles_images/" . $article->photo; // Lokasi kedua (backup)
+        if ($article->image) {
+                $backupPath = env("BACKUP_PHOTOS") . $article->image; // Lokasi kedua (backup)
 
-            // Hapus file di lokasi pertama (public)
-            if (File::exists($publicPath)) {
-                File::delete($publicPath);
+                // Hapus file di lokasi pertama (public)
+                if (File::exists(storage_path("app/public/". $article->image))) {
+                    File::delete(storage_path("app/public/". $article->image));
+                }
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
-
-            // Hapus file di lokasi kedua (backup)
-            if (File::exists($backupPath)) {
-                File::delete($backupPath);
-            }
-        }
         $article->delete();
-
+        Cache::delete("articles_by_prestasis_take_5");
+        Cache::delete("articles_by_not_prestatis_take_5");
+        Cache::delete("articles_get_6");
         return redirect()->route('artikel.index')->with('success', 'Data Artikel berhasil dihapus!');
     }
 }

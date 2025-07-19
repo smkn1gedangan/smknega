@@ -8,7 +8,9 @@ use App\Models\Program\BisnisPhoto;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class BisnisController extends Controller
@@ -18,8 +20,23 @@ class BisnisController extends Controller
      */
     public function index()
     {
-        $bisnisPhotos= BisnisPhoto::latest()->paginate(10);
-        $bisnis = Bisnis::first();
+        $datas = Cache::remember('bisnisPhotos', 60 * 60 * 24 * 7, function () {
+            return BisnisPhoto::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $bisnisPhotos = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+        $bisnis = Cache::remember("bisnis",60 * 60 * 24 * 7 , function(){
+            return Bisnis::first();
+        });
         return view("backend.programs.bisnis.index",compact("bisnis","bisnisPhotos"));
     }
 
@@ -64,7 +81,6 @@ class BisnisController extends Controller
         $bisnis = Bisnis::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            "penulis_id"=> "required",
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -80,6 +96,7 @@ class BisnisController extends Controller
         $bisnis->penulis_id = Auth::user()->id;
         $bisnis->konten = $purifier->purify($request->konten);;
         $bisnis->save();
+        Cache::delete("bisnis");
         return redirect()->route('bisnis.index')->with('success', 'data Program bisnis Sekolah berhasil diperbarui!');
 
     }

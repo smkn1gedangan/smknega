@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class BursaController extends Controller
@@ -17,7 +18,9 @@ class BursaController extends Controller
      */
     public function index()
     {
-        $bursa = Bursa::first();
+        $bursa = Cache::remember("bursa", 60 * 60 * 24* 7, function(){
+            return Bursa::first();
+        });
         return view("backend.programs.bursa.index",compact("bursa"));
     }
 
@@ -62,7 +65,6 @@ class BursaController extends Controller
         $bursa = Bursa::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            "penulis_id"=> "required",
            'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -78,6 +80,7 @@ class BursaController extends Controller
         $bursa->penulis_id = Auth::user()->id;
         $bursa->konten = $purifier->purify($request->konten);
         $bursa->save();
+        Cache::delete("bursa");
         return redirect()->route('bursa.index')->with('success', 'data Bursa Kerja berhasil diperbarui!');
 
     }

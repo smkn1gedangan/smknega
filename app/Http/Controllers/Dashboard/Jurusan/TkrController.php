@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 
@@ -18,7 +19,9 @@ class TkrController extends Controller
      */
     public function index()
     {
-        $tkr = Tkr::first();
+        $tkr = Cache::remember("tkr",60 * 60 * 24 * 7 , function(){
+            return Tkr::first();
+        });
         return view("backend.jurusan.tkr.index",compact("tkr"));
     }
 
@@ -79,7 +82,6 @@ class TkrController extends Controller
             "judul"=> "min:3|max:100|required",
             "nama_kaprog"=> "min:3|max:100|required",
             "ket_kaprog"=> "min:3|max:100|required",
-            "penulis_id"=> "required"
         ]);
         $deleteFile = function($filePath){
             if (File::exists($filePath)) {
@@ -87,46 +89,39 @@ class TkrController extends Controller
             }
         };
         if ($request->hasFile('photo')) {
-            $deleteFile("img/jurusan/" . $tkr->photo);
-            $deleteFile(env("BACKUP_PHOTOS") ."jurusan/" . $tkr->photo); // Lokasi kedua (backup)
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $deleteFile(storage_path("app/public/". $tkr->photo));
+            $deleteFile(env("BACKUP_PHOTOS") . $tkr->photo); // Lokasi kedua (backup)
 
-            $publicPath = public_path("img/jurusan/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "jurusan/" . $filename;
+            $sourcePath = $request->file("photo")->store("jurusan","public");
+            $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
 
-            // upload to public
-            $file->move(public_path('img/jurusan'), $filename);
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('tkr.index')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
             };
-            $tkr->photo = $filename;
+            $tkr->photo = $sourcePath;
         }
         if ($request->hasFile('photo_kaprog')) {
-            $deleteFile("img/jurusan/" . $tkr->photo_kaprog);
-            $deleteFile(env("BACKUP_PHOTOS") ."jurusan/" . $tkr->photo_kaprog); // Lokasi kedua (backup)
-            $file = $request->file('photo_kaprog');
-            $filenameKaprog = time() . '_' . $file->getClientOriginalName();
-            $publicPath = public_path("img/jurusan/" . $filenameKaprog);
-            $backupPath = env("BACKUP_PHOTOS") . "jurusan/" . $filenameKaprog;
+            $deleteFile(storage_path("app/public/". $tkr->photo_kaprog));
+            $deleteFile(env("BACKUP_PHOTOS") . $tkr->photo_kaprog); // Lokasi kedua (backup)
 
-            // upload to public
-            $file->move(public_path('img/jurusan'), $filenameKaprog);
+            $sourcePath = $request->file("photo_kaprog")->store("jurusan","public");
+            $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
+            
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('tkr.index')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
             };
 
-            $tkr->photo_kaprog = $filenameKaprog;
+            $tkr->photo_kaprog = $sourcePath;
 
         }
         $tkr->konten =$purifier->purify($request->konten);
@@ -135,7 +130,8 @@ class TkrController extends Controller
         $tkr->nama_kaprog = $data['nama_kaprog'];
         $tkr->ket_kaprog = $data['ket_kaprog'];
         $tkr->save();
-    return redirect()->route('tkr.index')->with('success', 'data Jurusna Tkr berhasil diperbarui!');
+        Cache::delete("tkr");
+        return redirect()->route('tkr.index')->with('success', 'data Jurusna Tkr berhasil diperbarui!');
     }
 
     /**

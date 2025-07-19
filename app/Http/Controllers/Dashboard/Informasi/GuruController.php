@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Guru;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 class GuruController extends Controller
@@ -16,7 +18,20 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $gurus = Guru::latest()->paginate(10);
+        $datas = Cache::remember('gurus', 60, function () {
+            return Guru::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $gurus = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
         return view("backend.informasis.guru.index",compact("gurus"));
     }
 
@@ -40,24 +55,19 @@ class GuruController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            $file = $request->file('photo');
 
-            $filename = time() . '_' . $file->getClientOriginalName();
 
-            $publicPath = public_path("img/guru/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "guru/" . $filename;
-
-            // upload to public
-            $file->move(public_path('img/guru'), $filename);
+            $sourcePath = $request->file("photo")->store("guru","public");
+            $backupPath = env("BACKUP_PHOTOS") . $sourcePath;
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('guru.create')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+               return redirect()->back()->with('error', 'gambar gagal disimpan!');
             };
-            $data["photo"] = $filename;
+            $data["photo"] = $sourcePath;
         }
 
         Guru::create([
@@ -66,7 +76,8 @@ class GuruController extends Controller
             "tugas"=> $request->tugas,
 
         ]);
-        return redirect()->route("guru.index")->with('success', 'Data guru berhasil diupload dan disimpan!');
+        Cache::delete("gurus");
+        return redirect()->route("guru.create")->with('success', 'Data guru berhasil diupload dan disimpan!');
     }
 
     /**
@@ -101,12 +112,11 @@ class GuruController extends Controller
         ]);
         if ($request->hasFile('photo')) {
             if ($guru->photo) {
-                $publicPath = public_path('img/guru/' . $guru->photo); // Lokasi pertama (public)
-                $backupPath = env("BACKUP_PHOTOS") ."guru/" . $guru->photo; // Lokasi kedua (backup)
+                $backupPath = env("BACKUP_PHOTOS") . $guru->photo; // Lokasi kedua (backup)
 
                 // Hapus file di lokasi pertama (public)
-                if (File::exists($publicPath)) {
-                    File::delete($publicPath);
+                if (File::exists(storage_path("app/public/".$guru->photo))) {
+                    File::delete(storage_path("app/public/".$guru->photo));
                 }
 
                 // Hapus file di lokasi kedua (backup)
@@ -115,31 +125,24 @@ class GuruController extends Controller
                 }
             }
 
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
 
-            $publicPath = public_path("img/guru/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "guru/" . $filename;
+            $sourcePath = $request->file("photo")->store("guru","public");
+            $backupPath = env("BACKUP_PHOTOS") . $sourcePath;
 
-            // upload to public
-            $file->move(public_path('img/guru'), $filename);
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('guru.index')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
             };
-            $guru->photo = $filename;
-
-
-        }else{
-            $guru->nama = $data['nama'];
-            $guru->tugas = $data['tugas'];
+            $guru->photo = $sourcePath;
         }
+        $guru->nama = $data['nama'];
+        $guru->tugas = $data['tugas'];
         $guru->save();
-
+        Cache::delete("gurus");
         return redirect()->route('guru.index')->with('success', 'Data Guru berhasil diperbarui!');
     }
     /**
@@ -148,22 +151,21 @@ class GuruController extends Controller
     public function destroy(string $id)
     {
         $guru = Guru::findOrFail(Crypt::decrypt($id));
-        if ($guru->photo) {
-            $publicPath = public_path('img/guru/' . $guru->photo); // Lokasi pertama (public)
-            $backupPath = env("BACKUP_PHOTOS") ."guru/" . $guru->photo; // Lokasi kedua (backup)
+         if ($guru->photo) {
+                $backupPath = env("BACKUP_PHOTOS") . $guru->photo; // Lokasi kedua (backup)
 
-            // Hapus file di lokasi pertama (public)
-            if (File::exists($publicPath)) {
-                File::delete($publicPath);
-            }
+                // Hapus file di lokasi pertama (public)
+                if (File::exists(storage_path("app/public/".$guru->photo))) {
+                    File::delete(storage_path("app/public/".$guru->photo));
+                }
 
-            // Hapus file di lokasi kedua (backup)
-            if (File::exists($backupPath)) {
-                File::delete($backupPath);
+                // Hapus file di lokasi kedua (backup)
+                if (File::exists($backupPath)) {
+                    File::delete($backupPath);
+                }
             }
-        }
         $guru->delete();
-
+        Cache::delete("gurus");
         return redirect()->route('guru.index')->with('success', 'Data Guru berhasil dihapus!');
 
     }

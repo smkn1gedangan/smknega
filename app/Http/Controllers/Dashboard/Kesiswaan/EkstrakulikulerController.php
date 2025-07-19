@@ -8,7 +8,9 @@ use App\Models\Kesiswaan\EkstraPhoto;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class EkstrakulikulerController extends Controller
@@ -18,8 +20,25 @@ class EkstrakulikulerController extends Controller
      */
     public function index()
     {
-        $ekstrakulikuler = Ekstrakulikuler::first();
-        $ekstraPhotos = EkstraPhoto::latest()->paginate(10);
+        $datas = Cache::remember('ekstraPhotos', 60 * 60 * 24 * 7, function () {
+            return EkstraPhoto::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $ekstraPhotos = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+
+        $ekstrakulikuler = Cache::remember("ekstrakulikuler",60 * 60 * 24 * 7, function(){
+            return Ekstrakulikuler::first();
+        });
         return view("backend.kesiswaans.ekstrakulikuler.index",compact("ekstrakulikuler","ekstraPhotos"));
     }
 
@@ -64,7 +83,6 @@ class EkstrakulikulerController extends Controller
         $ekstrakulikuler = Ekstrakulikuler::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            "penulis_id"=> "required",
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -80,6 +98,7 @@ class EkstrakulikulerController extends Controller
         $ekstrakulikuler->penulis_id = Auth::user()->id;
         $ekstrakulikuler->konten = $purifier->purify($request->konten);
         $ekstrakulikuler->save();
+        Cache::delete("ekstrakulikuler");
         return redirect()->route('ekstrakulikuler.index')->with('success', 'data Ekstrakulikuler Sekolah berhasil diperbarui!');
 
     }

@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +22,9 @@ class SejarahController extends Controller
      */
     public function index()
     {
-        $sejarah = Sejarah::first();
+        $sejarah = Cache::remember("sejarah",60 * 60 * 24 * 7,function(){
+            return Sejarah::first();
+        });
         return view("backend.profils.sejarah.index",compact("sejarah"));
     }
 
@@ -53,8 +56,11 @@ class SejarahController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
+    
     {
-        $sejarah = Sejarah::findOrFail(Crypt::decrypt($id));
+         $sejarah = Cache::remember("sejarah",60 * 60 * 24 * 7,function()use($id){
+            return  Sejarah::findOrFail(Crypt::decrypt($id));
+        });
         return view("backend.profils.sejarah.edit",compact("sejarah"));
     }
 
@@ -78,17 +84,14 @@ class SejarahController extends Controller
                     }
                 },
             ],
-            "penulis_id"=> "required",
-
         ]);
         if ($request->hasFile('photo')) {
             if ($sejarah->photo) {
-                $publicPath = public_path('img/profil/' . $sejarah->photo); // Lokasi pertama (public)
-                $backupPath = env("BACKUP_PHOTOS") ."profil/" . $sejarah->photo; // Lokasi kedua (backup)
+                $backupPath = env("BACKUP_PHOTOS") . $sejarah->photo; // Lokasi kedua (backup)
 
                 // Hapus file di lokasi pertama (public)
-                if (File::exists($publicPath)) {
-                    File::delete($publicPath);
+                if (File::exists(storage_path("app/public/".$sejarah->photo))) {
+                    File::delete(storage_path("app/public/".$sejarah->photo));
                 }
 
                 // Hapus file di lokasi kedua (backup)
@@ -97,33 +100,27 @@ class SejarahController extends Controller
                 }
             }
 
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
-
-            $primaryPath = public_path("img/profil/". $filename);
-            $secondPath = env("BACKUP_PHOTOS") . "profil/" . $filename;
+            $sourcePath = $request->file("photo")->store("profil","public");
+            $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
 
             // Simpan ke folder public
-            $file->move(public_path('img/profil'), $filename);
 
-            if (!file_exists(dirname($secondPath))) {
-                mkdir(dirname($secondPath), 0777, true);
+            if (!file_exists(dirname($backupPath))) {
+                mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($primaryPath, $secondPath)){
-                return redirect()->route('sejarah.index')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
             }
-            $sejarah->photo = $filename;
-            $sejarah->penulis_id = Auth::user()->id;
-            $sejarah->konten = $purifier->purify($request->konten);
-        }else{
-            $sejarah->penulis_id = Auth::user()->id;
-            $sejarah->konten = $purifier->purify($request->konten);
+            $sejarah->photo = $sourcePath;
         }
+
+        $sejarah->penulis_id = Auth::user()->id;
+        $sejarah->konten = $purifier->purify($request->konten);
         // simpan
         $sejarah->save();
 
-
+        Cache::delete("sejarah");
         return redirect()->route('sejarah.index')->with('success', 'data sejarah berhasil diperbarui!');
 }
 

@@ -8,18 +8,23 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 
 class ProfilController extends Controller
 {
     public function index()  {
-        $profil = Profil::first();
+        $profil = Cache::remember("profil",60 * 60* 24 * 7,function(){
+            return Profil::first();
+        });
         return view("backend.welcomes.profil.index",compact("profil"));
     }
     public function edit(string $id)
     {
-        $profil = Profil::findOrFail(Crypt::decrypt($id));
+        $profil = Cache::remember("profil",60 * 60* 24 * 7,function() use($id){
+            return Profil::findOrFail(Crypt::decrypt($id));;
+        });
         if($profil){
             return view("backend.welcomes.profil.edit",compact("profil"));
         }
@@ -45,12 +50,11 @@ class ProfilController extends Controller
         ]);
         if ($request->hasFile('photo')) {
             if ($profil->photo) {
-                $publicPath = public_path('img/welcome/' . $profil->photo); // Lokasi pertama (public)
                 $backupPath = env("BACKUP_PHOTOS") ."welcome/" . $profil->photo; // Lokasi kedua (backup)
 
                 // Hapus file di lokasi pertama (public)
-                if (File::exists($publicPath)) {
-                    File::delete($publicPath);
+                if (File::exists(storage_path("app/public/". $profil->photo))) {
+                    File::delete(storage_path("app/public/". $profil->photo));
                 }
 
                 // Hapus file di lokasi kedua (backup)
@@ -59,32 +63,26 @@ class ProfilController extends Controller
                 }
             }
 
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
-
-            $publicPath = public_path("img/welcome/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "welcome/" . $filename;
+            $sourcePath = $request->file("photo")->store("welcome","public");
+            $backupPath = env("BACKUP_PHOTOS") . "welcome/" . $sourcePath;
 
             // upload to public
-            $file->move(public_path('img/welcome'), $filename);
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
                 return redirect()->route('profil.index')->with('error', 'gambar gagal disimpan!');
             };
 
 
-            $profil->konten = $purifier->purify($request->konten);
-            $profil->photo = $filename;
-        }else{
-            $profil->konten = $purifier->purify($request->konten);
+            $profil->photo = $sourcePath;
         }
+        $profil->konten = $purifier->purify($request->konten);
 
-    $profil->save();
-
+        $profil->save();
+        Cache::delete("profil");
     return redirect()->route('profil.index')->with('success', 'Profil berhasil diperbarui!');
 }
 }

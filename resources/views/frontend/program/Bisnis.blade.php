@@ -11,10 +11,10 @@
             <div class="swiper mySwiper w-full flex justify-center">
                 <div class="swiper-wrapper">
                     @foreach ($bisnisPhoto as $bp)
-                        @if (file_exists(public_path('img/bisnis/' . $bp->photo)) && $bp->photo)
+                        @if (file_exists(public_path('storage/' . $bp->photo)) && $bp->photo)
                         <div class="swiper-slide ">
 
-                            <img class="relative left-1/2 -translate-x-1/2 w-11/12 sm:w-5/6 sm:h-64 rounded-md object-cover my-5" src="{{ asset('img/bisnis/' . $bp->photo) }}" alt="">
+                            <img class="relative left-1/2 -translate-x-1/2 w-11/12 sm:w-5/6 sm:h-64 rounded-md object-cover my-5" src="{{ asset('storage/' . $bp->photo) }}" alt="">
                         </div>
                         @else
                             <div class="bg-gray-100 w-11/12 sm:w-5/6 h-64 my-5">

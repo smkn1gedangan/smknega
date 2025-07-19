@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\Kesiswaan;
 use App\Http\Controllers\Controller;
 use App\Models\Kesiswaan\Prestasi;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class PrestasiController extends Controller
@@ -14,7 +16,20 @@ class PrestasiController extends Controller
      */
     public function index()
     {
-        $prestasis = Prestasi::latest()->paginate(10);
+        $datas = Cache::remember('prestasis', 60, function () {
+            return Prestasi::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $prestasis = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
         return view("backend.kesiswaans.prestasi.index",compact("prestasis"));
     }
 
@@ -37,9 +52,6 @@ class PrestasiController extends Controller
             "tingkat"=> "required|max:100",
             "penyelenggara"=> "required|max:100",
         ]);
-
-
-
         Prestasi::create([
             "nama"=> $request->nama,
             "juara"=> $request->juara,
@@ -47,6 +59,7 @@ class PrestasiController extends Controller
             "penyelenggara"=> $request->penyelenggara,
 
         ]);
+        Cache::delete("prestasis");
         return redirect()->route("prestasi.index")->with('success', 'Data Prestasi diupload dan disimpan!');
 
     }
@@ -77,7 +90,7 @@ class PrestasiController extends Controller
     {
         $prestasi = Prestasi::findOrFail(Crypt::decrypt($id));
         $data = $request->validate([
-           "nama"=> "max:100|required",
+            "nama"=> "max:100|required",
             "juara"=> "min:1|required|max:100",
             "tingkat"=> "required|max:100",
             "penyelenggara"=> "required|max:100",
@@ -87,7 +100,7 @@ class PrestasiController extends Controller
         $prestasi->tingkat = $data['tingkat'];
         $prestasi->penyelenggara = $data['penyelenggara'];
         $prestasi->save();
-
+        Cache::delete("prestasis");
         return redirect()->route('prestasi.index')->with('success', 'Data Prestasi berhasil diperbarui!');
 
     }

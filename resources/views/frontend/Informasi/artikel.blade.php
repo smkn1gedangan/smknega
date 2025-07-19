@@ -22,8 +22,8 @@ $artikels = \App\Models\Article::query()
                 <a data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" href="{{route("readArticle",$artikel->slug)}}" class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white hover:text-slate-600">{{ $artikel->title }}</a>
                 <p data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-xs md:text-sm ">dibuat pada {{ \Carbon\Carbon::parse($artikel->created_at)->translatedFormat('l, d F Y') }}
                 </p>
-                    @if (file_exists(public_path('img/articles_images/' . $artikel->image)) && $artikel->image)
-                    <img data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" src="{{ asset('img/articles_images/' . $artikel->image) }}" class="object-cover w-full rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $artikel->title }}">
+                    @if (file_exists(public_path('storage/' . $artikel->image)) && $artikel->image)
+                    <img data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" src="{{ asset('storage/' . $artikel->image) }}" class="object-cover w-full rounded-t-lg h-auto md:rounded-none md:rounded-s-lg" alt="{{ $artikel->title }}">
                 @else
                     <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" class="w-full text-xs md:text-sm grid place-content-center text-slate-800 bg-gray-200 h-60">
                         <span>No Image</span> <!-- Pesan fallback -->

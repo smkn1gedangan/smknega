@@ -44,10 +44,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource("captcha",CaptchaController::class);
-Route::controller(FrontendController::class)->middleware(["monitorPage"])->group(function(){
+Route::controller(FrontendController::class)->group(function(){
     Route::get("/","welcome")->name("welcome");
     Route::get("sambutan_kepsek","sambutan_kepsek")->name("sambutan_kepsek");
-    Route::post("save_masukan","save_masukan")->name("save_masukan");
+    Route::post("save_masukan","save_masukan")->middleware(["throttle:1,10"])->name("save_masukan");
     Route::prefix("profil")->group(function(){
         route::get("sejarah","sejarah")->name("sejarah");
         route::get("potensi","potensi")->name("potensi");

@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 
@@ -18,7 +19,9 @@ class AkuntansiController extends Controller
      */
     public function index()
     {
-        $akuntansi = Akuntansi::first();
+        $akuntansi = Cache::remember("akuntansi",60 * 60 * 24 * 7 , function(){
+            return Akuntansi::first();
+        });
         return view("backend.jurusan.akuntansi.index",compact("akuntansi"));
     }
 
@@ -79,7 +82,6 @@ class AkuntansiController extends Controller
             "judul"=> "min:3|max:100|required",
             "nama_kaprog"=> "min:3|max:100|required",
             "ket_kaprog"=> "min:3|max:100|required",
-            "penulis_id"=> "required"
         ]);
         $deleteFile = function($filePath){
             if (File::exists($filePath)) {
@@ -89,52 +91,40 @@ class AkuntansiController extends Controller
 
         // jurusan
         if ($request->hasFile('photo')) {
-            $deleteFile("img/jurusan/" . $akuntansi->photo);
-            $deleteFile(env("BACKUP_PHOTOS") ."jurusan/" . $akuntansi->photo); // Lokasi kedua (backup)
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $deleteFile(storage_path("app/public/". $akuntansi->photo));
+            $deleteFile(env("BACKUP_PHOTOS") . $akuntansi->photo); // Lokasi kedua (backup)
 
-            $publicPath = public_path("img/jurusan/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "jurusan/" . $filename;
+            $sourcePath = $request->file("photo")->store("jurusan","public");
+            $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
 
-            // upload to public
-            $file->move(public_path('img/jurusan'), $filename);
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('akuntansi.index')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
             };
-
-
-            $akuntansi->photo = $filename;
+            $akuntansi->photo = $sourcePath;
         }
-
-
         // kaprog
         if ($request->hasFile('photo_kaprog')) {
-            $deleteFile("img/jurusan/" . $akuntansi->photo_kaprog);
-            $deleteFile(env("BACKUP_PHOTOS") ."jurusan/" . $akuntansi->photo_kaprog); // Lokasi kedua (backup)
-            $file = $request->file('photo_kaprog');
-            $filenameKaprog = time() . '_' . $file->getClientOriginalName();
-            $publicPath = public_path("img/jurusan/" . $filenameKaprog);
-            $backupPath = env("BACKUP_PHOTOS") . "jurusan/" . $filenameKaprog;
+            $deleteFile(storage_path("app/public/". $akuntansi->photo_kaprog));
+            $deleteFile(env("BACKUP_PHOTOS") . $akuntansi->photo_kaprog); // Lokasi kedua (backup)
 
-            // upload to public
-            $file->move(public_path('img/jurusan'), $filenameKaprog);
+            $sourcePath = $request->file("photo_kaprog")->store("jurusan","public");
+            $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
+            
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('akuntansi.index')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
             };
 
-
-            $akuntansi->photo_kaprog = $filenameKaprog;
+            $akuntansi->photo_kaprog = $sourcePath;
 
         }
         $akuntansi->konten =$purifier->purify($request->konten);
@@ -143,6 +133,7 @@ class AkuntansiController extends Controller
         $akuntansi->nama_kaprog = $data['nama_kaprog'];
         $akuntansi->ket_kaprog = $data['ket_kaprog'];
         $akuntansi->save();
+        Cache::delete("akuntansi");
         return redirect()->route('akuntansi.index')->with('success', 'data Jurusan Akuntansi berhasil diperbarui!');
     }
 

@@ -28,8 +28,8 @@
                 <div class="swiper-wrapper">
                     @foreach ($osisPhotos as $op)
                         <div class="w-full swiper-slide">
-                            @if (file_exists(public_path('img/osis/' . $op->photo)) && $op->photo)
-                            <img class="relative left-1/2 -translate-x-1/2 w-11/12 sm:w-5/6 sm:h-64 md:h-auto rounded-md md:w-1/2 object-cover" src="{{ asset('img/osis/' . $op->photo) }}" alt="">
+                            @if (file_exists(public_path('storage/' . $op->photo)) && $op->photo)
+                            <img class="relative left-1/2 -translate-x-1/2 w-11/12 sm:w-5/6 sm:h-64 md:h-auto rounded-md md:w-1/2 object-cover" src="{{ asset('storage/' . $op->photo) }}" alt="">
                         @else
                             <div class="bg-gray-100 w-11/12 relative left-1/2 -translate-x-1/2 sm:w-5/6 md:w-1/2 h-64 my-5">
                             </div>

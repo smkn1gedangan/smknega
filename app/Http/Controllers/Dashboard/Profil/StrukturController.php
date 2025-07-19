@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 
@@ -18,7 +19,9 @@ class StrukturController extends Controller
      */
     public function index()
     {
-        $struktur = StrukturOrganisasi::first();
+        $struktur = Cache::remember("struktur",60 * 60 * 24 * 7,function(){
+            return StrukturOrganisasi::first();
+        });
         return view("backend.profils.struktur.index",compact("struktur"));
     }
 
@@ -51,7 +54,10 @@ class StrukturController extends Controller
      */
     public function edit(string $id)
     {
-        $struktur = StrukturOrganisasi::findOrFail(Crypt::decrypt($id));
+        $struktur = Cache::remember("struktur",60 * 60 * 24 * 7,function()use($id){
+            return  StrukturOrganisasi::findOrFail(Crypt::decrypt($id));
+
+        });
         return view("backend.profils.struktur.edit",compact("struktur"));
     }
 
@@ -75,16 +81,14 @@ class StrukturController extends Controller
                     }
                 },
             ],
-            "penulis_id"=> "required"
         ]);
         if ($request->hasFile('photo')) {
             if ($struktur->photo) {
-                $publicPath = public_path('img/profil/' . $struktur->photo); // Lokasi pertama (public)
-                $backupPath = env("BACKUP_PHOTOS") ."profil/" . $struktur->photo; // Lokasi kedua (backup)
+                $backupPath = env("BACKUP_PHOTOS") . $struktur->photo; // Lokasi kedua (backup)
 
                 // Hapus file di lokasi pertama (public)
-                if (File::exists($publicPath)) {
-                    File::delete($publicPath);
+                if (File::exists(storage_path("app/public/".$struktur->photo))) {
+                    File::delete(storage_path("app/public/".$struktur->photo));
                 }
 
                 // Hapus file di lokasi kedua (backup)
@@ -93,32 +97,24 @@ class StrukturController extends Controller
                 }
             }
 
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
+           $sourcePath = $request->file("photo")->store("profil","public");
+            $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
 
-            //backup
-            $publicPath = public_path("img/profil/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "profil/" . $filename;
-
-            // upload to public
-            $file->move(public_path('img/profil'), $filename);
+            // Simpan ke folder public
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('struktur.index')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
             }
-
-            $struktur->photo = $filename;
-            $struktur->konten = $purifier->purify($request->konten);;
-            $struktur->penulis_id = Auth::user()->id;
-        }else{
-            $struktur->konten = $purifier->purify($request->konten);;
-            $struktur->penulis_id = Auth::user()->id;
+            $struktur->photo = $sourcePath;
         }
-    $struktur->save();
+            $struktur->konten = $purifier->purify($request->konten);;
+            $struktur->penulis_id = Auth::user()->id;
+            $struktur->save();
+            Cache::delete("struktur");
             return redirect()->route('struktur.index')->with('success', 'data Struktur Organisasi berhasil diperbarui!');
     }
 

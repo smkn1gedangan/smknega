@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class PeraturanController extends Controller
@@ -17,7 +18,9 @@ class PeraturanController extends Controller
      */
     public function index()
     {
-        $peraturan = Peraturan::first();
+        $peraturan = Cache::remember("peraturan",60 * 60 * 24 * 7 , function(){
+            return Peraturan::first();
+        });
         return view("backend.programs.peraturan.index",compact("peraturan"));
     }
 
@@ -62,7 +65,6 @@ class PeraturanController extends Controller
         $peraturan = Peraturan::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            "penulis_id"=> "required",
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -78,6 +80,7 @@ class PeraturanController extends Controller
         $peraturan->penulis_id = Auth::user()->id;
         $peraturan->konten = $purifier->purify($request->konten);
         $peraturan->save();
+        Cache::delete("peraturan");
         return redirect()->route('peraturan.index')->with('success', 'data Peraturan Sekolah berhasil diperbarui!');
 
     }

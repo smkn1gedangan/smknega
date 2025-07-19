@@ -26,8 +26,8 @@
                 @foreach ($gurus as $guru)
             <div class="w-[48%] sm:w-[32%] md:w-[23%] lg:w-[32%] bg-white border border-gray-200 rounded-lg shadow  dark:border-gray-700 relative flex-shrink-0 ">
                 <div class="relative" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
-                    @if (file_exists(public_path('img/guru/' . $guru->photo)) && $guru->photo)
-                        <img class="rounded-md w-full h-full relative left-1/2 -translate-x-1/2" src="{{ asset('img/guru/' . $guru->photo) }}" alt="" />
+                    @if (file_exists(public_path('storage/' . $guru->photo)) && $guru->photo)
+                        <img class="rounded-md w-full h-full relative left-1/2 -translate-x-1/2" src="{{ asset('storage/' . $guru->photo) }}" alt="" />
                     @else
                         <div class="bg-gray-200 relative h-52 w-full grid place-content-center text-xs">
                             <span>No Image</span>
@@ -52,8 +52,8 @@
         <div class="w-full lg:w-[37%] p-4 gap-4">
             <div class="relative bg-white  left-1/2 -translate-x-1/2  md:w-[38%] lg:w-full max-w-sm min-h-auto rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-8 md:mt-4">
                 <div class="relative">
-                    @if (file_exists(public_path('img/kepala_sekolah/' . $kepsek->photo)) && $kepsek->photo)
-                    <img class="rounded-t-lg w-4/5 md:w-full h-auto object-cover relative left-1/2 -translate-x-1/2" src="{{asset("img/kepala_sekolah/" . $kepsek->photo)}}" alt="" />
+                    @if (file_exists(public_path('storage/' . $kepsek->photo)) && $kepsek->photo)
+                    <img class="rounded-t-lg w-4/5 md:w-full h-auto object-cover relative left-1/2 -translate-x-1/2" src="{{asset("storage/" . $kepsek->photo)}}" alt="" />
                     <div style="box-shadow:inset 10px 10px 100px relative left-1/2 -translate-x-1/2 rgba(0, 0, 0, 0.6)" class=" dark:from-blue-900 w-4/5 h-full absolute top-0 left-0 z-0"></div>
                 @else
                     <div class="bg-gray-200 w-4/5 md:w-full h-96 relative left-1/2 -translate-x-1/2 grid place-content-center text-xs">

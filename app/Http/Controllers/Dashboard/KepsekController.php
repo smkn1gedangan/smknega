@@ -8,17 +8,22 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 class KepsekController extends Controller
 {
     public function index()  {
-        $kepsek = Kepsek::latest()->first();
+        $kepsek = Cache::remember("kepsek",60* 60* 24 * 7,function(){
+            return Kepsek::latest()->first();
+        });
         return view("backend.welcomes.kepsek.index",compact("kepsek"));
     }
     public function edit(string $id)
     {
-        $kepsek = Kepsek::findOrFail(Crypt::decrypt($id));
+        $kepsek = Cache::remember("kepsek",60* 60* 24 * 7,function()use($id){
+            return Kepsek::findOrFail(Crypt::decrypt($id));
+        });
         return view("backend.welcomes.kepsek.edit",compact("kepsek"));
     }
 
@@ -45,13 +50,12 @@ class KepsekController extends Controller
             ],
         ]);
         if ($request->hasFile('photo')) {
-            if ($kepsek->photo) {
-                $publicPath = public_path('img/kepala_sekolah/' . $kepsek->photo); // Lokasi pertama (public)
-                $backupPath = env("BACKUP_PHOTOS") ."kepala_sekolah/" . $kepsek->photo; // Lokasi kedua (backup)
+           if ($kepsek->photo) {
+                $backupPath = env("BACKUP_PHOTOS") . $kepsek->photo; // Lokasi kedua (backup)
 
                 // Hapus file di lokasi pertama (public)
-                if (File::exists($publicPath)) {
-                    File::delete($publicPath);
+                if (File::exists(storage_path("app/public/". $kepsek->photo))) {
+                    File::delete(storage_path("app/public/". $kepsek->photo));
                 }
 
                 // Hapus file di lokasi kedua (backup)
@@ -59,32 +63,25 @@ class KepsekController extends Controller
                     File::delete($backupPath);
                 }
             }
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $publicPath = public_path("img/kepala_sekolah/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "kepala_sekolah/" . $filename;
+            $sourcePath = $request->file("photo")->store("kepala_sekolah","public");
+            $backupPath = env("BACKUP_PHOTOS") . "kepala_sekolah/" . $sourcePath;
 
             // upload to public
-            $file->move(public_path('img/kepala_sekolah'), $filename);
-
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
                 return redirect()->route('kepsek.index')->with('error', 'gambar gagal disimpan!');
             };
 
 
-            $kepsek->photo = $filename;
-            $kepsek->nama = $data['nama'];
-            $kepsek->sambutan = $purifier->purify($request->sambutan);
-
-        }else{
-            $kepsek->nama = $data['nama'];
-            $kepsek->sambutan = $purifier->purify($request->sambutan);
+            $kepsek->photo = $sourcePath;
         }
+        $kepsek->nama = $data['nama'];
+        $kepsek->sambutan = $purifier->purify($request->sambutan);
         $kepsek->save();
+        Cache::delete("kepsek");
         return redirect()->route('kepsek.index')->with('success', 'data kepala sekolah berhasil diperbarui!');
 }
 }

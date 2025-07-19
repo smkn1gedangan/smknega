@@ -7,9 +7,9 @@
 <section class="w-full flex md:justify-center flex-wrap pt-20 md:pt-28 ">
     <div class="flex flex-col w-full sm:w-5/6  md:w-4/5 md:items-center lg:w-3/5 p-2">
         <x-heading-profil class="w-full">sejarah</x-heading-profil>
-        @if (file_exists(public_path('img/profil/' . $sejarah->photo)) && $sejarah->photo)
+        @if (file_exists(public_path('storage/' . $sejarah->photo)) && $sejarah->photo)
                     <div data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom"  class="w-11/12 my-5  sm:w-5/6 h-52 sm:h-64 lg:h-auto overflow-hidden">
-                        <img class="w-full hover:scale-110 transition-all duration-700  rounded-md object-cover" src="{{ asset("img/profil/" . $sejarah->photo) }}" alt="">
+                        <img class="w-full hover:scale-110 transition-all duration-700  rounded-md object-cover" src="{{ asset("storage/" . $sejarah->photo) }}" alt="">
                     </div>
 
                     @else

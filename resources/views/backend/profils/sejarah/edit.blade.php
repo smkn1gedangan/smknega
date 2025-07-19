@@ -8,52 +8,38 @@
 @section("title","Sejarah")
 
 @section("content")
-    <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
-        <x-title-create-dashboard>edit data sejarah </x-title-create-dashboard>
-        <div class="w-full">
+    <div id="main" class="main-content flex-1 ">
+        <x-titlepage title="data sejarah" quote="data sejarah smkn 1 gedangan " isRoute="true" nameRoute="List Sejarah" href="{{ route('sejarah.index') }}"></x-titlepage>
+        <div class="w-full p-5">
             <form id="form" action="{{ route('sejarah.update',[Crypt::encrypt($sejarah->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
-                <div class="mb-4 w-2/5">
-                    <label for="penulis" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Penulis</label>
-                    <input type="text" name="penulis_id" id="penulis" value="{{ Auth::user()->name}}"
-                           class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none "
-                           readonly
-                           >
-                    @error("penulis_id")
-                    <p class="mt-2 text-sm text-red-800">
-                        {{ $message }}
-                    </p>
-                    @enderror
-                </div>
-                <div class="mb-4 w-11/12">
-                    <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">konten</label>
-                    <div id="editor" class="mt-1 shadow-md bg-white block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                <div class="grid grid-cols-12 space-y-5">
+                    <div class="col-span-10">
+                    <x-input-label value="Konten"></x-input-label>
+                    <div id="editor" class="mt-1 bg-white shadow-md  block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:border-blue-500 focus:outline-none" style="height: 300px;">
                         {!! old('konten', $sejarah->konten) !!}
 
                     </div>
-                    <input type="hidden"  name="konten" id="konten">
-                    @error('konten')
-                        <p class="mt-2 text-sm text-red-800">
-                            {{ $message }}
-                        </p>
-                    @enderror
+                    <input type="hidden" name="konten" id="konten">
+                    <x-input-error :messages="$errors->get('konten')" class="mt-2" />
+                    </div>
+
+                    <div class="mb-4 col-span-8">
+                        <x-input-label value="Photo"></x-input-label>
+                        <x-text-input type="file" id="photo" class="block mt-1 w-full border border-black" name="photo" :value="old('photo',$sejarah->photo)"  />
+                        <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+                        @if (file_exists(public_path('storage/' . $sejarah->photo)) && $sejarah->photo)
+                            <p class="mt-3">Photo saat ini : </p>
+                            <img class="w-40  duration-700  rounded-md object-cover h-auto" src="{{ asset("storage/" . $sejarah->photo) }}" alt="">
+                        @else
+                            <p class="mt-3">Photo saat ini : </p>
+                            <div class="bg-gray-200 w-40 h-52 grid place-content-center">
+                                <span>No Image</span> <!-- Pesan fallback -->
+                            </div>
+                        @endif
+                    </div>
                 </div>
-                @if (file_exists(public_path('img/profil/' . $sejarah->photo)) && $sejarah->photo)
-                <p class="mt-3">Photo saat ini : </p>
-                <img class="w-1/5  duration-700  rounded-md object-cover h-full" src="{{ asset("img/profil/" . $sejarah->photo) }}" alt="">
-                @else
-                <p class="mt-3">Photo saat ini : </p>
-                <div class="bg-gray-200 w-1/5 h-52 grid place-content-center">
-                <span>No Image</span> <!-- Pesan fallback -->
-                </div>
-                @endif
-                <input class="mt-6 w-2/5 shadow-md bg-white" type="file" class="rounded-md" name="photo" id="photo">
-                @error('photo')
-                <p class="mt-2 text-sm text-red-800">
-                    {{ $message }}
-                </p>
-                @enderror
                 <!-- Tombol Submit -->
                 <div class="mt-4 mb-8">
                     <button type="submit"
@@ -97,6 +83,8 @@
             });
         });
 
-
+         window.Laravel = {
+            successMessage: @json(session('success')),
+        };
     </script>
 @endsection

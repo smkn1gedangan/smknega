@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 
@@ -18,7 +19,9 @@ class SijaController extends Controller
      */
     public function index()
     {
-        $sija = Sija::first();
+        $sija = Cache::remember("sija",60 * 60 * 24 * 7 , function(){
+            return Sija::first();
+        });
         return view("backend.jurusan.sija.index",compact("sija"));
     }
 
@@ -79,7 +82,6 @@ class SijaController extends Controller
             "judul"=> "min:3|max:100|required",
             "nama_kaprog"=> "min:3|max:100|required",
             "ket_kaprog"=> "min:3|max:100|required",
-            "penulis_id"=> "required"
         ]);
         $deleteFile = function($filePath){
             if (File::exists($filePath)) {
@@ -87,46 +89,39 @@ class SijaController extends Controller
             }
         };
         if ($request->hasFile('photo')) {
-            $deleteFile("img/jurusan/" . $sija->photo);
-            $deleteFile(env("BACKUP_PHOTOS") ."jurusan/" . $sija->photo); // Lokasi kedua (backup)
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $deleteFile(storage_path("app/public/". $sija->photo));
+            $deleteFile(env("BACKUP_PHOTOS") . $sija->photo); // Lokasi kedua (backup)
 
-            $publicPath = public_path("img/jurusan/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "jurusan/" . $filename;
+            $sourcePath = $request->file("photo")->store("jurusan","public");
+            $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
 
-            // upload to public
-            $file->move(public_path('img/jurusan'), $filename);
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('sija.index')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
             };
-            $sija->photo = $filename;
+            $sija->photo = $sourcePath;
         }
         if ($request->hasFile('photo_kaprog')) {
-            $deleteFile("img/jurusan/" . $sija->photo_kaprog);
-            $deleteFile(env("BACKUP_PHOTOS") ."jurusan/" . $sija->photo_kaprog); // Lokasi kedua (backup)
-            $file = $request->file('photo_kaprog');
-            $filenameKaprog = time() . '_' . $file->getClientOriginalName();
-            $publicPath = public_path("img/jurusan/" . $filenameKaprog);
-            $backupPath = env("BACKUP_PHOTOS") . "jurusan/" . $filenameKaprog;
+            $deleteFile(storage_path("app/public/". $sija->photo_kaprog));
+            $deleteFile(env("BACKUP_PHOTOS") . $sija->photo_kaprog); // Lokasi kedua (backup)
 
-            // upload to public
-            $file->move(public_path('img/jurusan'), $filenameKaprog);
+            $sourcePath = $request->file("photo_kaprog")->store("jurusan","public");
+            $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
+            
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('sija.index')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
             };
 
-            $sija->photo_kaprog = $filenameKaprog;
+            $sija->photo_kaprog = $sourcePath;
 
         }
         $sija->konten =$purifier->purify($request->konten);
@@ -135,6 +130,7 @@ class SijaController extends Controller
         $sija->nama_kaprog = $data['nama_kaprog'];
         $sija->ket_kaprog = $data['ket_kaprog'];
         $sija->save();
+        Cache::delete("sija");
         return redirect()->route('sija.index')->with('success', 'data Jurusan Sija berhasil diperbarui!');
     }
 

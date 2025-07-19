@@ -8,7 +8,9 @@ use App\Models\Kesiswaan\OsisPhoto;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class OsisController extends Controller
@@ -18,8 +20,25 @@ class OsisController extends Controller
      */
     public function index()
     {
-        $osis = Osis::first();
-        $osisPhotos = OsisPhoto::latest()->paginate(10);
+        $datas = Cache::remember('osisPhotos', 60 * 60 * 24 * 7, function () {
+            return OsisPhoto::latest()->get(); // seluruh data guru
+        });
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = collect($datas)->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $osisPhotos = new LengthAwarePaginator(
+            $currentItems,
+            count($datas),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+
+        $osis = Cache::remember("osis",60 * 60 * 24 * 7, function(){
+            return Osis::first();
+        });
         return view("backend.kesiswaans.osis.index",compact("osis","osisPhotos"));
     }
 
@@ -64,7 +83,6 @@ class OsisController extends Controller
         $osis = Osis::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            "penulis_id"=> "required",
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -80,6 +98,7 @@ class OsisController extends Controller
         $osis->penulis_id = Auth::user()->id;
         $osis->konten = $purifier->purify($request->konten);
         $osis->save();
+        Cache::delete("osis");
         return redirect()->route('osis.index')->with('success', 'data Osis berhasil diperbarui!');
     }
 

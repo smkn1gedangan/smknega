@@ -9,106 +9,76 @@
 @section("title","Akuntansi")
 
 @section("content")
-    <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
-        <x-title-create-dashboard class="lowercase">{{ $akuntansi->judul }}</x-title-create-dashboard>
-        <div class="w-full">
+    <div id="main" class="main-content flex-1">
+       <x-titlepage title="data jurusan akuntansi" quote="ubah data jurusan akuntansi di smkn 1 gedangan " isRoute="true" nameRoute="Kembali" href="{{ route('akuntansi.index') }}"></x-titlepage>
+        <div class="w-full p-5">
             <form id="form" action="{{ route('akuntansi.update',[Crypt::encrypt($akuntansi->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
-                    <div class="flex gap-2">
-                        <div class="w-1/2 gap-2 ">
-                            <div class="mb-4 w-4/5">
-                                <label for="penulis_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">penulis_id</label>
-                                <input type="text" value="{{ Auth::user()->name}}" name="penulis_id" id="penulis_id"
-                                    class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
-                                    readOnly>
-                                @error("penulis_id")
-                                <p class="mt-2 text-sm text-red-800">
-                                    {{ $message }}
-                                </p>
-                                @enderror
-                            </div>
-                            <div class="mb-4 w-4/5">
-                                <label for="judul" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Judul</label>
-                                <input type="text" value="{{old("judul",$akuntansi->judul)}}" name="judul" id="judul"
-                                    class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
-                                    >
-                                @error("judul")
-                                <p class="mt-2 text-sm text-red-800">
-                                    {{ $message }}
-                                </p>
-                                @enderror
+                    <div class="grid grid-cols-12 space-y-5 gap-2">
+                        <div class="col-span-7 ">
+                            <div>
+                                <x-input-label value="Nama Jurusan"></x-input-label>
+                                <x-text-input type="text" id="judul" class="block mt-1 w-full" name="judul" :value="old('judul',$akuntansi->judul)" required  />
+                                <x-input-error :messages="$errors->get('judul')" class="mt-2" />
                             </div>
                         </div>
-                        <div class="w-1/2 gap-2 ">
-                            <div class="mb-4 w-4/5">
-                                <label for="nama_kaprog" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nama Kaprog</label>
-                                <input type="text" value="{{ $akuntansi->nama_kaprog }}" name="nama_kaprog" id="nama_kaprog"
-                                    class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
-                                    >
-                                @error("nama_kaprog")
-                                <p class="mt-2 text-sm text-red-800">
-                                    {{ $message }}
-                                </p>
-                                @enderror
+                        <div class="col-span-7">
+                            <div>
+                                <x-input-label value="Nama Kaprog"></x-input-label>
+                                <x-text-input type="text" id="nama_kaprog" class="block mt-1 w-full" name="nama_kaprog" :value="old('nama_kaprog',$akuntansi->nama_kaprog)" required  />
+                                <x-input-error :messages="$errors->get('nama_kaprog')" class="mt-2" />
                             </div>
-                            <div class="mb-4 w-4/5">
-                                <label for="ket_kaprog" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ket Kaprog</label>
-                                <input type="text" value="{{old("ket_kaprog",$akuntansi->ket_kaprog)}}" name="ket_kaprog" id="ket_kaprog"
-                                    class="mt-1 shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none"
-                                    >
-                                @error("ket_kaprog")
-                                <p class="mt-2 text-sm text-red-800">
-                                    {{ $message }}
-                                </p>
-                                @enderror
+                        </div>
+                        <div class="col-span-7">
+                            <div>
+                                <x-input-label value="Kompetensi"></x-input-label>
+                                <x-text-input type="text" id="ket_kaprog" class="block mt-1 w-full" name="ket_kaprog" :value="old('ket_kaprog',$akuntansi->ket_kaprog)" required  />
+                                <x-input-error :messages="$errors->get('ket_kaprog')" class="mt-2" />
                             </div>
-                            @if (file_exists(public_path('img/jurusan/' . $akuntansi->photo_kaprog)) && $akuntansi->photo_kaprog)
-                            <p class="mt-3">photo_kaprog saat ini : </p>
-                            <img class="w-52  duration-700  rounded-md object-cover h-auto" src="{{ asset("img/jurusan/" . $akuntansi->photo_kaprog) }}" alt="">
-                            @else
-                            <p class="mt-3">photo_kaprog saat ini : </p>
-                            <div class="bg-gray-200 w-44 h-52 grid place-content-center">
-                            <span>No Image</span> <!-- Pesan fallback -->
+                        </div>
+                        <div class="col-span-7">
+                            <div>
+                                <x-input-label value="Photo Kaprog"></x-input-label>
+                                <x-text-input type="file" id="photo_kaprog" class="block border border-black mt-1 w-full" name="photo_kaprog" :value="old('photo_kaprog',$akuntansi->photo_kaprog)"  />
+                                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+                                @if (file_exists(public_path('storage/' . $akuntansi->photo_kaprog)) && $akuntansi->photo_kaprog)
+                                <p class="mt-3">photo kaprog saat ini : </p>
+                                <img class="w-72 h-auto" src="{{ asset("storage/" . $akuntansi->photo_kaprog) }}" alt="">
+                                @else
+                                <p class="mt-3">photo kaprog saat ini : </p>
+                                <div class="bg-gray-200 w-44 h-52 grid place-content-center">
+                                <span>No Image</span> <!-- Pesan fallback -->
+                                </div>
+                                @endif
                             </div>
-                            @endif
-                            <input class="mt-6 rounded-md bg-white shadow-md w-2/5" type="file" name="photo_kaprog" id="photo_kaprog">
-                            @error('photo_kaprog')
-                            <p class="mt-2 text-sm text-red-800">
-                                {{ $message }}
-                            </p>
-                            @enderror
+                        </div>
+                        <div class="col-span-10">
+                                <x-input-label value="Konten"></x-input-label>
+                                <div id="editor" class="mt-1 bg-white shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                                    {!! old('konten', $akuntansi->konten) !!}
+
+                                </div>
+                                <input type="hidden" name="konten" id="konten">
+                            <x-input-error :messages="$errors->get('konten')" class="mt-2" />
+                        </div>
+                         <div class="col-span-7">
+                            <div>
+                                <x-input-label value="Photo Jurusan"></x-input-label>
+                                <x-text-input type="file" id="photo" class="block mt-1 w-full border border-black" name="photo" :value="old('photo',$akuntansi->photo)"/>
+                                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+                                @if (file_exists(public_path('storage/' . $akuntansi->photo)) && $akuntansi->photo)
+                                <p class="mt-3">photo Jurusan: </p>
+                                <img class="w-72 h-auto" src="{{ asset("storage/" . $akuntansi->photo) }}" alt="">
+                                @else
+                                <p class="mt-3">photo Jurusan: </p>
+                                <div class="bg-gray-200 w-44 h-52 grid place-content-center">
+                                <span>No Image</span> <!-- Pesan fallback -->
+                                </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
-
-                <div class="mb-4 w-11/12">
-                    <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten</label>
-                    <div id="editor" class="mt-1 bg-white shadow-md block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
-                        {!! old('konten', $akuntansi->konten) !!}
-
-                    </div>
-                    <input type="hidden" name="konten" id="konten">
-                    @error('konten')
-                        <p class="mt-2 text-sm text-red-800">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-                @if (file_exists(public_path('img/jurusan/' . $akuntansi->photo)) && $akuntansi->photo)
-                <p class="mt-3">Photo saat ini : </p>
-                <img class="w-1/5  duration-700  rounded-md object-cover h-full" src="{{ asset("img/jurusan/" . $akuntansi->photo) }}" alt="">
-                @else
-                <p class="mt-3">Photo Jurusan saat ini : </p>
-                <div class="bg-gray-200 w-1/5 h-52 grid place-content-center">
-                <span>No Image</span> <!-- Pesan fallback -->
-                </div>
-                @endif
-                <input class="mt-6 rounded-md bg-white shadow-md w-2/5" type="file" name="photo" id="photo">
-                @error('photo')
-                <p class="mt-2 text-sm text-red-800">
-                    {{ $message }}
-                </p>
-                @enderror
                 <!-- Tombol Submit -->
                 <div class="w-11/12 mt-4 mb-8">
                     <button type="submit"

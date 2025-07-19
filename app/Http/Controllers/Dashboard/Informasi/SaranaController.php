@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class SaranaController extends Controller
@@ -17,7 +18,9 @@ class SaranaController extends Controller
      */
     public function index()
     {
-        $sarana = Sarana::first();
+        $sarana = Cache::remember("sarana",60 * 60 * 24 * 7 , function(){
+            return Sarana::first();
+        });
         return view("backend.informasis.sarana.index",compact("sarana"));
     }
 
@@ -50,7 +53,9 @@ class SaranaController extends Controller
      */
     public function edit(string $id)
     {
-        $sarana = Sarana::findOrFail(Crypt::decrypt($id));
+        $sarana = Cache::remember("sarana",60 * 60 * 24 * 7 , function()use($id){
+            return Sarana::findOrFail(Crypt::decrypt($id));
+        });
         return view("backend.informasis.sarana.edit",compact("sarana"));
     }
 
@@ -62,7 +67,6 @@ class SaranaController extends Controller
         $sarana = Sarana::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            "penulis_id"=> "required",
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -78,6 +82,7 @@ class SaranaController extends Controller
         $sarana->penulis_id = Auth::user()->id;
         $sarana->konten = $purifier->purify($request->konten);
         $sarana->save();
+        Cache::delete("sarana");
         return redirect()->route('sarana.index')->with('success', 'data Sarana Prasarana berhasil diperbarui!');
 
     }

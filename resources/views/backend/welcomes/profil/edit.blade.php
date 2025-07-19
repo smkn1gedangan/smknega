@@ -8,19 +8,16 @@
 @section("title", "Profil")
 
 @section("content")
-    <div id="main" class="main-content flex-1 bg-gray-100 md:pt-20 md:pl-6 md:mt-2">
-        <x-title-create-dashboard>edit profil smkn 1 gedangan</x-title-create-dashboard>
-        <div class="w-full">
+    <div id="main" class="main-content flex-1">
+        <x-titlepage quote="ubah profil smkn 1 gedangan" title="Data Profil"></x-titlepage>
+        <div class="w-full p-5">
             <form id="form" action="{{ route('profil.update', [Crypt::encrypt($profil->id)]) }}" class="mt-4 w-full flex flex-col" method="POST" enctype="multipart/form-data">
-
                 @csrf
                 @method("PUT")
-
-                <div class="mb-4 w-11/12">
-                    <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten Profil</label>
-                    <div id="editor" class="mt-1 block w-full px-3 py-2 border bg-gray-100 border-gray-300 rounded-md text-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none" style="height: 300px;">
+                <div class="mb-4 w-full">
+                    <x-input-label value="Konten"></x-input-label>
+                    <div id="editor" class="mt-1 block w-full px-3 py-2 border  border-gray-300 rounded-md text-gray-700  focus:border-blue-500 focus:outline-none" style="height: 300px;">
                         {!! old('konten', $profil->konten) !!}
-
                     </div>
                     <input type="hidden" name="konten" id="konten">
                     @error('konten')
@@ -29,19 +26,19 @@
                         </p>
                     @enderror
                 </div>
-                 @if (file_exists(public_path('img/welcome/' . $profil->photo)) && $profil->photo)
+                 @if (file_exists(public_path('storage/' . $profil->photo)) && $profil->photo)
                     <p class="mt-3">Photo saat ini : </p>
-                    <img class="w-60 rounded-md object-cover h-full" src="{{ asset("img/welcome/" . $profil->photo) }}" alt="">
+                    <img class="w-60 rounded-md object-cover h-full" src="{{ asset("storage/" . $profil->photo) }}" alt="">
                     @else
                     <p class="mt-3">Photo saat ini : </p>
                     <div class="bg-gray-200 my-2 w-60 h-52 grid place-content-center">
                     <span>No Image</span> <!-- Pesan fallback -->
                     </div>
                     @endif
-                <x-text-input id="photo" class="block mt-1 bg-white w-2/5"
+
+                <x-text-input id="photo" class="block mt-4 border border-black w-2/5"
                 type="file"
-                name="photo"
-                autocomplete="current-photo" />
+                name="photo" />
                 <x-input-error :messages="$errors->get('photo')" class="mt-2" />
 
                 <!-- Tombol Submit -->

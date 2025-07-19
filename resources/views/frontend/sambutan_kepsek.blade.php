@@ -12,8 +12,8 @@
     <div class="w-full flex md:justify-center flex-wrap">
         <div class="flex flex-col w-full p-2 md:w-4/5 md:items-center md:p-8 lg:w-3/5">
             <div class="relative">
-                @if (file_exists(public_path('img/kepala_sekolah/' . $kepsek->photo)) && $kepsek->photo)
-                <img class="rounded-t-lg w-4/5 md:w-full h-96 object-cover relative left-1/2 -translate-x-1/2" src="{{asset("img/kepala_sekolah/" . $kepsek->photo)}}" alt="" />
+                @if (file_exists(public_path('storage/' . $kepsek->photo)) && $kepsek->photo)
+                <img class="rounded-t-lg w-4/5 md:w-full h-96 object-cover relative left-1/2 -translate-x-1/2" src="{{asset("storage/" . $kepsek->photo)}}" alt="" />
                 <div style="box-shadow:inset 10px 10px 100px relative left-1/2 -translate-x-1/2 rgba(0, 0, 0, 0.6)" class=" dark:from-blue-900 w-4/5 h-full absolute top-0 left-0 z-0"></div>
             @else
                 <div class="bg-gray-200 w-64 sm:w-96 h-96 relative left-1/2 -translate-x-1/2 grid place-content-center">

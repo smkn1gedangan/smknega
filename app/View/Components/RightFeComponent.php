@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Galeri;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\Component;
 
 class RightFeComponent extends Component
@@ -23,10 +24,14 @@ class RightFeComponent extends Component
      */
     public function render(): View
     {
-        $galeris = Galeri::latest()->take(2)->get();
+        $galeris = Cache::remember("galeris_take_2", 60 * 60 * 24 * 7 , function(){
+            return Galeri::latest()->take(2)->get();
+        });
+        
 
-        $articleTerbarus = Article::take(5)->latest()->get();
-
+        $articleTerbarus = Cache::remember("articles_get_6", 60 * 60 * 24 * 7 , function(){
+                    return Article::latest()->paginate(6);
+        });
         // $youtubeVideos = $this->getLatestYouTubeVideos();
 
         return view('components.right-fe-component', compact("articleTerbarus", "galeris"));

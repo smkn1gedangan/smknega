@@ -13,22 +13,8 @@ use Illuminate\Support\Facades\Crypt;
 class DashboardController extends Controller
 {
     public function index()  {
-        $links = Link::get();
-        $masukans = Masukan::take(5)->latest()->get();
-        $monthlyVisitors = StatistikPengunjung::selectRaw('MONTH(visited_at) as month, COUNT(*) as total')
-        ->groupBy('month')
-        ->get()
-        ->pluck('total', 'month');
 
-        $months = [];
-        $visitorsData = [];
-
-        for ($i = 1; $i <= 12; $i++) {
-            $months[] = \Carbon\Carbon::create()->month(value: $i)->format(format: 'F');
-            $visitorsData[] = $monthlyVisitors->get($i, 0);
-        }
-
-        return view("backend.dashboard",compact("masukans","months","visitorsData"));
+        return view("backend.dashboard");
     }
     public function profileUser($id)  {
         $user = User::where("id",$id)->first();

@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class VisiController extends Controller
@@ -17,7 +18,9 @@ class VisiController extends Controller
      */
     public function index()
     {
-        $visi = VisiMisi::first();
+        $visi = Cache::remember("visi",60 * 60 * 24 * 7,function(){
+            return VisiMisi::first();
+        });
         return view("backend.profils.visi.index",compact("visi"));
     }
 
@@ -50,7 +53,9 @@ class VisiController extends Controller
      */
     public function edit(string $id)
     {
-        $visi = VisiMisi::findOrFail(Crypt::decrypt($id));
+        $visi = Cache::remember("visi",60 * 60 * 24 * 7,function()use($id){
+            return VisiMisi::findOrFail(Crypt::decrypt($id));
+        });
         return view("backend.profils.visi.edit",compact("visi"));
     }
 
@@ -62,7 +67,6 @@ class VisiController extends Controller
         $visi = VisiMisi::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            "penulis_id"=> "required",
             'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -78,6 +82,7 @@ class VisiController extends Controller
         $visi->penulis_id = Auth::user()->id;
         $visi->konten = $purifier->purify($request->konten);
         $visi->save();
+        Cache::delete("visi");
         return redirect()->route('visi.index')->with('success', 'data Visi Misi berhasil diperbarui!');
 
     }

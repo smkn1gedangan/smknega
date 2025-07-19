@@ -8,6 +8,7 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class IndustriController extends Controller
@@ -17,7 +18,9 @@ class IndustriController extends Controller
      */
     public function index()
     {
-        $industri = Industri::first();
+        $industri = Cache::remember("industri", 60 * 0 * 24 * 7, function(){
+            return Industri::first();
+        });
         return view("backend.programs.industri.index",compact("industri"));
     }
 
@@ -62,7 +65,6 @@ class IndustriController extends Controller
         $industri = Industri::findOrFail(Crypt::decrypt($id));
         $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
         $data = $request->validate([
-            "penulis_id"=> "required",
            'konten' => [
                 'required',
                 function ($attribute, $value, $fail) {
@@ -78,6 +80,7 @@ class IndustriController extends Controller
         $industri->penulis_id = Auth::user()->id;
         $industri->konten = $purifier->purify($request->konten);
         $industri->save();
+        Cache::delete("industri");
         return redirect()->route('industri.index')->with('success', 'data Hubungan Industri berhasil diperbarui!');
 
     }

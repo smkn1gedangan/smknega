@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Profil;
 use App\Http\Controllers\Controller;
 use App\Models\Profil\KetuaKomite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 
@@ -65,13 +66,12 @@ class KetuaKomiteController extends Controller
             "jabatan"=> "min:3|required",
         ]);
         if ($request->hasFile('photo')) {
-            if ($komite->photo) {
-                $publicPath = public_path('img/komite/' . $komite->photo); // Lokasi pertama (public)
-                $backupPath = env("BACKUP_PHOTOS") ."komite/" . $komite->photo; // Lokasi kedua (backup)
+             if ($komite->photo) {
+                $backupPath = env("BACKUP_PHOTOS") . $komite->photo; // Lokasi kedua (backup)
 
                 // Hapus file di lokasi pertama (public)
-                if (File::exists($publicPath)) {
-                    File::delete($publicPath);
+                if (File::exists(storage_path("app/public/".$komite->photo))) {
+                    File::delete(storage_path("app/public/".$komite->photo));
                 }
 
                 // Hapus file di lokasi kedua (backup)
@@ -80,31 +80,26 @@ class KetuaKomiteController extends Controller
                 }
             }
 
-            $file = $request->file('photo');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $sourcePath = $request->file("photo")->store("komite","public");
+            $backupPath = env("BACKUP_PHOTOS") .  $sourcePath;
 
-            $publicPath = public_path("img/komite/" . $filename);
-            $backupPath = env("BACKUP_PHOTOS") . "komite/" . $filename;
-
-            // upload to public
-            $file->move(public_path('img/komite'), $filename);
+            // Simpan ke folder public
 
             if (!file_exists(dirname($backupPath))) {
                 mkdir(dirname($backupPath), 0777, true);
             }
             // Simpan juga ke folder backup
-            if(!copy($publicPath, $backupPath)){
-                return redirect()->route('komite.index')->with('error', 'gambar gagal disimpan!');
+            if(!copy(storage_path("app/public/".$sourcePath), $backupPath)){
+                return redirect()->back()->with('error', 'gambar gagal disimpan!');
             }
-            $komite->photo = $filename;
-            $komite->nama = $data['nama'];
-            $komite->jabatan = $data['jabatan'];
-        }else{
-            $komite->nama = $data['nama'];
-            $komite->jabatan = $data['jabatan'];
+            $komite->photo = $sourcePath;
         }
+        $komite->nama = $data['nama'];
+        $komite->jabatan = $data['jabatan'];
+        
         // simpan
         $komite->save();
+        Cache::delete("ketuaKomite");
         return redirect()->route('komite.index')->with('success', 'data Ketua Komite berhasil diperbarui!');
     }
 
